@@ -1,51 +1,59 @@
-#include <iostream>
-#include <fstream>
+#include "Material.h"
 #include <string>
-
-#include "material.h"
 
 using namespace std;
 
-Material::Material(string nombre, unsigned cantidad)
-{
-    this->nombre = nombre;
-    this->cantidad = cantidad;
+Material:: Material(string name, unsigned int quantity){
+    this->name = name;
+    this->quantity = quantity;
+    this->material_char = 'W';
 
-    if(nombre == STRING_MADERA)
-        this->letra_identificatoria = CARACTER_MADERA;
-    else if(nombre == STRING_PIEDRA)
-        this->letra_identificatoria = CARACTER_PIEDRA;
-    else if(nombre == STRING_METAL)
-        this->letra_identificatoria = CARACTER_METAL;
-    else if(nombre == STRING_ANDYCOINS)
-        this->letra_identificatoria = CARACTER_ANDYCOINS;
-    else if(nombre == STRING_BOMBAS)
-        this->letra_identificatoria = CARACTER_BOMBAS;
-    else
-        this->letra_identificatoria = CARACTER_NO_IDENTIFICADO;
+    this->getChar();
 }
 
-string Material::obtener_nombre()
-{
-    return nombre;
+string Material:: getName(){
+    return this->name;
 }
 
-char Material::obtener_letra_identificatoria()
-{
-    return letra_identificatoria;
+unsigned int Material:: getQuantity(){
+    return this->quantity;
 }
 
-unsigned Material::obtener_cantidad()
-{
-    return cantidad;
+void Material:: increaseQuantity(){
+    this->quantity++;
 }
 
-void Material::sumar_materiales(unsigned sumar_cantidad)
-{
-    cantidad += sumar_cantidad;
+void Material:: increaseQuantity(unsigned int quantity){
+    this->quantity = this->quantity + quantity;
 }
 
-void Material::restar_materiales(unsigned restar_cantidad)
-{
-    cantidad -= restar_cantidad;
+void Material:: decreaseQuantity(){
+    this->quantity--;
+}
+
+void Material:: decreaseQuantity(unsigned int quantity){
+    this->quantity = this->quantity - quantity;
+}
+
+void Material:: getChar(){
+
+    switch(this->name[0]){
+        case 'm':
+
+            if(this->name == "Metal"){
+                this->material_char = 'I';
+            }else{
+                this->material_char = 'W';
+            }
+
+            break;
+        case 'p':
+            this->material_char = 'S';
+            break;
+    }
+}
+
+
+Material:: ~Material(){
+    
 }

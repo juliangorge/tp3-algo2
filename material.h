@@ -1,57 +1,57 @@
-#ifndef MATERIAL_H
-#define MATERIAL_H
+#ifndef Material_INCLUDED
+#define Material_INCLUDED
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
-const string STRING_MADERA = "madera";
-const string STRING_PIEDRA = "piedra";
-const string STRING_METAL = "metal";
-const string STRING_BOMBAS = "bombas";
-const string STRING_ANDYCOINS = "andycoins";
-const char CARACTER_MADERA = 'W';
-const char CARACTER_PIEDRA = 'S';
-const char CARACTER_METAL = 'I';
-const char CARACTER_ANDYCOINS = 'C';
-const char CARACTER_BOMBAS = '#';
-const char CARACTER_NO_IDENTIFICADO = '#';
+class Material {
 
-class Material
-{
-    // Atributos
+    // Attributes
     private:
-        string nombre;
-        char letra_identificatoria;
-        unsigned cantidad;
+        string name;
+        unsigned int quantity;
+        char material_char;
 
-    // Metodos
+    // Methods
     public:
-        // Constructor
-        // PRE: -
-        // POS: crea un objeto del tipo material con nombre, cantidad y letra identificatoria especificados.
-         Material(string nombre, unsigned cantidad);
 
-        // PRE: -
-        // POS: devuelve el nombre
-        string obtener_nombre();
+        // PRE: Los parametros deben ser validos.
+	    // POST: Crea un objeto Material.
+        Material(string name, unsigned int quantity);
 
-        // PRE: -
-        // POS: devuelve el caracter identificatorio
-        char obtener_letra_identificatoria();
+        // PRE:
+        // POST: Destruye un objeto Material.
+        ~Material();
 
-        // PRE: -
-        // POS: devuelve la cantidad
-        unsigned obtener_cantidad();
+        // PRE:
+        // POST: Retorna el nombre
+        string getName();
 
-        // PRE: -
-        // POS: suma la cantidad de materiales espècificada al atributo
-        void sumar_materiales(unsigned sumar_cantidad);
+        // PRE:
+        // POST: Retorna la cantidad
+        unsigned int getQuantity();
+        
+        // PRE:
+        // POST: Suma una unidad a la cantidad
+        void increaseQuantity();
+    
+        // PRE: Recibe un valor entero
+        // POST: Suma el valor ingresado a la cantidad previa
+        void increaseQuantity(unsigned int quantity);
+        
+        // PRE:
+        // POST: Resta una unidad a la cantidad
+        void decreaseQuantity();
 
-        // PRE: debe haber la cantidad de materiales especificada o más
-        // POS: resta la cantidad de materiales especificada al atributo
-        void restar_materiales(unsigned restar_cantidad);
+        // PRE: Recibe un valor entero
+        // POST: Resta el valor ingresado a la cantidad previa
+        void decreaseQuantity(unsigned int quantity);
+
+        // PRE: 
+        // POST: Retorna el valor valido
+        void getChar();
 };
-
 
 #endif
