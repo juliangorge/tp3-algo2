@@ -3,7 +3,7 @@
 
 #ifndef ABB_H
 #define ABB_H
-
+using namespace std;
 template <class T>
 class ABB
 {
@@ -56,21 +56,15 @@ ABBnodo<T> *ABB<T>::insertar(ABBnodo<T> *nodo, T dato) //recibe la raiz y el dat
 
     else if (dato > nodo->get_dato())
     {
-        nodo->set_derecha(insertar(nodo->get_derecha(), dato, nodo));
+        nodo->set_derecha(insertar(nodo->get_derecha(), dato));
     }
 
     else
     {
-        nodo->set_izquierda(insertar(nodo->get_izquierda(), dato), nodo);
+        nodo->set_izquierda(insertar(nodo->get_izquierda(), dato));
     }
 
     return nodo;
-}
-
-template <class T>
-bool ABB<T>::vacio()
-{
-    return this->root == NULL;
 }
 
 template <class T>
@@ -79,13 +73,31 @@ void ABB<T>::insertar(T dato)
     this->root = insertar(this->root, dato);
 }
 
+
+template <class T>
+bool ABB<T>::vacio()
+{
+    return this->root == NULL;
+}
+
+
+
 template <class T>
 void ABB<T>::imprimir_en_orden(ABBnodo<T> *nodo)
 {
-    if (nodo != NULL)
-    {
+    if(nodo == NULL)
+        return;
+    else{
         imprimir_en_orden(nodo->get_izquierda());
+        cout << nodo->get_dato() << endl;
+        imprimir_en_orden(nodo->get_derecha()); 
     }
+}
+
+template <class T>
+void ABB<T>::imprimir_en_orden()
+{
+    return imprimir_en_orden(this->root);
 }
 
 template <class T>
@@ -279,12 +291,6 @@ template <class T>
 ABBnodo<T> *ABB<T>::get_root()
 {
     return this->root;
-}
-
-template <class T>
-bool ABB<T>::vacio()
-{
-    return this->root == NULL;
 }
 
 template <class T>
