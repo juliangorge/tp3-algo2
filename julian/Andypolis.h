@@ -1,27 +1,36 @@
 #ifndef Andypolis_INCLUDED
 #define Andypolis_INCLUDED
 
-#include "Map.h"
+//#include "Map.h"
+
+#include "ABB.h"
+#include "Edificio.h"
+
 #include <string>
 
-const string PATH_MATERIALS = "materiales.txt";
-const string PATH_BUILDINGS = "edificios.txt";
-const string PATH_MAP = "mapa.txt";
-const string PATH_LOCATIONS = "ubicaciones.txt";
-
 using namespace std;
+
+//const string PATH_MATERIALS = "materiales.txt";
+const string PATH_ARCHIVO_EDIFICIOS = "edificios.txt";
+//const string PATH_MAP = "mapa.txt";
+//const string PATH_LOCATIONS = "ubicaciones.txt";
+
+
 
 class Andypolis {
 
     // Attributes
     private:
-        Building** buildings;
+        
+        ABB<Edificio*>* edificios;
+
+        /*Building** buildings;
         Material** materials;
         Map* map;
 
         int building_quantity;
         int building_quantity_total;
-        int material_quantity;
+        int material_quantity;*/
     
     // Methods
     public:
@@ -35,9 +44,10 @@ class Andypolis {
         ~Andypolis();
 
         // PRE: Recibe una ruta de archivo valida.
-        // POST: Guarda cada linea en un objeto Building.
-        void processBuildingsFile();
+        // POST: Guarda cada linea en un objeto Edificio.
+        void procesarArchivoEdificios();
 
+        /*
         // PRE: Recibe una ruta de archivo valida.
         // POST: Guarda cada linea en un objeto Material.
         void processMaterialsFile();
@@ -157,7 +167,7 @@ class Andypolis {
         // Siguiendo el formato:
         // nombre (coordenada_x, coordenada_y)
         void saveLocationChanges(string filename_locations);
-
+        */
 };
 
 #endif

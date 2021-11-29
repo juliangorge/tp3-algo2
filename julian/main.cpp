@@ -1,11 +1,11 @@
 #include "Andypolis.h"
-#include "Menus.h"
+//#include "Programa.h"
 
 int main()
 {
     Andypolis ciudad;
 
-    mostrarMenus();
+    //mostrar_menus();
     return 0;
 }
 

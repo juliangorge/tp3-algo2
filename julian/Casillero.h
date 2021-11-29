@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/*
+Métodos virtuales:
+Debería delegarlos estaLibre() y cambiarObjeto()?
+*/
+
 class Casillero
 {
     protected:
@@ -37,19 +42,19 @@ class Casillero
         
         // PRE: 
         // POST: Retorna el objeto Edificio
-        Edificio* obtenerEdificio();
+        Edificio* obtener_edificio();
         
         // PRE: 
         // POST: Retorna el objeto Material
-        Material* obtenerMaterial();
+        Material* obtener_material();
         
         // PRE:
         // POST: Retorna el nombre del casillero
-        string obtenerNombreCasillero();
+        string obtener_nombre_casillero();
         
         // PRE:
         // POST: Retorna el tipo de casillero
-        char obtenerTipoCasillero();
+        char obtener_tipo_casillero();
         
         // PRE: Recibe puntero edificio
         // POST: Referencia el atributo edificio al parametro recibido
@@ -61,15 +66,15 @@ class Casillero
     
         // PRE:
         // POST: Cambia el tipo de casillero por edificio_char en el caso de que el mismo este ocupado por una construccion
-        void cambiarObjeto();
+        void cambiar_objeto();
 
         // PRE: 
         // POST: Desreferencia el atributo edificio
-        void limpiarCasillero();
+        void limpiar_casillero();
 
         // PRE:
         // POST: Retorna el costo de energía
-        unsigned int obtenerCostoDeEnergia();
+        unsigned int obtener_costo_de_energia();
 };
 
 #endif // CASILLERO_H

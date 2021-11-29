@@ -1,5 +1,5 @@
-#ifndef MENUS_H
-#define MENUS_H
+#ifndef PROGRAMA_H
+#define PROGRAMA_H
 
 //#include <iostream>
 #include "Andypolis.h"
@@ -28,4 +28,4 @@ int obtenerOpcion();
 // POST: Se ejecuta la opcion seleccionada
 void opcionSeleccionada(Andypolis& city, int answer);
 
-#endif //MENU_H
+#endif //PROGRAMA_H

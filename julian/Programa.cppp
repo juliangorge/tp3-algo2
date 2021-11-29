@@ -1,22 +1,22 @@
-#include "Menus.h"
+#include "Programa.h"
 
 using namespace std;
 
 void ejecutarMenu(){
     cout << "Bienvenido!" << endl;
-    mostrarOpciones();
-    int respuesta = obtenerOpcion();
+    mostrar_opciones();
+    int respuesta = obtener_opcion();
 
     while(respuesta != EXIT_OPCION){
-        opcionSeleccionada(ciudad, respuesta);
-        mostrarOpciones();
-        respuesta = obtenerOpcion();
+        opcion_seleccionada(ciudad, respuesta);
+        mostrar_opciones();
+        respuesta = obtener_opcion();
     }
-    
+
     cout << "Gracias!" << endl;
 }
 
-void mostrarOpciones(){
+void mostrar_opciones(){
     cout << endl; 
     cout << "1. Construir edificio por nombre." << endl;
     cout << "2. Listar los edificios construidos." << endl;
@@ -31,7 +31,7 @@ void mostrarOpciones(){
     cout << endl;
 }
 
-void opcionSeleccionada(Andypolis& ciudad, int respuesta){
+void opcion_seleccionada(Andypolis& ciudad, int respuesta){
     switch(respuesta){
         /*case 1:
             ciudad.newBuildingByName();
@@ -65,7 +65,7 @@ void opcionSeleccionada(Andypolis& ciudad, int respuesta){
     }
 }
 
-int obtenerOpcion(){
+int obtener_opcion(){
     string opcion;
 
     int respuesta;
