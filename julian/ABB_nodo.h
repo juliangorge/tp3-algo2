@@ -1,19 +1,35 @@
 #ifndef ABB_NODO_H
 #define ABB_NODO_H
 
+#include <iostream>
+#include <string>
+
+typedef std::string K;
+
+const K CLAVE_INVALIDA = "";
+
 template <class T>
 class ABBnodo
 {
     private:
+        K clave;
         T dato;
         ABBnodo<T>* izquierda; //puntero al arbol izquierdo
         ABBnodo<T>* derecha; //puntero al arbol derecho
         ABBnodo<T>* padre;
 
     public:
-        ABBnodo(T dato);
+        ABBnodo(K clave, T dato);
+        //virtual ~ABBnodo();
+
+        K get_clave();
+
         T get_dato();
+
+        void set_clave(K clave, T dato);
+
         void set_dato(T dato);
+
         void set_derecha(ABBnodo<T>* derecha, ABBnodo<T>* padre);
         void set_izquierda(ABBnodo<T>* izquierda, ABBnodo<T>* padre);
         void set_derecha(ABBnodo<T>* derecha);
@@ -28,12 +44,19 @@ class ABBnodo
 };
 
 template <class T>
-ABBnodo<T>::ABBnodo(T dato)
+ABBnodo<T>::ABBnodo(K clave, T dato)
 {
+    this->clave = clave;
     this->dato = dato;
     this->izquierda = NULL;
     this->derecha = NULL;
     this->padre = NULL;
+}
+
+template <class T>
+K ABBnodo<T>::get_clave()
+{
+    return this->clave;
 }
 
 template <class T>

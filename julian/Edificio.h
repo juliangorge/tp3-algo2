@@ -84,4 +84,6 @@ class Edificio {
         void getChar();
 };
 
+ostream& operator<<(ostream& salida, Edificio& edificio);
+
 #endif 

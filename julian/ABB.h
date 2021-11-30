@@ -1,17 +1,19 @@
 #include <iostream>
 #include "ABB_nodo.h"
 
+#include <string>
+
 #ifndef ABB_H
 #define ABB_H
-
+using namespace std;
 template <class T>
 class ABB
 {
 private:
     //atributos
-    ABBnodo<T> *root;
+    ABBnodo<T> *raiz;
     //metodos
-    ABBnodo<T> *insertar(ABBnodo<T> *nodo, T dato);
+    ABBnodo<T> *insertar(ABBnodo<T> *nodo, K clave, T dato, bool* exito);
     void imprimir_en_orden(ABBnodo<T> *nodo);
     ABBnodo<T> *buscar(ABBnodo<T> *nodo, T dato);
     T buscar_min(ABBnodo<T> *nodo);
@@ -23,7 +25,12 @@ private:
 
 public:
     ABB();
-    void insertar(T dato);
+    
+    // PRE: -
+    // POST: Agrega un nuevo nodo al actual ABB. Si el arbol esta vacio
+    // el nodo insertado sera la raiz. Devuleve true si se pudo insertar
+    bool insertar(K clave, T dato);
+
     bool vacio();
     void imprimir_en_orden();
     bool buscar(T dato);
@@ -32,7 +39,7 @@ public:
     T sucesor(T dato);
     T predecesor(T dato);
     void remover(T dato);
-    ABBnodo<T> *get_root();
+    ABBnodo<T> *get_raiz();
     // Deletes all the nodes in the BST
     void eliminar_todo();
     ~ABB<T>();
@@ -41,10 +48,32 @@ public:
 template <class T>
 ABB<T>::ABB()
 {
-    this->root = NULL;
+    this->raiz = NULL;
 }
 
 template <class T>
+ABBnodo<T>* ABB<T>::insertar(ABBnodo<T>* nodo, K clave, T dato, bool* exito) {
+
+    if (nodo == 0) {
+        nodo = new ABBnodo<T>(clave, dato);
+        *exito = true;
+    }
+
+    else if (clave > nodo->get_clave()) {
+        nodo->set_derecha(insertar(nodo->get_derecha(), clave, dato, exito), nodo);
+    }
+
+    else if (clave < nodo->get_clave()){
+        nodo->set_izquierda(insertar(nodo->get_izquierda(), clave, dato, exito), nodo);
+    }
+    else
+    {
+        *exito = false;
+    }
+    return nodo;
+}
+
+/*template <class T>
 ABBnodo<T> *ABB<T>::insertar(ABBnodo<T> *nodo, T dato) //recibe la raiz y el dato
 {
     //cada vez que quiera agregar un dato, tengo que compararlo con el nodo que
@@ -56,36 +85,61 @@ ABBnodo<T> *ABB<T>::insertar(ABBnodo<T> *nodo, T dato) //recibe la raiz y el dat
 
     else if (dato > nodo->get_dato())
     {
-        nodo->set_derecha(insertar(nodo->get_derecha(), dato, nodo));
+        nodo->set_derecha(insertar(nodo->get_derecha(), dato));
     }
 
     else
     {
-        nodo->set_izquierda(insertar(nodo->get_izquierda(), dato), nodo);
+        nodo->set_izquierda(insertar(nodo->get_izquierda(), dato));
     }
 
     return nodo;
+}
+*/
+/*template <class T>
+void ABB<T>::insertar(T dato)
+{
+    this->raiz = insertar(this->raiz, dato);
+}*/
+
+template <class T>
+bool ABB<T>::insertar(K clave, T dato)
+{
+    bool exito = false;
+    if (clave == CLAVE_INVALIDA)
+        cout << "clave invalida, no se pued eusar en el ABB" <<endl;
+    else
+        this->raiz = insertar(this->raiz, clave, dato, &exito);
+    return exito;
 }
 
 template <class T>
 bool ABB<T>::vacio()
 {
-    return this->root == NULL;
+    return this->raiz == NULL;
 }
 
-template <class T>
-void ABB<T>::insertar(T dato)
-{
-    this->root = insertar(this->root, dato);
-}
+
 
 template <class T>
 void ABB<T>::imprimir_en_orden(ABBnodo<T> *nodo)
 {
-    if (nodo != NULL)
-    {
+    if(nodo == NULL)
+        return;
+    else{
         imprimir_en_orden(nodo->get_izquierda());
+
+        cout << endl << "\tClave: "<< nodo->get_clave() << endl;
+        cout<<"\t"<<*(nodo->get_dato())<<endl;
+
+        imprimir_en_orden(nodo->get_derecha()); 
     }
+}
+
+template <class T>
+void ABB<T>::imprimir_en_orden()
+{
+    return imprimir_en_orden(this->raiz);
 }
 
 template <class T>
@@ -103,7 +157,7 @@ ABBnodo<T> *ABB<T>::buscar(ABBnodo<T> *nodo, T dato) //misma complejidad que bus
 template <class T>
 bool ABB<T>::buscar(T dato)
 {
-    ABBnodo<T> *result = buscar(this->root, dato);
+    ABBnodo<T> *result = buscar(this->raiz, dato);
 
     return result != NULL;
 }
@@ -122,7 +176,7 @@ T ABB<T>::buscar_min(ABBnodo<T> *nodo)
 template <class T>
 T ABB<T>::buscar_min()
 {
-    return buscar_min(this->root);
+    return buscar_min(this->raiz);
 }
 
 template <class T>
@@ -139,7 +193,7 @@ T ABB<T>::buscar_max(ABBnodo<T> *nodo)
 template <class T>
 T ABB<T>::buscar_max()
 {
-    return buscar_max(this->root);
+    return buscar_max(this->raiz);
 }
 
 template <class T>
@@ -151,7 +205,7 @@ T ABB<T>::sucesor(ABBnodo<T> *nodo)
         return buscar_min(nodo->get_derecha());
     }
     ABBnodo<T> *sucesor = NULL;
-    ABBnodo<T> *ancestor = this->root;
+    ABBnodo<T> *ancestor = this->raiz;
     while (ancestor != nodo)
     {
         if (nodo->get_dato() < ancestor->get_dato())
@@ -170,7 +224,7 @@ T ABB<T>::sucesor(T dato) //el sucesor de un nodo que quiera borrar, va a ser el
                           //si el nodo no tiene sub-arbol derecho, hay que buscar los ancestros del nodo hasta encontrar uno mayor que el que quiero borrar.
                           //si el nodo a borrar es el máximo del arbol, no tiene sucesor.
 {
-    ABBnodo<T> *dato_nodo = this->buscar(this->root, dato);
+    ABBnodo<T> *dato_nodo = this->buscar(this->raiz, dato);
     // Return the key. If the key is not found or sucesor is not found, return -1
     if (dato_nodo == NULL)
         return -1;
@@ -191,7 +245,7 @@ T ABB<T>::predecesor(ABBnodo<T> *nodo)
     }
 
     ABBnodo<T> *sucesor = NULL;
-    ABBnodo<T> *ancestor = this->root;
+    ABBnodo<T> *ancestor = this->raiz;
     while (ancestor != nodo)
     {
         if (nodo->get_dato() > ancestor->get_dato())
@@ -208,7 +262,7 @@ T ABB<T>::predecesor(ABBnodo<T> *nodo)
 template <class T>
 T ABB<T>::predecesor(T dato)
 {
-    ABBnodo<T> *dato_nodo = this->buscar(this->root, dato);
+    ABBnodo<T> *dato_nodo = this->buscar(this->raiz, dato);
 
     if (dato_nodo == NULL)
         return -1;
@@ -272,19 +326,13 @@ ABBnodo<T> *ABB<T>::remover(ABBnodo<T> *nodo, T dato) //si borro un nodo, tengo 
 template <class T>
 void ABB<T>::remover(T dato)
 {
-    this->root = remover(this->root, dato);
+    this->raiz = remover(this->raiz, dato);
 }
 
 template <class T>
-ABBnodo<T> *ABB<T>::get_root()
+ABBnodo<T> *ABB<T>::get_raiz()
 {
-    return this->root;
-}
-
-template <class T>
-bool ABB<T>::vacio()
-{
-    return this->root == NULL;
+    return this->raiz;
 }
 
 template <class T>
@@ -300,7 +348,7 @@ void ABB<T>::eliminar_todo(ABBnodo<T> *nodo)
 template <class T>
 void ABB<T>::eliminar_todo()
 {
-    this->eliminar_todo(this->root);
+    this->eliminar_todo(this->raiz);
 }
 
 template <class T>

@@ -1,9 +1,27 @@
-#include "Andypolis.h"
+//#include "Andypolis.h"
 //#include "Programa.h"
+
+
+#include "ABB.h"
+#include "ABB_nodo.h"
+
+#include "Edificio.h"
+
+#include <string>
+
+using namespace std;
 
 int main()
 {
-    Andypolis ciudad;
+    //Andypolis ciudad;
+
+    ABB<Edificio*> arbol;
+    Edificio* edificio = new Edificio("mina", 1, 1, 1, 2);
+
+    arbol.insertar("mina", edificio);
+
+    arbol.imprimir_en_orden();
+
 
     //mostrar_menus();
     return 0;
