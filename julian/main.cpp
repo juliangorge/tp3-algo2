@@ -17,8 +17,14 @@ int main()
 
     ABB<Edificio*> arbol;
     Edificio* edificio = new Edificio("mina", 1, 1, 1, 2);
+    Edificio* edificio_2 = new Edificio("yacimiento", 1, 1, 1, 2);
+    Edificio* edificio_3 = new Edificio("planta electrica", 1, 1, 1, 2);
+    Edificio* edificio_4 = new Edificio("escuela", 1, 1, 1, 2);
 
     arbol.insertar("mina", edificio);
+    arbol.insertar("yacimiento", edificio_2);
+    arbol.insertar("planta electrica", edificio_3);
+    arbol.insertar("escuela", edificio_4);
 
     arbol.imprimir_en_orden();
 
