@@ -13,9 +13,24 @@ private:
     //atributos
     ABBnodo<T> *raiz;
     //metodos
+
+    // PRE: Clave y dato válido
+    // POST: Verifica si nodo = 0 y en caso afirmativo crea un nodo y setea exito en true.
+    // En caso contrario compara la clave del nodo con clave para ver donde insertar el dato.
+    // Si la clave del nodo es igual a clave pone exito en false y no inserta el dato.
     ABBnodo<T> *insertar(ABBnodo<T> *nodo, K clave, T dato, bool* exito);
+
+    // POST: Imprime la rama izquierda al nodo, luego el nodo y rama derecha.    
     void imprimir_en_orden(ABBnodo<T> *nodo);
-    ABBnodo<T> *buscar(ABBnodo<T> *nodo, T dato);
+
+    //ABBnodo<T> *buscar(ABBnodo<T> *nodo, T dato);
+
+    // POST: Si la clave del nodo es clave o si nodo = 0 devuelve nodo.
+    // Si la clave del nodo es menor a clave aplica buscar al hijo derecho.
+    // Si la clave del nodo es mayor a clave aplica buscar al hijo izquierdo.
+    ABBnodo<T>* buscar(ABBnodo<T>* nodo, K clave);
+
+
     T buscar_min(ABBnodo<T> *nodo);
     T buscar_max(ABBnodo<T> *nodo);
     T sucesor(ABBnodo<T> *nodo);
@@ -27,13 +42,22 @@ public:
     ABB();
     
     // PRE: -
-    // POST: Agrega un nuevo nodo al actual ABB. Si el arbol esta vacio
-    // el nodo insertado sera la raiz. Devuleve true si se pudo insertar
+    // POST: Agrega un nuevo nodo. 
+    // Si el arbol esta vacio, el nodo insertado será la raiz. 
+    // Devuelve true si se pudo insertar
     bool insertar(K clave, T dato);
 
     bool vacio();
     void imprimir_en_orden();
-    bool buscar(T dato);
+
+    // PRE: Clave válida
+    // POST: Busca un valor dado en el ABB. Si existe devuelve TRUE, sino FALSE.
+    bool buscar(K clave);
+
+    // PRE:
+    // POST: Devuelve el dato asociado a una clave
+    T obtener_dato(K clave);
+
     T buscar_min();
     T buscar_max();
     T sucesor(T dato);
@@ -143,23 +167,32 @@ void ABB<T>::imprimir_en_orden()
 }
 
 template <class T>
-ABBnodo<T> *ABB<T>::buscar(ABBnodo<T> *nodo, T dato) //misma complejidad que busqueda binaria, log2(n)
+ABBnodo<T> *ABB<T>::buscar(ABBnodo<T> *nodo, K clave) //misma complejidad que busqueda binaria, log2(n)
 {
-    if (nodo == NULL || nodo->get_dato() == dato)
+    if (nodo == NULL || nodo->get_clave() == clave)
         return nodo;
 
-    if (dato > nodo->get_dato())
-        return buscar(nodo->get_derecha(), dato);
+    if (clave > nodo->get_clave())
+        return buscar(nodo->get_derecha(), clave);
 
-    return buscar(nodo->get_izquierda(), dato);
+    return buscar(nodo->get_izquierda(), clave);
 }
 
 template <class T>
-bool ABB<T>::buscar(T dato)
+bool ABB<T>::buscar(K clave)
 {
-    ABBnodo<T> *result = buscar(this->raiz, dato);
+    ABBnodo<T> *result = buscar(this->raiz, clave);
 
     return result != NULL;
+}
+
+template <class T>
+T ABB<T>:: obtener_dato(K clave){
+    ABBnodo<T>* resultado = buscar(this->raiz, clave);
+
+    //if(resultado != 0)
+    return resultado->get_dato();
+    //return 0;
 }
 
 template <class T>

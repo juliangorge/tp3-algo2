@@ -3,27 +3,66 @@
 
 using namespace std;
 
-
-Edificio::Edificio(string name, unsigned int stone, unsigned int wood, unsigned int iron, unsigned int max)
+Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsigned int metal, unsigned int maximo)
 {
-    this->name = name;
-    this->stone = stone;
-    this->wood = wood;
-    this->iron = iron;
-    this->quantity = 0;
-    this->max = max;
-    this->building_char = 'B';
-    this->provide_materials = true;
+    this->nombre = nombre;
+    this->piedra = piedra;
+    this->madera = madera;
+    this->metal = metal;
+    this->cantidad = 0;
+    this->maximo = maximo;
+    this->caracter_edificio = 'B';
+    this->provee_materiales = true;
 
-    //this->getChar();
+    //this->getCaracter();
 }
 
-string Edificio::getName(){
-    return this->name;
+string Edificio::obtener_nombre(){
+    return this->nombre;
 }
+
+unsigned int Edificio::obtener_piedra(){
+    return this->piedra;
+}
+
+unsigned int Edificio::obtener_madera(){
+    return this->madera;
+}
+
+unsigned int Edificio::obtener_metal(){
+    return this->metal;
+}
+
+unsigned int Edificio::obtener_cantidad(){
+    return this->cantidad;
+}
+
+unsigned int Edificio::obtener_restantes(){
+    return (this->maximo - this->cantidad);
+}
+
+string Edificio:: obtener_provee_materiales(){
+    if(this->provee_materiales) return "Si";
+    return "No";
+
+}
+
 
 ostream& operator<<(ostream& salida, Edificio& edificio)
 {
-    salida << endl << edificio.getName() << endl;
+    /*
+    Se deberán listar todos los edificios indicando para cada uno de ellos: cuantas unidades de cada
+    material se requieren para construir uno, cuantos fueron construidos hasta el momento, cuantos más
+    puedo construir3, sin superar el máximo permitido y si me brinda algún tipo de material4.
+    */
+    salida << endl << edificio.obtener_nombre() << endl;
+    salida << "Construidos: " << edificio.obtener_cantidad() << " (" << edificio.obtener_restantes() << " restantes para construir)" << endl;
+    salida << "Materiales: " << endl;
+    salida << "# Piedra: " << edificio.obtener_piedra() << endl;
+    salida << "# Madera: " << edificio.obtener_madera() << endl;
+    salida << "# Metal: " << edificio.obtener_metal() << endl;
+    salida << "Brinda materiales: " << edificio.obtener_provee_materiales() << endl;
+    salida << endl;
+
     return salida;
 }
