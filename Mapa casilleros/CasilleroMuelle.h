@@ -6,8 +6,8 @@
 class CasilleroMuelle : public Casillero
 {
     public:
-        CasilleroLago();
-        ~CasilleroLago();
+        CasilleroMuelle();
+        //~CasilleroMuelle();
 };
 
 #endif //CASILLEROMUELLE_H

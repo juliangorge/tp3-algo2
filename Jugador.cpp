@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-#include "jugador.h"
+#include "Jugador.h"
 
 Jugador:: Jugador(char caracter_jugador){
     this->energia = ENERGIA_INICIAL;

@@ -1,4 +1,4 @@
-#include "segundo_menu.h"
+#include "Segundo_menu.h"
 
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos)
 {

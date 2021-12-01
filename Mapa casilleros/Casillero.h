@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Edificio.h"
-#include "Material.h"
+#include "material.h"
 
 using namespace std;
 
@@ -26,6 +26,8 @@ class Casillero
 
         char tipo_casillero;
 
+        char caracter_elemento;
+
         Edificio* edificio;
 
         Material* material;
@@ -34,7 +36,7 @@ class Casillero
 
     public:
         Casillero();
-        ~Casillero();
+        //~Casillero();
 
         // PRE:
         // POST: Retorna si el casillero está libre de construcciones/materiales

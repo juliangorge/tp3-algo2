@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include "material.h"
+#include "Material.h"
 
 using namespace std;
 

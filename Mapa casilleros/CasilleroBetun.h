@@ -6,8 +6,8 @@
 class CasilleroBetun : public Casillero
 {
     public:
-        CasilleroLago();
-        ~CasilleroLago();
+        CasilleroBetun();
+        //~CasilleroBetun();
 };
 
 #endif //CASILLEROBETUN_H

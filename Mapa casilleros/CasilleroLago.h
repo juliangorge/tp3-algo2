@@ -7,7 +7,7 @@ class CasilleroLago : public Casillero
 {
     public:
         CasilleroLago();
-        ~CasilleroLago();
+        //~CasilleroLago();
 };
 
 #endif //CASILLEROLAGO_H

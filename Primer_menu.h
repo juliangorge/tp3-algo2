@@ -2,10 +2,10 @@
 #define PRIMER_MENU_H
 
 #include <iostream>
-#include "menu_consola.h"
-#include "interaccion_usuario.h"
-//#include "mapa.h"
-#include "jugador.h"
+#include "Menu_consola.h"
+#include "Interaccion_usuario.h"
+//#include "Mapa.h"
+#include "Jugador.h"
 
 const int OPCION_MODIFICAR_EDIFICIOS = 1;
 const int OPCION_LISTAR_EDIFICIOS = 2;

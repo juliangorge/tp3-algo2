@@ -7,7 +7,7 @@ class CasilleroTerreno : public Casillero
 {
     public:
         CasilleroTerreno();
-        ~CasilleroTerreno();
+        //~CasilleroTerreno();
 };
 
 #endif //CASILLEROTERRENO_H

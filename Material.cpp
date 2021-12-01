@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-#include "material.h"
+#include "Material.h"
 
 using namespace std;
 

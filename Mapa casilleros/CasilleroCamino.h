@@ -7,7 +7,7 @@ class CasilleroCamino : public Casillero
 {
     public:
         CasilleroCamino();
-        ~CasilleroCamino();
+        //~CasilleroCamino();
 };
 
 #endif //CASILLEROCAMINO_H
