@@ -11,15 +11,15 @@ Material::Material(string nombre, unsigned int cantidad)
     this->nombre = nombre;
     this->cantidad = cantidad;
 
-    if(nombre == STRING_MADERA)
+    if(nombre == NOMBRE_MADERA)
         this->letra_identificatoria = CARACTER_MADERA;
-    else if(nombre == STRING_PIEDRA)
+    else if(nombre == NOMBRE_PIEDRA)
         this->letra_identificatoria = CARACTER_PIEDRA;
-    else if(nombre == STRING_METAL)
+    else if(nombre == NOMBRE_METAL)
         this->letra_identificatoria = CARACTER_METAL;
-    else if(nombre == STRING_ANDYCOINS)
+    else if(nombre == NOMBRE_ANDYCOINS)
         this->letra_identificatoria = CARACTER_ANDYCOINS;
-    else if(nombre == STRING_BOMBAS)
+    else if(nombre == NOMBRE_BOMBAS)
         this->letra_identificatoria = CARACTER_BOMBAS;
     else
         this->letra_identificatoria = CARACTER_NO_IDENTIFICADO;

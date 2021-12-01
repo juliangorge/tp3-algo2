@@ -5,11 +5,11 @@
 
 using namespace std;
 
-const string STRING_MADERA = "madera";
-const string STRING_PIEDRA = "piedra";
-const string STRING_METAL = "metal";
-const string STRING_BOMBAS = "bombas";
-const string STRING_ANDYCOINS = "andycoins";
+const string NOMBRE_MADERA = "madera";
+const string NOMBRE_PIEDRA = "piedra";
+const string NOMBRE_METAL = "metal";
+const string NOMBRE_BOMBAS = "bombas";
+const string NOMBRE_ANDYCOINS = "andycoins";
 const char CARACTER_MADERA = 'W';
 const char CARACTER_PIEDRA = 'S';
 const char CARACTER_METAL = 'I';

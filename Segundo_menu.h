@@ -7,6 +7,8 @@
 //#include "Mapa.h"
 #include "Jugador.h"
 
+#include "Opcion_comprar_bombas.h"
+
 const int OPCION_CONSTRUIR_EDIFICIO = 1;
 const int OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS = 2;
 const int OPCION_DEMOLER_COORDENADA = 3;

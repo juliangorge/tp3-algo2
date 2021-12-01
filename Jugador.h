@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "Material.h"
-
+#include "Mensajes_de_error.h"
 using namespace std;
 
 const string ARCHIVO_MATERIALES = "materiales.txt";
@@ -41,7 +41,7 @@ class Jugador {
 		
 
 
-		void agregar_material(Material* material);
+		void agregar_material_a_lista(Material* material);
 
     	// PRE: -
 		// POS: imprime por consola la lista de materiales de los jugadores 1 y 2
@@ -49,7 +49,21 @@ class Jugador {
 
 		// PRE: -
 		// POS: reescribe el archivo de materiales con la info de las listas y lo cierra
-		void guardar_archivo_materiales(Jugador* jugador_uno, Jugador* jugador_dos);
+		//void guardar_archivo_materiales(Jugador* jugador_uno, Jugador* jugador_dos);
+
+        estados_t verificar_energia_suficiente(unsigned int costo_energia);
+
+        void decrementar_energia(unsigned int costo_energia);
+
+        bool verificar_energia_nula();
+
+        unsigned int obtener_posicion_material(string nombre_material);
+
+        estados_t verificar_material_necesario(string nombre_material, unsigned int cantidad_a_restar);
+
+        void comprar_bombas(unsigned int bombas, unsigned int precio_bombas);
+
+        unsigned int mostrar_cantidad_material(string nombre_material);
 
 };
 

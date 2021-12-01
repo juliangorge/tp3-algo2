@@ -13,6 +13,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos)
 }	
 
 void opciones_segundo_menu(int opcion, Jugador* jugador){
+    estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
             //Modificar edificios
@@ -30,7 +31,12 @@ void opciones_segundo_menu(int opcion, Jugador* jugador){
             //Mostrar mapa
             break;
         case OPCION_COMPRAR_BOMBAS:
-            //Mostrar mapa
+            if((st = comprar_bombas(jugador)) != ST_OK){
+                imprimir_error(st);
+            }
+            else{
+                mostrar_compra_realizada(jugador);
+            }
             break;
         case OPCION_CONSULTAR_COORDENADA:
             //Mostrar mapa
