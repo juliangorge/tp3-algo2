@@ -1,0 +1,71 @@
+VALIDACIONES NECESARIAS PARA CADA OPCION DEL PROGRAMA
+
+*Validacion para la opciones ingresada (tiene que ser un numero de 1 a 5)
+MENU 1:
+	Opcion 1: 
+	-el nombre del edificio debe estar en el ABB
+	-las cantidades ingresadas deben estar entre 0 y 50000
+	Opcion 2: 
+
+	Opcion 3:
+
+*Validacion para la opciones ingresada (tiene que ser un numero de 1 a 13)
+MENU 2:
+	Opcion 1:
+	-se debe tener la energia necesaria para realizar la accion
+	-el nombre del edificio debe estar en el ABB
+	-las coordenadas ingresadas deben ser validas dentro del mapa
+	-el casillero seleccionado debe ser un terreno
+	-el casillero terreno seleccionado debe estar vacio
+	-se deben tener los materiales suficientes para construir
+	-no se debe superar el maximo construido
+
+	Opcion 2:
+
+	Opcion 3:
+	-se debe tener la energia necesaria para realizar la accion
+	-las coordenadas ingresadas deben ser validas dentro del mapa
+	-el casillero seleccionado debe ser un terreno
+	-el casillero terreno seleccionado no debe estar vacio
+	-el edificio a demoler tiene que ser del jugador que realiza la accion
+
+	Opcion 4:
+	-se debe tener la energia necesaria para realizar la accion
+	-las coordenadas ingresadas deben ser validas dentro del mapa
+	-el casillero seleccionado debe ser un terreno
+	-el casillero terreno seleccionado no debe estar vacio
+	-el edificio a atacar tiene que ser del jugador contrario
+	-tiene que haber bombas en el inventario
+
+	Opcion 5:
+	-se debe tener la energia necesaria para realizar la accion
+	-las coordenadas ingresadas deben ser validas dentro del mapa
+	-el casillero seleccionado debe ser un terreno
+	-el casillero terreno seleccionado no debe estar vacio
+	-el edificio debe requerir reparacion
+	-se deben tener los materiales suficientes para construir
+	-el edificio a reparar tiene que ser del jugador que realiza la accion
+
+	Opcion 6:
+	-se debe tener la energia necesaria para realizar la accion
+	-las cantidades ingresadas deben estar entre 0 y 50000
+	-se deben tener los andycoins necesarios para comprar la cantidad de bombas seleccionada
+
+	Opcion 7:
+	-las coordenadas ingresadas deben ser validas dentro del mapa
+
+	Opcion 8:
+
+	Opcion 9:
+
+	Opcion 10:
+	-se debe recolectar los materiales de edificios 1 vez por turno
+
+	Opcion 11:
+	-las coordenadas ingresadas deben ser validas dentro del mapa
+	-se debe tener la energia necesaria para realizar la accion
+	-el casillero debe estar vacio
+
+	Opcion 12:
+
+	Opcion 13:
