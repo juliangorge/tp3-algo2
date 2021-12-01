@@ -21,6 +21,9 @@ void opciones_primer_menu(int opcion){
         case OPCION_LISTAR_EDIFICIOS:
             //Listar edificios
             break;
+        // case OPCION_MOSTRAR_MAPA:
+		// 	mapa->imprimir_mapa();
+		// 	break;
         case OPCION_MOSTRAR_MAPA:
             break;
     }
