@@ -4,7 +4,8 @@
 #include <iostream>
 #include "menu_consola.h"
 #include "interaccion_usuario.h"
-#include "mapa.h"
+//#include "mapa.h"
+#include "jugador.h"
 
 const int OPCION_MODIFICAR_EDIFICIOS = 1;
 const int OPCION_LISTAR_EDIFICIOS = 2;
@@ -14,6 +15,6 @@ const int OPCION_SALIR_PRIMER_MENU = 5;
 
 using namespace std;
 int trabajar_primer_menu();
-void opciones_primer_menu(int opcion,Mapa* mapa);
+void opciones_primer_menu(int opcion);
 
 #endif //PRIMER_MENU_H

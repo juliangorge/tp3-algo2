@@ -4,6 +4,8 @@
 #include <iostream>
 #include "menu_consola.h"
 #include "interaccion_usuario.h"
+//#include "mapa.h"
+#include "jugador.h"
 
 const int OPCION_CONSTRUIR_EDIFICIO = 1;
 const int OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS = 2;
@@ -20,7 +22,7 @@ const int OPCION_FINALIZAR_TURNO = 12;
 const int OPCION_SALIR_SEGUNDO_MENU = 13;
 
 using namespace std;
-void trabajar_segundo_menu();
-void opciones_segundo_menu(int opcion);
+void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos);
+void opciones_segundo_menu(int opcion, Jugador* jugador);
 
 #endif //SEGUNDO_MENU_H

@@ -26,4 +26,6 @@ void mostrar_segundo_menu()
 	cout << "9. Mostrar objetivos" << endl;
 	cout << "10. Recolectar recursos producidos" << endl;
 	cout << "11. Moverse a una coordenada" << endl;
+	cout << "12. Finalizar turno" << endl;
+	cout << "13. Guardar y salir" << endl;
 }
