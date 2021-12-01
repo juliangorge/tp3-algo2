@@ -20,6 +20,8 @@ int main()
 
     verificar_existencia_archivo_materiales();
     
+    // Corrección TP2: no es cómodo trabajar con la cantidad de elementos de la lista, las funciones quedan con muchos argumentos
+    // Propuesta: meter la lista y la cantidad como atributos dentro del objeto jugador
     Material ** lista_materiales_jugador_1 = 0;
     unsigned cantidad_materiales_jugador_1 = 0;
     Material ** lista_materiales_jugador_2 = 0;
@@ -32,5 +34,8 @@ int main()
     guardar_archivo_materiales(lista_materiales_jugador_1,cantidad_materiales_jugador_1,lista_materiales_jugador_2,cantidad_materiales_jugador_2);
 
     
+    Mapa mapa("mapa.txt");
+
+    mapa.imprimir_mapa();
     
 }
