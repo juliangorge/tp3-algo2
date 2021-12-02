@@ -54,6 +54,9 @@ void imprimir_error(estados_t st)
 		case ST_ERROR_MODIFICANDO_OBELISCO:
 			cout << MSJ_ERROR_MODIFICANDO_OBELISCO << endl;
 			break;
+		case ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO:
+			cout << MSJ_ERROR_EDIFICIO_MAXIMO_ALCANZADO << endl;
+			break;
 		case ST_OK:
 			break;
 	}

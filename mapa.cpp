@@ -3,7 +3,6 @@
 #include <string>
 
 #include "mapa.h"
-#include "casillero.h"
 
 using namespace std;
 
@@ -41,7 +40,31 @@ Mapa::Mapa(string CAMINO_ARCHIVO_MAPA)
 
         while(archivo_mapa >> letra_casillero)
         {
-            if(letra_casillero == ARREGLO_CHAR_CONSTRUIBLES[0])
+                // Esto se podría refactorear como una funcion que devuelva el casillero creado
+                // o sea una sola funcion con switch
+            switch(letra_casillero){
+                case 'L':
+                    matriz_mapa[i] = new CasilleroLago();
+                    break;
+
+                case 'C':
+                    matriz_mapa[i] = new CasilleroCamino();
+                    break;
+
+                case 'B':
+                    matriz_mapa[i] = new CasilleroBetun();
+                    break;
+
+                case 'M':
+                    matriz_mapa[i] = new CasilleroMuelle();
+                    break;
+
+                case 'T':
+                    matriz_mapa[i] = new CasilleroTerreno();
+                    break;
+
+            }
+            /*if(letra_casillero == ARREGLO_CHAR_CONSTRUIBLES[0])
             {
                 matriz_mapa[i] = new Casillero_construible(letra_casillero);
             }
@@ -52,7 +75,7 @@ Mapa::Mapa(string CAMINO_ARCHIVO_MAPA)
             else if(letra_casillero == ARREGLO_CHAR_TRANSITABLES[0] || letra_casillero == ARREGLO_CHAR_TRANSITABLES[1] || letra_casillero == ARREGLO_CHAR_TRANSITABLES[2])
             {
                 matriz_mapa[i] = new Casillero_transitable(letra_casillero);
-            }
+            }*/
 
             i++; 
         }
@@ -76,6 +99,9 @@ unsigned int Mapa::obtener_cantidad_columnas()
 
 Casillero* Mapa::consultar_coordenada (unsigned int fila, unsigned int columna)
 {
+
+    // Validar fila y cantidad_filas, y columna y cantidad_columnas
+
     unsigned int num_elemento=0;
 
     if(!fila)

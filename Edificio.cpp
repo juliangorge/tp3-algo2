@@ -14,7 +14,7 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     // separar cantidad para cada jugador
 
     this->maximo = maximo;
-    this->caracter_edificio = 'B';
+    this->caracter = 'B';
     this->provee_materiales = true;
 
     //this->getCaracter();
@@ -42,6 +42,10 @@ unsigned int Edificio::obtener_cantidad(){
 
 unsigned int Edificio::obtener_restantes(){
     return (this->maximo - this->cantidad);
+}
+
+char Edificio:: obtener_caracter(){
+    return this->caracter;
 }
 
 string Edificio:: obtener_provee_materiales(){

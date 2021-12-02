@@ -22,7 +22,7 @@ class Material
     // Atributos
     private:
         string nombre;
-        char letra_identificatoria;
+        char caracter;
         unsigned int cantidad;
 
     // Metodos
@@ -38,7 +38,7 @@ class Material
 
         // PRE: -
         // POS: devuelve el caracter identificatorio
-        char obtener_letra_identificatoria();
+        char obtener_caracter();
 
         // PRE: -
         // POS: devuelve la cantidad

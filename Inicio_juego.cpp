@@ -10,17 +10,13 @@ void cargar_edificios(ABB<Edificio*> &arbol){
     string aux, nombre;
     unsigned int piedra, madera, metal, maximo;
 
-    while (file >> nombre)
-    {
+    while (file >> nombre){
         file >> aux;
 
         // Verifico si es un número
-        if (aux[0] >= (int)'0' && aux[0] <= (int)'9')
-        {
+        if (aux[0] >= (int)'0' && aux[0] <= (int)'9'){
             piedra = stoi(aux);
-        }
-        else
-        {
+        }else{
             nombre += ' ' + aux;
             file >> piedra;
         }
@@ -54,7 +50,7 @@ void iniciar_juego()
 
 	switch(opcion_salida){
 		case OPCION_COMENZAR_PARTIDA:
-			trabajar_segundo_menu(jugador_uno, jugador_dos);
+			trabajar_segundo_menu(jugador_uno, jugador_dos, arbol, mapa);
 			break;
 		case OPCION_SALIR_PRIMER_MENU:
 			// Guardar cambios de edificios.txt

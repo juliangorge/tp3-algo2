@@ -5,10 +5,12 @@
 #include <fstream>
 #include <string>
 
-#include "casillero_inaccesible.h"
-#include "casillero_transitable.h"
-#include "casillero_construible.h"
-#include "casillero.h"
+//#include "Casillero.h"
+#include "CasilleroCamino.h"
+#include "CasilleroBetun.h"
+#include "CasilleroLago.h"
+#include "CasilleroMuelle.h"
+#include "CasilleroTerreno.h"
 
 using namespace std;
 
