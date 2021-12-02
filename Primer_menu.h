@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Menu_consola.h"
 #include "Interaccion_usuario.h"
-//#include "Mapa.h"
+#include "mapa.h"
 #include "Jugador.h"
 #include "Mensajes_de_error.h"
 
@@ -20,8 +20,8 @@ const int OPCION_COMENZAR_PARTIDA = 4;
 const int OPCION_SALIR_PRIMER_MENU = 5;
 
 using namespace std;
-int trabajar_primer_menu(ABB<Edificio*> &arbol);
-void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol);
+int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa);
+void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol, Mapa* mapa);
 
 estados_t modificar_edificios(ABB<Edificio*> &arbol);
 void listar_edificios(ABB<Edificio*> &arbol);
