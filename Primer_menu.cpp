@@ -61,9 +61,6 @@ void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol){
         case OPCION_LISTAR_EDIFICIOS:
             listar_edificios(arbol);
             break;
-         case OPCION_MOSTRAR_MAPA:
-            //mapa->imprimir_mapa();
-		    break;
         case OPCION_MOSTRAR_MAPA:
             //mostrar_mapa();
             break;
