@@ -47,6 +47,11 @@ string Edificio:: obtener_provee_materiales(){
 
 }
 
+void Edificio:: actualizar_materiales(unsigned int piedra, unsigned int madera, unsigned int metal){
+    this->piedra = piedra;
+    this->madera = madera;
+    this->metal = metal;
+}
 
 ostream& operator<<(ostream& salida, Edificio& edificio)
 {
@@ -55,7 +60,7 @@ ostream& operator<<(ostream& salida, Edificio& edificio)
     material se requieren para construir uno, cuantos fueron construidos hasta el momento, cuantos más
     puedo construir3, sin superar el máximo permitido y si me brinda algún tipo de material4.
     */
-    salida << endl << edificio.obtener_nombre() << endl;
+    salida << "Edificio: " << endl << edificio.obtener_nombre() << endl;
     salida << "Construidos: " << edificio.obtener_cantidad() << " (" << edificio.obtener_restantes() << " restantes para construir)" << endl;
     salida << "Materiales: " << endl;
     salida << "# Piedra: " << edificio.obtener_piedra() << endl;

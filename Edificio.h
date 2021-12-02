@@ -90,6 +90,8 @@ class Edificio {
         // PRE: 
         // POST: Retorna el valor valido
         void obtener_caracter();
+
+        void actualizar_materiales(unsigned int piedra, unsigned int madera, unsigned int metal);
 };
 
 ostream& operator<<(ostream& salida, Edificio& edificio);
