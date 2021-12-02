@@ -3,6 +3,9 @@
 
 #include "casillero.h"
 
+#include <string>
+
+const string MSJE_CASILLERO_INACCESIBLE = "Soy un casillero inaccesible";
 
 class Casillero_inaccesible: public Casillero
 {
@@ -14,6 +17,11 @@ public:
     // POS: construye el objeto del tipo casillero_inaccesible
     Casillero_inaccesible(char caracter);
 
+
+    // PRE: -
+    // POS: imprime por pantalla el estado del casillero
+    
+    void imprimir_estado();
     // // PRE: -
     // // POS: devuelve lo que hay alojado en él, o null si está vacío
     // Edificio * obtener_edificio();
