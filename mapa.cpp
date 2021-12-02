@@ -74,7 +74,7 @@ unsigned int Mapa::obtener_cantidad_columnas()
     return this->cantidad_columnas;
 }
 
-Casillero *  Mapa::consultar_coordenada (unsigned int fila, unsigned int columna)
+Casillero* Mapa::consultar_coordenada (unsigned int fila, unsigned int columna)
 {
     unsigned int num_elemento=0;
 

@@ -50,7 +50,7 @@ void iniciar_juego()
 	Jugador* jugador_dos = new Jugador(caracter_jugador_dos);
 
 	cargar_materiales_jugadores(jugador_uno,jugador_dos);
-	int opcion_salida = trabajar_primer_menu(arbol);
+	int opcion_salida = trabajar_primer_menu(arbol, mapa);
 
 	switch(opcion_salida){
 		case OPCION_COMENZAR_PARTIDA:

@@ -1,12 +1,12 @@
 #include "Primer_menu.h"
 
-int trabajar_primer_menu(ABB<Edificio*> &arbol)
+int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa)
 {
     
     mostrar_primer_menu();
     int opcion = obtener_opcion_primer_menu();
     while(opcion < OPCION_COMENZAR_PARTIDA){
-        opciones_primer_menu(opcion, arbol);
+        opciones_primer_menu(opcion, arbol, mapa);
         mostrar_primer_menu();
         opcion = obtener_opcion_primer_menu();
     }
@@ -51,7 +51,7 @@ void listar_edificios(ABB<Edificio*> &arbol){
 }
 
 
-void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol){
+void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol, Mapa *mapa){
     estados_t st;
 
     switch(opcion){
@@ -62,7 +62,7 @@ void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol){
             listar_edificios(arbol);
             break;
         case OPCION_MOSTRAR_MAPA:
-            //mostrar_mapa();
+            mapa->imprimir_mapa();
             break;
     }
 }
