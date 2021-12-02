@@ -12,4 +12,7 @@ using namespace std;
 
 void iniciar_juego();
 
+void cargar_edificios(ABB<Edificio*> &arbol);
+void agregar_edificio(ABB<Edificio*> &arbol, string nombre, Edificio* edificio);
+
 #endif //INICIO_JUEGO_H

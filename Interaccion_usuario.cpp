@@ -51,12 +51,14 @@ estados_t obtener_valor_cantidad(unsigned int & cantidad)
 {
     string valor;
     cout << "Ingrese la cantidad deseada: ";
-
-    cin.clear();
-    fflush(stdin);
+    getline(cin,valor);
     getline(cin,valor);
 
     cantidad = stoi(valor);
+
+    cin.clear();
+    fflush(stdin);
+
     if(cantidad < CANTIDAD_MINIMA || cantidad > CANTIDAD_MAXIMA)
         return ST_ERROR_CANTIDAD_INVALIDA;
     return ST_OK;
