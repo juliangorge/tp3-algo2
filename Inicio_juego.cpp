@@ -2,7 +2,7 @@
 
 void iniciar_juego()
 {
-	Mapa * mapa = new Mapa("mapa.txt");
+	//Mapa * mapa = new Mapa("mapa.txt");
 	
 
 	char caracter_jugador_uno = 'J', caracter_jugador_dos = 'U';

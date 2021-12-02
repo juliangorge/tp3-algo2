@@ -2,11 +2,18 @@
 #define CASILLERO_TRANSITABLE_H
 
 #include "casillero.h"
+#include "Material.h"
 
+#include <string>
+
+const string MSJE_CASILLERO_LLENO = "Soy un casillero transitable y tengo: ";
+const string MSJE_CASILLERO_VACIO = "Soy un casillero transitable y me encueuntro vacío :(";
 
 class Casillero_transitable: public Casillero
 {
-    
+// Atributos
+private:
+    Material * material;
 // Metodos
 public:
     // Constructor
@@ -14,17 +21,21 @@ public:
     // POS: construye el objeto del tipo casillero_transitable
     Casillero_transitable(char caracter);
 
-    // // PRE: -
-    // // POS: devuelve lo que hay alojado en él, o null si está vacío
-    // Edificio * obtener_edificio();
-
-    // PRE: el casillero debe estar vacío y debe haber materiales suficientes
-    // POS: retorna true si pudo construir el edificio, false en caso contrario
-    //bool constuir_edificio(Edificio * edificio);
+    // PRE: el casillero no debe tener un material
+    // POS: si el casillero no tenía material, agrega el material. Si no, ignora la petición.
+    void agregar_material(Material * material);
 
     // PRE: -
-    // POS: retorna true si había un edificio y lo destruyó, false si no había edificio
-    //bool destruir_edificio()
+    // POS: si existe material lo elimina y libera la memoria.
+    void eliminar_material();
+
+    // PRE: -
+    // POS: devuelve el material alojado en él, o nullptr si no hay nada.
+    Material * consultar_material();
+
+    // PRE: -
+    // POS: imprime por pantalla el estado del casillero
+    void imprimir_estado();
 };
 
 

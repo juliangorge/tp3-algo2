@@ -3,6 +3,9 @@
 
 #include "casillero.h"
 
+#include <string>
+
+const string MSJE_CASILLERO_CONSTRUIBLE_VACIO = "Soy un casillero construible y me encuentro vacio :(";
 
 class Casillero_construible: public Casillero
 {
@@ -13,6 +16,10 @@ public:
     // PRE: -
     // POS: construye el objeto del tipo casillero_construible
     Casillero_construible(char caracter);
+
+    // PRE: -
+    // POS: imprime por pantalla el estado del casillero
+    void imprimir_estado();
 
     // // PRE: -
     // // POS: devuelve lo que hay alojado en él, o null si está vacío

@@ -14,3 +14,8 @@ Casillero_inaccesible::Casillero_inaccesible(char caracter)
     this->construible=false;
     this->inaccesible=true;
 }
+
+void Casillero_inaccesible::imprimir_estado()
+{
+    cout << MSJE_CASILLERO_INACCESIBLE << endl;
+}

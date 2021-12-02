@@ -30,6 +30,10 @@ class Casillero
         // POS: retorna true si es construible, false si no lo es
         bool es_construible() ;
 
+        // PRE: -
+        // POS: imprime por pantalla el estado del casillero
+        virtual void imprimir_estado() = 0;
+
 };
 
 

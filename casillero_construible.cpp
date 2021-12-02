@@ -14,3 +14,8 @@ Casillero_construible::Casillero_construible(char caracter)
     this->construible=true;
     this->inaccesible=false;
 }
+
+void Casillero_construible::imprimir_estado()
+{
+    cout << MSJE_CASILLERO_CONSTRUIBLE_VACIO << endl;
+}
