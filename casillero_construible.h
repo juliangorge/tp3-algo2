@@ -2,13 +2,18 @@
 #define CASILLERO_CONSTRUIBLE_H
 
 #include "casillero.h"
+#include "Edificio.h"
 
 #include <string>
 
 const string MSJE_CASILLERO_CONSTRUIBLE_VACIO = "Soy un casillero construible y me encuentro vacio :(";
+const string MSJE_CASILLERO_CONSTRUIBLE_OCUPADO = "Soy un casillero construible y estoy ocupado por: ";
 
 class Casillero_construible: public Casillero
 {
+// Atributos
+private:
+    Edificio * edificio;
 
 // Metodos
 public:
@@ -21,17 +26,19 @@ public:
     // POS: imprime por pantalla el estado del casillero
     void imprimir_estado();
 
-    // // PRE: -
-    // // POS: devuelve lo que hay alojado en él, o null si está vacío
-    // Edificio * obtener_edificio();
+    // PRE: el casillero debe estar vacío
+    // POS: si el casillero está vacío, agrega el edificio. Si no, ingora la petición
+    void agregar_edificio(Edificio * edificio);
 
-    // PRE: el casillero debe estar vacío y debe haber materiales suficientes
-    // POS: retorna true si pudo construir el edificio, false en caso contrario
-    //bool constuir_edificio(Edificio * edificio);
+    // PRE: debe existir un edificio en el casillero
+    // POS: elimina el edificio y libera memoria
+    void eliminar_edificio();
 
     // PRE: -
-    // POS: retorna true si había un edificio y lo destruyó, false si no había edificio
-    //bool destruir_edificio()
+    // POS: retorna el puntero al edificio, o null si no hay nada.
+    Edificio * consultar_edificio();
+
+
 };
 
 
