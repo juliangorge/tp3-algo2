@@ -14,6 +14,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos)
 
 void opciones_segundo_menu(int opcion, Jugador* jugador){
     estados_t st;
+    
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
             //Modificar edificios

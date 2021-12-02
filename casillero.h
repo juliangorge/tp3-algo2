@@ -8,10 +8,13 @@ using namespace std;
 class Casillero
 {
     protected:
+        string nombre;
         char caracter;
         bool transitable;
         bool inaccesible;
         bool construible;
+        bool casillero_ocupado;
+        int jugador;
 
     public:
         // PRE: -
@@ -20,15 +23,19 @@ class Casillero
 
         // PRE: -
         // POS: retorna true si es transitable, false si no lo es
-        bool es_transitable() ;
+        bool es_transitable();
 
         // PRE: -
         // POS: retorna true si es inaccesible, false si no lo es
-        bool es_inaccesible() ;
+        bool es_inaccesible();
 
         // PRE: -
         // POS: retorna true si es construible, false si no lo es
-        bool es_construible() ;
+        bool es_construible();
+
+        // PRE: -
+        // POS: Cambia el valor de un casillero según el objeto que lo ocupe
+        void cambiar_objeto(string nombre, char tipo_objeto, int jugador);
 
 };
 

@@ -11,7 +11,7 @@ Mapa::Mapa(string CAMINO_ARCHIVO_MAPA)
 {
     fstream archivo_mapa(CAMINO_ARCHIVO_MAPA, ios::in);
 
-    Casillero ** matriz_mapa = nullptr;
+    Casillero ***matriz_mapa = nullptr;
     
 	if (!archivo_mapa.is_open())
 	{
@@ -36,22 +36,22 @@ Mapa::Mapa(string CAMINO_ARCHIVO_MAPA)
         this->cantidad_filas = stoi(filas_aux);
         this->cantidad_columnas = stoi(col_aux);
 
-        matriz_mapa = new Casillero * [this->cantidad_filas * this->cantidad_columnas];
+        *matriz_mapa = new Casillero *[this->cantidad_filas * this->cantidad_columnas];
         unsigned int i = 0 ;
 
         while(archivo_mapa >> letra_casillero)
         {
             if(letra_casillero == ARREGLO_CHAR_CONSTRUIBLES[0])
             {
-                matriz_mapa[i] = new Casillero_construible(letra_casillero);
+                *matriz_mapa[i] = new Casillero_construible(letra_casillero);
             }
             else if(letra_casillero == ARREGLO_CHAR_INACCESIBLES[0])
             {
-                matriz_mapa[i] = new Casillero_inaccesible(letra_casillero);
+                *matriz_mapa[i] = new Casillero_inaccesible(letra_casillero);
             }
             else if(letra_casillero == ARREGLO_CHAR_TRANSITABLES[0] || letra_casillero == ARREGLO_CHAR_TRANSITABLES[1] || letra_casillero == ARREGLO_CHAR_TRANSITABLES[2])
             {
-                matriz_mapa[i] = new Casillero_transitable(letra_casillero);
+                *matriz_mapa[i] = new Casillero_transitable(letra_casillero);
             }
 
             i++; 
@@ -83,7 +83,7 @@ Casillero *  Mapa::consultar_coordenada (unsigned int fila, unsigned int columna
     else
         num_elemento = fila*cantidad_columnas+columna;
 
-    return (matriz_mapa[num_elemento]);
+    return (*matriz_mapa[num_elemento]);
 }
 
 void Mapa::imprimir_mapa()
@@ -104,4 +104,10 @@ void Mapa::imprimir_mapa()
             cout << endl;
         }
     }
+}
+
+void Mapa::set_nombre_casillero(int jugador, unsigned int fila, unsigned int columna, string nombre, char char_edificio)
+{
+    this->matriz_mapa[fila][columna]->cambiar_objeto(nombre, char_edificio, jugador);
+    return;
 }

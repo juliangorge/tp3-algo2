@@ -35,7 +35,7 @@ class Mapa
     private:
         unsigned int cantidad_filas;
         unsigned int cantidad_columnas;
-        Casillero ** matriz_mapa;
+        Casillero ***matriz_mapa;
 
     public:
         // Constructor
@@ -50,6 +50,8 @@ class Mapa
         Casillero * consultar_coordenada (unsigned int fila, unsigned int columna);
 
         void imprimir_mapa();
+
+        void set_nombre_casillero(int jugador, unsigned int fila, unsigned int columna, string nombre, char char_edificio);
 
 };
 

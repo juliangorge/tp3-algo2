@@ -25,6 +25,12 @@ public:
     // PRE: -
     // POS: retorna true si había un edificio y lo destruyó, false si no había edificio
     //bool destruir_edificio()
+
+    char get_caracter();
+
+    int get_jugador();
+
+    ~Casillero_construible();
 };
 
 

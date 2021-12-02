@@ -25,3 +25,13 @@ bool Casillero::es_transitable()
 {
     return transitable;
 }
+
+void Casillero::cambiar_objeto(string nombre, char tipo_objeto, int jugador)
+{
+	this->nombre = nombre;
+	this->caracter = tipo_objeto;
+	this->jugador = jugador;
+    this->casillero_ocupado = true;
+
+	return;
+}
