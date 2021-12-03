@@ -16,13 +16,6 @@ Debería delegarlos esta_libre() y cambiarObjeto()?
 class Casillero
 {
     protected:
-        string nombre;
-        char caracter;
-        bool transitable;
-        bool inaccesible;
-        bool construible;
-        bool casillero_ocupado;
-        int jugador;
         // Es un camino transitable
         bool es_camino;
 
@@ -44,24 +37,11 @@ class Casillero
         Casillero();
         //~Casillero();
 
-        // PRE: -
-        // POS: retorna true si es transitable, false si no lo es
-        bool es_transitable();
-
-        // PRE: -
-        // POS: retorna true si es inaccesible, false si no lo es
-        bool es_inaccesible();
-
-        // PRE: -
-        // POS: retorna true si es construible, false si no lo es
-        bool es_construible();
-
-        // PRE: -
-        // POS: Cambia el valor de un casillero según el objeto que lo ocupe
-        void cambiar_objeto(string nombre, char tipo_objeto, int jugador);
         // PRE:
         // POST: Retorna si el casillero está libre de construcciones/materiales
         bool esta_libre();
+
+        bool construible();
         
         // PRE: 
         // POST: Retorna el objeto Edificio

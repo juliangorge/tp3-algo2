@@ -1,4 +1,4 @@
-#include "casillero.h"
+#include "Casillero.h"
 
 Casillero:: Casillero(){
     this->edificio = nullptr;
@@ -8,6 +8,10 @@ Casillero:: Casillero(){
 bool Casillero:: esta_libre(){
     if(this->es_camino) return this->material == nullptr;
     return this->edificio == nullptr;
+}
+
+bool Casillero:: construible(){
+    return (this->es_terreno && this->edificio == nullptr);
 }
 
 Edificio* Casillero:: obtener_edificio(){
@@ -56,19 +60,6 @@ void Casillero:: cambiar_objeto(){
     }
 }
 
-bool Casillero::es_transitable()
-{
-    return transitable;
-}
-
-void Casillero::cambiar_objeto(string nombre, char tipo_objeto, int jugador)
-{
-	this->nombre = nombre;
-	this->caracter = tipo_objeto;
-	this->jugador = jugador;
-    this->casillero_ocupado = true;
-
-	return;
 unsigned int Casillero:: obtener_costo_de_energia(){
     return this->costo_energia;
 }

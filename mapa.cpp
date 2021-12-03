@@ -6,139 +6,83 @@
 
 using namespace std;
 
-Mapa::Mapa(string CAMINO_ARCHIVO_MAPA)
+Mapa::Mapa()
 {
-    fstream archivo_mapa(CAMINO_ARCHIVO_MAPA, ios::in);
+    this->filas = 0;
+    this->columnas = 0;
+    this->leer();
+}
 
-    Casillero ***matriz_mapa = nullptr;
-    
-	if (!archivo_mapa.is_open())
-	{
-		cout << "No se encontro un archivo con nombre \"" << CAMINO_ARCHIVO_MAPA << "\", se va a crear el archivo" << endl;
-		archivo_mapa.open(CAMINO_ARCHIVO_MAPA, ios::out);
+void Mapa::leer()
+{
+    ifstream file;
+    file.open(CAMINO_ARCHIVO_MAPA.c_str());
+    char casillero_caracter;
 
-		archivo_mapa.close();
-		archivo_mapa.open(CAMINO_ARCHIVO_MAPA, ios::in);
-
-		archivo_mapa.close();
-
-	}
-    else
+    if(!file)
     {
-        string filas_aux;
-        string col_aux;
-        char letra_casillero;
-
-        archivo_mapa >> filas_aux;
-        archivo_mapa >> col_aux;
-
-        this->cantidad_filas = stoi(filas_aux);
-        this->cantidad_columnas = stoi(col_aux);
-
-        *matriz_mapa = new Casillero *[this->cantidad_filas * this->cantidad_columnas];
-        unsigned int i = 0 ;
-
-        while(archivo_mapa >> letra_casillero)
-        {
-                // Esto se podría refactorear como una funcion que devuelva el casillero creado
-                // o sea una sola funcion con switch
-            switch(letra_casillero){
-                case 'L':
-                    matriz_mapa[i] = new CasilleroLago();
-                    break;
-
-                case 'C':
-                    matriz_mapa[i] = new CasilleroCamino();
-                    break;
-
-                case 'B':
-                    matriz_mapa[i] = new CasilleroBetun();
-                    break;
-
-                case 'M':
-                    matriz_mapa[i] = new CasilleroMuelle();
-                    break;
-
-                case 'T':
-                    matriz_mapa[i] = new CasilleroTerreno();
-                    break;
-
-            }
-            /*if(letra_casillero == ARREGLO_CHAR_CONSTRUIBLES[0])
-            {
-                *matriz_mapa[i] = new Casillero_construible(letra_casillero);
-            }
-            else if(letra_casillero == ARREGLO_CHAR_INACCESIBLES[0])
-            {
-                *matriz_mapa[i] = new Casillero_inaccesible(letra_casillero);
-            }
-            else if(letra_casillero == ARREGLO_CHAR_TRANSITABLES[0] || letra_casillero == ARREGLO_CHAR_TRANSITABLES[1] || letra_casillero == ARREGLO_CHAR_TRANSITABLES[2])
-            {
-<<<<<<< HEAD
-                *matriz_mapa[i] = new Casillero_transitable(letra_casillero);
-            }
-=======
-                matriz_mapa[i] = new Casillero_transitable(letra_casillero);
-            }*/
->>>>>>> 43816329ac2ec3afea90baa316df6152da851bc1
-
-            i++; 
-        }
-
-        archivo_mapa.close();
+        cout << "No se pudo leer el archivo: " << CAMINO_ARCHIVO_MAPA << endl;
+        exit(1);
     }
 
-    this->matriz_mapa = matriz_mapa;
+    file >> this->filas >> this->columnas;
 
-}
+    this->casilleros = new Casillero**[this->filas];
 
-unsigned int Mapa::obtener_cantidad_filas()
-{
-    return this->cantidad_filas;
-}
-
-unsigned int Mapa::obtener_cantidad_columnas()
-{
-    return this->cantidad_columnas;
-}
-
-Casillero* Mapa::consultar_coordenada (unsigned int fila, unsigned int columna)
-{
-
-    // Validar fila y cantidad_filas, y columna y cantidad_columnas
-
-    unsigned int num_elemento=0;
-
-    if(!fila)
-        num_elemento = columna;
-    else
-        num_elemento = fila*cantidad_columnas+columna;
-
-    return (*matriz_mapa[num_elemento]);
-}
-
-void Mapa::imprimir_mapa()
-{
-    unsigned int fil_aux = 0;
-    unsigned int col_aux = 0;
-
-    while(fil_aux < cantidad_filas)
+    for (unsigned int fila_pos = 0; fila_pos < this->filas; fila_pos++)
     {
-        cout << (consultar_coordenada(fil_aux,col_aux))->obtener_caracter() << " " ;
 
-        col_aux++;
+        this->casilleros[fila_pos] = new Casillero*[this->columnas];
 
-        if(col_aux >= cantidad_columnas)
+        for (unsigned int columna_pos = 0; columna_pos < this->columnas; columna_pos++)
         {
-            col_aux = 0;
-            fil_aux++;
-            cout << endl;
+
+            file >> casillero_caracter;
+            this->cargar(fila_pos, columna_pos, casillero_caracter);
+
         }
     }
+
+    file.close();
+
 }
 
-void Mapa::set_nombre_casillero(int jugador, unsigned int fila, unsigned int columna, string nombre, char char_edificio)
+void Mapa::cargar(unsigned int columna_pos, unsigned int fila_pos, char casillero_caracter)
 {
-    this->matriz_mapa[fila][columna]->cambiar_objeto(nombre, char_edificio, jugador);
-    return;
+    switch(casillero_caracter)
+    {
+        case 'T':
+            this->casilleros[columna_pos][fila_pos] = new CasilleroTerreno();
+            break;
+
+        case 'C':
+            this->casilleros[columna_pos][fila_pos] = new CasilleroCamino();
+            break;
+
+        case 'L':
+            this->casilleros[columna_pos][fila_pos] = new CasilleroLago();
+            break;
+
+        case 'M':
+            this->casilleros[columna_pos][fila_pos] = new CasilleroMuelle();
+            break;
+
+        case 'B':
+            this->casilleros[columna_pos][fila_pos] = new CasilleroBetun();
+            break;
+    }
+
+}
+
+void Mapa::mostrar()
+{
+    cout << "Filas: " << this->filas << endl;
+    cout << "Columnas: " << this->columnas << endl;
+
+    for (unsigned int i = 0; i < this->filas; i++){
+        for (unsigned int j = 0; j < this->columnas; j++){
+            cout << this->casilleros[i][j]->obtener_caracter() << " ";
+        }
+        cout << endl;
+    }
 }

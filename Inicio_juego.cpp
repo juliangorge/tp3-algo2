@@ -40,7 +40,7 @@ void iniciar_juego()
 	ABB<Edificio*> arbol;
 	cargar_edificios(arbol);
 
-	Mapa * mapa = new Mapa("mapa.txt");
+	Mapa * mapa = new Mapa();
 
 	char caracter_jugador_uno = 'J', caracter_jugador_dos = 'U';
 
