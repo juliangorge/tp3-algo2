@@ -29,13 +29,17 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     cin >> confirm;
     if (confirm == "Y" || confirm == "y"){
         // Indicar coordenadas, verificar.
-        //unsigned int fila = 1, columna = 2;
-        //Casillero * casillero = mapa->consultar_coordenada(fila, columna);
-        //if(casillero != NULL) casillero->cargar(edificio);
+        unsigned int fila = 1, columna = 2;
 
-        jugador->decrementar_energia(costo_energia);
-
-        cout << "Confirmado" << endl;
+        if(mapa->es_construible(fila, columna)){
+            cout << "Si" << endl;
+            Casillero * casillero = mapa->obtener_casillero(fila, columna);
+            if(casillero != NULL){
+                casillero->cargar(edificio);
+                jugador->decrementar_energia(costo_energia);
+                cout << "Confirmado" << endl;
+            }
+        }        
     
     }
     else

@@ -63,3 +63,7 @@ void Casillero:: cambiar_objeto(){
 unsigned int Casillero:: obtener_costo_de_energia(){
     return this->costo_energia;
 }
+
+bool Casillero:: es_construible(){
+    return (this->esta_libre() && this->construible());
+}

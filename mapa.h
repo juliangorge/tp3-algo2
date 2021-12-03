@@ -29,6 +29,9 @@ class Mapa
         void leer();
         void cargar(unsigned int filas, unsigned int columnas, char casillero_caracter);
         void mostrar();
+        bool consultar_coordenada(unsigned int fila_pos, unsigned int columna_pos);
+        bool es_construible(unsigned int fila_pos, unsigned int columna_pos);
+        Casillero * obtener_casillero(unsigned int fila_pos, unsigned int columna_pos);
 };
 
 #endif

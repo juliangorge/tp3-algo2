@@ -47,28 +47,28 @@ void Mapa::leer()
 
 }
 
-void Mapa::cargar(unsigned int columna_pos, unsigned int fila_pos, char casillero_caracter)
+void Mapa::cargar(unsigned int fila_pos, unsigned int columna_pos, char casillero_caracter)
 {
     switch(casillero_caracter)
     {
         case 'T':
-            this->casilleros[columna_pos][fila_pos] = new CasilleroTerreno();
+            this->casilleros[fila_pos][columna_pos] = new CasilleroTerreno();
             break;
 
         case 'C':
-            this->casilleros[columna_pos][fila_pos] = new CasilleroCamino();
+            this->casilleros[fila_pos][columna_pos] = new CasilleroCamino();
             break;
 
         case 'L':
-            this->casilleros[columna_pos][fila_pos] = new CasilleroLago();
+            this->casilleros[fila_pos][columna_pos] = new CasilleroLago();
             break;
 
         case 'M':
-            this->casilleros[columna_pos][fila_pos] = new CasilleroMuelle();
+            this->casilleros[fila_pos][columna_pos] = new CasilleroMuelle();
             break;
 
         case 'B':
-            this->casilleros[columna_pos][fila_pos] = new CasilleroBetun();
+            this->casilleros[fila_pos][columna_pos] = new CasilleroBetun();
             break;
     }
 
@@ -85,4 +85,16 @@ void Mapa::mostrar()
         }
         cout << endl;
     }
+}
+
+bool Mapa::consultar_coordenada(unsigned int fila_pos, unsigned int columna_pos){
+    return fila_pos < filas && columna_pos < columnas;
+}
+
+bool Mapa::es_construible(unsigned int fila_pos, unsigned int columna_pos){
+    return consultar_coordenada(fila_pos, columna_pos) && this->casilleros[fila_pos][columna_pos]->es_construible();
+}
+
+Casillero * Mapa::obtener_casillero(unsigned int fila_pos, unsigned int columna_pos){
+    return this->casilleros[fila_pos][columna_pos];
 }

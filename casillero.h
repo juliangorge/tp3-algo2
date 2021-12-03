@@ -78,6 +78,8 @@ class Casillero
         // PRE:
         // POST: Retorna el costo de energía
         unsigned int obtener_costo_de_energia();
+
+        bool es_construible();
 };
 
 #endif // CASILLERO_H
