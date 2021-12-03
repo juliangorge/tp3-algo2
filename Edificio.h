@@ -16,7 +16,7 @@ class Edificio {
         unsigned int metal;
         unsigned int cantidad;
         unsigned int maximo;
-        char caracter_edificio;
+        char caracter;
         bool provee_materiales;
         unsigned int materiales_proveidos;
 
@@ -64,10 +64,6 @@ class Edificio {
         unsigned int obtener_materiales_proveidos();
 
         // PRE:
-        // POST: Retorna el caracter del edificio.
-        char obtener_caracter_edificio();
-
-        // PRE:
         // POST: Suma una unidad a la cantidad
         void incrementar_cantidad();
     
@@ -89,7 +85,9 @@ class Edificio {
 
         // PRE: 
         // POST: Retorna el valor valido
-        void obtener_caracter();
+        char obtener_caracter();
+
+        void actualizar_materiales(unsigned int piedra, unsigned int madera, unsigned int metal);
 };
 
 ostream& operator<<(ostream& salida, Edificio& edificio);

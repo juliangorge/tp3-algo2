@@ -22,6 +22,8 @@ const string MSJ_ERROR_NO_REQUIERE_REPARACION = "El edificio seleccionado no req
 const string MSJ_ERROR_ANDYCOINS_INSUFICIENTES = "No se tienen Andycoins suficientes para comprar la cantidad de bombas seleccionada";
 const string MSJ_ERROR_RECOLECCION_REPETIDA = "No se puede recolectar recursos de los edificios 2 veces en un mismo turno";
 const string MSJ_ERROR_ENERGIA_INSUFICIENTE = "No se tiene energía suficiente para realizar esta acción";
+const string MSJ_ERROR_MODIFICANDO_OBELISCO = "No se pueden modificar los valores de obelisco";
+const string MSJ_ERROR_EDIFICIO_MAXIMO_ALCANZADO = "Ya no se pueden construir más edificios de este tipo";
 
 typedef enum 
 {
@@ -41,7 +43,9 @@ typedef enum
  	ST_ERROR_NO_REQUIERE_REPARACION, 
  	ST_ERROR_ANDYCOINS_INSUFICIENTES, 
  	ST_ERROR_RECOLECCION_REPETIDA,
- 	ST_ERROR_ENERGIA_INSUFICIENTE
+ 	ST_ERROR_ENERGIA_INSUFICIENTE,
+ 	ST_ERROR_MODIFICANDO_OBELISCO,
+ 	ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO
 }estados_t;
 
 void imprimir_error(estados_t st);
