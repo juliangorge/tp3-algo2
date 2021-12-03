@@ -51,6 +51,18 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     return st;
 }
 
+/*estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
+    
+    -se debe tener la energia necesaria para realizar la accion
+    -las coordenadas ingresadas deben ser validas dentro del mapa
+    -el casillero seleccionado debe ser un terreno
+    -el casillero terreno seleccionado no debe estar vacio
+    -el edificio a demoler tiene que ser del jugador que realiza la accion
+    
+
+
+}*/
+
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa)
 {
     Jugador* jugador = jugador_dos;
@@ -76,6 +88,7 @@ void opciones_segundo_menu(int opcion, Jugador* jugador, ABB<Edificio *> arbol, 
             break;
         case OPCION_DEMOLER_COORDENADA:
             //Mostrar mapa
+            //if((st = demoler_edificio(jugador, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_ATACAR_EDIFICIO:
             //Mostrar mapa

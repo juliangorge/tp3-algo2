@@ -375,6 +375,9 @@ void ABB<T>::eliminar_todo(ABBnodo<T> *nodo)
         return;
     this->eliminar_todo(nodo->get_izquierda());
     this->eliminar_todo(nodo->get_derecha());
+
+    cout << nodo->get_dato();
+
     delete nodo;
 }
 

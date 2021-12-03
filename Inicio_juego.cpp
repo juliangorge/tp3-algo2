@@ -35,10 +35,8 @@ void agregar_edificio(ABB<Edificio*> &arbol, string nombre, Edificio* edificio){
 
 void iniciar_juego()
 {
-	//Mapa * mapa = new Mapa("mapa.txt");
-	
 	ABB<Edificio*> arbol;
-	cargar_edificios(arbol);
+	//cargar_edificios(arbol);
 
 	Mapa * mapa = new Mapa();
 
@@ -60,5 +58,9 @@ void iniciar_juego()
 		break;
 	}
 
+	/*delete jugador_uno;
+	delete jugador_dos;
+	arbol.eliminar_todo();
+	delete mapa;*/
 }
 

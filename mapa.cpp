@@ -13,6 +13,10 @@ Mapa::Mapa()
     this->leer();
 }
 
+Mapa::~Mapa(){
+
+}
+
 void Mapa::leer()
 {
     ifstream file;
