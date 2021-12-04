@@ -1,4 +1,4 @@
-#ifndef EDIFICIO_MINA_H
+/*#ifndef EDIFICIO_MINA_H
 #define EDIFICII_MINA_H
 
 #include "Edificio.h"
@@ -21,4 +21,4 @@ class Mina: public Edificio
 
 };
 
-#endif
+#endif*/

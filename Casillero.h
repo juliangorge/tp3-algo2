@@ -1,6 +1,7 @@
 #ifndef CASILLERO_H
 #define CASILLERO_H
 
+#include <iostream>
 #include <string>
 #include "Edificio.h"
 #include "Material.h"

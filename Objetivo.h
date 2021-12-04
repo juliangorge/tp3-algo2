@@ -1,10 +1,13 @@
-/*#ifndef OBJETIVO__H
+#ifndef OBJETIVO__H
 #define OBJETIVO__h
 
 #include "Jugador.h"
+#include<stdlib.h>
+#include<time.h>
 #include <string>
 using namespace std;
 
+const int CANT_OBJETIVOS_JUGADOR = 3;
 const int MINAS_METAL_OBJETIVO = 1;
 const int MINAS_ORO_OBJETIVO = 1;
 const int CANTIDAD_ANDYCOINS_OBJETIVO = 100000;
@@ -28,5 +31,16 @@ typedef enum {
     EXTREMISTA
     }objetivos;
 
+//PRE:
+//POST:
+void asignar_objetivos(Jugador *jugador);
 
-#endif*/
+//PRE:
+//POST:
+int aleatorio(int cota_inferior, int cota_superior);
+
+//PRE:
+//POST:
+void mostrar_progreso(Jugador *jugador, objetivos numero_objetivo);
+
+#endif
