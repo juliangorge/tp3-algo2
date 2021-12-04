@@ -162,11 +162,9 @@ void Jugador:: agregar_casillero(Casillero * casillero){
 }
 
 void Jugador:: mostrar_edificios(){
-
     for (int i = 0; i < cantidad_casilleros; i++){
-        this->casilleros_jugador[i]->mostrar_coordenadas_de_edificio_por_jugador(this->caracter);
+        this->casilleros_jugador[i]->mostrar_edificios();
     }
-
 }
 
 void Jugador:: remover_edificio(Casillero * casillero){

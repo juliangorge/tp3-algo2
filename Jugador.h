@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "Mapa.h"
 #include "Casillero.h"
 #include "Material.h"
 #include "Mensajes_de_error.h"

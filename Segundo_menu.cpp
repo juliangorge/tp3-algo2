@@ -130,14 +130,7 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
             break;
         case OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS:
             //Listar edificios
-
             if((st = mostrar_edificios(arbol, jugador_uno, jugador_dos)) != ST_OK) imprimir_error(st);
-
-            /*
-            Arbol tiene Edificios con cantidad_jugador{1,2}
-            Casillero::mostrar_coordenadas_de_edificio_por_jugador()
-            */
-
             break;
         case OPCION_DEMOLER_COORDENADA:
             //Mostrar mapa

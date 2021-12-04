@@ -9,7 +9,7 @@ using namespace std;
 class Edificio {
 
     // Attributes
-    private:
+    protected:
         string nombre;
         unsigned int piedra;
         unsigned int madera;

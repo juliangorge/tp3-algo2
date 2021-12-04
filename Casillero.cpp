@@ -82,11 +82,7 @@ que haya por lo menos un edificio de este tipo indicando cuántos hay construido
 Energía necesaria: 0
 */
 
-void Casillero:: mostrar_coordenadas_de_edificio_por_jugador(char caracter_jugador){
-    //cout << "hol2a" << endl;
-    //if(caracter_jugador != this->caracter_jugador || this->obtener_edificio() == NULL) return;
-    //cout << "hol4a" << endl;
-
+void Casillero:: mostrar_edificios(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
     cout << "Necesita reparación?: (" << (this->necesita_reparacion ? "Sí" : "No") << ")" << endl;
