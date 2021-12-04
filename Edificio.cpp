@@ -1,7 +1,4 @@
 #include "Edificio.h"
-#include <string>
-
-using namespace std;
 
 Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsigned int metal, unsigned int maximo)
 {
@@ -18,10 +15,6 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     this->provee_materiales = true;
 
     //this->getCaracter();
-}
-
-Edificio::~Edificio(){
-
 }
 
 string Edificio::obtener_nombre(){

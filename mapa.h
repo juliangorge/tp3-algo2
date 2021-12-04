@@ -6,32 +6,59 @@
 #include <string>
 
 //#include "Casillero.h"
-#include "CasilleroCamino.h"
-#include "CasilleroBetun.h"
-#include "CasilleroLago.h"
-#include "CasilleroMuelle.h"
-#include "CasilleroTerreno.h"
-
+#include "Casillero.h"
+#include "Casillero_camino.h"
+#include "Casillero_betun.h"
+#include "Casillero_lago.h"
+#include "Casillero_muelle.h"
+#include "Casillero_terreno.h"
+#include "Jugador.h"
 using namespace std;
 
-const string CAMINO_ARCHIVO_MAPA = "mapa.txt";
+const string ARCHIVO_MAPA = "mapa.txt";
+
+// Casilleros transitables
+const char CARACTER_CAMINO = 'C';
+const char CARACTER_BETUN = 'B';
+const char CARACTER_MUELLE = 'M';
+
+// Casilleros inaccesibles
+const char CARACTER_LAGO = 'L';
+
+// Casilleros construibles
+const char CARACTER_TERRENO = 'T';
+
+// ArregloS con los tipos de casilleros
+const char ARREGLO_CHAR_TRANSITABLES [] = {CARACTER_CAMINO, CARACTER_BETUN, CARACTER_MUELLE};
+const char ARREGLO_CHAR_INACCESIBLES [] = {CARACTER_LAGO};
+const char ARREGLO_CHAR_CONSTRUIBLES [] = {CARACTER_TERRENO};
 
 class Mapa
 {
     private:
-        unsigned int filas;
-        unsigned int columnas;
-        Casillero*** casilleros;
+        unsigned int cantidad_filas;
+        unsigned int cantidad_columnas;
+        Casillero *** matriz_mapa;
 
     public:
+        // Constructor
+        // PRE: debe existir un archivo con un mapa cargado en el camino especificado y con el formato correcto
+        // POS: carga los atributos del objeto con lo que obtiene del archivo mapa
         Mapa();
         ~Mapa();
-        void leer();
-        void cargar(unsigned int filas, unsigned int columnas, char casillero_caracter);
-        void mostrar();
-        bool consultar_coordenada(unsigned int fila_pos, unsigned int columna_pos);
-        bool es_construible(unsigned int fila_pos, unsigned int columna_pos);
-        Casillero * obtener_casillero(unsigned int fila_pos, unsigned int columna_pos);
+        void leer_mapa();
+        void cargar_mapa(unsigned int cantidad_filas, unsigned int cantidad_columnas, char square_type);
+        void mostrar_mapa_vacio();
+
+        Casillero * obtener_casillero(unsigned int fila, unsigned int columna);
+
+        // datos de consola
+        bool chequear_coordenadas(unsigned int fila, unsigned int columna);
+
+        //void set_jugador_casillero(Jugador* jugador);
+        //void set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
 };
+
+
 
 #endif

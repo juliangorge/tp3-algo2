@@ -36,7 +36,7 @@ private:
     T sucesor(ABBnodo<T> *nodo);
     T predecesor(ABBnodo<T> *nodo);
     ABBnodo<T> *remover(ABBnodo<T> *nodo, T dato);
-    void eliminar_todo(ABBnodo<T> *nodo);
+    //void eliminar_todo(ABBnodo<T> *nodo);
 
 public:
     ABB();
@@ -65,7 +65,7 @@ public:
     void remover(T dato);
     ABBnodo<T> *get_raiz();
     // Deletes all the nodes in the BST
-    void eliminar_todo();
+    //void eliminar_todo();
     ~ABB<T>();
 };
 
@@ -368,16 +368,13 @@ ABBnodo<T> *ABB<T>::get_raiz()
     return this->raiz;
 }
 
-template <class T>
+/*template <class T>
 void ABB<T>::eliminar_todo(ABBnodo<T> *nodo)
 {
     if (nodo == NULL)
         return;
     this->eliminar_todo(nodo->get_izquierda());
     this->eliminar_todo(nodo->get_derecha());
-
-    cout << nodo->get_dato();
-
     delete nodo;
 }
 
@@ -385,12 +382,12 @@ template <class T>
 void ABB<T>::eliminar_todo()
 {
     this->eliminar_todo(this->raiz);
-}
+}*/
 
 template <class T>
 ABB<T>::~ABB<T>()
 {
-    this->eliminar_todo();
+    //this->eliminar_todo();
 }
 
 #endif

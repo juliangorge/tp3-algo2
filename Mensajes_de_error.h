@@ -24,6 +24,8 @@ const string MSJ_ERROR_RECOLECCION_REPETIDA = "No se puede recolectar recursos d
 const string MSJ_ERROR_ENERGIA_INSUFICIENTE = "No se tiene energía suficiente para realizar esta acción";
 const string MSJ_ERROR_MODIFICANDO_OBELISCO = "No se pueden modificar los valores de obelisco";
 const string MSJ_ERROR_EDIFICIO_MAXIMO_ALCANZADO = "Ya no se pueden construir más edificios de este tipo";
+const string MSJ_ERROR_DEMOLER_EDIFICIO = "No se pudo demoler el edificio";
+const string MSJ_SALIR = "Cancelado";
 
 typedef enum 
 {
@@ -45,7 +47,9 @@ typedef enum
  	ST_ERROR_RECOLECCION_REPETIDA,
  	ST_ERROR_ENERGIA_INSUFICIENTE,
  	ST_ERROR_MODIFICANDO_OBELISCO,
- 	ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO
+ 	ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO,
+ 	ST_ERROR_DEMOLER_EDIFICIO,
+ 	ST_MSJ_SALIR
 }estados_t;
 
 void imprimir_error(estados_t st);

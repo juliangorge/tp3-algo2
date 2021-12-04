@@ -1,8 +1,4 @@
 #include "Inicio_juego.h"
-#include "ABB.h"
-#include "ABB_nodo.h"
-#include "Edificio.h"
-
 
 void cargar_edificios(ABB<Edificio*> &arbol){
     ifstream file("edificios.txt");
@@ -35,16 +31,15 @@ void agregar_edificio(ABB<Edificio*> &arbol, string nombre, Edificio* edificio){
 
 void iniciar_juego()
 {
+	//Mapa * mapa = new Mapa("mapa.txt");
 	ABB<Edificio*> arbol;
-	//cargar_edificios(arbol);
+	cargar_edificios(arbol);
 
 	Mapa * mapa = new Mapa();
 
 	char caracter_jugador_uno = 'J', caracter_jugador_dos = 'U';
-
 	Jugador* jugador_uno = new Jugador(caracter_jugador_uno);
 	Jugador* jugador_dos = new Jugador(caracter_jugador_dos);
-
 	cargar_materiales_jugadores(jugador_uno,jugador_dos);
 	int opcion_salida = trabajar_primer_menu(arbol, mapa);
 
@@ -58,9 +53,5 @@ void iniciar_juego()
 		break;
 	}
 
-	/*delete jugador_uno;
-	delete jugador_dos;
-	arbol.eliminar_todo();
-	delete mapa;*/
 }
 

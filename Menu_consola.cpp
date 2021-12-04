@@ -1,7 +1,5 @@
 #include "Menu_consola.h"
 
-using namespace std;
-
 void mostrar_primer_menu()
 {
 	cout << endl;

@@ -2,6 +2,7 @@
 #define JUGADOR_H
 
 #include <string>
+#include <fstream>
 #include <iostream>
 #include "Material.h"
 #include "Mensajes_de_error.h"
@@ -35,6 +36,10 @@ class Jugador {
         // POST: Destruye un objeto Andypolis.
         ~Jugador();
 
+        unsigned int obtener_energia();
+
+        char obtener_caracter_jugador();
+
 
 		// PRE: debe existir el archivo con los materiales y si los hubiera deben seguir el formato "material cant_jugador_1 cant_jugador_2".
 		// POS: enlista los materiales que encuentra en el archivo. Si un material se encuentra repetido, lo agrupa en un solo ítem.
@@ -64,6 +69,14 @@ class Jugador {
         void comprar_bombas(unsigned int bombas, unsigned int precio_bombas);
 
         unsigned int mostrar_cantidad_material(string nombre_material);
+
+        int obtener_numero();
+
+        int obtener_x();
+
+        int obtener_y();
+
+
 
 };
 

@@ -1,104 +1,116 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
-#include "mapa.h"
-
-using namespace std;
+#include "Mapa.h"
 
 Mapa::Mapa()
 {
-    this->filas = 0;
-    this->columnas = 0;
-    this->leer();
+    this->cantidad_filas = 0;
+    this->cantidad_columnas = 0;
+    this->matriz_mapa = nullptr;
+    this->leer_mapa();
 }
 
 Mapa::~Mapa(){
-
+    
 }
 
-void Mapa::leer()
+void Mapa::leer_mapa()
 {
-    ifstream file;
-    file.open(CAMINO_ARCHIVO_MAPA.c_str());
-    char casillero_caracter;
+    ifstream archivo;
+    archivo.open(ARCHIVO_MAPA.c_str());
+    char caracter_casillero;
 
-    if(!file)
+    if(!archivo)
     {
-        cout << "No se pudo leer el archivo: " << CAMINO_ARCHIVO_MAPA << endl;
+        cout << "No se pudo leer el archivo: " << ARCHIVO_MAPA << endl;
         exit(1);
     }
 
-    file >> this->filas >> this->columnas;
+    archivo >> this->cantidad_filas >> this->cantidad_columnas;
 
-    this->casilleros = new Casillero**[this->filas];
+    this->matriz_mapa = new Casillero**[this->cantidad_filas];
 
-    for (unsigned int fila_pos = 0; fila_pos < this->filas; fila_pos++)
+    for (unsigned int pos_fila = 0; pos_fila < this->cantidad_filas; pos_fila++)
     {
 
-        this->casilleros[fila_pos] = new Casillero*[this->columnas];
+        this->matriz_mapa[pos_fila] = new Casillero*[this->cantidad_columnas];
 
-        for (unsigned int columna_pos = 0; columna_pos < this->columnas; columna_pos++)
+        for (unsigned int pos_columna = 0; pos_columna < this->cantidad_columnas; pos_columna++)
         {
 
-            file >> casillero_caracter;
-            this->cargar(fila_pos, columna_pos, casillero_caracter);
+            archivo >> caracter_casillero;
+            this->cargar_mapa(pos_fila,pos_columna,caracter_casillero);
 
         }
     }
 
-    file.close();
+    archivo.close();
 
 }
 
-void Mapa::cargar(unsigned int fila_pos, unsigned int columna_pos, char casillero_caracter)
+void Mapa::cargar_mapa(unsigned int pos_fila, unsigned int pos_columna, char caracter_casillero)
 {
-    switch(casillero_caracter)
+    switch(caracter_casillero)
     {
         case 'T':
-            this->casilleros[fila_pos][columna_pos] = new CasilleroTerreno();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroTerreno();
             break;
 
         case 'C':
-            this->casilleros[fila_pos][columna_pos] = new CasilleroCamino();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroCamino();
             break;
 
         case 'L':
-            this->casilleros[fila_pos][columna_pos] = new CasilleroLago();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroLago();
             break;
 
         case 'M':
-            this->casilleros[fila_pos][columna_pos] = new CasilleroMuelle();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroMuelle();
             break;
 
         case 'B':
-            this->casilleros[fila_pos][columna_pos] = new CasilleroBetun();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroBetun();
             break;
     }
-
 }
 
-void Mapa::mostrar()
+void Mapa::mostrar_mapa_vacio()
 {
-    cout << "Filas: " << this->filas << endl;
-    cout << "Columnas: " << this->columnas << endl;
+    cout << "Filas: " << this->cantidad_filas << endl;
+    cout << "Columnas: " << this->cantidad_columnas << endl;
 
-    for (unsigned int i = 0; i < this->filas; i++){
-        for (unsigned int j = 0; j < this->columnas; j++){
-            cout << this->casilleros[i][j]->obtener_caracter() << " ";
+    for (unsigned int i = 0; i < this->cantidad_filas; i++){
+
+        for (unsigned int j = 0; j < this->cantidad_columnas; j++){
+
+            cout << this->matriz_mapa[i][j]->obtener_caracter() << " ";
+
         }
+
         cout << endl;
     }
 }
 
-bool Mapa::consultar_coordenada(unsigned int fila_pos, unsigned int columna_pos){
-    return fila_pos < filas && columna_pos < columnas;
+Casillero * Mapa:: obtener_casillero(unsigned int fila, unsigned int columna){
+    if(!chequear_coordenadas(fila, columna)) return nullptr;
+    return this->matriz_mapa[fila][columna];
 }
 
-bool Mapa::es_construible(unsigned int fila_pos, unsigned int columna_pos){
-    return consultar_coordenada(fila_pos, columna_pos) && this->casilleros[fila_pos][columna_pos]->es_construible();
+bool Mapa:: chequear_coordenadas(unsigned int fila, unsigned int columna){
+    return fila <= this->cantidad_filas && columna <= this->cantidad_columnas;
 }
 
-Casillero * Mapa::obtener_casillero(unsigned int fila_pos, unsigned int columna_pos){
-    return this->casilleros[fila_pos][columna_pos];
+/*void Mapa::set_jugador_casillero(Jugador* jugador)
+{
+    int fila = jugador->obtener_x(), columna = jugador->obtener_y(), numero = jugador->obtener_numero();
+    string nombre = "jugador 1";
+    char caracter = jugador->obtener_caracter();
+    this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, numero);
+    return;
 }
+
+void Mapa::set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio)
+{
+    string nombre = edificio->obtener_nombre();
+    char caracter = edificio->obtener_caracter();
+    this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, jugador);
+    return;
+}*/

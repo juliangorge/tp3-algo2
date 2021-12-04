@@ -1,0 +1,7 @@
+1 (7, 6)
+mina (0, 2)
+aserradero (0, 3)
+2 (2, 7)
+escuela (0, 4)
+mina (4, 7)
+fabrica (7, 2)

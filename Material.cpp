@@ -1,10 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
 #include "Material.h"
-
-using namespace std;
 
 Material::Material(string nombre, unsigned int cantidad)
 {

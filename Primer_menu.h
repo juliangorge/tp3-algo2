@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Menu_consola.h"
 #include "Interaccion_usuario.h"
-#include "mapa.h"
+#include "Mapa.h"
 #include "Jugador.h"
 #include "Mensajes_de_error.h"
 

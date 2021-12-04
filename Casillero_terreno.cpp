@@ -1,4 +1,4 @@
-#include "CasilleroTerreno.h"
+#include "Casillero_terreno.h"
 
 CasilleroTerreno:: CasilleroTerreno(){
     this->caracter = 'T';

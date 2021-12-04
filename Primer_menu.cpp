@@ -62,7 +62,7 @@ void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol, Mapa *mapa){
             listar_edificios(arbol);
             break;
         case OPCION_MOSTRAR_MAPA:
-            mapa->mostrar();
+            mapa->mostrar_mapa_vacio();
             break;
     }
 }

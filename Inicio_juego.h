@@ -5,8 +5,11 @@
 #include "Interaccion_usuario.h"
 #include "Primer_menu.h"
 #include "Segundo_menu.h"
-#include "mapa.h"
+#include "Mapa.h"
 #include "Jugador.h"
+#include "ABB.h"
+#include "ABB_nodo.h"
+#include "Edificio.h"
 
 using namespace std;
 

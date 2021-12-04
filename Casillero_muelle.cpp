@@ -1,7 +1,7 @@
-#include "CasilleroMuelle.h"
+#include "Casillero_muelle.h"
 
 CasilleroMuelle:: CasilleroMuelle(){
-    this->tipo_casillero = 'M';
+    this->caracter = 'M';
     this->es_camino = true;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero transitable";

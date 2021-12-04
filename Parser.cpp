@@ -1,11 +1,4 @@
-#include "parser.h"
-//#include "edificios.h"
-#include <iostream>
-#include <map>
-#include <fstream>
-#include <string>
-
-using namespace std;
+#include "Parser.h"
 
 Parser::Parser(string argv)
 {

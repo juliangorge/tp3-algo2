@@ -16,6 +16,10 @@ Debería delegarlos esta_libre() y cambiarObjeto()?
 class Casillero
 {
     protected:
+
+        unsigned int fila;
+        unsigned int columna;
+
         // Es un camino transitable
         bool es_camino;
 
@@ -27,22 +31,27 @@ class Casillero
 
         char caracter;
 
+        char caracter_jugador;
+
         Edificio* edificio;
 
         Material* material;
 
         unsigned int costo_energia;
 
+        bool necesita_reparacion;
+
     public:
         Casillero();
         //~Casillero();
+
+        unsigned int obtener_fila();
+        unsigned int obtener_columna();
 
         // PRE:
         // POST: Retorna si el casillero está libre de construcciones/materiales
         bool esta_libre();
 
-        bool construible();
-        
         // PRE: 
         // POST: Retorna el objeto Edificio
         Edificio* obtener_edificio();
@@ -52,12 +61,12 @@ class Casillero
         Material* obtener_material();
         
         // PRE:
-        // POST: Retorna el nombre del casillero
-        string obtener_nombre_casillero();
-        
-        // PRE:
         // POST: Retorna el obtener_caracter de casillero
         char obtener_caracter();
+
+        // PRE:
+        // POST: Retorna el nombre del casillero
+        string obtener_nombre_casillero();
         
         // PRE: Recibe puntero edificio
         // POST: Referencia el atributo edificio al parametro recibido
@@ -78,8 +87,10 @@ class Casillero
         // PRE:
         // POST: Retorna el costo de energía
         unsigned int obtener_costo_de_energia();
-
+ 
         bool es_construible();
+
+        void mostrar_coordenadas_de_edificio_por_jugador(char caracter_jugador);
 };
 
 #endif // CASILLERO_H

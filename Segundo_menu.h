@@ -4,9 +4,9 @@
 #include <iostream>
 #include "Menu_consola.h"
 #include "Interaccion_usuario.h"
-#include "mapa.h"
+#include "Mapa.h"
 #include "Jugador.h"
-
+#include "Cargar_ubicaciones.h"
 #include "Mensajes_de_error.h"
 
 #include "Opcion_comprar_bombas.h"
@@ -30,11 +30,23 @@ const int OPCION_MOVERSE_A_COORDENADA = 11;
 const int OPCION_FINALIZAR_TURNO = 12;
 const int OPCION_SALIR_SEGUNDO_MENU = 13;
 
+const int OPCION_JUGADOR_UNO = 1;
+const int OPCION_JUGADOR_DOS = 2;
+
 const unsigned int ENERGIA_CONSTRUIR_EDIFICIO = 15;
 
 using namespace std;
+
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
+
 estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa);
-void opciones_segundo_menu(int opcion, Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa);
+
+void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
+
+Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos);
+
+void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos);
+
+void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos);
 
 #endif //SEGUNDO_MENU_H

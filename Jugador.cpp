@@ -1,19 +1,31 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
 #include "Jugador.h"
 
 Jugador:: Jugador(char caracter_jugador){
     this->energia = ENERGIA_INICIAL;
     this->caracter_jugador = caracter_jugador;
     this->tipos_de_materiales = 0;
+    this->posicion_x = 0;
+    this->posicion_y = 0;
 }
 
 Jugador:: ~Jugador(){
 
 }
 
+int Jugador::obtener_numero()
+{
+    return atoi(&(this->caracter_jugador));
+}
+
+unsigned int Jugador::obtener_energia()
+{
+    return this->energia;
+}
+
+char Jugador::obtener_caracter_jugador()
+{
+    return this -> caracter_jugador;
+}
 
 void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos)
 {
@@ -110,4 +122,14 @@ unsigned int Jugador::mostrar_cantidad_material(string nombre_material)
     unsigned int cantidad, posicion_material = this->obtener_posicion_material(nombre_material);
     cantidad = this->materiales_jugador[posicion_material]->obtener_cantidad();
     return cantidad;
+}
+
+int Jugador::obtener_x()
+{
+    return this->posicion_x;
+}
+
+int Jugador::obtener_y()
+{
+    return this->posicion_y;
 }
