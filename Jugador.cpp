@@ -162,9 +162,12 @@ void Jugador:: agregar_casillero(Casillero * casillero){
 }
 
 void Jugador:: mostrar_edificios(){
+    int cantidad_edificio = 0;
     for (int i = 0; i < cantidad_casilleros; i++){
         this->casilleros_jugador[i]->mostrar_edificios();
+        cantidad_edificio++;
     }
+    cout << "Total: " << cantidad_edificio << endl << endl;;
 }
 
 void Jugador:: remover_edificio(Casillero * casillero){

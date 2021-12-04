@@ -9,7 +9,6 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     this->cantidad = 0;
 
     // separar cantidad para cada jugador
-
     this->maximo = maximo;
     this->caracter = 'B';
     this->provee_materiales = true;
@@ -18,7 +17,7 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
 }
 
 Edificio::~Edificio(){
-    
+
 }
 
 string Edificio::obtener_nombre(){
@@ -63,11 +62,6 @@ void Edificio:: actualizar_materiales(unsigned int piedra, unsigned int madera, 
 
 ostream& operator<<(ostream& salida, Edificio& edificio)
 {
-    /*
-    Se deberán listar todos los edificios indicando para cada uno de ellos: cuantas unidades de cada
-    material se requieren para construir uno, cuantos fueron construidos hasta el momento, cuantos más
-    puedo construir3, sin superar el máximo permitido y si me brinda algún tipo de material4.
-    */
     salida << endl << "Edificio: " << edificio.obtener_nombre() << endl;
     salida << "Construidos: " << edificio.obtener_cantidad() << " (" << edificio.obtener_restantes() << " restantes para construir)" << endl;
     salida << "Materiales: " << endl;
