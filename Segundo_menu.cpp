@@ -31,7 +31,7 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     // Solicito coordenadas
     unsigned int fila, columna;
     if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return ST_ERROR_COORDENADAS_INVALIDAS;
-        
+
     Casillero * casillero_aux = mapa->obtener_casillero(fila, columna);
     if(casillero_aux == NULL) return ST_ERROR_COORDENADAS_INVALIDAS;
 
@@ -39,6 +39,11 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
 
     casillero_aux->cargar(edificio);
     jugador->agregar_casillero(casillero_aux);
+
+    jugador->restar_materiales("piedra", edificio->obtener_piedra());
+    jugador->restar_materiales("madera", edificio->obtener_madera());
+    jugador->restar_materiales("metal", edificio->obtener_metal());
+
     jugador->decrementar_energia(costo_energia);
 
     cout << "Construido exitosamente!" << endl;

@@ -72,6 +72,8 @@ class Jugador {
 
         void comprar_bombas(unsigned int bombas, unsigned int precio_bombas);
 
+        void restar_materiales(string nombre_material, unsigned int cantidad_a_restar);
+
         unsigned int mostrar_cantidad_material(string nombre_material);
 
         int obtener_numero();
