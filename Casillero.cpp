@@ -16,12 +16,6 @@ unsigned int Casillero:: obtener_columna(){
     return this->columna;
 }
 
-bool Casillero:: esta_libre(){
-    //if(this->es_camino) return this->material == nullptr;
-    //return this->edificio == nullptr;
-    return false;
-}
-
 Edificio* Casillero:: obtener_edificio(){
     return this->edificio;
 }
@@ -56,7 +50,7 @@ void Casillero:: limpiar_casillero(){
     cambiar_objeto();
 }
 
-void Casillero:: cambiar_objeto(){
+/*void Casillero:: cambiar_objeto(){
     if(esta_libre()){
         //this->caracter = this->tipo_casillero;
     }else{
@@ -66,7 +60,7 @@ void Casillero:: cambiar_objeto(){
             this->caracter = this->edificio->obtener_caracter();
         }
     }
-}
+}*/
 
 unsigned int Casillero:: obtener_costo_de_energia(){
     return this->costo_energia;
@@ -75,13 +69,6 @@ unsigned int Casillero:: obtener_costo_de_energia(){
 bool Casillero:: es_construible(){
     return (this->es_terreno && this->edificio == nullptr);
 }
-
-/*
-Listar mis edificios construidos
-Se deberán listar todos los edificios construidos por el jugador que lo solicite, es decir,
-que haya por lo menos un edificio de este tipo indicando cuántos hay construidos de cada uno, las coordenadas en las que se encuentran y si necesitan o no reparación.
-Energía necesaria: 0
-*/
 
 void Casillero:: mostrar_edificios(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;

@@ -7,3 +7,16 @@ CasilleroTerreno:: CasilleroTerreno(unsigned int fila, unsigned int columna) : C
     this->nombre_casillero = "Casillero construible";
     this->costo_energia = 25;
 }
+
+bool CasilleroTerreno:: esta_libre(){
+    return this->edificio == nullptr;
+}
+
+void CasilleroTerreno:: cambiar_objeto(){
+    if(esta_libre()){
+        this->caracter = this->edificio->obtener_caracter();
+    }else{
+        this->caracter = 'T';
+        this->edificio = nullptr;
+    }
+}

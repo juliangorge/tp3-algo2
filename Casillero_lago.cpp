@@ -7,3 +7,11 @@ CasilleroLago:: CasilleroLago(unsigned int fila, unsigned int columna) : Casille
     this->nombre_casillero = "Casillero intransitable";
     this->costo_energia = 2; // Jugador 1: 2 - Jugador 2: 5
 }
+
+bool CasilleroLago:: esta_libre(){
+    return false;
+}
+
+void CasilleroLago:: cambiar_objeto(){
+
+}

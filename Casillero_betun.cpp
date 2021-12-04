@@ -7,3 +7,11 @@ CasilleroBetun:: CasilleroBetun(unsigned int fila, unsigned int columna) : Casil
     this->nombre_casillero = "Casillero transitable";
     this->costo_energia = 0;
 }
+
+bool CasilleroBetun:: esta_libre(){
+    return false;
+}
+
+void CasilleroBetun:: cambiar_objeto(){
+
+}

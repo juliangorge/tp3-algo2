@@ -135,19 +135,15 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
-            //Modificar edificios
             if((st = construir_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS:
-            //Listar edificios
             if((st = mostrar_edificios(arbol, jugador_uno, jugador_dos)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_DEMOLER_COORDENADA:
-            //Mostrar mapa
             if((st = demoler_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_ATACAR_EDIFICIO:
-            //Mostrar mapa
             //if((st = atacar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_REPARAR_EDIFICIO:
@@ -157,29 +153,26 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
         case OPCION_COMPRAR_BOMBAS:
             if((st = comprar_bombas(jugador_uno)) != ST_OK){
                 imprimir_error(st);
-            }
-            else{
+            }else{
                 mostrar_compra_realizada(jugador_uno);
             }
             break;
         case OPCION_CONSULTAR_COORDENADA:
-            //Mostrar mapa
             break;
         case OPCION_MOSTRAR_INVENTARIO:
             jugador->mostrar_inventario();
             break;
         case OPCION_MOSTRAR_OBJETIVOS:
-            //Mostrar mapa
             break;
         case OPCION_RECOLECTAR_RECURSOS:
-            //Mostrar mapa
             break;
         case OPCION_MOVERSE_A_COORDENADA:
-            //Mostrar mapa
             break;
         case OPCION_FINALIZAR_TURNO:
             cambiar_jugador(jugador, jugador_uno, jugador_dos);
             cout << " Finalizo el turno" << endl;
             break;
     }
+
+    //if(opcion != OPCION_FINALIZAR_TURNO) mostrar_mapa();
 }

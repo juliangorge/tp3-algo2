@@ -49,7 +49,7 @@ class Casillero
 
         // PRE:
         // POST: Retorna si el casillero está libre de construcciones/materiales
-        bool esta_libre();
+        virtual bool esta_libre() = 0;
 
         // PRE: 
         // POST: Retorna el objeto Edificio
@@ -77,7 +77,7 @@ class Casillero
     
         // PRE:
         // POST: Cambia el tipo de casillero por edificio_char en el caso de que el mismo este ocupado por una construccion
-        void cambiar_objeto();
+        virtual void cambiar_objeto() = 0;
 
         // PRE: 
         // POST: Desreferencia el atributo edificio
