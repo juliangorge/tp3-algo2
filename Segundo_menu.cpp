@@ -121,11 +121,11 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
             break;
         case OPCION_ATACAR_EDIFICIO:
             //Mostrar mapa
-            if((st = atacar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
+            //if((st = atacar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_REPARAR_EDIFICIO:
             //Mostrar mapa
-            if((st = reparar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
+            //if((st = reparar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_COMPRAR_BOMBAS:
             if((st = comprar_bombas(jugador_uno)) != ST_OK){

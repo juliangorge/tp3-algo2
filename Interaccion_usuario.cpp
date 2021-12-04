@@ -107,7 +107,7 @@ estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & 
     return ST_OK;
 }
 
-estado_t pedido_confirmacion(){
+estados_t pedido_confirmacion(){
     string confirm;
 
     cout << "Escribe `Y` para confirmar: ";

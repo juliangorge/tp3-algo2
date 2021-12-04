@@ -23,4 +23,6 @@ bool es_numero(const string& s);
 //bool consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna);
 estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna);
 
+estados_t pedido_confirmacion();
+
 #endif //INTERACCION_USUARIO_H

@@ -34,6 +34,7 @@ const int OPCION_JUGADOR_UNO = 1;
 const int OPCION_JUGADOR_DOS = 2;
 
 const unsigned int ENERGIA_CONSTRUIR_EDIFICIO = 15;
+const unsigned int ENERGIA_DEMOLER_EDIFICIO = 15;
 
 using namespace std;
 
