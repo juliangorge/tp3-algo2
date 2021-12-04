@@ -60,6 +60,8 @@ class Mapa
         void set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
 
         void remover_edificio(unsigned int fila, unsigned int columna);
+
+        bool es_construible(Casillero * casillero);
 };
 
 

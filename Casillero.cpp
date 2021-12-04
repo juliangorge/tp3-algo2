@@ -17,8 +17,9 @@ unsigned int Casillero:: obtener_columna(){
 }
 
 bool Casillero:: esta_libre(){
-    if(this->es_camino) return this->material == nullptr;
-    return this->edificio == nullptr;
+    //if(this->es_camino) return this->material == nullptr;
+    //return this->edificio == nullptr;
+    return false;
 }
 
 Edificio* Casillero:: obtener_edificio(){
@@ -72,7 +73,7 @@ unsigned int Casillero:: obtener_costo_de_energia(){
 }
 
 bool Casillero:: es_construible(){
-    return (this->esta_libre() && this->es_terreno && this->edificio == nullptr);
+    return (this->es_terreno && this->edificio == nullptr);
 }
 
 /*
