@@ -1,4 +1,4 @@
-#ifndef OBJETIVO__H
+/*#ifndef OBJETIVO__H
 #define OBJETIVO__h
 
 #include "Jugador.h"
@@ -29,4 +29,4 @@ typedef enum {
     }objetivos;
 
 
-#endif
+#endif*/

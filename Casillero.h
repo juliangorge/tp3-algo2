@@ -4,6 +4,7 @@
 #include <string>
 #include "Edificio.h"
 #include "Material.h"
+#include "Jugador.h"
 
 
 using namespace std;
@@ -91,6 +92,8 @@ class Casillero
         bool es_construible();
 
         void mostrar_coordenadas_de_edificio_por_jugador(char caracter_jugador);
+
+        //void ocupar_casillero(string nombre, char caracter, int numero);
 };
 
 #endif // CASILLERO_H

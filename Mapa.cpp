@@ -98,12 +98,12 @@ bool Mapa:: chequear_coordenadas(unsigned int fila, unsigned int columna){
     return fila <= this->cantidad_filas && columna <= this->cantidad_columnas;
 }
 
-/*void Mapa::set_jugador_casillero(Jugador* jugador)
+void Mapa::set_jugador_casillero(Jugador* jugador)
 {
     int fila = jugador->obtener_x(), columna = jugador->obtener_y(), numero = jugador->obtener_numero();
     string nombre = "jugador 1";
     char caracter = jugador->obtener_caracter();
-    this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, numero);
+    //this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, numero);
     return;
 }
 
@@ -111,6 +111,10 @@ void Mapa::set_edificio_casillero(int jugador, unsigned int fila, unsigned int c
 {
     string nombre = edificio->obtener_nombre();
     char caracter = edificio->obtener_caracter();
-    this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, jugador);
+    //this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, jugador);
     return;
-}*/
+}
+
+void Mapa:: remover_edificio(unsigned int fila, unsigned int columna){
+    this->matriz_mapa[fila][columna] = nullptr;
+}

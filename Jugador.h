@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "Casillero.h"
 #include "Material.h"
 #include "Mensajes_de_error.h"
 using namespace std;
@@ -17,12 +18,15 @@ class Jugador {
 
     // Attributes
     private:
+        Casillero** casilleros_jugador;
+        unsigned int cantidad_casilleros;
 
         Material** materiales_jugador;
         unsigned int tipos_de_materiales;
         unsigned int energia;
+
         //Objetivos
-        char caracter_jugador;
+        char caracter;
         unsigned int posicion_x;
         unsigned int posicion_y;
 
@@ -30,7 +34,7 @@ class Jugador {
     public:
 		// PRE:
         // POST: Destruye un objeto Andypolis.
-    	Jugador(char caracter_jugador);
+    	Jugador(char caracter);
 
     	// PRE:
         // POST: Destruye un objeto Andypolis.
@@ -38,7 +42,7 @@ class Jugador {
 
         unsigned int obtener_energia();
 
-        char obtener_caracter_jugador();
+        char obtener_caracter();
 
 
 		// PRE: debe existir el archivo con los materiales y si los hubiera deben seguir el formato "material cant_jugador_1 cant_jugador_2".
@@ -77,6 +81,15 @@ class Jugador {
         int obtener_y();
 
 
+
+
+        void agregar_material(string nombre_material, int cantidad);
+
+        void agregar_casillero(Casillero * casillero);
+
+        void mostrar_edificios();
+
+        void remover_edificio(Casillero * casillero);
 
 };
 

@@ -3,6 +3,10 @@
 Casillero:: Casillero(){
     this->edificio = nullptr;
     this->material = nullptr;
+    
+
+    //this->fila = fila;
+    //this->columna = columna;
 }
 
 unsigned int Casillero:: obtener_fila(){
@@ -79,9 +83,11 @@ Energía necesaria: 0
 */
 
 void Casillero:: mostrar_coordenadas_de_edificio_por_jugador(char caracter_jugador){
-    if(caracter_jugador != this->caracter_jugador || this->obtener_edificio() == NULL) return;
+    //cout << "hol2a" << endl;
+    //if(caracter_jugador != this->caracter_jugador || this->obtener_edificio() == NULL) return;
+    //cout << "hol4a" << endl;
 
-    cout << this->obtener_edificio()->obtener_nombre() << " Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
-
-    /// Acá va la impresión del edificio
+    cout << this->obtener_edificio()->obtener_nombre() << endl;
+    cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
+    cout << "Necesita reparación?: (" << (this->necesita_reparacion ? "Sí" : "No") << ")" << endl;
 }

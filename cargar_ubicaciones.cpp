@@ -48,8 +48,8 @@ void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifici
 
     archivo_ubicaciones.close();
 
-}*/
-
+}
+*/
 
 /*
 Del archivo ubicaciones.txt saco la clave dle edificio.

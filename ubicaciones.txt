@@ -1,3 +1,4 @@
+madera 1 0
 1 (7, 6)
 mina (0, 2)
 aserradero (0, 3)

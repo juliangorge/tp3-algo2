@@ -55,8 +55,10 @@ class Mapa
         // datos de consola
         bool chequear_coordenadas(unsigned int fila, unsigned int columna);
 
-        //void set_jugador_casillero(Jugador* jugador);
-        //void set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
+        void set_jugador_casillero(Jugador* jugador);
+        void set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
+
+        void remover_edificio(unsigned int fila, unsigned int columna);
 };
 
 

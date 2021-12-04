@@ -1,19 +1,13 @@
-#include <iostream>
-#include "objetivo.h"
+/*#include <iostream>
+#include "Objetivo.h"
 
 using namespace std;
 
-/*void mostrar_objetivos(Jugador *jugador_uno, Jugador *jugador_dos)
+void mostrar_objetivos(Jugador *jugador_uno, Jugador *jugador_dos)
 {
 
 }
-*/
 
-mostrar_progreso(jugador_uno, objetivo 1)
-mostrar_progreso(jugador_uno, objetivo 2)
-mostrar_progreso(jugador_uno, objetivo 3)
-
-mostrar_progreso(jugador_dos)
 
 void mostrar_progreso(Jugador *jugador, objetivos numero_objetivo)//recibe un enum
 {
@@ -108,8 +102,8 @@ void objetivo_estado_energetico(Jugador *jugador, int objetivo)
 
 void objetivo_letrado(Jugador *jugador, int objetivo)
 {
-    if(jugador->obtener_escuelas_construidas < jugador->obtener_max_escuelas)
-        cout << "Restan por construir " << jugador->obtener_max_escuelas - jugador->obtener_escuelas_construidas << " para alcanzar el objetivo" << endl;    
+    if(jugador->obtener_escuelas_construidas() < jugador->obtener_max_escuelas())
+        cout << "Restan por construir " << jugador->obtener_max_escuelas() - jugador->obtener_escuelas_construidas() << " para alcanzar el objetivo" << endl;    
     else
     {
         cout << "Objetivo de máxima construcción de escuelas completado" << endl;
@@ -238,3 +232,4 @@ void objetivo_extremista(Jugador *jugador, int objetivo)
         jugador->set_objetivo_cumplido(objetivo);
     }
 }
+*/

@@ -28,8 +28,22 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     unsigned int fila, columna;
     if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return ST_ERROR_COORDENADAS_INVALIDAS;
         
-    mapa->obtener_casillero(fila, columna)->cargar(edificio);
-    jugador->decrementar_energia(costo_energia);
+    Casillero * casilleros_aux = mapa->obtener_casillero(fila, columna);
+    if(casilleros_aux != NULL){
+        casilleros_aux->cargar(edificio);
+        jugador->agregar_casillero(casilleros_aux);
+        jugador->decrementar_energia(costo_energia);
+
+        cout << "Construido exitosamente!" << endl;
+    }
+
+    return st;
+}
+
+estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos){
+    estados_t st = ST_OK;
+
+    jugador_uno->mostrar_edificios();
 
     return st;
 }
@@ -41,10 +55,17 @@ estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
 
     unsigned int fila, columna;
     if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return ST_ERROR_COORDENADAS_INVALIDAS;
-    if(mapa->obtener_casillero(fila, columna)->obtener_edificio() != NULL){
+
+    Edificio* casillero_aux = mapa->obtener_casillero(fila, columna)->obtener_edificio();
+    if(casillero_aux->obtener_edificio() != NULL){
         
         cout << "Demolido correctamente" << endl;
-        // Demoler y devolver la mitad de los materiales utilizados
+
+        jugador->remover_edificio(casillero_aux);
+        //jugador->agregar_material('metal', (int) (casillero_aux->obtener_edificio()->obtener_metal() / 2));
+        //jugador->agregar_material('madera', (int) (casillero_aux->obtener_edificio()->obtener_madera() / 2));
+        //jugador->agregar_material('piedra', (int) (casillero_aux->obtener_edificio()->obtener_piedra() / 2));
+        mapa->remover_edificio(fila, columna);
 
         jugador->decrementar_energia(costo_energia);
         return ST_OK;
@@ -79,15 +100,16 @@ void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* j
 
 void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos)
 {      
-    if(jugador->obtener_caracter_jugador() == 'J')
+    if(jugador->obtener_caracter() == 'J')
         jugador = jugador_dos;
-    else if (jugador->obtener_caracter_jugador() == 'U')
+    else if (jugador->obtener_caracter() == 'U')
         jugador = jugador_uno;
 }
 
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa)
 {
     //cargar_ubicaciones(jugador_uno, jugador_dos, arbol, mapa);
+
     Jugador* jugador = inicializar_jugador(jugador_uno, jugador_dos);
     mostrar_segundo_menu();
 	int opcion = obtener_opcion_segundo_menu();
@@ -108,6 +130,8 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
             break;
         case OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS:
             //Listar edificios
+
+            if((st = mostrar_edificios(arbol, jugador_uno, jugador_dos)) != ST_OK) imprimir_error(st);
 
             /*
             Arbol tiene Edificios con cantidad_jugador{1,2}

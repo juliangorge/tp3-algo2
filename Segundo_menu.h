@@ -50,4 +50,6 @@ void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_
 
 void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos);
 
+estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos);
+
 #endif //SEGUNDO_MENU_H
