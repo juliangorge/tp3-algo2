@@ -1,6 +1,6 @@
 #include "Casillero_lago.h"
 
-CasilleroLago:: CasilleroLago(){
+CasilleroLago:: CasilleroLago(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter = 'L';
     this->es_camino = false;
     this->es_terreno = false;

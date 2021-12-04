@@ -1,12 +1,12 @@
 #include "Casillero.h"
 
-Casillero:: Casillero(){
+Casillero:: Casillero(unsigned int fila, unsigned int columna){
     this->edificio = nullptr;
     this->material = nullptr;
     
 
-    //this->fila = fila;
-    //this->columna = columna;
+    this->fila = fila;
+    this->columna = columna;
 }
 
 unsigned int Casillero:: obtener_fila(){

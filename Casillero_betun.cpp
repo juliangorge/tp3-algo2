@@ -1,6 +1,6 @@
 #include "Casillero_betun.h"
 
-CasilleroBetun:: CasilleroBetun(){
+CasilleroBetun:: CasilleroBetun(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter = 'B';
     this->es_camino = true;
     this->es_terreno = false;

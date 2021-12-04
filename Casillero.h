@@ -43,7 +43,7 @@ class Casillero
         bool necesita_reparacion;
 
     public:
-        Casillero();
+        Casillero(unsigned int fila, unsigned int columna);
         //~Casillero();
 
         unsigned int obtener_fila();

@@ -51,23 +51,23 @@ void Mapa::cargar_mapa(unsigned int pos_fila, unsigned int pos_columna, char car
     switch(caracter_casillero)
     {
         case 'T':
-            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroTerreno();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroTerreno(pos_fila, pos_columna);
             break;
 
         case 'C':
-            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroCamino();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroCamino(pos_fila, pos_columna);
             break;
 
         case 'L':
-            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroLago();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroLago(pos_fila, pos_columna);
             break;
 
         case 'M':
-            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroMuelle();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroMuelle(pos_fila, pos_columna);
             break;
 
         case 'B':
-            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroBetun();
+            this->matriz_mapa[pos_fila][pos_columna] = new CasilleroBetun(pos_fila, pos_columna);
             break;
     }
 }

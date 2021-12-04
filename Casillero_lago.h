@@ -6,7 +6,7 @@
 class CasilleroLago : public Casillero
 {
     public:
-        CasilleroLago();
+        CasilleroLago(unsigned int fila, unsigned int columna);
         //~CasilleroLago();
 };
 

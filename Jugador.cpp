@@ -137,11 +137,10 @@ int Jugador::obtener_y()
     return this->posicion_y;
 }
 
-void Jugador:: agregar_material(string nombre_material, int cantidad){
+void Jugador:: agregar_material(string nombre_material, unsigned int cantidad){
 
     unsigned int pos = this->obtener_posicion_material(nombre_material);
-
-    // aumentar...
+    this->materiales_jugador[pos]->sumar_materiales(cantidad);
 
 }
 

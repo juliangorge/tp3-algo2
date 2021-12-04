@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "Mapa.h"
 #include "Casillero.h"
 #include "Material.h"
 #include "Mensajes_de_error.h"
@@ -83,7 +84,7 @@ class Jugador {
 
 
 
-        void agregar_material(string nombre_material, int cantidad);
+        void agregar_material(string nombre_material, unsigned int cantidad);
 
         void agregar_casillero(Casillero * casillero);
 

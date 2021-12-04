@@ -6,7 +6,7 @@
 class CasilleroBetun : public Casillero
 {
     public:
-        CasilleroBetun();
+        CasilleroBetun(unsigned int fila, unsigned int columna);
         //~CasilleroBetun();
 };
 

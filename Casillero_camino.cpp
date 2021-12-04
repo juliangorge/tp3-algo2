@@ -1,6 +1,6 @@
 #include "Casillero_camino.h"
 
-CasilleroCamino:: CasilleroCamino(){
+CasilleroCamino:: CasilleroCamino(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter = 'C';
     this->es_camino = true;
     this->es_terreno = false;

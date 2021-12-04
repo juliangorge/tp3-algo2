@@ -1,6 +1,6 @@
 #include "Casillero_muelle.h"
 
-CasilleroMuelle:: CasilleroMuelle(){
+CasilleroMuelle:: CasilleroMuelle(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter = 'M';
     this->es_camino = true;
     this->es_terreno = false;

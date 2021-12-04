@@ -56,15 +56,15 @@ estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     unsigned int fila, columna;
     if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return ST_ERROR_COORDENADAS_INVALIDAS;
 
-    Edificio* casillero_aux = mapa->obtener_casillero(fila, columna)->obtener_edificio();
+    Casillero* casillero_aux = mapa->obtener_casillero(fila, columna);
     if(casillero_aux->obtener_edificio() != NULL){
         
         cout << "Demolido correctamente" << endl;
 
         jugador->remover_edificio(casillero_aux);
-        //jugador->agregar_material('metal', (int) (casillero_aux->obtener_edificio()->obtener_metal() / 2));
-        //jugador->agregar_material('madera', (int) (casillero_aux->obtener_edificio()->obtener_madera() / 2));
-        //jugador->agregar_material('piedra', (int) (casillero_aux->obtener_edificio()->obtener_piedra() / 2));
+        jugador->agregar_material("metal", static_cast<unsigned int>(casillero_aux->obtener_edificio()->obtener_metal() / 2));
+        jugador->agregar_material("madera", static_cast<unsigned int>(casillero_aux->obtener_edificio()->obtener_madera() / 2));
+        jugador->agregar_material("piedra", static_cast<unsigned int>(casillero_aux->obtener_edificio()->obtener_piedra() / 2));
         mapa->remover_edificio(fila, columna);
 
         jugador->decrementar_energia(costo_energia);
