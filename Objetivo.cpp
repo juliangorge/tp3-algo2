@@ -1,53 +1,73 @@
-/*#include <iostream>
+#include <iostream>
 #include "Objetivo.h"
+
 
 using namespace std;
 
-void mostrar_objetivos(Jugador *jugador_uno, Jugador *jugador_dos)
+/*void mostrar_objetivos(Jugador *jugador_uno, Jugador *jugador_dos)
 {
+
+}*/
+
+Objetivo:: Objetivo(){
+
+    this->numero=0;
+    this->estado=false;
+}
+
+Objetivo:: ~Objetivo(){
+
+}
+
+void Objetivo::mostrar_progreso(Jugador *jugador)
+{
+    estado_objetivo(jugador, jugador->obtener_objetivo(0));
+    estado_objetivo(jugador, jugador->obtener_objetivo(1));
+    estado_objetivo(jugador, jugador->obtener_objetivo(2));
 
 }
 
 
-void mostrar_progreso(Jugador *jugador, objetivos numero_objetivo)//recibe un enum
+void Objetivo::estado_objetivo(Jugador *jugador, int numero_objetivo)
 {
     //objetivos objetivos_enum = numero_objetivo;
     cout << "su progreso con el objetivo " << numero_objetivo << ": " << endl;
 
     switch(numero_objetivo){
         case COMPRAR_ANDYPOLIS:
-            objetivo_comprar_andypolis(jugador, numero_objetivo);
+            this->comprar_andypolis(jugador, numero_objetivo);
             break;
         case EDAD_PIEDRA:
-            objetivo_edad_piedra(jugador, numero_objetivo);
+            this->edad_piedra(jugador, numero_objetivo);
             break;
         case BOMBARDERO:
-            objetivo_bombardero(jugador, numero_objetivo); 
+            this->bombardero(jugador, numero_objetivo); 
             break;
         case ENERGETICO:
-            objetivo_estado_energetico(jugador, numero_objetivo);
+            this->estado_energetico(jugador, numero_objetivo);
             break;
         case LETRADO:
-            objetivo_letrado(jugador, numero_objetivo);
+            this->letrado(jugador, numero_objetivo);
             break;
         case MINERO:
-            objetivo_minero(jugador), numero_objetivo;
+            this->minero(jugador, numero_objetivo);
             break;
         case CANSADO:
-        objetivo_cansado(jugador, numero_objetivo);
+            this->cansado(jugador, numero_objetivo);
             break;
         case CONSTRUCTOR:
-            objetivo_constructor(jugador, numero_objetivo);
+            this->constructor(jugador, numero_objetivo);
             break;
         case ARMADO:
+            this->armado(jugador, numero_objetivo);
             break;
         case EXTREMISTA:
-            objetivo_extremista(jugador, numero_objetivo);
+            this->extremista(jugador, numero_objetivo);
             break;
     }
 }
 
-void objetivo_comprar_andypolis (Jugador *jugador, int objetivo) 
+void Objetivo::comprar_andypolis (Jugador *jugador, int objetivo) 
 {          
     unsigned int cantidad_andycoins = jugador->obtener_andycoins_juntadas();
 
@@ -60,9 +80,9 @@ void objetivo_comprar_andypolis (Jugador *jugador, int objetivo)
     }
 }
 
-void objetivo_edad_piedra(Jugador *jugador, int objetivo)
+void Objetivo::edad_piedra(Jugador *jugador, int objetivo)
 {
-    unsigned int cantidad_piedra = jugador->obtener_piedra_juntada();
+    unsigned int cantidad_piedra = jugador->mostrar_cantidad_material("piedra");
 
     if(cantidad_piedra < CANTIDAD_PIEDRA_OBJETIVO)
         cout << cantidad_piedra << " de piedra juntada" << endl;
@@ -73,7 +93,7 @@ void objetivo_edad_piedra(Jugador *jugador, int objetivo)
     }
 }
 
-void objetivo_bombardero(Jugador *jugador, int objetivo)
+void Objetivo::bombardero(Jugador *jugador, int objetivo)
 {
     unsigned int cantidad_bombas = jugador->obtener_bombas_usadas();
 
@@ -86,11 +106,11 @@ void objetivo_bombardero(Jugador *jugador, int objetivo)
     }
 }
 
-void objetivo_estado_energetico(Jugador *jugador, int objetivo)
+void Objetivo::estado_energetico(Jugador *jugador, int objetivo)
 {
     unsigned int cantidad_energia = jugador->obtener_energia();
 
-    if(!jugador->obtener_100_energia()) //debe devolver un booleano
+    if(cantidad_energia < 100)
         cout << cantidad_energia << " de energía almacenada" << endl;
         
     else
@@ -100,10 +120,11 @@ void objetivo_estado_energetico(Jugador *jugador, int objetivo)
     }
 }
 
-void objetivo_letrado(Jugador *jugador, int objetivo)
+void Objetivo::letrado(Jugador *jugador, int objetivo)
 {
-    if(jugador->obtener_escuelas_construidas() < jugador->obtener_max_escuelas())
-        cout << "Restan por construir " << jugador->obtener_max_escuelas() - jugador->obtener_escuelas_construidas() << " para alcanzar el objetivo" << endl;    
+
+    if(jugador->obtener_cant_edificio("escuela") < MAX_ESCUELAS)
+        cout << "Restan por construir " << MAX_ESCUELAS - jugador->obtener_cant_edificio("escuela") << " para alcanzar el objetivo" << endl;    
     else
     {
         cout << "Objetivo de máxima construcción de escuelas completado" << endl;
@@ -111,17 +132,17 @@ void objetivo_letrado(Jugador *jugador, int objetivo)
     }
 }
 
-void objetivo_minero(Jugador *jugador, int objetivo)
+void Objetivo::minero(Jugador *jugador, int objetivo)
 {
-    if(jugador->obtener_minas_metal() >= MINAS_METAL_OBJETIVO && jugador->obtener_minas_oro() >= MINAS_ORO_OBJETIVO)
+    if(jugador->obtener_cant_edificio("mina") >= MINAS_METAL_OBJETIVO && jugador->obtener_cant_edificio("mina oro") >= MINAS_ORO_OBJETIVO)
     {    
         cout << "Objetivo MINERO completado" << endl;
         jugador->set_objetivo_cumplido(objetivo);
     }
-    else if(jugador->obtener_minas_metal() < MINAS_METAL_OBJETIVO && jugador->obtener_minas_oro() < MINAS_ORO_OBJETIVO)
+    else if(jugador->obtener_cant_edificio("mina") < MINAS_METAL_OBJETIVO && jugador->obtener_cant_edificio("mina oro") < MINAS_ORO_OBJETIVO)
         cout << "Resta construir una mina de metal y una mina de oro" << endl;
     
-    else if(jugador->obtener_minas_metal() < MINAS_METAL_OBJETIVO)
+    else if(jugador->obtener_cant_edificio("mina") < MINAS_METAL_OBJETIVO)
         cout << "Resta construir una mina de metal" << endl;
 
     else
@@ -130,7 +151,7 @@ void objetivo_minero(Jugador *jugador, int objetivo)
 }
 
 
-void objetivo_cansado(Jugador *jugador, int objetivo)
+void Objetivo::cansado(Jugador *jugador, int objetivo)
 {
     unsigned int cantidad_cansado = jugador->obtener_energia();
 
@@ -145,53 +166,42 @@ void objetivo_cansado(Jugador *jugador, int objetivo)
     }
 }
 
-void set_objetivo_cumplido(int objetivo)
-{
-
-}
-
-void objetivo_constructor(Jugador *jugador, int objetivo, Mapa *mapa)
+void Objetivo::constructor(Jugador *jugador, int objetivo)
 {
     string mensaje_salida = "Resta construir: ";
     bool objetivo_cumplido = true;
 
-    if(jugador->obtener_cant_mina_metal() == 0)
+    if(jugador->obtener_cant_edificio("mina") == 0)
     {
         mensaje_salida += "mina de metal ";
         objetivo_cumplido = false;
     }
     
-    if(jugador->obtener_cant_mina_oro() == 0)
+    if(jugador->obtener_cant_edificio("mina oro") == 0)
     {
         mensaje_salida += "mina de oro ";
         objetivo_cumplido = false;
     }
 
-    if(jugador->obtener_cant_aserradero() == 0)
+    if(jugador->obtener_cant_edificio("aserradero") == 0)
     {
         mensaje_salida += "aserradero ";
         objetivo_cumplido = false;
     }
 
-    if(jugador->obtener_cant_fabrica() == 0)
+    if(jugador->obtener_cant_edificio("fabrica") == 0)
     {
         mensaje_salida += "fabrica ";
         objetivo_cumplido = false;
     }
     
-    if(jugador->obtener_cant_mina_metal() == 0)
-    {
-        mensaje_salida += "mina de metal ";
-        objetivo_cumplido = false;
-    }
-    
-    if(jugador->obtener_cant_escuela() == 0)
+    if(jugador->obtener_cant_edificio("escuela") == 0)
     {
         mensaje_salida += "escuela ";
         objetivo_cumplido = false;
     }
 
-    if(jugador->obtener_cant_planta_electrica() == 0)
+    if(jugador->obtener_cant_edificio("planta electrica") == 0)
     {
         mensaje_salida += "planta eléctrica ";
         objetivo_cumplido = false;
@@ -207,7 +217,7 @@ void objetivo_constructor(Jugador *jugador, int objetivo, Mapa *mapa)
 
 }
 
-void objetivo_armado(Jugador *jugador, int objetivo)
+void Objetivo::armado(Jugador *jugador, int objetivo)
 {
     unsigned int cantidad_armado = jugador->obtener_bombas();
 
@@ -220,8 +230,7 @@ void objetivo_armado(Jugador *jugador, int objetivo)
     }
 }
 
-
-void objetivo_extremista(Jugador *jugador, int objetivo)
+void Objetivo::extremista(Jugador *jugador, int objetivo)
 {
     unsigned int cantidad_bombas_compradas = jugador->obtener_bombas_compradas();
 
@@ -233,4 +242,40 @@ void objetivo_extremista(Jugador *jugador, int objetivo)
         jugador->set_objetivo_cumplido(objetivo);
     }
 }
-*/
+
+void Objetivo::asignar(Jugador *jugador)
+{
+    srand(time(NULL));
+    int objetivos[CANT_OBJETIVOS_JUGADOR], j=0;
+    bool objetivo_repetido = false;
+
+    objetivos[0]= aleatorio(1,9);
+    
+    for(int i=1; i<CANT_OBJETIVOS_JUGADOR; i++)
+    {
+        objetivos[i]= aleatorio(1,9);
+
+        while(!objetivo_repetido && j<CANT_OBJETIVOS_JUGADOR)
+        {
+            if(objetivos[j] == objetivos[i])
+                objetivo_repetido = true;
+
+            j++;
+
+            if (objetivo_repetido)
+            {
+                objetivos[i]= aleatorio(1,9);
+                j=0;
+            }          
+        }
+    }
+
+    jugador->set_objetivos(objetivos);
+
+}
+
+int Objetivo::aleatorio(int cota_inferior, int cota_superior)
+{
+    return int(rand()%cota_superior + cota_inferior);
+}
+

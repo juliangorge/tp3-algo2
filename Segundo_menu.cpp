@@ -132,6 +132,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
 }	
 
 void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *> arbol, Mapa* mapa){
+    Objetivo *objetivo;
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
@@ -163,6 +164,7 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
             jugador->mostrar_inventario();
             break;
         case OPCION_MOSTRAR_OBJETIVOS:
+            objetivo->mostrar_progreso(jugador);
             break;
         case OPCION_RECOLECTAR_RECURSOS:
             break;

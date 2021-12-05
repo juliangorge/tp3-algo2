@@ -8,7 +8,7 @@
 #include "Jugador.h"
 #include "Cargar_ubicaciones.h"
 #include "Mensajes_de_error.h"
-
+#include "Objetivo.h"
 #include "Opcion_comprar_bombas.h"
 
 

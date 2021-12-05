@@ -7,9 +7,10 @@
 #include <string>
 using namespace std;
 
-const int CANT_OBJETIVOS_JUGADOR = 3;
 const int MINAS_METAL_OBJETIVO = 1;
 const int MINAS_ORO_OBJETIVO = 1;
+const int MAX_ESCUELAS = 4;
+
 const int CANTIDAD_ANDYCOINS_OBJETIVO = 100000;
 const int CANTIDAD_PIEDRA_OBJETIVO = 500;
 const int BOMBAS_USADAS_OBJETIVO = 5;
@@ -18,7 +19,7 @@ const int CANTIDAD_ARMADO_OBJETIVO = 10;
 const int CANTIDAD_EXTREMISTA_OBJETIVO = 500;
 
 
-typedef enum {
+/*typedef enum {
     COMPRAR_ANDYPOLIS=1,
     EDAD_PIEDRA,
     BOMBARDERO,
@@ -29,18 +30,73 @@ typedef enum {
     CONSTRUCTOR,
     ARMADO,
     EXTREMISTA
-    }objetivos;
+    }objetivos;*/
 
-//PRE:
-//POST:
-void asignar_objetivos(Jugador *jugador);
+const int COMPRAR_ANDYPOLIS=1;
+const int EDAD_PIEDRA=2;
+const int BOMBARDERO=3;
+const int ENERGETICO=4;
+const int LETRADO=5;
+const int MINERO=6;
+const int CANSADO=7;
+const int CONSTRUCTOR=8;
+const int ARMADO=9;
+const int EXTREMISTA=10;
 
-//PRE:
-//POST:
-int aleatorio(int cota_inferior, int cota_superior);
+class Objetivo {
 
-//PRE:
-//POST:
-void mostrar_progreso(Jugador *jugador, objetivos numero_objetivo);
+    // Atributos
+    private:
+        unsigned int numero;
+        bool estado;
 
+    // metodos
+    public:
+		// PRE:
+        // POST: Destruye un objeto Andypolis.
+    	Objetivo();
+
+        // PRE:
+        // POST: Destruye un objeto Andypolis.
+        ~Objetivo();
+
+        //PRE:
+        //POST:
+        void asignar_objetivos(Jugador *jugador);
+
+        //PRE:
+        //POST:
+        int aleatorio(int cota_inferior, int cota_superior);
+        
+        void mostrar_progreso(Jugador *jugador);
+
+        //PRE:
+        //POST:
+        void estado_objetivo(Jugador *jugador, int objetivo);
+
+        //PRE:
+        //POST:
+        void comprar_andypolis (Jugador *jugador, int objetivo);
+
+        void edad_piedra(Jugador *jugador, int objetivo);
+
+        void bombardero(Jugador *jugador, int objetivo);
+
+        void estado_energetico(Jugador *jugador, int objetivo);
+
+        void letrado(Jugador *jugador, int objetivo);
+
+        void minero(Jugador *jugador, int objetivo);
+
+        void cansado(Jugador *jugador, int objetivo);
+
+        void constructor(Jugador *jugador, int objetivo);
+
+        void armado(Jugador *jugador, int objetivo);
+
+        void extremista(Jugador *jugador, int objetivo);
+
+        void asignar(Jugador *jugador);
+
+};
 #endif

@@ -1,4 +1,4 @@
-#include "Jugador.h"
+/*#include "Jugador.h"
 
 Jugador:: Jugador(char caracter){
     this->energia = ENERGIA_INICIAL;
@@ -10,20 +10,13 @@ Jugador:: Jugador(char caracter){
     this->casilleros_jugador = nullptr;
     this->cantidad_casilleros = 0;
     
-    //this->objetivos=nullptr;
     this->estado_objetivos[0]=false;
     this->estado_objetivos[1]=false;
     this->estado_objetivos[2]=false;
 
-    this->objetivos[0]=2;
-    this->objetivos[1]=6;
-    this->objetivos[2]=7;
-
-    this->andycoins=ANDYCOINS_INICIALES;
-    this->andycoins_acumuladas=ANDYCOINS_INICIALES;
-    this->bombas_compradas=0;
-    this->bombas_usadas=0;
-    this->bombas=0;
+    this->objetivos[0]=0;
+    this->objetivos[1]=0;
+    this->objetivos[2]=0;
 }
 
 Jugador:: ~Jugador(){
@@ -215,30 +208,58 @@ void Jugador::set_objetivos(int objetivos[])
         this->objetivos[i]==objetivos[i];
 }
 
-int Jugador::obtener_objetivo(int posicion)
-{
-    return this->objetivos[posicion];
-}
-
-unsigned int Jugador::obtener_andycoins_juntadas()
+int Jugador::obtener_andycoins_juntadas()
 {
     return this->andycoins_acumuladas;
 }
 
-unsigned int Jugador::obtener_bombas_usadas()
+int Jugador::obtener_bombas_usadas()
 {
     return this->bombas_usadas;
 }
 
-unsigned int Jugador::obtener_bombas_compradas()
+int Jugador::obtener_bombas_compradas()
 {
 
     return this->bombas_compradas;
 }
 
-unsigned int Jugador::obtener_bombas()
+int Jugador::obtener_escuelas()
+{   
+    //recorrer lista de casilleros del jugador
+    //le pido el edificio y el nombre
+    //valido que sea escuela
+    return this->escuelas;
+}
+
+int Jugador::obtener_max_escuelas()
 {
-    return this->bombas;
+    return this->max_escuelas;
+}
+
+int Jugador::obtener_minas_oro()
+{
+    return this->minas_oro;
+}
+
+int Jugador::obtener_minas_metal()
+{
+    return this->minas_metal;
+}
+
+int Jugador::obtener_aserradero()
+{
+    return this->minas_metal;
+}
+
+int Jugador::obtener_fabrica()
+{
+    return this->minas_metal;
+}
+
+int Jugador::obtener_planta_electrica()
+{
+    return this->minas_metal;
 }
 
 unsigned int Jugador::obtener_cant_edificio(string nombre)
@@ -251,4 +272,4 @@ unsigned int Jugador::obtener_cant_edificio(string nombre)
     }
 
     return contador;
-}
+}*/

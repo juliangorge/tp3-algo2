@@ -1,4 +1,4 @@
-#ifndef JUGADOR_H
+/*#ifndef JUGADOR_H
 #define JUGADOR_H
 
 #include <string>
@@ -7,8 +7,6 @@
 #include "Casillero.h"
 #include "Material.h"
 #include "Mensajes_de_error.h"
-//#include "Objetivo.h"
-
 using namespace std;
 
 const string ARCHIVO_MATERIALES = "materiales.txt";
@@ -16,7 +14,7 @@ const int CANT_OBJETIVOS_JUGADOR = 3;
 
 
 const unsigned int ENERGIA_INICIAL = 50;
-const unsigned int ANDYCOINS_INICIALES = 0;
+
 class Jugador {
 
     // Attributes
@@ -37,11 +35,7 @@ class Jugador {
         bool estado_objetivos[CANT_OBJETIVOS_JUGADOR];
         int objetivos[CANT_OBJETIVOS_JUGADOR];
 
-        unsigned int andycoins;
         unsigned int andycoins_acumuladas;
-        unsigned int bombas_compradas;
-        unsigned int bombas_usadas;
-        unsigned int bombas;
     // Methods
     public:
 		// PRE:
@@ -106,19 +100,27 @@ class Jugador {
 
         void set_objetivos(int objetivos[]);
 
-        int obtener_objetivo(int posicion);
+        int obtener_andycoins_juntadas();
 
-        unsigned int obtener_andycoins_juntadas();
+        int obtener_bombas_usadas();
 
-        unsigned int obtener_bombas_usadas();
+        int obtener_bombas_compradas();
 
-        unsigned int obtener_bombas_compradas();
+        int obtener_escuelas();
 
-        unsigned int obtener_bombas();
+        int obtener_max_escuelas();
 
-        unsigned int obtener_max_escuelas();
+        int obtener_minas_oro();
 
-        unsigned int obtener_cant_edificio(string nombre);
+        int obtener_minas_metal();
+
+        int obtener_aserradero();
+
+        int obtener_fabrica();
+
+        int obtener_planta_electrica();
+
+        unsigned int obtener_cant_edificio(Casillero * casillero, string nombre);
 
 };
 
