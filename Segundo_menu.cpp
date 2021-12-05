@@ -2,41 +2,51 @@
 
 estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
-    string nombre;
     unsigned int costo_energia = ENERGIA_CONSTRUIR_EDIFICIO;
 
+    // Verifico la energia
+    if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
+
+    // Verifico que exista el edificio
+    string nombre;
     cout << "Escribe el nombre del edificio: ";
     cin >> nombre;
     cout << endl;
 
-    if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
-
+    // Verifico que existo
     if(!arbol.buscar(nombre)) return ST_ERROR_NOMBRE_INVALIDO;
-
     Edificio* edificio = arbol.obtener_dato(nombre);
 
+    // Verifico máximo alcanzado
     if(!edificio->obtener_restantes()) return ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO;
 
+    // Verifico materiales
     if(jugador->verificar_material_necesario("piedra", edificio->obtener_piedra() != ST_OK)) return ST_ERROR_MATERIALES_INSUFICIENTES;
     if(jugador->verificar_material_necesario("madera", edificio->obtener_madera() != ST_OK)) return ST_ERROR_MATERIALES_INSUFICIENTES;
     if(jugador->verificar_material_necesario("metal", edificio->obtener_metal() != ST_OK)) return ST_ERROR_MATERIALES_INSUFICIENTES;
 
-    // // // // // //
-
+    // Solicito confirmacion
     if(pedido_confirmacion() != ST_OK) return ST_MSJ_SALIR;
     
+    // Solicito coordenadas
     unsigned int fila, columna;
     if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return ST_ERROR_COORDENADAS_INVALIDAS;
-        
-    Casillero * casilleros_aux = mapa->obtener_casillero(fila, columna);
-    if(casilleros_aux != NULL){
-        casilleros_aux->cargar(edificio);
-        jugador->agregar_casillero(casilleros_aux);
-        jugador->decrementar_energia(costo_energia);
 
-        cout << "Construido exitosamente!" << endl;
-    }
+    Casillero * casillero_aux = mapa->obtener_casillero(fila, columna);
+    if(casillero_aux == NULL) return ST_ERROR_COORDENADAS_INVALIDAS;
 
+    if(!mapa->es_construible(casillero_aux)) return ST_ERROR_CASILLERO_NO_CONSTRUIBLE;
+
+    casillero_aux->cargar(edificio);
+    jugador->agregar_casillero(casillero_aux);
+
+    jugador->restar_materiales("piedra", edificio->obtener_piedra());
+    jugador->restar_materiales("madera", edificio->obtener_madera());
+    jugador->restar_materiales("metal", edificio->obtener_metal());
+
+    jugador->decrementar_energia(costo_energia);
+
+    cout << "Construido exitosamente!" << endl;
     return st;
 }
 
@@ -125,26 +135,15 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
-            //Modificar edificios
             if((st = construir_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS:
-            //Listar edificios
-
             if((st = mostrar_edificios(arbol, jugador_uno, jugador_dos)) != ST_OK) imprimir_error(st);
-
-            /*
-            Arbol tiene Edificios con cantidad_jugador{1,2}
-            Casillero::mostrar_coordenadas_de_edificio_por_jugador()
-            */
-
             break;
         case OPCION_DEMOLER_COORDENADA:
-            //Mostrar mapa
             if((st = demoler_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_ATACAR_EDIFICIO:
-            //Mostrar mapa
             //if((st = atacar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_REPARAR_EDIFICIO:
@@ -154,29 +153,26 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
         case OPCION_COMPRAR_BOMBAS:
             if((st = comprar_bombas(jugador_uno)) != ST_OK){
                 imprimir_error(st);
-            }
-            else{
+            }else{
                 mostrar_compra_realizada(jugador_uno);
             }
             break;
         case OPCION_CONSULTAR_COORDENADA:
-            //Mostrar mapa
             break;
         case OPCION_MOSTRAR_INVENTARIO:
             jugador->mostrar_inventario();
             break;
         case OPCION_MOSTRAR_OBJETIVOS:
-            //Mostrar mapa
             break;
         case OPCION_RECOLECTAR_RECURSOS:
-            //Mostrar mapa
             break;
         case OPCION_MOVERSE_A_COORDENADA:
-            //Mostrar mapa
             break;
         case OPCION_FINALIZAR_TURNO:
             cambiar_jugador(jugador, jugador_uno, jugador_dos);
             cout << " Finalizo el turno" << endl;
             break;
     }
+
+    //if(opcion != OPCION_FINALIZAR_TURNO) mostrar_mapa();
 }

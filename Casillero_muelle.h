@@ -7,7 +7,9 @@ class CasilleroMuelle : public Casillero
 {
     public:
         CasilleroMuelle(unsigned int fila, unsigned int columna);
-       // ~CasilleroMuelle();
+        // ~CasilleroMuelle();
+        bool esta_libre();
+        void cambiar_objeto();
 };
 
 #endif //CASILLEROMUELLE_H

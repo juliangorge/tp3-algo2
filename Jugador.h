@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "Mapa.h"
 #include "Casillero.h"
 #include "Material.h"
 #include "Mensajes_de_error.h"
@@ -72,6 +71,8 @@ class Jugador {
         estados_t verificar_material_necesario(string nombre_material, unsigned int cantidad_a_restar);
 
         void comprar_bombas(unsigned int bombas, unsigned int precio_bombas);
+
+        void restar_materiales(string nombre_material, unsigned int cantidad_a_restar);
 
         unsigned int mostrar_cantidad_material(string nombre_material);
 

@@ -13,6 +13,7 @@
 #include "Casillero_muelle.h"
 #include "Casillero_terreno.h"
 #include "Jugador.h"
+
 using namespace std;
 
 const string ARCHIVO_MAPA = "mapa.txt";
@@ -59,6 +60,8 @@ class Mapa
         void set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
 
         void remover_edificio(unsigned int fila, unsigned int columna);
+
+        bool es_construible(Casillero * casillero);
 };
 
 

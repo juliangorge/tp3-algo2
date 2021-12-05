@@ -120,6 +120,11 @@ void Jugador::comprar_bombas(unsigned int bombas, unsigned int precio_bombas)
     this->materiales_jugador[pos_bombas]->sumar_materiales(bombas);
 }
 
+void Jugador::restar_materiales(string nombre_material, unsigned int cantidad_a_restar){
+    unsigned int posicion_material = this->obtener_posicion_material(nombre_material);
+    this->materiales_jugador[posicion_material]->restar_materiales(cantidad_a_restar);
+}
+
 unsigned int Jugador::mostrar_cantidad_material(string nombre_material)
 {
     unsigned int cantidad, posicion_material = this->obtener_posicion_material(nombre_material);
@@ -138,10 +143,8 @@ int Jugador::obtener_y()
 }
 
 void Jugador:: agregar_material(string nombre_material, unsigned int cantidad){
-
     unsigned int pos = this->obtener_posicion_material(nombre_material);
     this->materiales_jugador[pos]->sumar_materiales(cantidad);
-
 }
 
 void Jugador:: agregar_casillero(Casillero * casillero){
@@ -162,11 +165,12 @@ void Jugador:: agregar_casillero(Casillero * casillero){
 }
 
 void Jugador:: mostrar_edificios(){
-
+    int cantidad_edificio = 0;
     for (int i = 0; i < cantidad_casilleros; i++){
-        this->casilleros_jugador[i]->mostrar_coordenadas_de_edificio_por_jugador(this->caracter);
+        this->casilleros_jugador[i]->mostrar_edificios();
+        cantidad_edificio++;
     }
-
+    cout << "Total: " << cantidad_edificio << endl << endl;;
 }
 
 void Jugador:: remover_edificio(Casillero * casillero){

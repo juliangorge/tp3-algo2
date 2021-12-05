@@ -220,6 +220,7 @@ void objetivo_armado(Jugador *jugador, int objetivo)
     }
 }
 
+
 void objetivo_extremista(Jugador *jugador, int objetivo)
 {
     unsigned int cantidad_bombas_compradas = jugador->obtener_bombas_compradas();

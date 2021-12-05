@@ -16,11 +16,6 @@ unsigned int Casillero:: obtener_columna(){
     return this->columna;
 }
 
-bool Casillero:: esta_libre(){
-    if(this->es_camino) return this->material == nullptr;
-    return this->edificio == nullptr;
-}
-
 Edificio* Casillero:: obtener_edificio(){
     return this->edificio;
 }
@@ -55,7 +50,7 @@ void Casillero:: limpiar_casillero(){
     cambiar_objeto();
 }
 
-void Casillero:: cambiar_objeto(){
+/*void Casillero:: cambiar_objeto(){
     if(esta_libre()){
         //this->caracter = this->tipo_casillero;
     }else{
@@ -65,28 +60,17 @@ void Casillero:: cambiar_objeto(){
             this->caracter = this->edificio->obtener_caracter();
         }
     }
-}
+}*/
 
 unsigned int Casillero:: obtener_costo_de_energia(){
     return this->costo_energia;
 }
 
 bool Casillero:: es_construible(){
-    return (this->esta_libre() && this->es_terreno && this->edificio == nullptr);
+    return (this->es_terreno && this->edificio == nullptr);
 }
 
-/*
-Listar mis edificios construidos
-Se deberán listar todos los edificios construidos por el jugador que lo solicite, es decir,
-que haya por lo menos un edificio de este tipo indicando cuántos hay construidos de cada uno, las coordenadas en las que se encuentran y si necesitan o no reparación.
-Energía necesaria: 0
-*/
-
-void Casillero:: mostrar_coordenadas_de_edificio_por_jugador(char caracter_jugador){
-    //cout << "hol2a" << endl;
-    //if(caracter_jugador != this->caracter_jugador || this->obtener_edificio() == NULL) return;
-    //cout << "hol4a" << endl;
-
+void Casillero:: mostrar_edificios(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
     cout << "Necesita reparación?: (" << (this->necesita_reparacion ? "Sí" : "No") << ")" << endl;

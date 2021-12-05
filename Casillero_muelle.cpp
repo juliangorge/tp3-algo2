@@ -7,3 +7,11 @@ CasilleroMuelle:: CasilleroMuelle(unsigned int fila, unsigned int columna) : Cas
     this->nombre_casillero = "Casillero transitable";
     this->costo_energia = 5; // Jugador 1: 5 - Jugador 2: 2
 }
+
+bool CasilleroMuelle:: esta_libre(){
+    return false;
+}
+
+void CasilleroMuelle:: cambiar_objeto(){
+
+}

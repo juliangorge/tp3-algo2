@@ -95,7 +95,7 @@ Casillero * Mapa:: obtener_casillero(unsigned int fila, unsigned int columna){
 }
 
 bool Mapa:: chequear_coordenadas(unsigned int fila, unsigned int columna){
-    return fila <= this->cantidad_filas && columna <= this->cantidad_columnas;
+    return fila < this->cantidad_filas && columna < this->cantidad_columnas;
 }
 
 void Mapa::set_jugador_casillero(Jugador* jugador)
@@ -117,4 +117,8 @@ void Mapa::set_edificio_casillero(int jugador, unsigned int fila, unsigned int c
 
 void Mapa:: remover_edificio(unsigned int fila, unsigned int columna){
     this->matriz_mapa[fila][columna] = nullptr;
+}
+
+bool Mapa:: es_construible(Casillero * casillero){
+    return casillero->es_construible();
 }
