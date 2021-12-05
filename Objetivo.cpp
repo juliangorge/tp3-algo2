@@ -2,13 +2,6 @@
 #include "Objetivo.h"
 
 
-using namespace std;
-
-/*void mostrar_objetivos(Jugador *jugador_uno, Jugador *jugador_dos)
-{
-
-}*/
-
 Objetivo:: Objetivo(){
 
     this->numero=0;
@@ -21,16 +14,14 @@ Objetivo:: ~Objetivo(){
 
 void Objetivo::mostrar_progreso(Jugador *jugador)
 {
-    estado_objetivo(jugador, jugador->obtener_objetivo(0));
-    estado_objetivo(jugador, jugador->obtener_objetivo(1));
-    estado_objetivo(jugador, jugador->obtener_objetivo(2));
+    for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
+        estado_objetivo(jugador, jugador->obtener_objetivo(i));
 
 }
 
 
 void Objetivo::estado_objetivo(Jugador *jugador, int numero_objetivo)
 {
-    //objetivos objetivos_enum = numero_objetivo;
     cout << "su progreso con el objetivo " << numero_objetivo << ": " << endl;
 
     switch(numero_objetivo){
@@ -75,8 +66,8 @@ void Objetivo::comprar_andypolis (Jugador *jugador, int objetivo)
         cout << cantidad_andycoins << " andyocoins juntadas" << endl;
     else
     {
-        cout << "Objetivo COMPRAR ANDYPOLIS cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Comprar Andypolis cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -88,8 +79,8 @@ void Objetivo::edad_piedra(Jugador *jugador, int objetivo)
         cout << cantidad_piedra << " de piedra juntada" << endl;
     else
     {
-        cout << "Objetivo EDAD PIEDRA cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Edad de piedra cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -98,11 +89,11 @@ void Objetivo::bombardero(Jugador *jugador, int objetivo)
     unsigned int cantidad_bombas = jugador->obtener_bombas_usadas();
 
     if(cantidad_bombas < BOMBAS_USADAS_OBJETIVO)
-        cout << cantidad_bombas << " de bombas usadas" << endl;
+        cout << cantidad_bombas << " bombas usadas" << endl;
     else
     {
-        cout << "Objetivo BOMBARDERO cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Bombardero cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -115,8 +106,8 @@ void Objetivo::estado_energetico(Jugador *jugador, int objetivo)
         
     else
     {
-        cout << "Objetivo ENERGÉTICO cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Energetico cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -127,8 +118,8 @@ void Objetivo::letrado(Jugador *jugador, int objetivo)
         cout << "Restan por construir " << MAX_ESCUELAS - jugador->obtener_cant_edificio("escuela") << " para alcanzar el objetivo" << endl;    
     else
     {
-        cout << "Objetivo de máxima construcción de escuelas completado" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Letrado cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -136,8 +127,8 @@ void Objetivo::minero(Jugador *jugador, int objetivo)
 {
     if(jugador->obtener_cant_edificio("mina") >= MINAS_METAL_OBJETIVO && jugador->obtener_cant_edificio("mina oro") >= MINAS_ORO_OBJETIVO)
     {    
-        cout << "Objetivo MINERO completado" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Minero completado" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
     else if(jugador->obtener_cant_edificio("mina") < MINAS_METAL_OBJETIVO && jugador->obtener_cant_edificio("mina oro") < MINAS_ORO_OBJETIVO)
         cout << "Resta construir una mina de metal y una mina de oro" << endl;
@@ -161,8 +152,8 @@ void Objetivo::cansado(Jugador *jugador, int objetivo)
         cout << cantidad_cansado << " de energia restante" << endl;
     else
     {
-        cout << "Objetivo CANSADO cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Cansado cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -173,44 +164,44 @@ void Objetivo::constructor(Jugador *jugador, int objetivo)
 
     if(jugador->obtener_cant_edificio("mina") == 0)
     {
-        mensaje_salida += "mina de metal ";
+        mensaje_salida += "mina de metal, ";
         objetivo_cumplido = false;
     }
     
     if(jugador->obtener_cant_edificio("mina oro") == 0)
     {
-        mensaje_salida += "mina de oro ";
+        mensaje_salida += "mina de oro, ";
         objetivo_cumplido = false;
     }
 
     if(jugador->obtener_cant_edificio("aserradero") == 0)
     {
-        mensaje_salida += "aserradero ";
+        mensaje_salida += "aserradero, ";
         objetivo_cumplido = false;
     }
 
     if(jugador->obtener_cant_edificio("fabrica") == 0)
     {
-        mensaje_salida += "fabrica ";
+        mensaje_salida += "fabrica, ";
         objetivo_cumplido = false;
     }
     
     if(jugador->obtener_cant_edificio("escuela") == 0)
     {
-        mensaje_salida += "escuela ";
+        mensaje_salida += "escuela, ";
         objetivo_cumplido = false;
     }
 
     if(jugador->obtener_cant_edificio("planta electrica") == 0)
     {
-        mensaje_salida += "planta eléctrica ";
+        mensaje_salida += "planta eléctrica, ";
         objetivo_cumplido = false;
     }
 
     if(objetivo_cumplido)
     {
-        cout << "Objetivo CONSTRUCTOR cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Constructor cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
     else   
         cout << mensaje_salida << endl;
@@ -222,11 +213,11 @@ void Objetivo::armado(Jugador *jugador, int objetivo)
     unsigned int cantidad_armado = jugador->obtener_bombas();
 
     if(cantidad_armado < CANTIDAD_ARMADO_OBJETIVO)
-        cout << cantidad_armado << " de bombas en el inventario" << endl;
+        cout << cantidad_armado << " bombas en el inventario" << endl;
     else
     {
-        cout << "Objetivo ARMADO cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Armado cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -235,11 +226,11 @@ void Objetivo::extremista(Jugador *jugador, int objetivo)
     unsigned int cantidad_bombas_compradas = jugador->obtener_bombas_compradas();
 
     if(cantidad_bombas_compradas < CANTIDAD_EXTREMISTA_OBJETIVO)
-        cout << cantidad_bombas_compradas << " de bombas compradas en una partida" << endl;
+        cout << cantidad_bombas_compradas << " bombas compradas en una partida" << endl;
     else
     {
-        cout << "Objetivo EXTREMISTA cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo);
+        cout << "Objetivo Extremista cumplido" << endl;
+        jugador->set_objetivo_cumplido(objetivo, jugador);
     }
 }
 
@@ -255,7 +246,7 @@ void Objetivo::asignar(Jugador *jugador)
     {
         objetivos[i]= aleatorio(1,9);
 
-        while(!objetivo_repetido && j<CANT_OBJETIVOS_JUGADOR)
+        while(!objetivo_repetido && j<i)
         {
             if(objetivos[j] == objetivos[i])
                 objetivo_repetido = true;
@@ -266,6 +257,7 @@ void Objetivo::asignar(Jugador *jugador)
             {
                 objetivos[i]= aleatorio(1,9);
                 j=0;
+                objetivo_repetido = false;
             }          
         }
     }
@@ -279,3 +271,16 @@ int Objetivo::aleatorio(int cota_inferior, int cota_superior)
     return int(rand()%cota_superior + cota_inferior);
 }
 
+int Objetivo::contar_cumplidos(Jugador *jugador)
+{
+    int cant_cumplidos=0;
+
+    for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
+    {
+        cout << "Estado del objetivo " << i << ": " <<jugador->objetivo_cumplido(i) << endl;
+        if(jugador->objetivo_cumplido(i))
+            cant_cumplidos++;
+    }
+    cout << "Cantidad de objetivos cumplidos: " << cant_cumplidos << endl;
+    return cant_cumplidos;
+}

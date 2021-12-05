@@ -10,7 +10,7 @@
 #include "ABB.h"
 #include "ABB_nodo.h"
 #include "Edificio.h"
-
+#include "Objetivo.h"
 using namespace std;
 
 void iniciar_juego();

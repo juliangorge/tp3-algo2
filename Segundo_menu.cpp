@@ -87,6 +87,7 @@ estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)
 {
     Jugador* jugador;
+    
     int opcion = obtener_numero_jugador();
     cout << "El jugador que inicia la partida es el jugador " << opcion << endl;
     switch(opcion){
@@ -119,20 +120,20 @@ void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa)
 {
     //cargar_ubicaciones(jugador_uno, jugador_dos, arbol, mapa);
-
+    Objetivo *objetivo;
     Jugador* jugador = inicializar_jugador(jugador_uno, jugador_dos);
+    objetivo->asignar(jugador);
     mostrar_segundo_menu();
 	int opcion = obtener_opcion_segundo_menu();
 	while(opcion != OPCION_SALIR_SEGUNDO_MENU){
         verificar_energia_nula(jugador, jugador_uno, jugador_dos);
-		opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
+		opciones_segundo_menu(opcion, jugador, objetivo, jugador_uno, jugador_dos, arbol, mapa);
 		mostrar_segundo_menu();
 		opcion = obtener_opcion_segundo_menu();
 	}
 }	
 
-void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *> arbol, Mapa* mapa){
-    Objetivo *objetivo;
+void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
@@ -173,6 +174,12 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
         case OPCION_FINALIZAR_TURNO:
             cambiar_jugador(jugador, jugador_uno, jugador_dos);
             cout << " Finalizo el turno" << endl;
+
+            ///// CONTAR OBJETIVOS CUMPLIDOS NO ESTÁ CONTANDO ///////
+
+            if(objetivo->contar_cumplidos(jugador)>=2)
+                cout << "El jugador " << jugador->obtener_numero() << "ha cumplido los objetivos" <<endl;
+
             break;
     }
 

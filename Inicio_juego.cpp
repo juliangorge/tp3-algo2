@@ -31,6 +31,7 @@ void agregar_edificio(ABB<Edificio*> &arbol, string nombre, Edificio* edificio){
 
 void iniciar_juego()
 {
+	Objetivo *objetivos_1, *objetivos_2;
 	//Mapa * mapa = new Mapa("mapa.txt");
 	ABB<Edificio*> arbol;
 	cargar_edificios(arbol);
@@ -40,6 +41,10 @@ void iniciar_juego()
 	char caracter_jugador_uno = 'J', caracter_jugador_dos = 'U';
 	Jugador* jugador_uno = new Jugador(caracter_jugador_uno);
 	Jugador* jugador_dos = new Jugador(caracter_jugador_dos);
+
+	//objetivos_1->asignar(jugador_uno);
+	//objetivos_2->asignar(jugador_dos);
+
 	cargar_materiales_jugadores(jugador_uno,jugador_dos);
 	int opcion_salida = trabajar_primer_menu(arbol, mapa);
 

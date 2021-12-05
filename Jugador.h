@@ -102,11 +102,13 @@ class Jugador {
 
         void remover_edificio(Casillero * casillero);
 
-        void set_objetivo_cumplido(int objetivo);
+        void set_objetivo_cumplido(int objetivo, Jugador *jugador);
 
         void set_objetivos(int objetivos[]);
 
         int obtener_objetivo(int posicion);
+
+        bool objetivo_cumplido(int posicion);
 
         unsigned int obtener_andycoins_juntadas();
 

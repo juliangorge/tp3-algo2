@@ -1,5 +1,5 @@
 #ifndef OBJETIVO__H
-#define OBJETIVO__h
+#define OBJETIVO__H
 
 #include "Jugador.h"
 #include<stdlib.h>
@@ -63,6 +63,10 @@ class Objetivo {
         //PRE:
         //POST:
         void asignar_objetivos(Jugador *jugador);
+
+        //PRE:
+        //POST:
+        int contar_cumplidos(Jugador *jugador);
 
         //PRE:
         //POST:

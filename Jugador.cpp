@@ -15,15 +15,15 @@ Jugador:: Jugador(char caracter){
     this->estado_objetivos[1]=false;
     this->estado_objetivos[2]=false;
 
-    this->objetivos[0]=2;
-    this->objetivos[1]=6;
-    this->objetivos[2]=7;
+    this->objetivos[0]=0;
+    this->objetivos[1]=0;
+    this->objetivos[2]=0;
 
     this->andycoins=ANDYCOINS_INICIALES;
     this->andycoins_acumuladas=ANDYCOINS_INICIALES;
-    this->bombas_compradas=0;
-    this->bombas_usadas=0;
-    this->bombas=0;
+    this->bombas_compradas=500;
+    this->bombas_usadas=500;
+    this->bombas=500;
 }
 
 Jugador:: ~Jugador(){
@@ -201,18 +201,32 @@ void Jugador:: remover_edificio(Casillero * casillero){
     }
 }
 
-void Jugador::set_objetivo_cumplido(int objetivo)
-{
+void Jugador::set_objetivo_cumplido(int objetivo, Jugador *jugador)
+{   
+    //cout << "Se cumplió el objetivo: " << objetivo << endl;
+
     for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
-        if(this->objetivos[i]==objetivo)
-            this->estado_objetivos[i]=true;
-    
+    {
+        if(jugador->objetivos[i]==objetivo)
+        {
+            jugador->estado_objetivos[i]=true;
+            //cout << "Objetivo " << objetivo << "en estado " << estado_objetivos[i] << endl;
+        }
+    }
 }
 
-void Jugador::set_objetivos(int objetivos[])
+void Jugador::set_objetivos(int vector_objetivos[])
 {
-    for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
-        this->objetivos[i]==objetivos[i];
+    this->objetivos[0]=vector_objetivos[0];
+    this->objetivos[1]=vector_objetivos[1];
+    this->objetivos[2]=vector_objetivos[2];
+    //for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
+    //    this->objetivos[i]==objetivos[i];
+}
+
+bool Jugador::objetivo_cumplido(int posicion)
+{
+    return this->estado_objetivos[posicion];
 }
 
 int Jugador::obtener_objetivo(int posicion)

@@ -42,7 +42,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
 
 estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa);
 
-void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
+void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo* objetivo, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
 
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos);
 
