@@ -52,4 +52,5 @@ void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* j
 
 estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos);
 
+
 #endif //SEGUNDO_MENU_H

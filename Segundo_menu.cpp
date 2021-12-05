@@ -170,6 +170,7 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, J
         case OPCION_RECOLECTAR_RECURSOS:
             break;
         case OPCION_MOVERSE_A_COORDENADA:
+            moverse_coordenada(jugador);
             break;
         case OPCION_FINALIZAR_TURNO:
             cambiar_jugador(jugador, jugador_uno, jugador_dos);
