@@ -36,6 +36,10 @@ class Edificio {
         string obtener_nombre();
 
         // PRE:
+        // POST: Establece el caracter del edificio en base a su nombre.
+        void establecer_caracter();
+
+        // PRE:
         // POST: Retorna la cantidad de piedra.
         unsigned int obtener_piedra();
 

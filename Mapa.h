@@ -50,6 +50,7 @@ class Mapa
         void leer_mapa();
         void cargar_mapa(unsigned int cantidad_filas, unsigned int cantidad_columnas, char square_type);
         void mostrar_mapa_vacio();
+        void mostrar_mapas();
 
         Casillero * obtener_casillero(unsigned int fila, unsigned int columna);
 
@@ -57,7 +58,7 @@ class Mapa
         bool chequear_coordenadas(unsigned int fila, unsigned int columna);
 
         void set_jugador_casillero(Jugador * jugador);
-        void set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
+        estados_t set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
 
         void remover_edificio(unsigned int fila, unsigned int columna);
 

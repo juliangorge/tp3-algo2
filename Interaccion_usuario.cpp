@@ -99,7 +99,7 @@ estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & 
 
     if(!es_numero(fila_aux) || !es_numero(columna_aux)) return ST_ERROR_CANTIDAD_INVALIDA;
 
-    if(!mapa->chequear_coordenadas(stoul(fila_aux), stoul(columna_aux))) return ST_ERROR_CANTIDAD_INVALIDA;
+    if(!mapa->chequear_coordenadas(stoul(fila_aux), stoul(columna_aux))) return ST_ERROR_COORDENADAS_INVALIDAS;
 
     fila = stoi(fila_aux);
     columna = stoi(columna_aux);

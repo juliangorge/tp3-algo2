@@ -89,6 +89,32 @@ void Mapa::mostrar_mapa_vacio()
     }
 }
 
+void Mapa::mostrar_mapas()
+{
+    cout << endl;
+    cout << "    Mapa vacío" << '\t' << '\t' << '\t' << "Mapa de la partida";
+    cout << endl;
+
+    for (unsigned int i = 0; i < this->cantidad_filas; i++){
+
+        for (unsigned int j = 0; j < this->cantidad_columnas; j++){
+
+            cout << this->matriz_mapa[i][j]->obtener_caracter_casillero() << " "; 
+
+        }
+
+        cout << '\t' << '\t';
+
+        for (unsigned int j = 0; j < this->cantidad_columnas; j++){
+
+            cout << this->matriz_mapa[i][j]->obtener_caracter() << " ";
+
+        }
+
+        cout << endl;
+    }
+}
+
 Casillero * Mapa:: obtener_casillero(unsigned int fila, unsigned int columna){
     if(!chequear_coordenadas(fila, columna)) return nullptr;
     return this->matriz_mapa[fila][columna];
@@ -100,19 +126,16 @@ bool Mapa:: chequear_coordenadas(unsigned int fila, unsigned int columna){
 
 void Mapa::set_jugador_casillero(Jugador* jugador)
 {
-    int fila = jugador->obtener_x(), columna = jugador->obtener_y(), numero = jugador->obtener_numero();
-    string nombre = "jugador 1";
-    char caracter = jugador->obtener_caracter();
-    //this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, numero);
+    int fila = jugador->obtener_fila(), columna = jugador->obtener_columna();
+    char caracter = jugador->obtener_caracter_jugador();
+    this->matriz_mapa[fila][columna]->ocupar_casillero(caracter);
     return;
 }
 
-void Mapa::set_edificio_casillero(int jugador, unsigned int fila, unsigned int columna, Edificio *edificio)
+estados_t Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio* edificio)
 {
-    string nombre = edificio->obtener_nombre();
-    char caracter = edificio->obtener_caracter();
-    //this->matriz_mapa[fila][columna]->ocupar_casillero(nombre, caracter, jugador);
-    return;
+    estados_t st = this->matriz_mapa[fila][columna]->cargar(edificio, caracter_jugador);
+    return st;
 }
 
 void Mapa:: remover_edificio(unsigned int fila, unsigned int columna){

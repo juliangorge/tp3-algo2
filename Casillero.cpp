@@ -9,6 +9,11 @@ Casillero:: Casillero(unsigned int fila, unsigned int columna){
     this->columna = columna;
 }
 
+bool Casillero::esta_libre()
+{
+    return this->caracter == this->caracter_casillero;
+}
+
 unsigned int Casillero:: obtener_fila(){
     return this->fila;
 }
@@ -32,12 +37,20 @@ char Casillero:: obtener_caracter(){
     return this->caracter;
 }
 
-void Casillero:: cargar(Edificio* edificio){
-    if(es_terreno){
-        this->edificio = edificio;
-        cambiar_objeto();
-    }
+char Casillero:: obtener_caracter_casillero(){
+    return this->caracter_casillero;
 }
+
+estados_t Casillero:: cargar(Edificio* edificio, char caracter_jugador){
+    estados_t st = ST_OK;
+    if(!es_terreno) return ST_ERROR_CASILLERO_NO_CONSTRUIBLE; 
+    else if(!esta_libre()) return ST_ERROR_CASILLERO_OCUPADO;
+    this->edificio = edificio;
+    this->caracter_jugador = caracter_jugador;
+    cambiar_objeto();
+    return st;
+}
+
 void Casillero:: cargar(Material* material){
     if(es_camino){
         this->material = material;
@@ -74,4 +87,9 @@ void Casillero:: mostrar_edificios(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
     cout << "Necesita reparación?: (" << (this->necesita_reparacion ? "Sí" : "No") << ")" << endl;
+}
+
+void Casillero::ocupar_casillero(char caracter)
+{
+    this->caracter = caracter;
 }

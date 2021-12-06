@@ -7,8 +7,8 @@
 
 using namespace std;
 
-const string NOMBRE_MADERA = "madera";
 const string NOMBRE_PIEDRA = "piedra";
+const string NOMBRE_MADERA = "madera";
 const string NOMBRE_METAL = "metal";
 const string NOMBRE_BOMBAS = "bombas";
 const string NOMBRE_ANDYCOINS = "andycoins";
@@ -16,7 +16,6 @@ const char CARACTER_MADERA = 'W';
 const char CARACTER_PIEDRA = 'S';
 const char CARACTER_METAL = 'I';
 const char CARACTER_ANDYCOINS = 'C';
-const char CARACTER_BOMBAS = '#';
 const char CARACTER_NO_IDENTIFICADO = '#';
 
 class Material
@@ -45,6 +44,11 @@ class Material
         // PRE: -
         // POS: devuelve la cantidad
         unsigned obtener_cantidad();
+
+
+        // PRE: -
+        // POS: Establece el caracter del material en base a su nombre.
+        void establecer_caracter();
 
         // PRE: -
         // POS: suma la cantidad de materiales espècificada al atributo

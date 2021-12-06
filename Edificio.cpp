@@ -10,7 +10,7 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
 
     // separar cantidad para cada jugador
     this->maximo = maximo;
-    this->caracter = 'B';
+    this->establecer_caracter();
     this->provee_materiales = true;
 
     //this->getCaracter();
@@ -43,6 +43,38 @@ unsigned int Edificio::obtener_cantidad(){
 unsigned int Edificio::obtener_restantes(){
     return (this->maximo - this->cantidad);
 }
+
+void Edificio:: establecer_caracter(){
+    switch(this->nombre[0]){
+        case 'm':
+            if(nombre.length()==4){
+                this->caracter = 'M';
+            }
+            else{
+                this->caracter = 'G';
+            }
+            break;
+        case 'a':
+            this->caracter = 'A';
+            break;
+        case 'f':
+            this->caracter = 'F';
+            break;
+        case 'e':
+            this->caracter = 'E';
+            break;
+        case 'o':
+            this->caracter = '0';
+            break;
+        case 'p':
+            this->caracter = 'P';
+            break;
+        default: 
+            this->caracter = 'W';
+            break;
+    }
+}
+
 
 char Edificio:: obtener_caracter(){
     return this->caracter;

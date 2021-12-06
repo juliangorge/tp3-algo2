@@ -8,7 +8,6 @@ class CasilleroBetun : public Casillero
     public:
         CasilleroBetun(unsigned int fila, unsigned int columna);
         //~CasilleroBetun();
-        bool esta_libre();
         void cambiar_objeto();
 };
 

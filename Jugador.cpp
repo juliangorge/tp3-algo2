@@ -4,8 +4,8 @@ Jugador:: Jugador(char caracter){
     this->energia = ENERGIA_INICIAL;
     this->caracter = caracter;
     this->tipos_de_materiales = 0;
-    this->posicion_x = 0;
-    this->posicion_y = 0;
+    this->posicion_fila = 0;
+    this->posicion_columna = 0;
 
     this->casilleros_jugador = nullptr;
     this->cantidad_casilleros = 0;
@@ -30,9 +30,9 @@ Jugador:: ~Jugador(){
 
 }
 
-int Jugador::obtener_numero()
+char Jugador::obtener_caracter_jugador()
 {
-    return atoi(&(this->caracter));
+    return this->caracter;
 }
 
 unsigned int Jugador::obtener_energia()
@@ -43,6 +43,12 @@ unsigned int Jugador::obtener_energia()
 char Jugador::obtener_caracter()
 {
     return this->caracter;
+}
+
+void Jugador::agregar_coordenadas(unsigned int posicion_fila, unsigned int posicion_columna)
+{
+    this->posicion_fila = posicion_fila;
+    this->posicion_columna = posicion_columna;
 }
 
 void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos)
@@ -102,6 +108,13 @@ void Jugador::decrementar_energia(unsigned int costo_energia)
     this->energia-=costo_energia;
 }
 
+void Jugador::incrementar_energia(unsigned int energia_nueva)
+{
+    if((this->energia+=energia_nueva) > ENERGIA_MAXIMA){
+        this->energia = ENERGIA_MAXIMA;
+    }
+} 
+
 bool Jugador::verificar_energia_nula()
 {
     return this->energia == 0;
@@ -147,14 +160,14 @@ unsigned int Jugador::mostrar_cantidad_material(string nombre_material)
     return cantidad;
 }
 
-int Jugador::obtener_x()
+unsigned int Jugador::obtener_fila()
 {
-    return this->posicion_x;
+    return this->posicion_fila;
 }
 
-int Jugador::obtener_y()
+unsigned int Jugador::obtener_columna()
 {
-    return this->posicion_y;
+    return this->posicion_columna;
 }
 
 void Jugador:: agregar_material(string nombre_material, unsigned int cantidad){
@@ -181,7 +194,7 @@ void Jugador:: agregar_casillero(Casillero * casillero){
 
 void Jugador:: mostrar_edificios(){
     int cantidad_edificio = 0;
-    for (int i = 0; i < cantidad_casilleros; i++){
+    for (unsigned int i = 0; i < cantidad_casilleros; i++){
         this->casilleros_jugador[i]->mostrar_edificios();
         cantidad_edificio++;
     }

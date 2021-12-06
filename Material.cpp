@@ -4,19 +4,7 @@ Material::Material(string nombre, unsigned int cantidad)
 {
     this->nombre = nombre;
     this->cantidad = cantidad;
-
-    if(nombre == NOMBRE_MADERA)
-        this->caracter = CARACTER_MADERA;
-    else if(nombre == NOMBRE_PIEDRA)
-        this->caracter = CARACTER_PIEDRA;
-    else if(nombre == NOMBRE_METAL)
-        this->caracter = CARACTER_METAL;
-    else if(nombre == NOMBRE_ANDYCOINS)
-        this->caracter = CARACTER_ANDYCOINS;
-    else if(nombre == NOMBRE_BOMBAS)
-        this->caracter = CARACTER_BOMBAS;
-    else
-        this->caracter = CARACTER_NO_IDENTIFICADO;
+    this->establecer_caracter();
 }
 
 string Material::obtener_nombre()
@@ -32,6 +20,27 @@ char Material::obtener_caracter()
 unsigned Material::obtener_cantidad()
 {
     return this->cantidad;
+}
+
+void Material::establecer_caracter()
+{
+    switch(nombre[0]){
+        case 'm':
+            if(nombre == NOMBRE_MADERA)
+                this->caracter = CARACTER_MADERA;
+            else
+                this->caracter = CARACTER_METAL;
+            break;
+        case 'p':
+            this->caracter = CARACTER_PIEDRA;
+            break;
+        case 'a':
+            this->caracter = CARACTER_ANDYCOINS;
+            break;
+        default:
+            this->caracter = CARACTER_NO_IDENTIFICADO;
+            break;
+    }
 }
 
 void Material::sumar_materiales(unsigned int sumar_cantidad)

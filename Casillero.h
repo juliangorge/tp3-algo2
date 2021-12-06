@@ -5,6 +5,7 @@
 #include <string>
 #include "Edificio.h"
 #include "Material.h"
+#include "Mensajes_de_error.h"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ class Casillero
 
         char caracter;
 
+        char caracter_casillero;
+
         char caracter_jugador;
 
         Edificio* edificio;
@@ -50,7 +53,7 @@ class Casillero
 
         // PRE:
         // POST: Retorna si el casillero está libre de construcciones/materiales
-        virtual bool esta_libre() = 0;
+        bool esta_libre();
 
         // PRE: 
         // POST: Retorna el objeto Edificio
@@ -61,8 +64,12 @@ class Casillero
         Material* obtener_material();
         
         // PRE:
-        // POST: Retorna el obtener_caracter de casillero
+        // POST: Retorna el caracter del casillero o del elemento que contiene
         char obtener_caracter();
+
+        // PRE:
+        // POST: Retorna el caracter de casillero
+        char obtener_caracter_casillero();
 
         // PRE:
         // POST: Retorna el nombre del casillero
@@ -70,7 +77,7 @@ class Casillero
         
         // PRE: Recibe puntero edificio
         // POST: Referencia el atributo edificio al parametro recibido
-        void cargar(Edificio* edificio);
+        estados_t cargar(Edificio* edificio, char caracter_jugador);
 
         // PRE: Recibe puntero material
         // POST: Referencia el atributo material al parametro recibido
@@ -92,7 +99,7 @@ class Casillero
 
         void mostrar_edificios();
 
-        //void ocupar_casillero(string nombre, char caracter, int numero);
+        void ocupar_casillero(char caracter);
 };
 
 #endif // CASILLERO_H

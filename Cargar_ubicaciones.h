@@ -1,4 +1,4 @@
-/*#ifndef UBICACIONES_H
+#ifndef UBICACIONES_H
 #define UBICACIONES_H
 
 #include <iostream>
@@ -9,9 +9,10 @@
 #include "Parser.h"
 #include "Casillero.h"
 
+const string ARCHIVO_UBICACIONES = "ubicaciones.txt";
 
 void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*> arbol, Mapa* mapa);
 
 int validar_linea(char *aux);
 
-#endif*/
+#endif

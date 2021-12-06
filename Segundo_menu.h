@@ -10,7 +10,7 @@
 #include "Mensajes_de_error.h"
 #include "Objetivo.h"
 #include "Opcion_comprar_bombas.h"
-#include "Grafo.h"
+//#include "Grafo.h"
 
 
 #include "ABB.h"
@@ -36,6 +36,7 @@ const int OPCION_JUGADOR_DOS = 2;
 
 const unsigned int ENERGIA_CONSTRUIR_EDIFICIO = 15;
 const unsigned int ENERGIA_DEMOLER_EDIFICIO = 15;
+const unsigned int ENERGIA_RECUPERADA_POR_TURNO = 20;
 
 using namespace std;
 
@@ -51,8 +52,12 @@ void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_
 
 void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos);
 
+estados_t verificar_materiales(Jugador* jugador, Edificio* edificio);
+
+void restar_materiales(Jugador* jugador, Edificio* edificio);
+
 estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos);
 
-estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa);
+//estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa);
 
 #endif //SEGUNDO_MENU_H

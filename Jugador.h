@@ -16,6 +16,7 @@ const int CANT_OBJETIVOS_JUGADOR = 3;
 
 
 const unsigned int ENERGIA_INICIAL = 50;
+const unsigned int ENERGIA_MAXIMA = 100;
 const unsigned int ANDYCOINS_INICIALES = 0;
 class Jugador {
 
@@ -30,8 +31,8 @@ class Jugador {
 
         //Mapa
         char caracter;
-        unsigned int posicion_x;
-        unsigned int posicion_y;
+        unsigned int posicion_fila;
+        unsigned int posicion_columna;
         
         //Objetivos
         bool estado_objetivos[CANT_OBJETIVOS_JUGADOR];
@@ -56,6 +57,7 @@ class Jugador {
 
         char obtener_caracter();
 
+        void agregar_coordenadas(unsigned int posicion_fila, unsigned int posicion_columna);
 
 		// PRE: debe existir el archivo con los materiales y si los hubiera deben seguir el formato "material cant_jugador_1 cant_jugador_2".
 		// POS: enlista los materiales que encuentra en el archivo. Si un material se encuentra repetido, lo agrupa en un solo ítem.
@@ -76,6 +78,8 @@ class Jugador {
 
         void decrementar_energia(unsigned int costo_energia);
 
+        void incrementar_energia(unsigned int energia_nueva);
+
         bool verificar_energia_nula();
 
         unsigned int obtener_posicion_material(string nombre_material);
@@ -88,11 +92,11 @@ class Jugador {
 
         unsigned int mostrar_cantidad_material(string nombre_material);
 
-        int obtener_numero();
+        char obtener_caracter_jugador();
 
-        int obtener_x();
+        unsigned int obtener_fila();
 
-        int obtener_y();
+        unsigned int obtener_columna();
 
         void agregar_material(string nombre_material, unsigned int cantidad);
 
