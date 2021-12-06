@@ -7,21 +7,21 @@
 
 const int INFINITO = 99999999;
 
-class CaminoMinimo {
+class Camino_minimo {
 //Atributos
 protected:
-    int ** matrizAdyacencia;
+    int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
     int cantidadVertices;
 
 //Métodos
 public:
-    CaminoMinimo(Lista<Vertice> * vertices, int** matrizAdyacencia);
+    Camino_minimo(Lista<Vertice> * vertices, int** matriz_adyacencia);
 
     //post: muestra por pantalla el camino mínimo entre el origen y el destino, detallando su recorrido y peso
-    virtual void caminoMinimo(int origen, int destino) = 0;
+    virtual void camino_minimo(int origen, int destino) = 0;
 
-    virtual ~CaminoMinimo() = default;
+    virtual ~Camino_minimo() = default;
 };
 
 

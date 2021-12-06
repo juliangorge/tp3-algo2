@@ -10,6 +10,7 @@
 #include "Mensajes_de_error.h"
 #include "Objetivo.h"
 #include "Opcion_comprar_bombas.h"
+#include "Grafo.h"
 
 
 #include "ABB.h"
@@ -52,5 +53,6 @@ void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* j
 
 estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos);
 
+estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa);
 
 #endif //SEGUNDO_MENU_H

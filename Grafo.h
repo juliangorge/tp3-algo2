@@ -3,25 +3,33 @@
 #include <string>
 #include "Lista.h"
 #include "Vertice.h"
-#include "Floyd.h"
+#include "Casillero.h"
 
 using namespace std;
+
+const int PESO_BETUN = 0;
+const int PESO_CAMINO = 4;
+const int PESO_TERRENO = 25;
+const int PESO_LAGO_1 = 2;
+const int PESO_LAGO_2 = 5;
+const int PESO_MUELLE_1 = 5;
+const int PESO_MUELLE_2 = 2;
 
 class Grafo {
 /*ATRIBUTOS*/
 private:
-    int ** matrizDeAdyacencia;
+    int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
-    CaminoMinimo * algoritmoCaminoMinimo;
+    Camino_minimo * algoritmoCaminoMinimo;
 
 /*MÉTODOS*/
 
     //pre: tienen que existir tanto el origen como el destino. Ademas se deben haber calculado las matrices de Floyd
     //post: muestra el camino minimo entre el origen y el destino
-    void caminoMinimo(int origen, int destino);
+    void camino_minimo(int origen, int destino);
 
     //post: agranda dinamicamente la matriz de adyacencia
-    void agrandarMatrizDeAdyacencia();
+    void agrandarmatriz_adyacencia();
 
     //pre: la matriz que se le envie ya debe tener memoria reservada
     //post: copia la matriz de adyacencia en la nueva matriz
@@ -47,11 +55,11 @@ public:
 
     //pre: se debe tener un algortimo para calcular el camino mínimo previamente elegido
     //post: muestra por terminal el camino mínimo desde un origen a un destino
-    void caminoMinimo(string origen, string destino);
+    void camino_minimo(Casillero *origen, Casillero *destino);
 
     //pre: el peso es un valor positivo
     //post: Ajusta la matriz de adyacencia con el peso ingresado
-    void agregarCamino(string origen, string destino, int peso);
+    void agregar_camino(Casillero *origen, Casillero *destino, int peso_origen, int peso_destino);
 
     //post: imprime por pantalla el grafo
     void mostrarGrafo();
@@ -62,6 +70,10 @@ public:
     //post: selecciona el algortimo de Dijkstra para calcular el camino mínimo
     void usarDijkstra();
 
+    void asignar_pesos(Grafo *grafo, char jugador, Casillero *origen, Casillero *destino);
+
+    void asignar_adyacentes(Grafo *grafo, Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M);
+    
     ~Grafo();
 };
 

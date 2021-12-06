@@ -24,13 +24,17 @@ public:
     int obtenerCantidadDeElementos();
 
     //post: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
-    int obtenerPosicion(string nombre);
+    int obtener_posicion(unsigned int x, unsigned int y);
 
     //post: devuelve el  nombre que se encuentra en la posicion recibida o NOMBRE_NO_ENCONTRADO si no lo encuentra
     string obtenerNombre(int posicion);
 
     //post: agrega un nuevo elemento a la lista
     void agregar(string nuevoElemento);
+
+    unsigned int obtener_x();
+
+    unsigned int obtener_y();
 
     ~Lista();
 };
@@ -48,13 +52,13 @@ int Lista<Tipo>::obtenerCantidadDeElementos(){
 }
 
 template < typename Tipo >
-int Lista<Tipo>::obtenerPosicion(string nombre) {
+int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casillero_y) {
     bool elementoEncontrado = false;
     int i = 0;
     Nodo<Tipo>* auxiliar = primero;
 
     while(!elementoEncontrado && i < cantidadDeElementos){
-        if(auxiliar -> obtenerNombre() == nombre){
+        if(auxiliar->obtener_x() == casillero_x && auxiliar->obtener_y() == casillero_y){
             elementoEncontrado = true;
         }
         i++;

@@ -3,13 +3,13 @@
 #include <iostream>
 
 Grafo::Grafo() {
-    matrizDeAdyacencia = nullptr;
+    matriz_adyacencia = nullptr;
     vertices = new Lista<Vertice>();
     algoritmoCaminoMinimo = nullptr;
 }
 
 void Grafo::agregarVertice(string nuevoVertice) {
-    agrandarMatrizDeAdyacencia();
+    agrandarmatriz_adyacencia();
     vertices -> agregar(nuevoVertice);
 }
 
@@ -18,40 +18,30 @@ void Grafo::mostrarGrafo() {
     mostrarMatrizAdyacencia();
 }
 
-void Grafo::agregarCamino(string origen, string destino, int peso) {
-    int posicionOrigen = vertices ->obtenerPosicion(origen);
-    int posicionDestino = vertices ->obtenerPosicion(destino);
+void Grafo::agregar_camino(Casillero *origen, Casillero *destino, int peso_origen, int peso_destino) {
+    int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
+    int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
 
-    if(posicionOrigen == POSICION_NO_ENCONTRADA){
-        cout << "El vertice " << origen << " no existe en el grafo" << endl;
-    }
-    if(posicionDestino == POSICION_NO_ENCONTRADA){
-        cout << "El vertice " << destino << " no existe en el grafo" << endl;
-    }
-
-    if(!(posicionDestino == POSICION_NO_ENCONTRADA || posicionOrigen == POSICION_NO_ENCONTRADA)) {
-        //Les pongo el mismo peso porque es una matriz simetrica
-        matrizDeAdyacencia[posicionOrigen][posicionDestino] = peso;
-        matrizDeAdyacencia[posicionDestino][posicionOrigen] = peso;
-    }
+    matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
+    matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
 }
 
 //Con el grafo siempre interactuo con strings. La lista es algo particular del grafo
-void Grafo::caminoMinimo(string origen, string destino) {
-    int posicionOrigen = vertices ->obtenerPosicion(origen);
-    int posicionDestino = vertices ->obtenerPosicion(destino);
+void Grafo::camino_minimo(Casillero *origen, Casillero *destino) {
+    int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
+    int posicion_destino = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
 
-    if(posicionOrigen == POSICION_NO_ENCONTRADA){
+    if(posicion_origen == POSICION_NO_ENCONTRADA){
         cout << "El vertice " << origen << " no existe en el grafo" << endl;
     }
-    if(posicionDestino == POSICION_NO_ENCONTRADA){
+    if(posicion_destino == POSICION_NO_ENCONTRADA){
         cout << "El vertice " << destino << " no existe en el grafo" << endl;
     }
 
-    caminoMinimo(posicionOrigen, posicionDestino);
+    camino_minimo(posicion_origen, posicion_destino);
 }
 
-void Grafo::agrandarMatrizDeAdyacencia() {
+void Grafo::agrandarmatriz_adyacencia() {
     int** matrizAuxiliar;
     int nuevaCantidadDeVertices = vertices->obtenerCantidadDeElementos() + 1;
 
@@ -63,13 +53,13 @@ void Grafo::agrandarMatrizDeAdyacencia() {
     copiarMatrizAdyacente(matrizAuxiliar);
     inicializarNuevoVertice(matrizAuxiliar);
     liberarMatrizAdyacencia();
-    matrizDeAdyacencia = matrizAuxiliar;
+    matriz_adyacencia = matrizAuxiliar;
 }
 
 void Grafo::copiarMatrizAdyacente(int** nuevaAdyacente) {
     for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
         for(int j = 0; j < vertices -> obtenerCantidadDeElementos(); j++){
-            nuevaAdyacente[i][j] = matrizDeAdyacencia[i][j];
+            nuevaAdyacente[i][j] = matriz_adyacencia[i][j];
         }
     }
 }
@@ -84,14 +74,14 @@ void Grafo::inicializarNuevoVertice(int** nuevaAdyacente) {
 
 void Grafo::liberarMatrizAdyacencia() {
     for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
-        delete[] matrizDeAdyacencia[i];
+        delete[] matriz_adyacencia[i];
     }
-    delete[] matrizDeAdyacencia;
+    delete[] matriz_adyacencia;
 }
 
 Grafo::~Grafo() {
     liberarMatrizAdyacencia();
-    matrizDeAdyacencia = nullptr;
+    matriz_adyacencia = nullptr;
     delete vertices;
     delete algoritmoCaminoMinimo;
 }
@@ -114,10 +104,10 @@ void Grafo::mostrarMatrizAdyacencia() {
             if(j == vertices -> obtenerCantidadDeElementos() * 2 - 1){
                 cout << endl;
             } else if(j % 2 == 0){
-                if(matrizDeAdyacencia[i][j/2] == INFINITO){
+                if(matriz_adyacencia[i][j/2] == INFINITO){
                     cout << "∞";
                 } else {
-                    cout << matrizDeAdyacencia[i][j/2];
+                    cout << matriz_adyacencia[i][j/2];
                 }
             } else{
                 cout << "|";
@@ -128,16 +118,84 @@ void Grafo::mostrarMatrizAdyacencia() {
 }
 
 //Hago una sobre carga de camino minimo para hallar el camino minimo entre origen y destino
-void Grafo::caminoMinimo(int origen, int destino) {
-    algoritmoCaminoMinimo -> caminoMinimo(origen, destino);
-}
-
-void Grafo::usarFloyd() {
-    delete algoritmoCaminoMinimo;
-    algoritmoCaminoMinimo = new Floyd(vertices, matrizDeAdyacencia);
+void Grafo::camino_minimo(int origen, int destino) {
+    algoritmoCaminoMinimo -> camino_minimo(origen, destino);
 }
 
 void Grafo::usarDijkstra() {
     delete algoritmoCaminoMinimo;
-    algoritmoCaminoMinimo = new Dijkstra(vertices, matrizDeAdyacencia);
+    algoritmoCaminoMinimo = new Dijkstra(vertices, matriz_adyacencia);
+}
+
+void asignar_pesos(Grafo *grafo, char jugador, Casillero *origen, Casillero *destino)
+{
+    //grafo->agregarVertice(casillero);
+
+    if(jugador == 'J')
+        asignar_adyacentes(grafo, origen, destino, PESO_LAGO_1, PESO_MUELLE_1);
+
+    if(jugador == 'U')
+        asignar_adyacentes(grafo, origen, destino, PESO_LAGO_2, PESO_MUELLE_2);
+
+    /*grafo->mostrarGrafo();
+
+    grafo->usarDijkstra();
+
+    grafo->camino_minimo("A", "B");*/
+
+}
+
+void asignar_adyacentes(Grafo *grafo, Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M)
+{
+    int peso_origen;
+    switch (casillero_origen->obtener_caracter())
+    {
+    case 'L':
+        peso_origen=PESO_LAGO_1;
+        break;
+
+    case 'B':
+        peso_origen=PESO_BETUN;
+        break;
+
+    case 'M':
+        peso_origen=PESO_MUELLE_1;
+        break;
+
+    case 'T':
+        peso_origen=PESO_TERRENO;
+        break;
+
+    case 'C':
+        peso_origen=PESO_CAMINO;
+        break;
+    default:
+        break;
+    }
+
+    switch (casillero_destino->obtener_caracter())
+    {
+    case 'L':
+        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_L);
+        break;
+
+    case 'B':
+        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_BETUN);
+        break;
+
+    case 'M':
+        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_M);
+        break;
+
+    case 'T':
+        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_TERRENO);
+        break;
+
+    case 'C':
+        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_CAMINO);
+        break;
+    default:
+        break;
+    }
+
 }
