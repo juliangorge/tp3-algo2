@@ -1,57 +1,69 @@
-#ifndef GRAFO_H_
-#define GRAFO_H_
-
-#include <iostream>
+#ifndef GRAFOS_GRAFO_H
+#define GRAFOS_GRAFO_H
+#include <string>
+#include "Lista.h"
 #include "Vertice.h"
-#include "Caminos.h"
+#include "Floyd.h"
 
 using namespace std;
 
-class Grafo
-{
+class Grafo {
+/*ATRIBUTOS*/
 private:
-	//vertices;
+    int ** matrizDeAdyacencia;
+    Lista<Vertice> * vertices;
+    CaminoMinimo * algoritmoCaminoMinimo;
 
+/*MÉTODOS*/
+
+    //pre: tienen que existir tanto el origen como el destino. Ademas se deben haber calculado las matrices de Floyd
+    //post: muestra el camino minimo entre el origen y el destino
+    void caminoMinimo(int origen, int destino);
+
+    //post: agranda dinamicamente la matriz de adyacencia
+    void agrandarMatrizDeAdyacencia();
+
+    //pre: la matriz que se le envie ya debe tener memoria reservada
+    //post: copia la matriz de adyacencia en la nueva matriz
+    void copiarMatrizAdyacente(int** nuevaAdyacente);
+
+    //post inicializa un nuevo vertice en la matriz de adyacencia con un valor de infinito
+    void inicializarNuevoVertice(int** nuevaAdyacente);
+
+    //post libera la memoria de la matriz de adyacencia
+    void liberarMatrizAdyacencia();
+
+    //post: imprime por pantalla los vertices del grafo
+    void mostrarVertices();
+
+    //post: imprime por pantalla la matriz de adyacencia
+    void mostrarMatrizAdyacencia();
 public:
 
-	// PRE: 
-	// POST: crea un objeto Grafo.
-	Grafo();
+    Grafo();
+    //pre: No hay vertices repetidos en nombre
+    //post: agrega un nuevo vertice al grafo
+    void agregarVertice(string nuevoVertice);
 
-	// PRE: 
-	// POST: destruye un objeto Grafo.
-	~Grafo();
+    //pre: se debe tener un algortimo para calcular el camino mínimo previamente elegido
+    //post: muestra por terminal el camino mínimo desde un origen a un destino
+    void caminoMinimo(string origen, string destino);
 
-	// PRE: Recibe string
-	// POST: Agrega un vértice con dicho string si no existe
-	void agregar_vertice(string valor);
+    //pre: el peso es un valor positivo
+    //post: Ajusta la matriz de adyacencia con el peso ingresado
+    void agregarCamino(string origen, string destino, int peso);
 
-	// PRE: Recibe string
-	// POST: Retorna TRUE si existe un vértice del grafo con ese string
-	bool hay_vertice(string valor);
+    //post: imprime por pantalla el grafo
+    void mostrarGrafo();
 
-	// PRE: Recibe string
-	// POST: Retorna un puntero a dicho vértice, si pertenece
-	Vertice * obtener_vertice(string valor);
+    //post: selecciona el algortimo de Floyd para calcular el camino mínimo
+    void usarFloyd();
 
-	// PRE: Recibe string de un vértice de llegada y salida.
-	// POST: Retorna un puntero cargado con el camino mas barato, si existe.
-	//		 Debe liberarse la memoria del puntero luego de usarlo.
-	Tipo * camino_mas_barato(string llegada, string salida);
+    //post: selecciona el algortimo de Dijkstra para calcular el camino mínimo
+    void usarDijkstra();
 
-	// PRE: Recibe string de un vértice de llegada y salida.
-	// POST: Retorna un puntero cargado con el camino mas corto, si existe.
-	//		 Debe liberarse la memoria del puntero luego de usarlo.
-	Tipo * camino_mas_corto(string llegada, string salida);
-
-private:
-	// PRE: Recibe string de un vértice de llegada y salida.
-	// POST: Retorna un puntero cargado
-	Tipo * menor_camino(string llegada, string salida, char tipo_dato);
-
-	// PRE: Recibe string de dos vertices, 2 vectores ya creados con tamaño = vertices.tam + 1, una lista vacia, y el tipo_dato para buscar por costo de energía u distancia.
-	// POST: Retorna un puntero a una lista de los predecesores cargada segun las posiciones en la lista de vertices.
-	Tipo<Dato * > * dijkstra(string llegada, string salida, float * costo, bool * visitado, Tipo<Dato * > * predecesores, char tipo_dato);
+    ~Grafo();
 };
 
-#endif /* GRAFO_H_ */
+
+#endif //GRAFOS_GRAFO_H
