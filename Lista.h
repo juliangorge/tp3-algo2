@@ -12,9 +12,10 @@ template < typename Tipo >
 class Lista{
 /*ATRIBUTOS*/
 private:
-    int cantidadDeElementos;
+    int cantidad_elementos;
     Nodo<Tipo>* primero;
     Nodo<Tipo>* ultimo;
+
 
 /*MÉTODOS*/
 public:
@@ -41,15 +42,20 @@ public:
 
 template < typename Tipo >
 Lista<Tipo>::Lista(){
-    cantidadDeElementos = 0;
+    cantidad_elementos = 0;
     ultimo = nullptr;
     primero =  nullptr;
+    int x=0;
+    int y=0;
 }
 
 template < typename Tipo >
 int Lista<Tipo>::obtenerCantidadDeElementos(){
-    return cantidadDeElementos;
+    return cantidad_elementos;
 }
+
+
+
 
 template < typename Tipo >
 int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casillero_y) {
@@ -57,7 +63,7 @@ int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casille
     int i = 0;
     Nodo<Tipo>* auxiliar = primero;
 
-    while(!elementoEncontrado && i < cantidadDeElementos){
+    while(!elementoEncontrado && i < cantidad_elementos){
         if(auxiliar->obtener_x() == casillero_x && auxiliar->obtener_y() == casillero_y){
             elementoEncontrado = true;
         }
@@ -81,7 +87,7 @@ void Lista<Tipo>::agregar(string nuevoElemento) {
         ultimo -> asignarSiguiente(nuevoNodo);
         ultimo = nuevoNodo;
     }
-    cantidadDeElementos++;
+    cantidad_elementos++;
 }
 
 template<typename Tipo>
@@ -99,7 +105,7 @@ string Lista<Tipo>::obtenerNombre(int posicion) {
     int i = 0;
     Nodo<Tipo>* auxiliar = primero;
 
-    if(posicion > cantidadDeElementos){
+    if(posicion > cantidad_elementos){
         return NOMBRE_NO_ENCONTRADO;
     }
 

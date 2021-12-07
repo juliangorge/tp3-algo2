@@ -1,5 +1,5 @@
 #include "Segundo_menu.h"
-
+#include "Grafo.h"
 estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
     unsigned int costo_energia = ENERGIA_CONSTRUIR_EDIFICIO;
@@ -117,24 +117,22 @@ Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)
     return jugador;
 }
 
-/*estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa)
+estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa)
 {
     unsigned int fila, columna;
     Grafo *grafo;
     if(consultar_coordenadas(mapa, fila, columna) != ST_OK) 
         return ST_ERROR_COORDENADAS_INVALIDAS;
 
-    Casillero *casillero_origen = mapa->obtener_casillero(jugador->obtener_x(), jugador->obtener_y());
+    Casillero *casillero_origen = mapa->obtener_casillero(jugador->obtener_fila(), jugador->obtener_columna());
     Casillero *casillero_destino = mapa->obtener_casillero(fila, columna);
-    if(casillero_destino == NULL) 
-        return ST_ERROR_COORDENADAS_INVALIDAS;
 
-    grafo->asignar_pesos(grafo, jugador->obtener_caracter(), casillero_origen, casillero_destino);
+    grafo->asignar_pesos(jugador->obtener_caracter_jugador(), casillero_origen, casillero_destino);
 
     return ST_OK;
-
     
-}*/
+    
+}
 
 
 void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos)

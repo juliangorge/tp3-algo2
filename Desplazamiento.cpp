@@ -12,10 +12,10 @@ void moverse_coordenada(Jugador *jugador)
         cout << "Energia insuficiente para realizar el desplazamiento" << endl;
 }
 
-unsigned int calcular_energia_desplazamiento(Jugador *jugador, int x, int y)
+/*unsigned int calcular_energia_desplazamiento(Jugador *jugador, int x, int y)
 {
-
-}
+    
+}*/
 
 void pedir_punto_final(int *x, int*y)
 {

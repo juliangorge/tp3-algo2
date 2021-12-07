@@ -4,6 +4,7 @@
 #include "Lista.h"
 #include "Vertice.h"
 #include "Casillero.h"
+#include "Camino_minimo.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ class Grafo {
 private:
     int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
-    Camino_minimo * algoritmoCaminoMinimo;
+    Camino_minimo * algoritmo_camino_minimo;
 
 /*MÉTODOS*/
 
@@ -70,9 +71,9 @@ public:
     //post: selecciona el algortimo de Dijkstra para calcular el camino mínimo
     void usarDijkstra();
 
-    void asignar_pesos(Grafo *grafo, char jugador, Casillero *origen, Casillero *destino);
+    void asignar_pesos(char jugador, Casillero *origen, Casillero *destino);
 
-    void asignar_adyacentes(Grafo *grafo, Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M);
+    void asignar_adyacentes(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M);
     
     ~Grafo();
 };

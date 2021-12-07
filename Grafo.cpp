@@ -5,7 +5,7 @@
 Grafo::Grafo() {
     matriz_adyacencia = nullptr;
     vertices = new Lista<Vertice>();
-    algoritmoCaminoMinimo = nullptr;
+    algoritmo_camino_minimo = nullptr;
 }
 
 void Grafo::agregarVertice(string nuevoVertice) {
@@ -83,7 +83,7 @@ Grafo::~Grafo() {
     liberarMatrizAdyacencia();
     matriz_adyacencia = nullptr;
     delete vertices;
-    delete algoritmoCaminoMinimo;
+    delete algoritmo_camino_minimo;
 }
 
 void Grafo::mostrarVertices() {
@@ -119,33 +119,33 @@ void Grafo::mostrarMatrizAdyacencia() {
 
 //Hago una sobre carga de camino minimo para hallar el camino minimo entre origen y destino
 void Grafo::camino_minimo(int origen, int destino) {
-    algoritmoCaminoMinimo -> camino_minimo(origen, destino);
+    algoritmo_camino_minimo -> camino_minimo(origen, destino);
 }
 
 void Grafo::usarDijkstra() {
-    delete algoritmoCaminoMinimo;
-    algoritmoCaminoMinimo = new Dijkstra(vertices, matriz_adyacencia);
+    delete algoritmo_camino_minimo;
+    algoritmo_camino_minimo = new Dijkstra(vertices, matriz_adyacencia);
 }
 
-void asignar_pesos(Grafo *grafo, char jugador, Casillero *origen, Casillero *destino)
+void Grafo::asignar_pesos(char jugador, Casillero *origen, Casillero *destino)
 {
-    //grafo->agregarVertice(casillero);
+    //this->agregarVertice(casillero);
 
     if(jugador == 'J')
-        asignar_adyacentes(grafo, origen, destino, PESO_LAGO_1, PESO_MUELLE_1);
+        asignar_adyacentes(origen, destino, PESO_LAGO_1, PESO_MUELLE_1);
 
     if(jugador == 'U')
-        asignar_adyacentes(grafo, origen, destino, PESO_LAGO_2, PESO_MUELLE_2);
+        asignar_adyacentes(origen, destino, PESO_LAGO_2, PESO_MUELLE_2);
 
-    /*grafo->mostrarGrafo();
+    /*this->mostrarGrafo();
 
-    grafo->usarDijkstra();
+    this->usarDijkstra();
 
-    grafo->camino_minimo("A", "B");*/
+    this->camino_minimo("A", "B");*/
 
 }
 
-void asignar_adyacentes(Grafo *grafo, Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M)
+void Grafo::asignar_adyacentes(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M)
 {
     int peso_origen;
     switch (casillero_origen->obtener_caracter())
@@ -172,27 +172,27 @@ void asignar_adyacentes(Grafo *grafo, Casillero *casillero_origen, Casillero *ca
     default:
         break;
     }
-
-    switch (casillero_destino->obtener_caracter())
+    char char_destino=casillero_destino->obtener_caracter();
+    switch (char_destino)
     {
     case 'L':
-        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_L);
+        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_L);//peso_destino);
         break;
 
     case 'B':
-        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_BETUN);
+        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_BETUN);
         break;
 
     case 'M':
-        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_M);
+        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_M);
         break;
 
     case 'T':
-        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_TERRENO);
+        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_TERRENO);
         break;
 
     case 'C':
-        grafo->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_CAMINO);
+        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_CAMINO);
         break;
     default:
         break;

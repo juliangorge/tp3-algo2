@@ -1,14 +1,14 @@
 #include "Dijkstra.h"
 
-Dijkstra::Dijkstra(Lista<Vertice> *vertices, int **matrizAdyacencia) : CaminoMinimo(vertices, matrizAdyacencia) {
+Dijkstra::Dijkstra(Lista<Vertice> *vertices, int **matriz_adyacencia) : Camino_minimo(vertices, matriz_adyacencia) {
     verticesVisitados = new bool[cantidadVertices];
     distancia = new int[cantidadVertices];
     recorrido = new int[cantidadVertices];
 }
 
-void Dijkstra::caminoMinimo(int origen, int destino) {
+void Dijkstra::camino_minimo(int origen, int destino) {
     inicializarVisitados(origen);
-    inicializarDistancia(matrizAdyacencia[origen]);
+    inicializarDistancia(matriz_adyacencia[origen]);
     inicializarRecorrido(origen);
 
     int minimoVertice;
@@ -71,8 +71,8 @@ void Dijkstra::inicializarDistancia(const int * distanciaOrigen) {
 void Dijkstra::actualizarDistancia(int vertice) {
     for(int i = 0; i < cantidadVertices; i++){
         //se fija que el vertice no este visitado                       Condicion para saber si tengo que actualizar una distancia o no
-        if(!verticesVisitados[i] && distancia[vertice] != INFINITO && distancia[i] > matrizAdyacencia[vertice][i] + distancia[vertice]){
-            distancia[i] = matrizAdyacencia[vertice][i] + distancia[vertice];
+        if(!verticesVisitados[i] && distancia[vertice] != INFINITO && distancia[i] > matriz_adyacencia[vertice][i] + distancia[vertice]){
+            distancia[i] = matriz_adyacencia[vertice][i] + distancia[vertice];
             recorrido[i] = vertice;
         }
     }

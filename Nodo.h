@@ -10,6 +10,8 @@ class Nodo {
 private:
     Tipo* elemento;
     Nodo<Tipo>* siguiente;
+    unsigned int x;
+    unsigned int y;
 
 /*MÉTODOS*/
 public:
@@ -23,6 +25,10 @@ public:
 
     //post: le asigna como siguiente el nodo recibido
     void asignarSiguiente(Nodo<Tipo>* siguiente);
+
+    unsigned int obtener_x();
+
+    unsigned int obtener_y();
 
     ~Nodo();
 };
@@ -46,6 +52,18 @@ string Nodo<Tipo>::obtenerNombre() {
 template<typename Tipo>
 void Nodo<Tipo>::asignarSiguiente(Nodo<Tipo> *siguiente) {
     this -> siguiente = siguiente;
+}
+
+template < typename Tipo >
+unsigned int Nodo<Tipo>::obtener_x()
+{
+    return this->x;
+}
+
+template < typename Tipo >
+unsigned int Nodo<Tipo>::obtener_y()
+{
+    return this->y;
 }
 
 template<typename Tipo>
