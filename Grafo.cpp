@@ -127,16 +127,21 @@ void Grafo::usarDijkstra() {
     algoritmo_camino_minimo = new Dijkstra(vertices, matriz_adyacencia);
 }
 
-void Grafo::asignar_pesos(char jugador, Casillero *origen, Casillero *destino)
+void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *destino, Mapa *mapa)
 {
     //this->agregarVertice(casillero);
+    
+    Casillero *vecino;
+    int i = 0;
 
-    if(jugador == 'J')
-        asignar_adyacentes(origen, destino, PESO_LAGO_1, PESO_MUELLE_1);
+    while(vecino!=destino && i<4)
+    {   
+        //obtengo el vecino de la derecha
+        vecino = mapa->obtener_casillero(origen->obtener_fila(), origen->obtener_columna()+1);
+        asignar_pesos(origen, vecino, jugador);
 
-    if(jugador == 'U')
-        asignar_adyacentes(origen, destino, PESO_LAGO_2, PESO_MUELLE_2);
-
+        i++;
+    }
     /*this->mostrarGrafo();
 
     this->usarDijkstra();
@@ -145,57 +150,48 @@ void Grafo::asignar_pesos(char jugador, Casillero *origen, Casillero *destino)
 
 }
 
-void Grafo::asignar_adyacentes(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int peso_L, unsigned int peso_M)
+void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, char jugador)
 {
-    int peso_origen;
-    switch (casillero_origen->obtener_caracter())
+    int peso_origen = 0, peso_destino = 0;
+
+    if(jugador == 'J')
+    {
+        obtener_peso(casillero_origen->obtener_caracter(), &peso_origen, PESO_LAGO_1, PESO_MUELLE_1);
+        obtener_peso(casillero_destino->obtener_caracter(), &peso_destino, PESO_LAGO_1, PESO_MUELLE_1);
+    }
+
+    if(jugador == 'U')
+    {
+        obtener_peso(casillero_origen->obtener_caracter(), &peso_origen, PESO_LAGO_2, PESO_MUELLE_2);
+        obtener_peso(casillero_destino->obtener_caracter(), &peso_destino, PESO_LAGO_2, PESO_MUELLE_2);
+    }
+
+    this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_destino);//peso_destino);
+
+
+}
+
+void Grafo::obtener_peso(char tipo_casillero, int *peso, int peso_L, int peso_M)
+{   
+    switch (tipo_casillero)
     {
     case 'L':
-        peso_origen=PESO_LAGO_1;
         break;
-
+        *peso = peso_L;
     case 'B':
-        peso_origen=PESO_BETUN;
+        *peso = PESO_BETUN;
         break;
-
     case 'M':
-        peso_origen=PESO_MUELLE_1;
+        *peso = peso_M;
         break;
-
     case 'T':
-        peso_origen=PESO_TERRENO;
+        *peso = PESO_TERRENO;
         break;
-
     case 'C':
-        peso_origen=PESO_CAMINO;
+        *peso = PESO_CAMINO;
         break;
     default:
         break;
     }
-    char char_destino=casillero_destino->obtener_caracter();
-    switch (char_destino)
-    {
-    case 'L':
-        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_L);//peso_destino);
-        break;
-
-    case 'B':
-        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_BETUN);
-        break;
-
-    case 'M':
-        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_M);
-        break;
-
-    case 'T':
-        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_TERRENO);
-        break;
-
-    case 'C':
-        this->agregar_camino(casillero_origen, casillero_destino, peso_origen, PESO_CAMINO);
-        break;
-    default:
-        break;
-    }
-
+    
 }
