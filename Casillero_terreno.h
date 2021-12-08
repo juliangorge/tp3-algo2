@@ -9,6 +9,8 @@ class CasilleroTerreno : public Casillero
         CasilleroTerreno(unsigned int fila, unsigned int columna);
         //~CasilleroTerreno();
         void cambiar_objeto();
+        void mostrar_casillero();
+
 };
 
 #endif //CASILLEROTERRENO_H

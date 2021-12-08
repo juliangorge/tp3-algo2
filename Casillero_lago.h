@@ -9,6 +9,7 @@ class CasilleroLago : public Casillero
         CasilleroLago(unsigned int fila, unsigned int columna);
         //~CasilleroLago();
         void cambiar_objeto();
+        void mostrar_casillero();
 };
 
 #endif //CASILLEROLAGO_H

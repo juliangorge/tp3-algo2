@@ -30,7 +30,7 @@ Jugador:: ~Jugador(){
 
 }
 
-char Jugador::obtener_caracter_jugador()
+char Jugador::obtener_caracter()
 {
     return this->caracter;
 }
@@ -40,32 +40,15 @@ unsigned int Jugador::obtener_energia()
     return this->energia;
 }
 
-char Jugador::obtener_caracter()
+unsigned int Jugador::obtener_tipos_de_materiales()
 {
-    return this->caracter;
+    return this->tipos_de_materiales;
 }
 
 void Jugador::agregar_coordenadas(unsigned int posicion_fila, unsigned int posicion_columna)
 {
     this->posicion_fila = posicion_fila;
     this->posicion_columna = posicion_columna;
-}
-
-void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos)
-{
-    ifstream archivo_materiales;
-    archivo_materiales.open(ARCHIVO_MATERIALES.c_str());
-    string nombre_material;
-    unsigned int cantidad_jugador_uno, cantidad_jugador_dos;
-
-    while(archivo_materiales >> nombre_material >> cantidad_jugador_uno >> cantidad_jugador_dos){
-		jugador_uno->agregar_material_a_lista(new Material(nombre_material, cantidad_jugador_uno));
-		jugador_dos->agregar_material_a_lista(new Material(nombre_material, cantidad_jugador_dos));
-        
-    }
-
-    archivo_materiales.close();
-
 }
 
 void Jugador::agregar_material_a_lista(Material* material){
@@ -130,13 +113,15 @@ unsigned int Jugador::obtener_posicion_material(string nombre_material)
     return posicion_material;
 }
 
-estados_t Jugador::verificar_material_necesario(string nombre_material, unsigned int cantidad_a_restar)
+Material** Jugador::obtener_lista_materiales()
+{
+    return this->materiales_jugador;
+}
+
+bool Jugador::verificar_material_necesario(string nombre_material, unsigned int cantidad_a_restar)
 {
     unsigned int posicion_material = this->obtener_posicion_material(nombre_material);
-    if(this->materiales_jugador[posicion_material]->obtener_cantidad() < cantidad_a_restar)
-        return ST_ERROR_MATERIALES_INSUFICIENTES;
-    return ST_OK;
-
+    return (this->materiales_jugador[posicion_material]->obtener_cantidad() >= cantidad_a_restar);
 }
 
 void Jugador::comprar_bombas(unsigned int bombas, unsigned int precio_bombas)
@@ -273,7 +258,7 @@ unsigned int Jugador::obtener_cant_edificio(string nombre)
     unsigned int contador = 0;
     for (int i = 0; i < this->cantidad_casilleros; i++)
     {
-        if(this->casilleros_jugador[i]->obtener_edificio()->obtener_nombre()==nombre)
+        if(this->casilleros_jugador[i]->obtener_edificio()->obtener_nombre() == nombre)
             contador++;
     }
 

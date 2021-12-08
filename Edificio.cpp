@@ -6,7 +6,6 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     this->piedra = piedra;
     this->madera = madera;
     this->metal = metal;
-    this->cantidad = 0;
 
     // separar cantidad para cada jugador
     this->maximo = maximo;
@@ -36,19 +35,19 @@ unsigned int Edificio::obtener_metal(){
     return this->metal;
 }
 
-unsigned int Edificio::obtener_cantidad(){
-    return this->cantidad;
+unsigned int Edificio::obtener_maximo(){
+    return this->maximo;
 }
 
-unsigned int Edificio::obtener_restantes(){
-    return (this->maximo - this->cantidad);
+unsigned int Edificio::obtener_restantes(unsigned int cantidad_construida){
+    return (this->maximo - cantidad_construida);
 }
 
 void Edificio:: establecer_caracter(){
     switch(this->nombre[0]){
         case 'm':
             if(nombre.length()==4){
-                this->caracter = 'M';
+                this->caracter = 'N';
             }
             else{
                 this->caracter = 'G';
@@ -95,7 +94,7 @@ void Edificio:: actualizar_materiales(unsigned int piedra, unsigned int madera, 
 ostream& operator<<(ostream& salida, Edificio& edificio)
 {
     salida << endl << "Edificio: " << edificio.obtener_nombre() << endl;
-    salida << "Construidos: " << edificio.obtener_cantidad() << " (" << edificio.obtener_restantes() << " restantes para construir)" << endl;
+    salida << "Cantidad maxima posible: " << edificio.obtener_maximo() << endl;
     salida << "Materiales: " << endl;
     salida << "# Piedra: " << edificio.obtener_piedra() << endl;
     salida << "# Madera: " << edificio.obtener_madera() << endl;

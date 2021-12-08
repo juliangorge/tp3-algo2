@@ -40,6 +40,8 @@ class Mapa
         unsigned int cantidad_filas;
         unsigned int cantidad_columnas;
         Casillero *** matriz_mapa;
+        Material** materiales_mapa;
+        unsigned int cantidad_de_materiales;
 
     public:
         // Constructor
@@ -58,11 +60,22 @@ class Mapa
         bool chequear_coordenadas(unsigned int fila, unsigned int columna);
 
         void set_jugador_casillero(Jugador * jugador);
+
+        void set_material_casillero(unsigned int fila, unsigned int columna, Material* material);
+
         estados_t set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
 
         void remover_edificio(unsigned int fila, unsigned int columna);
 
         bool es_construible(Casillero * casillero);
+
+        void consultar_coordenadas(unsigned int fila, unsigned int columna);
+
+        void cargar_materiales(Jugador* jugador);
+
+        unsigned int set_cantidad_material(Material* material);
+
+        Material* obtener_material(string nombre_material);
 };
 
 

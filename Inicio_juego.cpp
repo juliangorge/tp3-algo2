@@ -42,10 +42,12 @@ void iniciar_juego()
 	Jugador* jugador_uno = new Jugador(caracter_jugador_uno);
 	Jugador* jugador_dos = new Jugador(caracter_jugador_dos);
 
+
 	//objetivos_1->asignar(jugador_uno);
 	//objetivos_2->asignar(jugador_dos);
 
 	cargar_materiales_jugadores(jugador_uno,jugador_dos);
+	mapa->cargar_materiales(jugador_uno);
 	int opcion_salida = trabajar_primer_menu(arbol, mapa);
 
 	switch(opcion_salida){

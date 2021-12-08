@@ -52,12 +52,8 @@ class Edificio {
         unsigned int obtener_metal();
 
         // PRE:
-        // POST: Retorna la cantidad de edificios construidos.
-        unsigned int obtener_cantidad();
-
-        // PRE:
         // POST: Retorna la cantidad restante de edificios construidos (maximo - cantidad)
-        unsigned int obtener_restantes();
+        unsigned int obtener_restantes(unsigned int cantidad_construidos);
 
         // PRE: 
         // POST: Retorna un string Si si es true y No si es false

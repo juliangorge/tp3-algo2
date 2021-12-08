@@ -41,39 +41,31 @@ char Casillero:: obtener_caracter_casillero(){
     return this->caracter_casillero;
 }
 
-estados_t Casillero:: cargar(Edificio* edificio, char caracter_jugador){
-    estados_t st = ST_OK;
+estados_t Casillero:: cargar_edificio(Edificio* edificio, char caracter_jugador){
     if(!es_terreno) return ST_ERROR_CASILLERO_NO_CONSTRUIBLE; 
     else if(!esta_libre()) return ST_ERROR_CASILLERO_OCUPADO;
     this->edificio = edificio;
     this->caracter_jugador = caracter_jugador;
     cambiar_objeto();
-    return st;
+    return ST_OK;
 }
 
-void Casillero:: cargar(Material* material){
+void Casillero:: cargar_material(Material* material){
     if(es_camino){
         this->material = material;
         cambiar_objeto();
     }
 }
 
-void Casillero:: limpiar_casillero(){
+estados_t Casillero:: limpiar_casillero(char caracter_jugador){
+    if(this->caracter != caracter_jugador)
+        return ST_ERROR_NO_ES_EDIFICIO_PROPIO;
     this->edificio = nullptr;
-    cambiar_objeto();
+    this->caracter = this->caracter_casillero;
+    return ST_OK;
+    
 }
 
-/*void Casillero:: cambiar_objeto(){
-    if(esta_libre()){
-        //this->caracter = this->tipo_casillero;
-    }else{
-        if(es_camino){
-            this->caracter = this->material->obtener_caracter();
-        }else{
-            this->caracter = this->edificio->obtener_caracter();
-        }
-    }
-}*/
 
 unsigned int Casillero:: obtener_costo_de_energia(){
     return this->costo_energia;

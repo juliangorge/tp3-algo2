@@ -5,15 +5,30 @@ CasilleroCamino:: CasilleroCamino(unsigned int fila, unsigned int columna) : Cas
     this->caracter = this->caracter_casillero;
     this->es_camino = true;
     this->es_terreno = false;
-    this->nombre_casillero = "Casillero transitable";
+    this->nombre_casillero = "Casillero Camino transitable";
     this->costo_energia = 4;
 }
 
 void CasilleroCamino:: cambiar_objeto(){
-    if(esta_libre()){
-        this->caracter = this->material->obtener_caracter();
-    }else{
-        this->caracter = this->caracter_casillero;
-        this->material = nullptr;
-    }
+    this->caracter = this->material->obtener_caracter();
+}
+
+
+void CasilleroCamino:: mostrar_casillero()
+{
+	cout << "Soy un " << this->nombre_casillero << " y ";
+	if(esta_libre())
+		cout << "me encuentro vacío" << endl;
+	else if(material == nullptr){
+		switch(this->caracter){
+			case 'J':
+				cout << "contengo al jugador 1" << endl;
+				break;
+			case 'U':
+				cout << "contengo al jugador 2" << endl;
+				break;
+		}
+	}
+	else 
+		cout << "contengo al material " << this->material->obtener_nombre() << endl;
 }
