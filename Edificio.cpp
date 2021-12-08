@@ -47,7 +47,7 @@ void Edificio:: establecer_caracter(){
     switch(this->nombre[0]){
         case 'm':
             if(nombre.length()==4){
-                this->caracter = 'M';
+                this->caracter = 'N';
             }
             else{
                 this->caracter = 'G';

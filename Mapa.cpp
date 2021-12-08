@@ -92,7 +92,7 @@ void Mapa::mostrar_mapa_vacio()
 void Mapa::mostrar_mapas()
 {
     cout << endl;
-    cout << "    Mapa vacío" << '\t' << '\t' << '\t' << "Mapa de la partida";
+    cout << "         Mapa vacío" << '\t' << '\t' << '\t' << "      Mapa de la partida";
     cout << endl;
 
     for (unsigned int i = 0; i < this->cantidad_filas; i++){
