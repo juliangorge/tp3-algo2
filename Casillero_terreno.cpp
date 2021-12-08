@@ -9,7 +9,7 @@ CasilleroTerreno:: CasilleroTerreno(unsigned int fila, unsigned int columna) : C
     this->costo_energia = 25;
 }
 
-void CasilleroTerreno:: cambiar_objeto(){
+void CasilleroTerreno:: cambiar_caracter(){
     this->caracter = this->edificio->obtener_caracter();
 }
 
@@ -39,4 +39,10 @@ void CasilleroTerreno:: mostrar_casillero()
 				break;
 		}
 	}
+}
+
+void CasilleroTerreno::limpiar_casillero()
+{
+	this->edificio = nullptr;
+	this->caracter = this->caracter_casillero;
 }

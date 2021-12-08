@@ -9,7 +9,7 @@ CasilleroMuelle:: CasilleroMuelle(unsigned int fila, unsigned int columna) : Cas
     this->costo_energia = 5; // Jugador 1: 5 - Jugador 2: 2
 }
 
-void CasilleroMuelle:: cambiar_objeto(){
+void CasilleroMuelle:: cambiar_caracter(){
 	this->caracter = this->material->obtener_caracter();
 }
 
@@ -30,4 +30,10 @@ void CasilleroMuelle:: mostrar_casillero()
 	}
 	else 
 		cout << "contengo al material " << this->material->obtener_nombre() << endl;
+}
+
+void CasilleroMuelle::limpiar_casillero()
+{
+	this->material = nullptr;
+	this->caracter = this->caracter_casillero;
 }

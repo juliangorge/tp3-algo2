@@ -131,10 +131,15 @@ void Mapa::set_jugador_casillero(Jugador* jugador)
     return;
 }
 
-estados_t Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio* edificio)
+estados_t Mapa::verificar_condiciones_construccion(char caracter_jugador, unsigned int fila, unsigned int columna)
 {
-    estados_t st = this->matriz_mapa[fila][columna]->cargar_edificio(edificio, caracter_jugador);
+    estados_t st = this->matriz_mapa[fila][columna]-> verificar_condiciones_construccion(caracter_jugador);
     return st;
+}
+
+void Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio* edificio)
+{
+    this->matriz_mapa[fila][columna]->cargar_edificio(edificio, caracter_jugador);
 }
 
 void Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
@@ -142,8 +147,14 @@ void Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Mater
     this->matriz_mapa[fila][columna]->cargar_material(material);
 }
 
-void Mapa:: remover_edificio(unsigned int fila, unsigned int columna){
-    this->matriz_mapa[fila][columna] = nullptr;
+estados_t Mapa::verificar_condiciones_demolicion(char caracter_jugador, unsigned int fila, unsigned int columna)
+{
+    estados_t st = this->matriz_mapa[fila][columna]-> verificar_condiciones_demolicion(caracter_jugador);
+    return st;
+}
+
+void Mapa:: remover_edificio_casillero(unsigned int fila, unsigned int columna){
+    this->matriz_mapa[fila][columna]->limpiar_casillero();
 }
 
 bool Mapa:: es_construible(Casillero * casillero){

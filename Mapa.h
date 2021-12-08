@@ -63,9 +63,13 @@ class Mapa
 
         void set_material_casillero(unsigned int fila, unsigned int columna, Material* material);
 
-        estados_t set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
+        estados_t verificar_condiciones_construccion(char caracter_jugador, unsigned int fila, unsigned int columna);
 
-        void remover_edificio(unsigned int fila, unsigned int columna);
+        estados_t verificar_condiciones_demolicion(char caracter_jugador, unsigned int fila, unsigned int columna);
+
+        void set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio *edificio);
+
+        void remover_edificio_casillero(unsigned int fila, unsigned int columna);
 
         bool es_construible(Casillero * casillero);
 

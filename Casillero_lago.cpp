@@ -9,7 +9,7 @@ CasilleroLago:: CasilleroLago(unsigned int fila, unsigned int columna) : Casille
     this->costo_energia = 2; // Jugador 1: 2 - Jugador 2: 5
 }
 
-void CasilleroLago:: cambiar_objeto(){
+void CasilleroLago:: cambiar_caracter(){
 
 }
 
@@ -28,4 +28,9 @@ void CasilleroLago::mostrar_casillero()
 				break;
 		}
 	}
+}
+
+void CasilleroLago::limpiar_casillero()
+{
+
 }

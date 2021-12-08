@@ -106,7 +106,7 @@ class Jugador {
 
         void mostrar_edificios();
 
-        void remover_edificio(Casillero * casillero);
+        void borrar_edificio_casillero(Casillero * casillero);
 
         void set_objetivo_cumplido(int objetivo, Jugador *jugador);
 

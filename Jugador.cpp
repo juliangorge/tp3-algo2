@@ -161,7 +161,7 @@ void Jugador:: agregar_material(string nombre_material, unsigned int cantidad){
 }
 
 void Jugador:: agregar_casillero(Casillero * casillero){
-    int cantidad_casilleros_previo = this->cantidad_casilleros;
+    unsigned int cantidad_casilleros_previo = this->cantidad_casilleros;
     Casillero** casilleros_aux = new Casillero*[cantidad_casilleros_previo + 1];
     for (int i = 0; i < cantidad_casilleros_previo; i++){
         casilleros_aux[i] = this->casilleros_jugador[i];
@@ -178,25 +178,37 @@ void Jugador:: agregar_casillero(Casillero * casillero){
 }
 
 void Jugador:: mostrar_edificios(){
-    int cantidad_edificio = 0;
-    for (unsigned int i = 0; i < cantidad_casilleros; i++){
+    unsigned int cantidad_edificio = 0;
+    for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
         this->casilleros_jugador[i]->mostrar_edificios();
         cantidad_edificio++;
     }
     cout << "Total: " << cantidad_edificio << endl << endl;;
 }
 
-void Jugador:: remover_edificio(Casillero * casillero){
-    bool encontrado = false;
-    int i = 0;
-    while(!encontrado){
+void Jugador:: borrar_edificio_casillero(Casillero * casillero){
+    unsigned int posicion;
+    for (unsigned int i = 0; i < this->cantidad_casilleros; i++)
+    {
         if(this->casilleros_jugador[i] == casillero){
-            cout << "Puntero liberado" << endl;
+            posicion = i;
             this->casilleros_jugador[i] = nullptr;
-            encontrado = true;   
         }
-        i++;
     }
+    unsigned int cantidad_casilleros_previo = this->cantidad_casilleros;
+    Casillero** casilleros_aux = new Casillero*[cantidad_casilleros_previo - 1];
+    for (unsigned int i = 0; i < posicion; i++){
+        casilleros_aux[i] = this->casilleros_jugador[i];
+    }
+    for (unsigned int i = posicion; i < cantidad_casilleros_previo; i++)
+    {
+        casilleros_aux[i] = this->casilleros_jugador[i+1];
+    }
+    if(this->cantidad_casilleros != 0){
+        delete[] this->casilleros_jugador;
+    }
+    this->casilleros_jugador = casilleros_aux;
+    this->cantidad_casilleros--;
 }
 
 void Jugador::set_objetivo_cumplido(int objetivo, Jugador *jugador)

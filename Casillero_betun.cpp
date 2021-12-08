@@ -9,7 +9,7 @@ CasilleroBetun:: CasilleroBetun(unsigned int fila, unsigned int columna) : Casil
     this->costo_energia = 0;
 }
 
-void CasilleroBetun:: cambiar_objeto(){
+void CasilleroBetun:: cambiar_caracter(){
 	this->caracter = this->material->obtener_caracter();
 }
 
@@ -30,4 +30,10 @@ void CasilleroBetun:: mostrar_casillero()
 	}
 	else 
 		cout << "contengo al material " << this->material->obtener_nombre() << endl;
+}
+
+void CasilleroBetun::limpiar_casillero()
+{
+	this->material = nullptr;
+	this->caracter = this->caracter_casillero;
 }

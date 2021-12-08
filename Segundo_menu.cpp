@@ -25,11 +25,14 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     // Solicito coordenadas
     if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
 
+    // Verifico las condiciones en el casillero para que se pueda construir
+    if((st = (mapa->verificar_condiciones_construccion(jugador->obtener_caracter(), fila ,columna))) != ST_OK) return st;
+
     // Solicito confirmacion
-    if(pedido_confirmacion() != ST_OK) return st;
+    if((st = pedido_confirmacion()) != ST_OK) return st;
 
     //Agregado del edificio al mapa y a la lista de edificios del jugador
-    if(((st = mapa->set_edificio_casillero(jugador->obtener_caracter(), fila ,columna, edificio)) != ST_OK)) return st;
+    mapa->set_edificio_casillero(jugador->obtener_caracter(), fila ,columna, edificio);
     jugador->agregar_casillero(mapa->obtener_casillero(fila, columna));
 
     // Resta de los materiales
@@ -38,7 +41,7 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     // Decremento la energia del jugador
     jugador->decrementar_energia(costo_energia);
 
-    cout << "Construido exitosamente!" << endl;
+    cout << endl << "Construido exitosamente!" << endl;
     return st;
 }
 
@@ -65,30 +68,33 @@ void restar_materiales(Jugador* jugador, Edificio* edificio)
 
 estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
+    string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL;
     unsigned int costo_energia = ENERGIA_DEMOLER_EDIFICIO;
     if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
 
     unsigned int fila, columna;
     if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
 
-    Casillero* casillero_aux = mapa->obtener_casillero(fila, columna);
-    if(casillero_aux->obtener_edificio() != NULL){
-        
-        cout << "Demolido correctamente" << endl;
+    // Verifico las condiciones en el casillero para que se pueda construir
+    if((st = mapa->verificar_condiciones_demolicion(jugador->obtener_caracter(), fila ,columna)) != ST_OK) return st;
 
-        jugador->remover_edificio(casillero_aux);
-        jugador->agregar_material("metal", static_cast<unsigned int>(casillero_aux->obtener_edificio()->obtener_metal() / 2));
-        jugador->agregar_material("madera", static_cast<unsigned int>(casillero_aux->obtener_edificio()->obtener_madera() / 2));
-        jugador->agregar_material("piedra", static_cast<unsigned int>(casillero_aux->obtener_edificio()->obtener_piedra() / 2));
-        mapa->remover_edificio(fila, columna);
+    // Solicito confirmacion
+    if((st = pedido_confirmacion()) != ST_OK) return st;
 
-        jugador->decrementar_energia(costo_energia);
-        return ST_OK;
-    }
+    jugador->agregar_material(nombre_piedra, static_cast<unsigned int>(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_piedra() / 2));
+    jugador->agregar_material(nombre_madera, static_cast<unsigned int>(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_madera() / 2));
+    jugador->agregar_material(nombre_metal, static_cast<unsigned int>(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_metal() / 2));
 
-    return ST_ERROR_DEMOLER_EDIFICIO;
+    mapa->remover_edificio_casillero(fila ,columna);
+
+    jugador->borrar_edificio_casillero(mapa->obtener_casillero(fila, columna));
+    
+    jugador->decrementar_energia(costo_energia);
+
+    cout << endl << "Destruido exitosamente!" << endl;
+
+    return ST_OK;;
 }
-
 
 
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)

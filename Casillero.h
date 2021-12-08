@@ -74,10 +74,15 @@ class Casillero
         // PRE:
         // POST: Retorna el nombre del casillero
         string obtener_nombre_casillero();
+
+        estados_t verificar_condiciones_construccion(char caracter_jugador);
+
+        estados_t verificar_condiciones_demolicion(char caracter_jugador);
         
         // PRE: Recibe puntero edificio
         // POST: Referencia el atributo edificio al parametro recibido
-        estados_t cargar_edificio(Edificio* edificio, char caracter_jugador);
+        void cargar_edificio(Edificio* edificio, char caracter_jugador);
+
 
         // PRE: Recibe puntero material
         // POST: Referencia el atributo material al parametro recibido
@@ -85,11 +90,11 @@ class Casillero
     
         // PRE:
         // POST: Cambia el tipo de casillero por edificio_char en el caso de que el mismo este ocupado por una construccion
-        virtual void cambiar_objeto() = 0;
+        virtual void cambiar_caracter() = 0;
 
         // PRE: 
         // POST: Desreferencia el atributo edificio
-        estados_t limpiar_casillero(char a);
+        virtual void limpiar_casillero() = 0;
 
         // PRE:
         // POST: Retorna el costo de energía

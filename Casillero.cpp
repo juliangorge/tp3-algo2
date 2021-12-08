@@ -41,31 +41,35 @@ char Casillero:: obtener_caracter_casillero(){
     return this->caracter_casillero;
 }
 
-estados_t Casillero:: cargar_edificio(Edificio* edificio, char caracter_jugador){
+estados_t Casillero::verificar_condiciones_construccion(char caracter_jugador)
+{
     if(!es_terreno) return ST_ERROR_CASILLERO_NO_CONSTRUIBLE; 
-    else if(!esta_libre()) return ST_ERROR_CASILLERO_OCUPADO;
+    if(!esta_libre()) return ST_ERROR_CASILLERO_OCUPADO;
+    return ST_OK;
+}
+
+void Casillero:: cargar_edificio(Edificio* edificio, char caracter_jugador){
+    
     this->edificio = edificio;
     this->caracter_jugador = caracter_jugador;
-    cambiar_objeto();
+    cambiar_caracter();
+    
+}
+
+estados_t Casillero::verificar_condiciones_demolicion(char caracter_jugador)
+{
+    if(!es_terreno) return ST_ERROR_CASILLERO_NO_CONSTRUIBLE; 
+    if(esta_libre()) return ST_ERROR_CASILLERO_VACIO;
+    if(this->caracter_jugador != caracter_jugador) return ST_ERROR_NO_ES_EDIFICIO_PROPIO;
     return ST_OK;
 }
 
 void Casillero:: cargar_material(Material* material){
     if(es_camino){
         this->material = material;
-        cambiar_objeto();
+        cambiar_caracter();
     }
 }
-
-estados_t Casillero:: limpiar_casillero(char caracter_jugador){
-    if(this->caracter != caracter_jugador)
-        return ST_ERROR_NO_ES_EDIFICIO_PROPIO;
-    this->edificio = nullptr;
-    this->caracter = this->caracter_casillero;
-    return ST_OK;
-    
-}
-
 
 unsigned int Casillero:: obtener_costo_de_energia(){
     return this->costo_energia;
