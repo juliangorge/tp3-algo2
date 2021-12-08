@@ -14,7 +14,7 @@ estados_t comprar_bombas(Jugador* jugador)
 
 	unsigned int precio_bombas = PRECIO_BOMBA*bombas;
 
-	if((st = jugador->verificar_material_necesario(nombre_andycoins, precio_bombas)) != ST_OK){
+	if((!jugador->verificar_material_necesario(nombre_andycoins, precio_bombas))){
 		st = ST_ERROR_ANDYCOINS_INSUFICIENTES;
 		return st;
 	}

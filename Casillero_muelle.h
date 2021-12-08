@@ -9,6 +9,7 @@ class CasilleroMuelle : public Casillero
         CasilleroMuelle(unsigned int fila, unsigned int columna);
         // ~CasilleroMuelle();
         void cambiar_objeto();
+        void mostrar_casillero();
 };
 
 #endif //CASILLEROMUELLE_H

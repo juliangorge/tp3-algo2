@@ -88,7 +88,7 @@ bool es_numero(const string& s)
     return !s.empty() && it == s.end();
 }
 
-estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna){
+estados_t obtener_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna){
     string fila_aux, columna_aux;
 
     cout << "Ingrese la fila: ";
@@ -97,9 +97,9 @@ estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & 
     cout << "Ingrese la columna: ";
     cin >> columna_aux;
 
-    if(!es_numero(fila_aux) || !es_numero(columna_aux)) return ST_ERROR_CANTIDAD_INVALIDA;
+    if(!es_numero(fila_aux) || !es_numero(columna_aux)) return ST_ERROR_COORDENADAS_INVALIDAS;
 
-    if(!mapa->chequear_coordenadas(stoul(fila_aux), stoul(columna_aux))) return ST_ERROR_COORDENADAS_INVALIDAS;
+    if(!mapa->chequear_coordenadas(stoul(fila_aux), stoul(columna_aux))) return ST_ERROR_CANTIDAD_INVALIDA;
 
     fila = stoi(fila_aux);
     columna = stoi(columna_aux);
@@ -107,7 +107,8 @@ estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & 
     return ST_OK;
 }
 
-estados_t pedido_confirmacion(){
+estados_t pedido_confirmacion()
+{
     string confirm;
 
     cout << "Escribe `Y` para confirmar: ";
@@ -115,4 +116,13 @@ estados_t pedido_confirmacion(){
     
     if(confirm == "Y" || confirm == "y") return ST_OK;
     return ST_MSJ_SALIR;
+}
+
+string ingresar_nombre()
+{
+    string nombre;
+    cout << "Escribe el nombre del edificio: ";
+    cin >> nombre;
+    cout << endl;
+    return nombre;
 }

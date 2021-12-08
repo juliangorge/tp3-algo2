@@ -127,15 +127,19 @@ bool Mapa:: chequear_coordenadas(unsigned int fila, unsigned int columna){
 void Mapa::set_jugador_casillero(Jugador* jugador)
 {
     int fila = jugador->obtener_fila(), columna = jugador->obtener_columna();
-    char caracter = jugador->obtener_caracter_jugador();
-    this->matriz_mapa[fila][columna]->ocupar_casillero(caracter);
+    this->matriz_mapa[fila][columna]->ocupar_casillero(jugador->obtener_caracter());
     return;
 }
 
 estados_t Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio* edificio)
 {
-    estados_t st = this->matriz_mapa[fila][columna]->cargar(edificio, caracter_jugador);
+    estados_t st = this->matriz_mapa[fila][columna]->cargar_edificio(edificio, caracter_jugador);
     return st;
+}
+
+void Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
+{
+    this->matriz_mapa[fila][columna]->cargar_material(material);
 }
 
 void Mapa:: remover_edificio(unsigned int fila, unsigned int columna){
@@ -144,4 +148,53 @@ void Mapa:: remover_edificio(unsigned int fila, unsigned int columna){
 
 bool Mapa:: es_construible(Casillero * casillero){
     return casillero->es_construible();
+}
+
+void Mapa::consultar_coordenadas(unsigned int fila, unsigned int columna)
+{
+    this->matriz_mapa[fila][columna]->mostrar_casillero();
+}
+
+void Mapa::cargar_materiales(Jugador* jugador)
+{
+    unsigned int cantidad_material;
+    Material** materiales_jugador = jugador->obtener_lista_materiales();
+    this->cantidad_de_materiales = jugador->obtener_tipos_de_materiales();
+    this->materiales_mapa = new Material*[this->cantidad_de_materiales];
+    for (unsigned int i = 0; i < this->cantidad_de_materiales; i++)
+    {
+        cantidad_material = set_cantidad_material(materiales_jugador[i]);
+        materiales_mapa[i] = new Material(materiales_jugador[i]->obtener_nombre(), cantidad_material);
+    }
+}
+
+unsigned int Mapa::set_cantidad_material(Material* material)
+{
+    unsigned int cantidad_material;
+    switch(material->obtener_nombre()[0]){
+        case 'm':
+            cantidad_material = 50;
+            break;
+        case 'p':
+            cantidad_material = 100;
+            break;
+        case 'a':
+            cantidad_material = 250;
+            break;
+        default:
+            cantidad_material = 0;
+            break;
+    }
+    return cantidad_material;
+}
+
+Material* Mapa::obtener_material(string nombre_material)
+{
+    Material* material;
+    for (unsigned int i = 0; i < this->cantidad_de_materiales; i++)
+    {
+        if(this->materiales_mapa[i]->obtener_nombre() == nombre_material)
+            material = this->materiales_mapa[i];
+    }
+    return material;
 }

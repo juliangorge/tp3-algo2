@@ -15,6 +15,7 @@ void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifici
         columna = parser.coordenada_y();
         elemento = validar_linea(&str_aux[0]); //elemento vale 0 si es material o edificio, sino vale el numero de jugador.
         Edificio *edificio_aux;
+        Material* material_aux;
         
         //cout << elemento;
         if (elemento == 0)
@@ -22,15 +23,20 @@ void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifici
             if (arbol.buscar(nombre_aux)) //buscar(T dato)
             {
                 edificio_aux = arbol.obtener_dato(nombre_aux);
-                if (jugador == 1) //agrego edificios del jugador 1
-                    mapa->set_edificio_casillero(jugador_uno->obtener_caracter_jugador(), fila, columna, edificio_aux);
-                else if (jugador == 2) //agrego edificios del jugador 2
-                    mapa->set_edificio_casillero(jugador_dos->obtener_caracter_jugador(), fila, columna, edificio_aux);
+                if (jugador == 1){ //agrego edificios del jugador 1
+                   mapa->set_edificio_casillero(jugador_uno->obtener_caracter(), fila, columna, edificio_aux);
+                   jugador_uno->agregar_casillero(mapa->obtener_casillero(fila, columna)); 
+                } 
+                    
+                else if (jugador == 2){ //agrego edificios del jugador 2
+                    mapa->set_edificio_casillero(jugador_dos->obtener_caracter(), fila, columna, edificio_aux);
+                    jugador_dos->agregar_casillero(mapa->obtener_casillero(fila, columna));
+                } 
+                    
             }
             else{
-
-                //mapa->set_material_casillero()
-                cout << "HAY MATERIAL" << endl;
+                material_aux = mapa->obtener_material(nombre_aux);
+                mapa->set_material_casillero(fila, columna, material_aux);
             }
             
         }

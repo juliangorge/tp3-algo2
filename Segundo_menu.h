@@ -56,7 +56,11 @@ estados_t verificar_materiales(Jugador* jugador, Edificio* edificio);
 
 void restar_materiales(Jugador* jugador, Edificio* edificio);
 
-estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos);
+estados_t consultar_coordenadas(Mapa* mapa);
+
+void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos);
+
+//void agregar_materiales(Jugador* jugador, Edificio* edificio);
 
 //estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa);
 

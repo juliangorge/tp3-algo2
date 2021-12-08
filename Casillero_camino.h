@@ -9,6 +9,7 @@ class CasilleroCamino : public Casillero
         CasilleroCamino(unsigned int fila, unsigned int columna);
         //~CasilleroCamino();
         void cambiar_objeto();
+        void mostrar_casillero();
 };
 
 #endif //CASILLEROCAMINO_H

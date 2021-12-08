@@ -1,47 +1,41 @@
 #include "Segundo_menu.h"
 #include "Grafo.h"
+
 estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
     unsigned int costo_energia = ENERGIA_CONSTRUIR_EDIFICIO;
+    unsigned int fila, columna;
 
     // Verifico la energia
     if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
 
-    // Verifico que exista el edificio
-    string nombre;
-    cout << "Escribe el nombre del edificio: ";
-    cin >> nombre;
-    cout << endl;
+    // Ingreso el nombre del edificio a construir
+    string nombre = ingresar_nombre();
 
-    // Verifico que existo
+    // Verifico que exista el edificio ingresado
     if(!arbol.buscar(nombre)) return ST_ERROR_NOMBRE_INVALIDO;
     Edificio* edificio = arbol.obtener_dato(nombre);
 
-    // Verifico máximo alcanzado
-    if(!edificio->obtener_restantes()) return ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO;
+    // Verifico máximo alcanzado de construidos
+    if( !edificio->obtener_restantes(jugador->obtener_cant_edificio(edificio->obtener_nombre()))) return ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO;
 
-    // Verifico materiales
-
-    if(verificar_materiales(jugador,edificio) != ST_OK) return st;
+    // Verifico materiales necesarios
+    if(((st = verificar_materiales(jugador,edificio)) != ST_OK)) return st;
 
     // Solicito coordenadas
-    unsigned int fila, columna;
-    if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return st;
-
-    // Verifico en el mapa las coordenadas dadas
-    //if(mapa->verificar_en_mapa(fila, columna) != ST_OK) return st;
-
-    if(mapa->set_edificio_casillero(jugador->obtener_caracter_jugador(), fila ,columna, edificio) != ST_OK) return st;
+    if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
 
     // Solicito confirmacion
     if(pedido_confirmacion() != ST_OK) return st;
 
+    //Agregado del edificio al mapa y a la lista de edificios del jugador
+    if(((st = mapa->set_edificio_casillero(jugador->obtener_caracter(), fila ,columna, edificio)) != ST_OK)) return st;
     jugador->agregar_casillero(mapa->obtener_casillero(fila, columna));
 
     // Resta de los materiales
-
     restar_materiales(jugador, edificio);
 
+    // Decremento la energia del jugador
     jugador->decrementar_energia(costo_energia);
 
     cout << "Construido exitosamente!" << endl;
@@ -52,9 +46,12 @@ estados_t verificar_materiales(Jugador* jugador, Edificio* edificio)
 {
     estados_t st = ST_OK;
     string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL;
-    if(jugador->verificar_material_necesario(nombre_piedra, edificio->obtener_piedra() != ST_OK)) return st;
-    if(jugador->verificar_material_necesario(nombre_madera, edificio->obtener_madera() != ST_OK)) return st;
-    if(jugador->verificar_material_necesario(nombre_metal, edificio->obtener_metal() != ST_OK)) return st;
+    if(!jugador->verificar_material_necesario(nombre_piedra, edificio->obtener_piedra()))
+        st = ST_ERROR_MATERIALES_INSUFICIENTES;
+    if(!jugador->verificar_material_necesario(nombre_madera, edificio->obtener_madera()))
+        st = ST_ERROR_MATERIALES_INSUFICIENTES;
+    if(!jugador->verificar_material_necesario(nombre_metal, edificio->obtener_metal())) 
+        st = ST_ERROR_MATERIALES_INSUFICIENTES;
     return st;
 }
 
@@ -66,21 +63,13 @@ void restar_materiales(Jugador* jugador, Edificio* edificio)
     jugador->restar_materiales(nombre_metal, edificio->obtener_metal());
 }
 
-estados_t mostrar_edificios(ABB<Edificio *> arbol, Jugador* jugador_uno, Jugador* jugador_dos){
-    estados_t st = ST_OK;
-
-    jugador_uno->mostrar_edificios();
-
-    return st;
-}
-
 estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
     unsigned int costo_energia = ENERGIA_DEMOLER_EDIFICIO;
     if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
 
     unsigned int fila, columna;
-    if(consultar_coordenadas(mapa, fila, columna) != ST_OK) return ST_ERROR_COORDENADAS_INVALIDAS;
+    if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
 
     Casillero* casillero_aux = mapa->obtener_casillero(fila, columna);
     if(casillero_aux->obtener_edificio() != NULL){
@@ -100,12 +89,14 @@ estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     return ST_ERROR_DEMOLER_EDIFICIO;
 }
 
+
+
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)
 {
     Jugador* jugador;
     
     int opcion = obtener_numero_jugador();
-    cout << "El jugador que inicia la partida es el jugador " << opcion << endl;
+    cout << endl << "El jugador que inicia la partida es el jugador " << opcion << endl;
     switch(opcion){
         case OPCION_JUGADOR_UNO:
             jugador = jugador_uno;
@@ -121,13 +112,13 @@ estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa)
 {
     unsigned int fila, columna;
     Grafo *grafo;
-    if(consultar_coordenadas(mapa, fila, columna) != ST_OK) 
+    if(obtener_coordenadas(mapa, fila, columna) != ST_OK) 
         return ST_ERROR_COORDENADAS_INVALIDAS;
 
     Casillero *casillero_origen = mapa->obtener_casillero(jugador->obtener_fila(), jugador->obtener_columna());
     Casillero *casillero_destino = mapa->obtener_casillero(fila, columna);
 
-    grafo->asignar_pesos(jugador->obtener_caracter_jugador(), casillero_origen, casillero_destino);
+    grafo->asignar_pesos(jugador->obtener_caracter(), casillero_origen, casillero_destino);
 
     return ST_OK;
     
@@ -179,15 +170,14 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, J
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
-            if((st = construir_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
+            if((st = construir_edificio(jugador, arbol, mapa)) != ST_OK) imprimir_error(st);
             verificar_energia_nula(jugador, jugador_uno, jugador_dos);
             break;
         case OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS:
-            if((st = mostrar_edificios(arbol, jugador_uno, jugador_dos)) != ST_OK) imprimir_error(st);
-            verificar_energia_nula(jugador, jugador_uno, jugador_dos);
+            jugador->mostrar_edificios();
             break;
         case OPCION_DEMOLER_COORDENADA:
-            if((st = demoler_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
+            if((st = demoler_edificio(jugador, arbol, mapa)) != ST_OK) imprimir_error(st);
             verificar_energia_nula(jugador, jugador_uno, jugador_dos);
             break;
         case OPCION_ATACAR_EDIFICIO:
@@ -208,6 +198,7 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, J
             verificar_energia_nula(jugador, jugador_uno, jugador_dos);
             break;
         case OPCION_CONSULTAR_COORDENADA:
+            if((st = consultar_coordenadas(mapa)) != ST_OK) imprimir_error(st);
             break;
         case OPCION_MOSTRAR_INVENTARIO:
             jugador->mostrar_inventario();
@@ -229,10 +220,37 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, J
             ///// CONTAR OBJETIVOS CUMPLIDOS NO ESTÁ CONTANDO ///////
 
             if(objetivo->contar_cumplidos(jugador)>=2)
-                cout << "El jugador " << jugador->obtener_caracter_jugador() << "ha cumplido los objetivos" <<endl;
+                cout << "El jugador " << jugador->obtener_caracter() << "ha cumplido los objetivos" <<endl;
 
             break;
     }
 
     //if(opcion != OPCION_FINALIZAR_TURNO) mostrar_mapa();
+}
+
+estados_t consultar_coordenadas(Mapa* mapa)
+{
+    estados_t st = ST_OK;
+    unsigned int fila, columna;
+    if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK)
+        return st;
+    mapa->consultar_coordenadas(fila, columna);
+    return st;
+}
+
+void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos)
+{
+    ifstream archivo_materiales;
+    archivo_materiales.open(ARCHIVO_MATERIALES.c_str());
+    string nombre_material;
+    unsigned int cantidad_jugador_uno, cantidad_jugador_dos;
+
+    while(archivo_materiales >> nombre_material >> cantidad_jugador_uno >> cantidad_jugador_dos){
+        jugador_uno->agregar_material_a_lista(new Material(nombre_material, cantidad_jugador_uno));
+        jugador_dos->agregar_material_a_lista(new Material(nombre_material, cantidad_jugador_dos));
+        
+    }
+
+    archivo_materiales.close();
+
 }

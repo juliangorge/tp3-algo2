@@ -20,9 +20,10 @@ estados_t obtener_valor_cantidad(unsigned int & cantidad);
 
 bool es_numero(const string& s);
 
-//bool consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna);
-estados_t consultar_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna);
+estados_t obtener_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & columna);
 
 estados_t pedido_confirmacion();
+
+string ingresar_nombre();
 
 #endif //INTERACCION_USUARIO_H

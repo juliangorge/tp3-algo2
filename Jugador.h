@@ -57,6 +57,10 @@ class Jugador {
 
         char obtener_caracter();
 
+        unsigned int obtener_tipos_de_materiales();
+
+        Material** obtener_lista_materiales();
+
         void agregar_coordenadas(unsigned int posicion_fila, unsigned int posicion_columna);
 
 		// PRE: debe existir el archivo con los materiales y si los hubiera deben seguir el formato "material cant_jugador_1 cant_jugador_2".
@@ -84,15 +88,13 @@ class Jugador {
 
         unsigned int obtener_posicion_material(string nombre_material);
 
-        estados_t verificar_material_necesario(string nombre_material, unsigned int cantidad_a_restar);
+        bool verificar_material_necesario(string nombre_material, unsigned int cantidad_a_restar);
 
         void comprar_bombas(unsigned int bombas, unsigned int precio_bombas);
 
         void restar_materiales(string nombre_material, unsigned int cantidad_a_restar);
 
         unsigned int mostrar_cantidad_material(string nombre_material);
-
-        char obtener_caracter_jugador();
 
         unsigned int obtener_fila();
 
@@ -128,5 +130,5 @@ class Jugador {
 
 };
 
-void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos);
+void cargar_materiales(Jugador* jugador_uno, Jugador* jugador_dos);
 #endif //JUGADOR_H
