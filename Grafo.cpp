@@ -8,26 +8,70 @@ Grafo::Grafo() {
     algoritmo_camino_minimo = nullptr;
 }
 
-void Grafo::agregarVertice(string nuevoVertice) {
-    agrandarmatriz_adyacencia();
-    vertices -> agregar(nuevoVertice);
+void Grafo::agregar_vertice(Casillero *nuevo_vertice) {
+    agrandar_matriz_adyacencia();
+    vertices -> agregar(nuevo_vertice);
 }
 
-void Grafo::mostrarGrafo() {
-    mostrarVertices();
-    mostrarMatrizAdyacencia();
+void Grafo::mostrar_grafo() {
+    //mostrar_vertices();
+    mostrar_matriz_adyacencia();
 }
 
-void Grafo::agregar_camino(Casillero *origen, Casillero *destino, int peso_origen, int peso_destino) {
+
+void Grafo::agregar_camino(Mapa *mapa, char jugador) 
+{
+    cout << "Entra a agregar_camino" << endl;
+    Casillero *origen, *destino;
+    unsigned int peso_origen = 0, peso_destino = 0;
+    int posicion_origen=0, posicion_destino=0;
+    for (unsigned int i = 0; i < mapa->obtener_cantidad_filas(); i++)
+    {   
+        for (unsigned int j = 0; j < mapa->obtener_cantidad_columnas(); j++)
+        {  
+            if(j < mapa->obtener_cantidad_filas()-1 )//Condicion para que no busque casillero a la derecha si esta en la ultima fila
+            {   //Hallo la distancia entre un casillero y el de su derecha
+                origen = mapa->obtener_casillero(i,j);
+                destino = mapa->obtener_casillero(i,j+1);
+                cout << "Obtuvo los casilleros origen y destino" << endl;
+                posicion_origen = vertices->obtener_posicion(i, j);
+
+                //// ESTO ESTÁ TIRANDO -1 /////
+                posicion_destino = vertices->obtener_posicion(i, j+1);
+                ///////////////////////////////////// 
+                
+                asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
+                cout << "Posicion en la lista: " << posicion_origen << " " << posicion_destino << endl;
+                matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
+                matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
+            }
+            if(i < mapa->obtener_cantidad_columnas()-1 )//Condicion para que no busque casillero a la derecha si esta en la ultima columna
+            {   //Hallo la distancia entre un casillero y el de su derecha
+                destino = mapa->obtener_casillero(i+1,j);
+                posicion_destino = vertices->obtener_posicion(i+1, j);
+                asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
+                cout << "Asigno pesos" << endl;
+                matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
+                matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
+            }
+            cout << "Iteraciones de j: " << j << endl;
+        }
+    }
+}
+
+
+
+/*void Grafo::agregar_camino(Casillero *origen, Casillero *destino, int peso_origen, int peso_destino) {
     int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
     int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
 
     matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
     matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
-}
+}*/
 
 //Con el grafo siempre interactuo con strings. La lista es algo particular del grafo
-void Grafo::camino_minimo(Casillero *origen, Casillero *destino) {
+void Grafo::camino_minimo(Casillero *origen, Casillero *destino) 
+{
     int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
     int posicion_destino = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
 
@@ -41,67 +85,67 @@ void Grafo::camino_minimo(Casillero *origen, Casillero *destino) {
     camino_minimo(posicion_origen, posicion_destino);
 }
 
-void Grafo::agrandarmatriz_adyacencia() {
+void Grafo::agrandar_matriz_adyacencia() {
     int** matrizAuxiliar;
-    int nuevaCantidadDeVertices = vertices->obtenerCantidadDeElementos() + 1;
-
+    int nuevaCantidadDeVertices = vertices->obtener_cantidad_elementos() + 1;
     matrizAuxiliar = new int*[nuevaCantidadDeVertices];
     for(int i = 0; i < nuevaCantidadDeVertices; i++){
         matrizAuxiliar[i] = new int[nuevaCantidadDeVertices];
     }
 
-    copiarMatrizAdyacente(matrizAuxiliar);
-    inicializarNuevoVertice(matrizAuxiliar);
-    liberarMatrizAdyacencia();
+    copiar_matriz_adyacencia(matrizAuxiliar);
+    inicializar_vertice(matrizAuxiliar);
+    liberar_matriz_adyacencia();
     matriz_adyacencia = matrizAuxiliar;
 }
 
-void Grafo::copiarMatrizAdyacente(int** nuevaAdyacente) {
-    for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
-        for(int j = 0; j < vertices -> obtenerCantidadDeElementos(); j++){
-            nuevaAdyacente[i][j] = matriz_adyacencia[i][j];
+void Grafo::copiar_matriz_adyacencia(int** nueva_adyacente) {
+    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+        for(int j = 0; j < vertices -> obtener_cantidad_elementos(); j++){
+            nueva_adyacente[i][j] = matriz_adyacencia[i][j];
         }
     }
 }
 
-void Grafo::inicializarNuevoVertice(int** nuevaAdyacente) {
-    for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
-        nuevaAdyacente[vertices -> obtenerCantidadDeElementos()][i] = INFINITO;
-        nuevaAdyacente[i][vertices -> obtenerCantidadDeElementos()] = INFINITO;
+void Grafo::inicializar_vertice(int** nueva_adyacente) {
+    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+        nueva_adyacente[vertices -> obtener_cantidad_elementos()][i] = INFINITO;
+        nueva_adyacente[i][vertices -> obtener_cantidad_elementos()] = INFINITO;
     }
-    nuevaAdyacente[vertices -> obtenerCantidadDeElementos()][vertices -> obtenerCantidadDeElementos()] = 0;
+    nueva_adyacente[vertices -> obtener_cantidad_elementos()][vertices -> obtener_cantidad_elementos()] = 0;
 }
 
-void Grafo::liberarMatrizAdyacencia() {
-    for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
+void Grafo::liberar_matriz_adyacencia() {
+    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         delete[] matriz_adyacencia[i];
     }
     delete[] matriz_adyacencia;
 }
 
 Grafo::~Grafo() {
-    liberarMatrizAdyacencia();
+    liberar_matriz_adyacencia();
     matriz_adyacencia = nullptr;
     delete vertices;
     delete algoritmo_camino_minimo;
 }
 
-void Grafo::mostrarVertices() {
+/*void Grafo::mostrar_vertices() {
     cout << "Lista de vértices: [";
-    for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
-        cout << vertices -> obtenerNombre(i + 1);
-        if(i + 1 != vertices -> obtenerCantidadDeElementos()){
+    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+        Casillero *casillero_aux = New Casillero();
+        cout << vertices -> obtener_nombre_nodo(i + 1);
+        if(i + 1 != vertices -> obtener_cantidad_elementos()){
             cout << ", ";
         }
     }
     cout << "]" << endl;
-}
+}*/
 
-void Grafo::mostrarMatrizAdyacencia() {
+void Grafo::mostrar_matriz_adyacencia() {
     cout << "Matriz de adyacencia:" << endl;
-    for(int i = 0; i < vertices -> obtenerCantidadDeElementos(); i++){
-        for(int j = 0; j < vertices -> obtenerCantidadDeElementos() * 2; j++) {
-            if(j == vertices -> obtenerCantidadDeElementos() * 2 - 1){
+    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+        for(int j = 0; j < vertices -> obtener_cantidad_elementos() * 2; j++) {
+            if(j == vertices -> obtener_cantidad_elementos() * 2 - 1){
                 cout << endl;
             } else if(j % 2 == 0){
                 if(matriz_adyacencia[i][j/2] == INFINITO){
@@ -122,35 +166,37 @@ void Grafo::camino_minimo(int origen, int destino) {
     algoritmo_camino_minimo -> camino_minimo(origen, destino);
 }
 
-void Grafo::usarDijkstra() {
+/*void Grafo::usarDijkstra() {
     delete algoritmo_camino_minimo;
     algoritmo_camino_minimo = new Dijkstra(vertices, matriz_adyacencia);
-}
+}*/
 
 void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *destino, Mapa *mapa)
 {
-    //this->agregarVertice(casillero);
+    agregar_vertices(mapa);
     
     Casillero *vecino;
     int i = 0;
 
-    while(vecino!=destino && i<4)
+    /*while(vecino!=destino && i<4)
     {   
         //obtengo el vecino de la derecha
         vecino = mapa->obtener_casillero(origen->obtener_fila(), origen->obtener_columna()+1);
         asignar_pesos(origen, vecino, jugador);
 
         i++;
-    }
-    /*this->mostrarGrafo();
-
+    }*/
+    this->agregar_camino(mapa, jugador);
+    cout<< "Agrego todos los caminos" << endl;
+    this->mostrar_grafo();
+    /*
     this->usarDijkstra();
-
-    this->camino_minimo("A", "B");*/
+    */
+    
 
 }
 
-void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, char jugador)
+/*void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, char jugador)
 {
     int peso_origen = 0, peso_destino = 0;
 
@@ -169,7 +215,7 @@ void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_dest
     this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_destino);//peso_destino);
 
 
-}
+}*/
 
 void Grafo::obtener_peso(char tipo_casillero, int *peso, int peso_L, int peso_M)
 {   
@@ -194,4 +240,17 @@ void Grafo::obtener_peso(char tipo_casillero, int *peso, int peso_L, int peso_M)
         break;
     }
     
+}
+
+void Grafo::agregar_vertices(Mapa *mapa)
+{
+    for (unsigned int i = 0; i < mapa->obtener_cantidad_filas(); i++)
+        for (unsigned int j = 0; j < mapa->obtener_cantidad_columnas(); j++)
+            this->agregar_vertice(mapa->obtener_casillero(i,j));
+}
+
+void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int *peso_origen, unsigned int *peso_destino, char jugador)
+{
+    *peso_origen=casillero_origen->obtener_costo_energia(jugador);
+    *peso_destino=casillero_destino->obtener_costo_energia(jugador);
 }

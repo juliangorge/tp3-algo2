@@ -1,6 +1,6 @@
 #ifndef GRAFOS_VERTICE_H
 #define GRAFOS_VERTICE_H
-
+#include "Casillero.h"
 #include <string>
 
 using namespace std;
@@ -8,14 +8,14 @@ using namespace std;
 class Vertice {
 /*ATRIBUTOS*/
 private:
-    string nombre;
+    Casillero *casillero;
 
 /*MÉTODOS*/
 public:
-    Vertice(string nombre);
+    Vertice(Casillero *casillero);
 
-    //post: obtiene el nombre del vertice
-    string obtenerNombre();
+    //post: obtiene el casillero del vertice
+    Casillero *obtener_casillero();
 
     ~Vertice();
 };

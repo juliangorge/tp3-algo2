@@ -209,3 +209,13 @@ Material* Mapa::obtener_material(string nombre_material)
     }
     return material;
 }
+
+unsigned int Mapa::obtener_cantidad_filas()
+{
+    return this->cantidad_filas;
+}
+
+unsigned int Mapa::obtener_cantidad_columnas()
+{
+    return this->cantidad_columnas;
+}

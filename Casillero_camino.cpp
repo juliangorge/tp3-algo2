@@ -6,7 +6,8 @@ CasilleroCamino:: CasilleroCamino(unsigned int fila, unsigned int columna) : Cas
     this->es_camino = true;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero Camino transitable";
-    this->costo_energia = 4;
+    this->costo_energia_U = 4;
+	this->costo_energia_J = 4;
 }
 
 void CasilleroCamino:: cambiar_caracter(){

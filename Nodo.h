@@ -1,6 +1,6 @@
 #ifndef GRAFOS_NODO_H
 #define GRAFOS_NODO_H
-#include <string>
+#include "Casillero.h"
 
 using namespace std;
 
@@ -10,21 +10,19 @@ class Nodo {
 private:
     Tipo* elemento;
     Nodo<Tipo>* siguiente;
-    unsigned int x;
-    unsigned int y;
 
 /*MÉTODOS*/
 public:
-    Nodo(string nombre);
+    Nodo(Casillero *casillero);
 
     //post: devuelve el nodo siguiente.
-    Nodo<Tipo>* obtenerSiguiente();
+    Nodo<Tipo>* obtener_siguiente();
 
-    //post: devuelve el nombre del nodo
-    string obtenerNombre();
+    //post: devuelve el casillero del nodo
+    Casillero *obtener_casillero();
 
     //post: le asigna como siguiente el nodo recibido
-    void asignarSiguiente(Nodo<Tipo>* siguiente);
+    void asignar_siguiente(Nodo<Tipo>* siguiente);
 
     unsigned int obtener_x();
 
@@ -34,27 +32,27 @@ public:
 };
 
 template<typename Tipo>
-Nodo<Tipo>::Nodo(string nombre) {
-    elemento = new Tipo(nombre);
+Nodo<Tipo>::Nodo(Casillero *casillero) {
+    elemento = new Tipo(casillero);
     siguiente = nullptr;
 }
 
 template<typename Tipo>
-Nodo<Tipo> *Nodo<Tipo>::obtenerSiguiente() {
+Nodo<Tipo> *Nodo<Tipo>::obtener_siguiente() {
     return siguiente;
 }
 
 template<typename Tipo>
-string Nodo<Tipo>::obtenerNombre() {
-    return elemento -> obtenerNombre();
+Casillero *Nodo<Tipo>::obtener_casillero() {
+    return elemento -> obtener_casillero();
 }
 
 template<typename Tipo>
-void Nodo<Tipo>::asignarSiguiente(Nodo<Tipo> *siguiente) {
+void Nodo<Tipo>::asignar_siguiente(Nodo<Tipo> *siguiente) {
     this -> siguiente = siguiente;
 }
 
-template < typename Tipo >
+/*template < typename Tipo >
 unsigned int Nodo<Tipo>::obtener_x()
 {
     return this->x;
@@ -64,7 +62,7 @@ template < typename Tipo >
 unsigned int Nodo<Tipo>::obtener_y()
 {
     return this->y;
-}
+}*/
 
 template<typename Tipo>
 Nodo<Tipo>::~Nodo() {

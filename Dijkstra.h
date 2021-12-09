@@ -13,7 +13,7 @@ private:
 
 //Métodos
     //post: pone todos los valores del vector de verticesVisitados en "false" menos el origen
-    void inicializarVisitados(int origen);
+    void inicializar_visitados(int origen);
 
     //post: pone las distancias exactamente igual que la distanciaOrigen
     void inicializarDistancia(const int * distanciaOrigen);

@@ -6,7 +6,8 @@ CasilleroLago:: CasilleroLago(unsigned int fila, unsigned int columna) : Casille
     this->es_camino = false;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero Lago intransitable";
-    this->costo_energia = 2; // Jugador 1: 2 - Jugador 2: 5
+    this->costo_energia_U = 5; 
+	this->costo_energia_J = 2;
 }
 
 void CasilleroLago:: cambiar_caracter(){

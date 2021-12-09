@@ -71,8 +71,15 @@ void Casillero:: cargar_material(Material* material){
     }
 }
 
-unsigned int Casillero:: obtener_costo_de_energia(){
-    return this->costo_energia;
+unsigned int Casillero:: obtener_costo_energia(char jugador){
+
+    unsigned int costo = 0;
+    if(jugador == 'J')
+        costo = this->costo_energia_J;
+    else if(jugador == 'U')
+        costo = this->costo_energia_U;
+    
+    return costo;
 }
 
 bool Casillero:: es_construible(){

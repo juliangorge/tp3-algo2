@@ -116,15 +116,16 @@ Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)
 
 estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa)
 {
-    unsigned int fila, columna;
-    Grafo *grafo;
-    if(obtener_coordenadas(mapa, fila, columna) != ST_OK) 
-        return ST_ERROR_COORDENADAS_INVALIDAS;
+    unsigned int fila=0, columna=0;
+    Grafo grafo;
+    //if(obtener_coordenadas(mapa, fila, columna) != ST_OK) 
+    //    return ST_ERROR_COORDENADAS_INVALIDAS;
 
     Casillero *casillero_origen = mapa->obtener_casillero(jugador->obtener_fila(), jugador->obtener_columna());
     Casillero *casillero_destino = mapa->obtener_casillero(fila, columna);
-
-    grafo->asignar_pesos(jugador->obtener_caracter(), casillero_origen, casillero_destino);
+    grafo.asignar_adyacentes(jugador->obtener_caracter(), casillero_origen, casillero_destino, mapa);
+    
+    //grafo->asignar_pesos(casillero_destino, casillero_origen, jugador->obtener_caracter());
 
     return ST_OK;
     
@@ -215,7 +216,7 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, J
         case OPCION_RECOLECTAR_RECURSOS:
             break;
         case OPCION_MOVERSE_A_COORDENADA:
-            //moverse_coordenada(jugador, mapa);
+            moverse_coordenada(jugador, mapa);
             break;
         case OPCION_FINALIZAR_TURNO:
             unsigned int energia_nueva = ENERGIA_RECUPERADA_POR_TURNO;

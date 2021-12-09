@@ -6,7 +6,8 @@ CasilleroBetun:: CasilleroBetun(unsigned int fila, unsigned int columna) : Casil
     this->es_camino = true;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero Betun transitable";
-    this->costo_energia = 0;
+    this->costo_energia_J = 0;
+	this->costo_energia_U = 0;
 }
 
 void CasilleroBetun:: cambiar_caracter(){

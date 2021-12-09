@@ -80,6 +80,12 @@ class Mapa
         unsigned int set_cantidad_material(Material* material);
 
         Material* obtener_material(string nombre_material);
+
+        unsigned int obtener_cantidad_filas();
+
+        unsigned int obtener_cantidad_columnas();
+
+
 };
 
 

@@ -40,7 +40,9 @@ class Casillero
 
         Material* material;
 
-        unsigned int costo_energia;
+        unsigned int costo_energia_J;
+
+        unsigned int costo_energia_U;
 
         bool necesita_reparacion;
 
@@ -98,7 +100,7 @@ class Casillero
 
         // PRE:
         // POST: Retorna el costo de energía
-        unsigned int obtener_costo_de_energia();
+        unsigned int obtener_costo_energia(char jugador);
  
         bool es_construible();
 

@@ -6,7 +6,8 @@ CasilleroMuelle:: CasilleroMuelle(unsigned int fila, unsigned int columna) : Cas
     this->es_camino = true;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero Muelle transitable";
-    this->costo_energia = 5; // Jugador 1: 5 - Jugador 2: 2
+    this->costo_energia_J = 5;
+	this->costo_energia_U = 2;
 }
 
 void CasilleroMuelle:: cambiar_caracter(){

@@ -1,11 +1,11 @@
 #include "Vertice.h"
 
-Vertice::Vertice(string nombre) {
-    this -> nombre = nombre;
+Vertice::Vertice(Casillero *casillero) {
+    this -> casillero = casillero;
 }
 
-string Vertice::obtenerNombre() {
-    return nombre;
+Casillero *Vertice::obtener_casillero() {
+    return casillero;
 }
 
 Vertice::~Vertice() {
