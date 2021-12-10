@@ -239,21 +239,33 @@ void Mapa::lluvia_recursos()
     int conjuntos_madera = aleatorio(MIN_LLUVIA_MADERA, MAX_LLUVIA_MADERA);
     int conjuntos_metal = aleatorio(MIN_LLUVIA_METAL, MAX_LLUVIA_METAL);
     int conjuntos_andycoins = aleatorio(MIN_LLUVIA_ANDYCOINS, MAX_LLUVIA_ANDYCOINS);
-    int i = 0, fila = 0, columna = 0;
-    Material *material_aux;
+    int i = 0;
     for(i=0; i<conjuntos_piedra; i++)
-    {
+        setear_material_aleatorio(&i, "piedra");
 
-        fila = aleatorio(0, this->cantidad_filas - 1);
-        columna = aleatorio(0, this->cantidad_columnas - 1);
-        material_aux = obtener_material("madera");
-        if (set_material_casillero(fila, columna, material_aux)!=ST_OK)
-            i--;
+    for(i=0; i<conjuntos_madera; i++)
+        setear_material_aleatorio(&i, "madera");
 
-    }
+    for(i=0; i<conjuntos_metal; i++)
+        setear_material_aleatorio(&i, "metal");
+        
+    for(i=0; i<conjuntos_andycoins; i++)
+        setear_material_aleatorio(&i, "andycoins");
+    
 }
 
 
+void Mapa::setear_material_aleatorio(int *i, string material)
+{ 
+    int fila = 0, columna = 0;
+    Material *material_aux;
+
+    fila = aleatorio(0, this->cantidad_filas - 1);
+    columna = aleatorio(0, this->cantidad_columnas - 1);
+    material_aux = obtener_material(material);
+    if (set_material_casillero(fila, columna, material_aux)!=ST_OK)
+        *i--;
+}
 bool Mapa:: casillero_sin_material(unsigned int fila, unsigned int columna)
 {
     if(materiales_mapa[fila, columna]==nullptr)

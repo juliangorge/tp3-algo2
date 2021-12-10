@@ -103,6 +103,8 @@ class Mapa
 
         void lluvia_recursos();
 
+        void setear_material_aleatorio(int *i, string material);
+
         bool casillero_sin_material(unsigned int fila, unsigned int columna);
         
 };
