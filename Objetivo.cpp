@@ -266,11 +266,6 @@ void Objetivo::asignar(Jugador *jugador)
 
 }
 
-int Objetivo::aleatorio(int cota_inferior, int cota_superior)
-{
-    return int(rand()%cota_superior + cota_inferior);
-}
-
 int Objetivo::contar_cumplidos(Jugador *jugador)
 {
     int cant_cumplidos=0;

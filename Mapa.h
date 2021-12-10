@@ -13,6 +13,7 @@
 #include "Casillero_muelle.h"
 #include "Casillero_terreno.h"
 #include "Jugador.h"
+#include "utilidades.h"
 
 using namespace std;
 
@@ -29,10 +30,25 @@ const char CARACTER_LAGO = 'L';
 // Casilleros construibles
 const char CARACTER_TERRENO = 'T';
 
-// ArregloS con los tipos de casilleros
+// Arreglos con los tipos de casilleros
 const char ARREGLO_CHAR_TRANSITABLES [] = {CARACTER_CAMINO, CARACTER_BETUN, CARACTER_MUELLE};
 const char ARREGLO_CHAR_INACCESIBLES [] = {CARACTER_LAGO};
 const char ARREGLO_CHAR_CONSTRUIBLES [] = {CARACTER_TERRENO};
+
+//cantidad de posibles conjuntos de recrusos
+
+const int MIN_LLUVIA_PIEDRA = 1;
+const int MAX_LLUVIA_PIEDRA = 2;
+const int UNIDADES_LLUVIA_PIEDRA = 100;
+const int MIN_LLUVIA_MADERA = 0;
+const int MAX_LLUVIA_MADERA = 3;
+const int UNIDADES_LLUVIA_MADERA = 50;
+const int MIN_LLUVIA_METAL = 2;
+const int MAX_LLUVIA_METAL = 4;
+const int UNIDADES_LLUVIA_METAL = 50;
+const int MIN_LLUVIA_ANDYCOINS = 0;
+const int MAX_LLUVIA_ANDYCOINS = 1;
+const int UNIDADES_LLUVIA_ANDYCOINS = 250;
 
 class Mapa
 {
@@ -61,7 +77,7 @@ class Mapa
 
         void set_jugador_casillero(Jugador * jugador);
 
-        void set_material_casillero(unsigned int fila, unsigned int columna, Material* material);
+        estados_t set_material_casillero(unsigned int fila, unsigned int columna, Material* material);
 
         estados_t verificar_condiciones_construccion(char caracter_jugador, unsigned int fila, unsigned int columna);
 
@@ -85,7 +101,10 @@ class Mapa
 
         unsigned int obtener_cantidad_columnas();
 
+        void lluvia_recursos();
 
+        bool casillero_sin_material(unsigned int fila, unsigned int columna);
+        
 };
 
 

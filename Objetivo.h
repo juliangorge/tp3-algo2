@@ -5,6 +5,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include <string>
+#include "utilidades.h"
 using namespace std;
 
 const int MINAS_METAL_OBJETIVO = 1;
@@ -67,10 +68,6 @@ class Objetivo {
         //PRE:
         //POST:
         int contar_cumplidos(Jugador *jugador);
-
-        //PRE:
-        //POST:
-        int aleatorio(int cota_inferior, int cota_superior);
         
         void mostrar_progreso(Jugador *jugador);
 

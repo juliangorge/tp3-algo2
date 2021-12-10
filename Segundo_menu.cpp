@@ -165,6 +165,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
     mapa->mostrar_mapas();
 	int opcion = obtener_opcion_segundo_menu();
 	while(opcion != OPCION_SALIR_SEGUNDO_MENU){
+        mapa->lluvia_recursos();
 		opciones_segundo_menu(opcion, jugador, objetivo, jugador_uno, jugador_dos, arbol, mapa);
 		mostrar_segundo_menu();
         mapa->mostrar_mapas();

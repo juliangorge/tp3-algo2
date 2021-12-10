@@ -86,6 +86,15 @@ bool Casillero:: es_construible(){
     return (this->es_terreno && this->edificio == nullptr);
 }
 
+bool Casillero:: es_transitable()
+{
+    if(this->edificio->obtener_caracter()=='C' || this->edificio->obtener_caracter()=='B' || this->edificio->obtener_caracter()=='M')
+        return true;
+
+    else
+        return false;  
+}
+
 void Casillero:: mostrar_edificios(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;

@@ -104,6 +104,9 @@ class Casillero
  
         bool es_construible();
 
+        bool es_transitable();
+
+
         void mostrar_edificios();
 
         void ocupar_casillero(char caracter);

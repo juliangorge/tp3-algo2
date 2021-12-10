@@ -142,9 +142,22 @@ void Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsi
     this->matriz_mapa[fila][columna]->cargar_edificio(edificio, caracter_jugador);
 }
 
-void Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
+estados_t Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
 {
-    this->matriz_mapa[fila][columna]->cargar_material(material);
+    estados_t st;
+
+    if(this->matriz_mapa[fila][columna]->es_transitable())
+        if(casillero_sin_material(fila, columna))
+        {
+            this->matriz_mapa[fila][columna]->cargar_material(material);
+            st = ST_OK;
+        }
+        else
+            st = ST_ERROR_CASILLERO_OCUPADO;
+    else
+        st = ST_ERROR_CASILLLERO_INTRANSITABLE;
+    
+    return st;
 }
 
 estados_t Mapa::verificar_condiciones_demolicion(char caracter_jugador, unsigned int fila, unsigned int columna)
@@ -218,4 +231,33 @@ unsigned int Mapa::obtener_cantidad_filas()
 unsigned int Mapa::obtener_cantidad_columnas()
 {
     return this->cantidad_columnas;
+}
+
+void Mapa::lluvia_recursos()
+{
+    int conjuntos_piedra = aleatorio(MIN_LLUVIA_PIEDRA, MAX_LLUVIA_PIEDRA);
+    int conjuntos_madera = aleatorio(MIN_LLUVIA_MADERA, MAX_LLUVIA_MADERA);
+    int conjuntos_metal = aleatorio(MIN_LLUVIA_METAL, MAX_LLUVIA_METAL);
+    int conjuntos_andycoins = aleatorio(MIN_LLUVIA_ANDYCOINS, MAX_LLUVIA_ANDYCOINS);
+    int i = 0, fila = 0, columna = 0;
+    Material *material_aux;
+    for(i=0; i<conjuntos_piedra; i++)
+    {
+
+        fila = aleatorio(0, this->cantidad_filas - 1);
+        columna = aleatorio(0, this->cantidad_columnas - 1);
+        material_aux = obtener_material("madera");
+        if (set_material_casillero(fila, columna, material_aux)!=ST_OK)
+            i--;
+
+    }
+}
+
+
+bool Mapa:: casillero_sin_material(unsigned int fila, unsigned int columna)
+{
+    if(materiales_mapa[fila, columna]==nullptr)
+        return true;
+    
+    return false;
 }
