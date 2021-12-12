@@ -209,7 +209,7 @@ void Jugador:: borrar_edificio_casillero(Casillero * casillero){
     for (unsigned int i = 0; i < posicion; i++){
         casilleros_aux[i] = this->casilleros_jugador[i];
     }
-    for (unsigned int i = posicion; i < cantidad_casilleros_previo; i++)
+    for (unsigned int i = posicion; i < cantidad_casilleros_previo - 1; i++)
     {
         casilleros_aux[i] = this->casilleros_jugador[i+1];
     }
