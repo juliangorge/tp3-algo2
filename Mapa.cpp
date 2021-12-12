@@ -294,14 +294,11 @@ void Mapa::setear_material_aleatorio(int *i, string material)
     if (set_material_casillero(fila, columna, material_aux)!=ST_OK)
         *i--;
 }
+
 bool Mapa:: casillero_sin_material(unsigned int fila, unsigned int columna)
 {
-    if(materiales_mapa[fila, columna]==nullptr)
-        return true;
-    
-    return false;
+    return (matriz_mapa[fila, columna] == nullptr);
 }
-
 
 void Mapa::mostrar_mapa_materiales()
 {
