@@ -54,5 +54,8 @@ void iniciar_juego()
 		break;
 	}
 
+	delete jugador_uno;
+	delete jugador_dos;
+	delete mapa;
 }
 

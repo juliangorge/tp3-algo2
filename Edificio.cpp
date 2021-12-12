@@ -10,6 +10,9 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     this->establecer_parametros();
 }
 
+Edificio:: ~Edificio(){
+}
+
 string Edificio::obtener_nombre(){
     return this->nombre;
 }

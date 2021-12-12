@@ -8,8 +8,27 @@ Mapa::Mapa()
     this->leer_mapa();
 }
 
-Mapa::~Mapa(){
-    
+Mapa::~Mapa()
+{
+    for (unsigned int i = 0; i < this->cantidad_filas; i++){
+
+        for (unsigned int j = 0; j < this->cantidad_columnas; j++){
+            delete this->matriz_mapa[i][j];
+        }
+
+        delete [] this->matriz_mapa[i];
+    }
+
+    delete [] this->matriz_mapa;
+
+    for (unsigned int i = 0; i < this->cantidad_de_materiales; i++)
+    {
+        delete this->materiales_mapa[i];
+    }
+
+    delete [] this->materiales_mapa;
+
+    this->materiales_mapa = nullptr;
 }
 
 void Mapa::leer_mapa()

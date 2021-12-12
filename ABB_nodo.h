@@ -20,7 +20,7 @@ class ABBnodo
 
     public:
         ABBnodo(K clave, T dato);
-        //virtual ~ABBnodo();
+        virtual ~ABBnodo();
 
         K get_clave();
 
@@ -51,6 +51,13 @@ ABBnodo<T>::ABBnodo(K clave, T dato)
     this->izquierda = NULL;
     this->derecha = NULL;
     this->padre = NULL;
+}
+
+
+template <class T>
+ABBnodo<T>::~ABBnodo()
+{
+    if(dato != 0) delete dato;
 }
 
 template <class T>

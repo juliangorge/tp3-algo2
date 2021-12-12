@@ -10,6 +10,10 @@ Objetivo:: Objetivo(){
     }
 }
 
+Objetivo:: ~Objetivo(){
+
+}
+
 void Objetivo::asignar_objetivos()
 {
     //srand(time(NULL));

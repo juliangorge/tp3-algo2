@@ -11,9 +11,13 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     // Ingreso el nombre del edificio a construir
     string nombre = ingresar_nombre();
 
+    cout << nombre << endl;
+    /*
+
     // Verifico que exista el edificio ingresado
     if(!arbol.buscar(nombre)) return ST_ERROR_NOMBRE_INVALIDO;
-    Edificio* edificio = arbol.obtener_dato(nombre);
+    */return ST_ERROR_NOMBRE_INVALIDO;
+    /*
 
     // Verifico máximo alcanzado de construidos
     if( !edificio->obtener_restantes(jugador->obtener_cant_edificio(edificio->obtener_nombre()))) return ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO;
@@ -39,9 +43,9 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
 
     // Decremento la energia del jugador
     jugador->decrementar_energia(costo_energia);
-
+    
     cout << endl << "Construido exitosamente!" << endl;
-    return st;
+    return st;*/
 }
 
 estados_t verificar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor_cont_rep)

@@ -31,6 +31,7 @@ class Mapa
         // POST: carga los atributos del objeto con lo que obtiene del archivo mapa
         Mapa();
         ~Mapa();
+
         void leer_mapa();
         void cargar_mapa(unsigned int cantidad_filas, unsigned int cantidad_columnas, char square_type);
         void mostrar_mapa_vacio();

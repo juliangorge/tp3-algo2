@@ -16,11 +16,26 @@ Jugador:: Jugador(char caracter){
     this->bombas_compradas=0;
     this->bombas_usadas=0;
 
-    this->acumulador_por_turno =1;
+    this->acumulador_por_turno = 1;
 }
 
 Jugador:: ~Jugador(){
 
+    for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
+        delete this->casilleros_jugador[i];
+    }
+
+    for (unsigned int i = 0; i < this->tipos_de_materiales; i++){
+        delete this->materiales_jugador[i];
+    }
+
+    this->cantidad_casilleros = 0;
+    this->tipos_de_materiales = 0;
+
+    delete [] this->casilleros_jugador;
+    delete [] this->materiales_jugador;
+
+    delete this->objetivos;
 }
 
 char Jugador::obtener_caracter()

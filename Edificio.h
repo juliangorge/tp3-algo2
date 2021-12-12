@@ -29,6 +29,8 @@ class Edificio {
 	    // POST: Crea un objeto Edificio, con nombre, materiales requeridos, y maximo posible de construir
         Edificio(string nombre, unsigned int piedra, unsigned int madera, unsigned int metal, unsigned int maximo);      
 
+        ~Edificio();
+
         // PRE:
         // POST: Devuelve el nombre
         string obtener_nombre();
