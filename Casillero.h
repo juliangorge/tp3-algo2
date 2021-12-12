@@ -113,6 +113,11 @@ class Casillero
         // PRE: 
         // POST: Devuelve OK si se cumplen las condiciones para que se pueda atacar, caso contrario devuelve un valor que se usa para indicar que no se cumplió
         estados_t verificar_condiciones_ataque(char caracter_jugador);
+
+        // PRE: 
+        // POST: Devuelve true si es un betun, camino o muelle.
+        bool es_transitable();
+
 };
 
 #endif // CASILLERO_H

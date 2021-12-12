@@ -244,6 +244,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
     cout << "Energia disponible: " << jugador->obtener_energia() << endl << endl;
 	int opcion = obtener_opcion_segundo_menu();
 	while(opcion != OPCION_SALIR_SEGUNDO_MENU){
+        //mapa->lluvia_recursos();
 		opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
 		mostrar_segundo_menu();
         mapa->mostrar_mapas();

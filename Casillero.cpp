@@ -114,3 +114,12 @@ estados_t Casillero::verificar_condiciones_ataque(char caracter_jugador)
     if(this->caracter == this->caracter_jugador) return ST_ERROR_CASILLERO_ES_JUGADOR;
     return ST_OK;
 }
+
+bool Casillero:: es_transitable()
+{
+    if(this->obtener_caracter()=='C' || this->obtener_caracter()=='B' || this->obtener_caracter()=='M')
+        return true;
+
+    else
+        return false;  
+}

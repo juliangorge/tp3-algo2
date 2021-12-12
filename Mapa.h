@@ -13,6 +13,7 @@
 #include "Casillero_terreno.h"
 #include "Jugador.h"
 #include "Constantes.h"
+#include "utilidades.h"
 
 using namespace std;
 
@@ -41,8 +42,8 @@ class Mapa
 
         void set_jugador_casillero(Jugador * jugador);
 
-        void set_material_casillero(unsigned int fila, unsigned int columna, Material* material);
-
+        estados_t set_material_casillero(unsigned int fila, unsigned int columna, Material* material);
+        
         estados_t verificar_condiciones_construccion(char caracter_jugador, unsigned int fila, unsigned int columna);
 
         estados_t verificar_condiciones_demolicion(char caracter_jugador, unsigned int fila, unsigned int columna);
@@ -66,6 +67,15 @@ class Mapa
         unsigned int obtener_cantidad_filas();
 
         unsigned int obtener_cantidad_columnas();
+
+        void lluvia_recursos();
+
+        void setear_material_aleatorio(int *i, string material);
+
+        bool casillero_sin_material(unsigned int fila, unsigned int columna);
+        
+        void mostrar_mapa_materiales();
+
 
 
 };
