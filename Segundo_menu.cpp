@@ -1,5 +1,4 @@
 #include "Segundo_menu.h"
-#include "Grafo.h"
 
 estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
@@ -20,7 +19,7 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     if( !edificio->obtener_restantes(jugador->obtener_cant_edificio(edificio->obtener_nombre()))) return ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO;
 
     // Verifico materiales necesarios
-    if(((st = verificar_materiales(jugador,edificio)) != ST_OK)) return st;
+    if(((st = verificar_materiales(jugador,edificio, 1)) != ST_OK)) return st;
 
     // Solicito coordenadas
     if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
@@ -36,7 +35,7 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     jugador->agregar_casillero(mapa->obtener_casillero(fila, columna));
 
     // Resta de los materiales
-    restar_materiales(jugador, edificio);
+    restar_materiales(jugador, edificio, 1);
 
     // Decremento la energia del jugador
     jugador->decrementar_energia(costo_energia);
@@ -45,30 +44,29 @@ estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa
     return st;
 }
 
-estados_t verificar_materiales(Jugador* jugador, Edificio* edificio)
+estados_t verificar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor_cont_rep)
 {
     estados_t st = ST_OK;
     string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL;
-    if(!jugador->verificar_material_necesario(nombre_piedra, edificio->obtener_piedra()))
+    if(!jugador->verificar_material_necesario(nombre_piedra, edificio->obtener_piedra() / factor_cont_rep))
         st = ST_ERROR_MATERIALES_INSUFICIENTES;
-    if(!jugador->verificar_material_necesario(nombre_madera, edificio->obtener_madera()))
+    if(!jugador->verificar_material_necesario(nombre_madera, edificio->obtener_madera() / factor_cont_rep))
         st = ST_ERROR_MATERIALES_INSUFICIENTES;
-    if(!jugador->verificar_material_necesario(nombre_metal, edificio->obtener_metal())) 
+    if(!jugador->verificar_material_necesario(nombre_metal, edificio->obtener_metal() / factor_cont_rep)) 
         st = ST_ERROR_MATERIALES_INSUFICIENTES;
     return st;
 }
 
-void restar_materiales(Jugador* jugador, Edificio* edificio)
+void restar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor_cont_rep)
 {
     string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL;
-    jugador->restar_materiales(nombre_piedra, edificio->obtener_piedra());
-    jugador->restar_materiales(nombre_madera, edificio->obtener_madera());
-    jugador->restar_materiales(nombre_metal, edificio->obtener_metal());
+    jugador->restar_materiales(nombre_piedra, edificio->obtener_piedra() / factor_cont_rep);
+    jugador->restar_materiales(nombre_madera, edificio->obtener_madera() / factor_cont_rep);
+    jugador->restar_materiales(nombre_metal, edificio->obtener_metal() / factor_cont_rep);
 }
 
 estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st = ST_OK;
-    string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL;
     unsigned int costo_energia = ENERGIA_DEMOLER_EDIFICIO;
     if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
 
@@ -81,11 +79,10 @@ estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
     // Solicito confirmacion
     if((st = pedido_confirmacion()) != ST_OK) return st;
 
-    jugador->agregar_material(nombre_piedra, static_cast<unsigned int>(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_piedra() / 2));
-    jugador->agregar_material(nombre_madera, static_cast<unsigned int>(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_madera() / 2));
-    jugador->agregar_material(nombre_metal, static_cast<unsigned int>(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_metal() / 2));
+    agregar_materiales(jugador, mapa->obtener_casillero(fila, columna)->obtener_edificio());
+    
 
-    mapa->remover_edificio_casillero(fila ,columna);
+    mapa->demoler_edificio_casillero(fila ,columna);
 
     jugador->borrar_edificio_casillero(mapa->obtener_casillero(fila, columna));
     
@@ -93,9 +90,84 @@ estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
 
     cout << endl << "Destruido exitosamente!" << endl;
 
-    return ST_OK;;
+    return st;
 }
 
+void agregar_materiales(Jugador* jugador, Edificio* edificio){
+    string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL;
+    jugador->agregar_material(nombre_piedra, edificio-> obtener_piedra() / 2);
+    jugador->agregar_material(nombre_madera, edificio-> obtener_madera() / 2);
+    jugador->agregar_material(nombre_metal, edificio-> obtener_metal() / 2);
+}
+
+
+estados_t atacar_edificio(Jugador* jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa){
+    estados_t st = ST_OK;
+    unsigned int costo_energia = ENERGIA_ATACAR_EDIFICIO;
+    string nombre_bombas = NOMBRE_BOMBAS;
+    if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
+
+    if(!jugador->mostrar_cantidad_material(nombre_bombas)){
+        st = ST_ERROR_BOMBAS_INSUFICIENTES;
+        return st;
+    } 
+    unsigned int fila, columna;
+    if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
+
+    if((st = mapa->verificar_condiciones_ataque(jugador->obtener_caracter(), fila ,columna)) != ST_OK) return st;
+
+    // Solicito confirmacion
+    if((st = pedido_confirmacion()) != ST_OK) return st;
+
+    mapa->atacar_edificio_casillero(fila,columna);
+    if(!mapa->obtener_casillero(fila, columna)->obtener_edificio()){
+        if(jugador->obtener_caracter() == 'J')
+            jugador_dos->borrar_edificio_casillero(mapa->obtener_casillero(fila, columna));
+        else
+            jugador_uno->borrar_edificio_casillero(mapa->obtener_casillero(fila, columna));
+    }
+
+    jugador->restar_materiales(nombre_bombas, 1);
+
+    jugador->decrementar_energia(costo_energia);
+
+    cout << endl << "Ataque exitoso!" << endl;
+
+    return st;
+
+}
+
+estados_t reparar_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa){
+    estados_t st = ST_OK;
+    unsigned int costo_energia = ENERGIA_REPARAR_EDIFICIO;
+    if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK) return st;
+
+    unsigned int fila, columna;
+    if((st = obtener_coordenadas(mapa, fila, columna)) != ST_OK) return st;
+
+    // Verifico las condiciones en el casillero para que se pueda construir
+    if((st = mapa->verificar_condiciones_demolicion(jugador->obtener_caracter(), fila ,columna)) != ST_OK) return st;
+    if(!mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_fue_atacado()){
+        st = ST_ERROR_NO_REQUIERE_REPARACION;
+        return st;
+    } 
+
+    Edificio* edificio = arbol.obtener_dato(mapa->obtener_casillero(fila, columna)->obtener_edificio()->obtener_nombre());
+
+    if(((st = verificar_materiales(jugador,edificio, 4)) != ST_OK)) return st;
+    // Solicito confirmacion
+    if((st = pedido_confirmacion()) != ST_OK) return st;
+
+    restar_materiales(jugador, mapa->obtener_casillero(fila, columna)->obtener_edificio(), 4);
+
+    mapa->obtener_casillero(fila,columna)->obtener_edificio()->cambio_estado_edificio();
+    
+    jugador->decrementar_energia(costo_energia);
+
+    cout << endl << "Edificio reparado exitosamente!" << endl;
+
+    return st;
+}
 
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)
 {
@@ -133,20 +205,24 @@ estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa)
 }
 
 
-void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos)
+void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol)
 {
     if(jugador_uno->verificar_energia_nula()){
         cout << "El jugador 1 se ha quedado sin energia, se finaliza el turno" << endl;
-        cambiar_jugador(jugador, jugador_uno, jugador_dos);
+        cambiar_jugador(jugador, jugador_uno, jugador_dos, arbol);
     }
     else if(jugador_dos->verificar_energia_nula()){
         cout << "El jugador 2 se ha quedado sin energia, se finaliza el turno" << endl;
-        cambiar_jugador(jugador, jugador_uno, jugador_dos);
+        cambiar_jugador(jugador, jugador_uno, jugador_dos, arbol);
     }
 }
 
-void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos)
+void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol)
 {   
+    unsigned int energia_nueva = ENERGIA_RECUPERADA_POR_TURNO;
+    mostrar_objetivos(jugador, arbol);
+    jugador->incrementar_energia(energia_nueva);
+    jugador->aumentar_acumulador_por_turno();
     if(jugador->obtener_caracter() == 'J'){
         jugador = jugador_dos;        
     }
@@ -158,15 +234,13 @@ void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa)
 {
     cargar_ubicaciones(jugador_uno, jugador_dos, arbol, mapa);
-    Objetivo *objetivo;
     Jugador* jugador = inicializar_jugador(jugador_uno, jugador_dos);
-    objetivo->asignar(jugador);
     mostrar_segundo_menu();
     mapa->mostrar_mapas();
+    cout << "Energia disponible: " << jugador->obtener_energia() << endl << endl;
 	int opcion = obtener_opcion_segundo_menu();
 	while(opcion != OPCION_SALIR_SEGUNDO_MENU){
-        mapa->lluvia_recursos();
-		opciones_segundo_menu(opcion, jugador, objetivo, jugador_uno, jugador_dos, arbol, mapa);
+		opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
 		mostrar_segundo_menu();
         mapa->mostrar_mapas();
         cout << "Energia disponible: " << jugador->obtener_energia() << endl << endl;
@@ -174,36 +248,34 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
 	}
 }	
 
-void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *> arbol, Mapa* mapa){
+void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *> arbol, Mapa* mapa){
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
             if((st = construir_edificio(jugador, arbol, mapa)) != ST_OK) imprimir_error(st);
-            verificar_energia_nula(jugador, jugador_uno, jugador_dos);
+            verificar_energia_nula(jugador, jugador_uno, jugador_dos, arbol);
             break;
         case OPCION_LISTAR_EDIFICIOS_CONSTRUIDOS:
             jugador->mostrar_edificios();
             break;
         case OPCION_DEMOLER_COORDENADA:
             if((st = demoler_edificio(jugador, arbol, mapa)) != ST_OK) imprimir_error(st);
-            verificar_energia_nula(jugador, jugador_uno, jugador_dos);
+            verificar_energia_nula(jugador, jugador_uno, jugador_dos, arbol);
             break;
         case OPCION_ATACAR_EDIFICIO:
-            //if((st = atacar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
-            verificar_energia_nula(jugador, jugador_uno, jugador_dos);
+            if((st = atacar_edificio(jugador, jugador_uno, jugador_dos, arbol, mapa)) != ST_OK) imprimir_error(st);
+            verificar_energia_nula(jugador, jugador_uno, jugador_dos, arbol);
             break;
         case OPCION_REPARAR_EDIFICIO:
-            //Mostrar mapa
-            //if((st = reparar_edificio(jugador_uno, arbol, mapa)) != ST_OK) imprimir_error(st);
-            verificar_energia_nula(jugador, jugador_uno, jugador_dos);
+            if((st = reparar_edificio(jugador, arbol, mapa)) != ST_OK) imprimir_error(st);
+            verificar_energia_nula(jugador, jugador_uno, jugador_dos, arbol);
             break;
         case OPCION_COMPRAR_BOMBAS:
             if((st = comprar_bombas(jugador)) != ST_OK){
                 imprimir_error(st);
-            }else{
+            }else
                 mostrar_compra_realizada(jugador);
-            }
-            verificar_energia_nula(jugador, jugador_uno, jugador_dos);
+            verificar_energia_nula(jugador, jugador_uno, jugador_dos, arbol);
             break;
         case OPCION_CONSULTAR_COORDENADA:
             if((st = consultar_coordenadas(mapa)) != ST_OK) imprimir_error(st);
@@ -212,28 +284,31 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Objetivo *objetivo, J
             jugador->mostrar_inventario();
             break;
         case OPCION_MOSTRAR_OBJETIVOS:
-            objetivo->mostrar_progreso(jugador);
+            mostrar_objetivos(jugador, arbol);
             break;
         case OPCION_RECOLECTAR_RECURSOS:
+            if((st = recolectar_recursos(jugador)) != ST_OK) imprimir_error(st);
+            verificar_energia_nula(jugador, jugador_uno, jugador_dos, arbol);
             break;
         case OPCION_MOVERSE_A_COORDENADA:
             moverse_coordenada(jugador, mapa);
             break;
         case OPCION_FINALIZAR_TURNO:
-            unsigned int energia_nueva = ENERGIA_RECUPERADA_POR_TURNO;
-            jugador->incrementar_energia(energia_nueva);
-            cambiar_jugador(jugador, jugador_uno, jugador_dos);
+            cambiar_jugador(jugador, jugador_uno, jugador_dos, arbol);
             cout << " Finalizo el turno" << endl;
 
-            ///// CONTAR OBJETIVOS CUMPLIDOS NO ESTÁ CONTANDO ///////
-
-            if(objetivo->contar_cumplidos(jugador)>=2)
-                cout << "El jugador " << jugador->obtener_caracter() << "ha cumplido los objetivos" <<endl;
 
             break;
     }
 
-    //if(opcion != OPCION_FINALIZAR_TURNO) mostrar_mapa();
+}
+
+void mostrar_objetivos(Jugador* jugador, ABB<Edificio *> arbol)
+{
+    string nombre_escuela = NOMBRE_ESCUELA;
+    Edificio* edificio = arbol.obtener_dato(nombre_escuela);
+    unsigned int maximo_escuelas = edificio->obtener_maximo();
+    jugador->mostrar_objetivos(maximo_escuelas);
 }
 
 estados_t consultar_coordenadas(Mapa* mapa)
@@ -261,4 +336,61 @@ void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos)
 
     archivo_materiales.close();
 
+}
+
+estados_t comprar_bombas(Jugador* jugador)
+{
+    estados_t st = ST_OK;
+    string nombre_andycoins = NOMBRE_ANDYCOINS;
+    unsigned int costo_energia = ENERGIA_COMPRAR_BOMBAS, bombas;
+
+    if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK)
+        return st;
+
+    if((st = obtener_valor_cantidad(bombas)) != ST_OK)
+        return st;
+
+    unsigned int precio_bombas = PRECIO_BOMBA*bombas;
+
+    if((!jugador->verificar_material_necesario(nombre_andycoins, precio_bombas))){
+        st = ST_ERROR_ANDYCOINS_INSUFICIENTES;
+        return st;
+    }
+
+    if((st = pedido_confirmacion()) != ST_OK) return st;
+
+    jugador-> comprar_bombas(bombas, precio_bombas);
+    jugador-> decrementar_energia(costo_energia);
+
+    return st;
+}
+
+void mostrar_compra_realizada(Jugador* jugador)
+{
+    cout << endl << "Se realizo la compra con exito" << endl;
+    string nombre_andycoins = NOMBRE_ANDYCOINS;
+    string nombre_bombas = NOMBRE_BOMBAS;
+    cout << NOMBRE_ANDYCOINS << ": " << jugador->mostrar_cantidad_material(nombre_andycoins) << endl;
+    cout << NOMBRE_BOMBAS << ": " << jugador->mostrar_cantidad_material(nombre_bombas) << endl;
+}
+
+estados_t recolectar_recursos(Jugador* jugador)
+{
+    estados_t st = ST_OK;
+    unsigned int costo_energia = ENERGIA_RECOLECTAR_RECURSOS;
+
+    if((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK)
+        return st;
+
+    if(!jugador->obtener_acumulador_por_turno()){
+        st = ST_ERROR_RECOLECCION_REPETIDA;
+        return st;
+    }
+
+    if((st = pedido_confirmacion()) != ST_OK) return st;
+
+    jugador-> recolectar_recursos();
+    jugador-> decrementar_energia(costo_energia);
+
+    return st;
 }

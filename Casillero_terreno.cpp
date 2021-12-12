@@ -46,4 +46,5 @@ void CasilleroTerreno::limpiar_casillero()
 {
 	this->edificio = nullptr;
 	this->caracter = this->caracter_casillero;
+	this->caracter_jugador = this->caracter_casillero;
 }

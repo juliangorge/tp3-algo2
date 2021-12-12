@@ -5,19 +5,15 @@
 #include "Menu_consola.h"
 #include "Interaccion_usuario.h"
 #include "Mapa.h"
-#include "Jugador.h"
 #include "Mensajes_de_error.h"
+#include "Constantes.h"
 
 
 #include "ABB.h"
 #include "ABB_nodo.h"
 #include "Edificio.h"
+#include "Constantes.h"
 
-const int OPCION_MODIFICAR_EDIFICIOS = 1;
-const int OPCION_LISTAR_EDIFICIOS = 2;
-const int OPCION_MOSTRAR_MAPA = 3;
-const int OPCION_COMENZAR_PARTIDA = 4;
-const int OPCION_SALIR_PRIMER_MENU = 5;
 
 using namespace std;
 int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa);

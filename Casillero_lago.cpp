@@ -1,6 +1,6 @@
 #include "Casillero_lago.h"
 
-CasilleroLago:: CasilleroLago(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
+CasilleroLago::CasilleroLago(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter_casillero = 'L';
     this->caracter = this->caracter_casillero;
     this->es_camino = false;
@@ -10,7 +10,7 @@ CasilleroLago:: CasilleroLago(unsigned int fila, unsigned int columna) : Casille
 	this->costo_energia_J = 2;
 }
 
-void CasilleroLago:: cambiar_caracter(){
+void CasilleroLago::cambiar_caracter(){
 
 }
 

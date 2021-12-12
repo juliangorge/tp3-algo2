@@ -36,6 +36,9 @@ void imprimir_error(estados_t st)
 		case ST_ERROR_ES_EDIFICIO_PROPIO:
 			cout << MSJ_ERROR_ES_EDIFICIO_PROPIO << endl;
 			break;
+		case ST_ERROR_CASILLERO_ES_JUGADOR:
+			cout << MSJ_ERROR_CASILLERO_ES_JUGADOR << endl;
+			break;
 		case ST_ERROR_BOMBAS_INSUFICIENTES:
 			cout << MSJ_ERROR_BOMBAS_INSUFICIENTES << endl;
 			break;
@@ -59,6 +62,9 @@ void imprimir_error(estados_t st)
 			break;
 		case ST_ERROR_DEMOLER_EDIFICIO:
 			cout << MSJ_ERROR_DEMOLER_EDIFICIO << endl;
+			break;
+		case ST_ERROR_NO_ES_NUMERO:
+			cout << MSJ_ERROR_NO_ES_NUMERO << endl;
 			break;
 		case ST_MSJ_SALIR:
 			cout << MSJ_SALIR << endl;

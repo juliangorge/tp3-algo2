@@ -4,128 +4,183 @@
 
 Objetivo:: Objetivo(){
 
-    this->numero=0;
-    this->estado=false;
-}
-
-Objetivo:: ~Objetivo(){
-
-}
-
-void Objetivo::mostrar_progreso(Jugador *jugador)
-{
-    for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
-        estado_objetivo(jugador, jugador->obtener_objetivo(i));
-
-}
-
-
-void Objetivo::estado_objetivo(Jugador *jugador, int numero_objetivo)
-{
-    cout << "su progreso con el objetivo " << numero_objetivo << ": " << endl;
-
-    switch(numero_objetivo){
-        case COMPRAR_ANDYPOLIS:
-            this->comprar_andypolis(jugador, numero_objetivo);
-            break;
-        case EDAD_PIEDRA:
-            this->edad_piedra(jugador, numero_objetivo);
-            break;
-        case BOMBARDERO:
-            this->bombardero(jugador, numero_objetivo); 
-            break;
-        case ENERGETICO:
-            this->estado_energetico(jugador, numero_objetivo);
-            break;
-        case LETRADO:
-            this->letrado(jugador, numero_objetivo);
-            break;
-        case MINERO:
-            this->minero(jugador, numero_objetivo);
-            break;
-        case CANSADO:
-            this->cansado(jugador, numero_objetivo);
-            break;
-        case CONSTRUCTOR:
-            this->constructor(jugador, numero_objetivo);
-            break;
-        case ARMADO:
-            this->armado(jugador, numero_objetivo);
-            break;
-        case EXTREMISTA:
-            this->extremista(jugador, numero_objetivo);
-            break;
+    asignar_objetivos();
+    for(unsigned int i = 0; i<CANTIDAD_OBJETIVOS; i++){
+        this->estado_objetivos[i] = false;
     }
 }
 
-void Objetivo::comprar_andypolis (Jugador *jugador, int objetivo) 
-{          
-    unsigned int cantidad_andycoins = jugador->obtener_andycoins_juntadas();
+void Objetivo::asignar_objetivos()
+{
+    //srand(time(NULL));
+    unsigned int j=0;
+    bool objetivo_repetido = false;
 
-    if(cantidad_andycoins < CANTIDAD_ANDYCOINS_OBJETIVO)
-        cout << cantidad_andycoins << " andyocoins juntadas" << endl;
+    //this->objetivos[0]= aleatorio(1,9);
+    
+    for(unsigned int i = 0; i<CANTIDAD_OBJETIVOS; i++)
+    {
+        this->objetivos[i] = aleatorio(1,9);
+
+        while(!objetivo_repetido && j<i && i>0)
+        {
+            if(this->objetivos[j] == this->objetivos[i] || this->objetivos[i] == this->objetivos[0])
+                objetivo_repetido = true;
+
+            j++;
+
+            if (objetivo_repetido)
+            {
+                this->objetivos[i]= aleatorio(1,9);
+                j=0;
+                objetivo_repetido = false;
+            }          
+        }
+    }
+}
+
+int Objetivo::aleatorio(int cota_inferior, int cota_superior)
+{
+    return int(rand()%cota_superior + cota_inferior);
+}
+
+bool Objetivo::estado_objetivo()
+{
+    bool estado_objetivo = true;
+    for(unsigned int i=0; i<CANTIDAD_OBJETIVOS; i++){
+        if(this->estado_objetivos[i] != true);
+        estado_objetivo = false;
+    }
+    return estado_objetivo;
+}
+
+void Objetivo::mostrar_progreso(unsigned int atributos_objetivos[8])
+{
+    cout << endl;
+    for (unsigned int i = 0; i < CANTIDAD_OBJETIVOS; i++)
+    {
+        cout << "Progreso con el objetivo " << objetivos[i] << ": " << endl;
+
+        switch(objetivos[i]){
+
+            case COMPRAR_ANDYPOLIS:
+               // if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->comprar_andypolis(atributos_objetivos[0]);
+                break;
+            case EDAD_PIEDRA:
+                //if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->edad_piedra(atributos_objetivos[4]);
+                break;
+            case BOMBARDERO:
+              //  if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->bombardero(atributos_objetivos[2]);
+                break;
+            case ENERGETICO:
+               // if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->estado_energetico(atributos_objetivos[3]);
+                break;
+            case LETRADO:
+               // if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->letrado(atributos_objetivos[6], atributos_objetivos[7]);
+                break;
+            case MINERO:
+                //if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->minero();
+                break;
+            case CANSADO:
+                //if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->cansado(atributos_objetivos[3]);
+                break;
+            case CONSTRUCTOR:
+                //if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = this->constructor();
+                break;
+            case ARMADO:
+                //if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = armado(atributos_objetivos[5]);
+                break;
+            case EXTREMISTA:
+                //if(!this->estado_objetivos[i])
+                    this->estado_objetivos[i] = extremista(atributos_objetivos[1]);
+                break;
+        }
+    }
+    cout << endl;
+}
+
+bool Objetivo::comprar_andypolis(unsigned int andyocoins_acumuladas) 
+{          
+    bool objetivo_comprar_andycoins = false;
+
+    if(andyocoins_acumuladas < CANTIDAD_ANDYCOINS_OBJETIVO)
+        cout << andyocoins_acumuladas << " andyocoins acumuladas de " << CANTIDAD_ANDYCOINS_OBJETIVO << endl;
     else
     {
         cout << "Objetivo Comprar Andypolis cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_comprar_andycoins = true;
     }
+    return objetivo_comprar_andycoins;
 }
 
-void Objetivo::edad_piedra(Jugador *jugador, int objetivo)
+bool Objetivo::edad_piedra(unsigned int cantidad_piedra)
 {
-    unsigned int cantidad_piedra = jugador->mostrar_cantidad_material("piedra");
-
+    bool objetivo_edad_piedra = false;
     if(cantidad_piedra < CANTIDAD_PIEDRA_OBJETIVO)
-        cout << cantidad_piedra << " de piedra juntada" << endl;
+        cout << cantidad_piedra << " de piedra juntada de " << CANTIDAD_PIEDRA_OBJETIVO << endl;
     else
     {
         cout << "Objetivo Edad de piedra cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_edad_piedra = true;
     }
+    return objetivo_edad_piedra;
 }
 
-void Objetivo::bombardero(Jugador *jugador, int objetivo)
+bool Objetivo::bombardero(unsigned int bombas_usadas)
 {
-    unsigned int cantidad_bombas = jugador->obtener_bombas_usadas();
+    bool objetivo_bombardero = false;
 
-    if(cantidad_bombas < BOMBAS_USADAS_OBJETIVO)
-        cout << cantidad_bombas << " bombas usadas" << endl;
+    if(bombas_usadas < BOMBAS_USADAS_OBJETIVO)
+        cout << "Faltan usar " << BOMBAS_USADAS_OBJETIVO - bombas_usadas << " bombas" << endl;
     else
     {
         cout << "Objetivo Bombardero cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_bombardero = true;
     }
+    return objetivo_bombardero;
 }
 
-void Objetivo::estado_energetico(Jugador *jugador, int objetivo)
+bool Objetivo::estado_energetico(unsigned int energia)
 {
-    unsigned int cantidad_energia = jugador->obtener_energia();
+    bool objetivo_energetico = false;
 
-    if(cantidad_energia < 100)
-        cout << cantidad_energia << " de energía almacenada" << endl;
+    if(energia< 100)
+        cout << "Resta por almacenar " << 100 - energia << " energia" << endl;
         
     else
     {
         cout << "Objetivo Energetico cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_energetico = true;
     }
+    return objetivo_energetico;
 }
 
-void Objetivo::letrado(Jugador *jugador, int objetivo)
+bool Objetivo::letrado(unsigned int escuelas_construidas, unsigned int maximo_escuelas)
 {
+    bool objetivo_letrado = false;
 
-    if(jugador->obtener_cant_edificio("escuela") < MAX_ESCUELAS)
-        cout << "Restan por construir " << MAX_ESCUELAS - jugador->obtener_cant_edificio("escuela") << " para alcanzar el objetivo" << endl;    
+    if(escuelas_construidas < maximo_escuelas)
+        cout << "Restan por construir " << maximo_escuelas - escuelas_construidas << " para alcanzar el objetivo" << endl;    
     else
     {
         cout << "Objetivo Letrado cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_letrado = true;
     }
+    return objetivo_letrado;
 }
 
-void Objetivo::minero(Jugador *jugador, int objetivo)
+bool Objetivo::minero()
 {
-    if(jugador->obtener_cant_edificio("mina") >= MINAS_METAL_OBJETIVO && jugador->obtener_cant_edificio("mina oro") >= MINAS_ORO_OBJETIVO)
+    /*if(jugador->obtener_cant_edificio("mina") >= MINAS_METAL_OBJETIVO && jugador->obtener_cant_edificio("mina oro") >= MINAS_ORO_OBJETIVO)
     {    
         cout << "Objetivo Minero completado" << endl;
         jugador->set_objetivo_cumplido(objetivo, jugador);
@@ -137,29 +192,28 @@ void Objetivo::minero(Jugador *jugador, int objetivo)
         cout << "Resta construir una mina de metal" << endl;
 
     else
-        cout << "Resta construir una mina de oro" << endl;
+        cout << "Resta construir una mina de oro" << endl;*/
+    return true;
 
 }
 
 
-void Objetivo::cansado(Jugador *jugador, int objetivo)
+bool Objetivo::cansado(unsigned int energia)
 {
-    unsigned int cantidad_cansado = jugador->obtener_energia();
-
-
-
-    if(cantidad_cansado > CANTIDAD_CANSADO_OBJETIVO)
-        cout << cantidad_cansado << " de energia restante" << endl;
+    bool objetivo_cansado = false;
+    if(energia > CANTIDAD_CANSADO_OBJETIVO)
+        cout << energia << " de energia restante" << endl;
     else
     {
         cout << "Objetivo Cansado cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_cansado = true;
     }
+    return objetivo_cansado;
 }
 
-void Objetivo::constructor(Jugador *jugador, int objetivo)
+bool Objetivo::constructor()
 {
-    string mensaje_salida = "Resta construir: ";
+    /*string mensaje_salida = "Resta construir: ";
     bool objetivo_cumplido = true;
 
     if(jugador->obtener_cant_edificio("mina") == 0)
@@ -204,78 +258,33 @@ void Objetivo::constructor(Jugador *jugador, int objetivo)
         jugador->set_objetivo_cumplido(objetivo, jugador);
     }
     else   
-        cout << mensaje_salida << endl;
+        cout << mensaje_salida << endl;*/
+    return true;
 
 }
 
-void Objetivo::armado(Jugador *jugador, int objetivo)
+bool Objetivo::armado(unsigned int cantidad_bombas)
 {
-    unsigned int cantidad_armado = jugador->obtener_bombas();
-
-    if(cantidad_armado < CANTIDAD_ARMADO_OBJETIVO)
-        cout << cantidad_armado << " bombas en el inventario" << endl;
+    bool objetivo_armado = false;
+    if(cantidad_bombas < CANTIDAD_ARMADO_OBJETIVO)
+        cout << cantidad_bombas << " bombas en el inventario" << endl;
     else
     {
         cout << "Objetivo Armado cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_armado = true;
     }
+    return objetivo_armado;
 }
 
-void Objetivo::extremista(Jugador *jugador, int objetivo)
+bool Objetivo::extremista(unsigned int bombas_compradas)
 {
-    unsigned int cantidad_bombas_compradas = jugador->obtener_bombas_compradas();
-
-    if(cantidad_bombas_compradas < CANTIDAD_EXTREMISTA_OBJETIVO)
-        cout << cantidad_bombas_compradas << " bombas compradas en una partida" << endl;
+    bool objetivo_extremista = false;
+    if(bombas_compradas < CANTIDAD_EXTREMISTA_OBJETIVO)
+        cout << bombas_compradas << " bombas compradas// en una partida" << endl;
     else
     {
         cout << "Objetivo Extremista cumplido" << endl;
-        jugador->set_objetivo_cumplido(objetivo, jugador);
+        objetivo_extremista = true;
     }
-}
-
-void Objetivo::asignar(Jugador *jugador)
-{
-    srand(time(NULL));
-    int objetivos[CANT_OBJETIVOS_JUGADOR], j=0;
-    bool objetivo_repetido = false;
-
-    objetivos[0]= aleatorio(1,9);
-    
-    for(int i=1; i<CANT_OBJETIVOS_JUGADOR; i++)
-    {
-        objetivos[i]= aleatorio(1,9);
-
-        while(!objetivo_repetido && j<i)
-        {
-            if(objetivos[j] == objetivos[i])
-                objetivo_repetido = true;
-
-            j++;
-
-            if (objetivo_repetido)
-            {
-                objetivos[i]= aleatorio(1,9);
-                j=0;
-                objetivo_repetido = false;
-            }          
-        }
-    }
-
-    jugador->set_objetivos(objetivos);
-
-}
-
-int Objetivo::contar_cumplidos(Jugador *jugador)
-{
-    int cant_cumplidos=0;
-
-    for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
-    {
-        cout << "Estado del objetivo " << i << ": " <<jugador->objetivo_cumplido(i) << endl;
-        if(jugador->objetivo_cumplido(i))
-            cant_cumplidos++;
-    }
-    cout << "Cantidad de objetivos cumplidos: " << cant_cumplidos << endl;
-    return cant_cumplidos;
+    return objetivo_extremista;
 }

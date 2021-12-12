@@ -116,12 +116,7 @@ void Mapa::mostrar_mapas()
 }
 
 Casillero * Mapa:: obtener_casillero(unsigned int fila, unsigned int columna){
-    if(!chequear_coordenadas(fila, columna)) return nullptr;
     return this->matriz_mapa[fila][columna];
-}
-
-bool Mapa:: chequear_coordenadas(unsigned int fila, unsigned int columna){
-    return fila < this->cantidad_filas && columna < this->cantidad_columnas;
 }
 
 void Mapa::set_jugador_casillero(Jugador* jugador)
@@ -142,22 +137,9 @@ void Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsi
     this->matriz_mapa[fila][columna]->cargar_edificio(edificio, caracter_jugador);
 }
 
-estados_t Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
+void Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
 {
-    estados_t st;
-
-    if(this->matriz_mapa[fila][columna]->es_transitable())
-        if(casillero_sin_material(fila, columna))
-        {
-            this->matriz_mapa[fila][columna]->cargar_material(material);
-            st = ST_OK;
-        }
-        else
-            st = ST_ERROR_CASILLERO_OCUPADO;
-    else
-        st = ST_ERROR_CASILLLERO_INTRANSITABLE;
-    
-    return st;
+    this->matriz_mapa[fila][columna]->cargar_material(material);
 }
 
 estados_t Mapa::verificar_condiciones_demolicion(char caracter_jugador, unsigned int fila, unsigned int columna)
@@ -166,12 +148,18 @@ estados_t Mapa::verificar_condiciones_demolicion(char caracter_jugador, unsigned
     return st;
 }
 
-void Mapa:: remover_edificio_casillero(unsigned int fila, unsigned int columna){
+void Mapa::demoler_edificio_casillero(unsigned int fila, unsigned int columna){
     this->matriz_mapa[fila][columna]->limpiar_casillero();
 }
 
-bool Mapa:: es_construible(Casillero * casillero){
-    return casillero->es_construible();
+estados_t Mapa::verificar_condiciones_ataque(char caracter_jugador, unsigned int fila, unsigned int columna)
+{
+    estados_t st = this->matriz_mapa[fila][columna]-> verificar_condiciones_ataque(caracter_jugador);
+    return st;
+}
+
+void Mapa::atacar_edificio_casillero(unsigned int fila, unsigned int columna){
+    this->matriz_mapa[fila][columna]->atacar_edificio();
 }
 
 void Mapa::consultar_coordenadas(unsigned int fila, unsigned int columna)
@@ -231,45 +219,4 @@ unsigned int Mapa::obtener_cantidad_filas()
 unsigned int Mapa::obtener_cantidad_columnas()
 {
     return this->cantidad_columnas;
-}
-
-void Mapa::lluvia_recursos()
-{
-    int conjuntos_piedra = aleatorio(MIN_LLUVIA_PIEDRA, MAX_LLUVIA_PIEDRA);
-    int conjuntos_madera = aleatorio(MIN_LLUVIA_MADERA, MAX_LLUVIA_MADERA);
-    int conjuntos_metal = aleatorio(MIN_LLUVIA_METAL, MAX_LLUVIA_METAL);
-    int conjuntos_andycoins = aleatorio(MIN_LLUVIA_ANDYCOINS, MAX_LLUVIA_ANDYCOINS);
-    int i = 0;
-    for(i=0; i<conjuntos_piedra; i++)
-        setear_material_aleatorio(&i, "piedra");
-
-    for(i=0; i<conjuntos_madera; i++)
-        setear_material_aleatorio(&i, "madera");
-
-    for(i=0; i<conjuntos_metal; i++)
-        setear_material_aleatorio(&i, "metal");
-        
-    for(i=0; i<conjuntos_andycoins; i++)
-        setear_material_aleatorio(&i, "andycoins");
-    
-}
-
-
-void Mapa::setear_material_aleatorio(int *i, string material)
-{ 
-    int fila = 0, columna = 0;
-    Material *material_aux;
-
-    fila = aleatorio(0, this->cantidad_filas - 1);
-    columna = aleatorio(0, this->cantidad_columnas - 1);
-    material_aux = obtener_material(material);
-    if (set_material_casillero(fila, columna, material_aux)!=ST_OK)
-        *i--;
-}
-bool Mapa:: casillero_sin_material(unsigned int fila, unsigned int columna)
-{
-    if(materiales_mapa[fila, columna]==nullptr)
-        return true;
-    
-    return false;
 }

@@ -1,50 +1,44 @@
 #include "Inicio_juego.h"
 
 void cargar_edificios(ABB<Edificio*> &arbol){
-    ifstream file("edificios.txt");
+    ifstream archivo(ARCHIVO_EDIFICIOS);
 
     string aux, nombre;
     unsigned int piedra, madera, metal, maximo;
 
-    while (file >> nombre){
-        file >> aux;
+    while (archivo >> nombre){
+        archivo >> aux;
 
         // Verifico si es un número
-        if (aux[0] >= (int)'0' && aux[0] <= (int)'9'){
+        if (aux[POSICION_PRIMER_LETRA] >= (int)'0' && aux[POSICION_PRIMER_LETRA] <= (int)'9'){
             piedra = stoi(aux);
         }else{
             nombre += ' ' + aux;
-            file >> piedra;
+            archivo >> piedra;
         }
 
-        file >> madera >> metal >> maximo;
+        archivo >> madera >> metal >> maximo;
         agregar_edificio(arbol, nombre, new Edificio(nombre, piedra, madera, metal, maximo));
     }
 
-    file.close();
+    archivo.close();
 }
 
 void agregar_edificio(ABB<Edificio*> &arbol, string nombre, Edificio* edificio){
 	arbol.insertar(nombre, edificio);
 }
 
-
 void iniciar_juego()
 {
-	Objetivo *objetivos_1, *objetivos_2;
-	//Mapa * mapa = new Mapa("mapa.txt");
 	ABB<Edificio*> arbol;
 	cargar_edificios(arbol);
 
 	Mapa * mapa = new Mapa();
 
-	char caracter_jugador_uno = 'J', caracter_jugador_dos = 'U';
+	char caracter_jugador_uno = CARACTER_JUGADOR_UNO, caracter_jugador_dos = CARACTER_JUGADOR_DOS;
+	srand(time(NULL));
 	Jugador* jugador_uno = new Jugador(caracter_jugador_uno);
 	Jugador* jugador_dos = new Jugador(caracter_jugador_dos);
-
-
-	//objetivos_1->asignar(jugador_uno);
-	//objetivos_2->asignar(jugador_dos);
 
 	cargar_materiales_jugadores(jugador_uno,jugador_dos);
 	mapa->cargar_materiales(jugador_uno);

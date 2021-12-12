@@ -1,6 +1,6 @@
 #include "Casillero_betun.h"
 
-CasilleroBetun:: CasilleroBetun(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
+CasilleroBetun::CasilleroBetun(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter_casillero = 'B';
     this->caracter = this->caracter_casillero;
     this->es_camino = true;
@@ -10,11 +10,11 @@ CasilleroBetun:: CasilleroBetun(unsigned int fila, unsigned int columna) : Casil
 	this->costo_energia_U = 0;
 }
 
-void CasilleroBetun:: cambiar_caracter(){
+void CasilleroBetun::cambiar_caracter(){
 	this->caracter = this->material->obtener_caracter();
 }
 
-void CasilleroBetun:: mostrar_casillero()
+void CasilleroBetun::mostrar_casillero()
 {
 	cout << "Soy un " << this->nombre_casillero << " y ";
 	if(esta_libre())

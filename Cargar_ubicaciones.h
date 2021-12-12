@@ -7,9 +7,7 @@
 #include "Jugador.h"
 #include "ABB.h"
 #include "Parser.h"
-#include "Casillero.h"
-
-const string ARCHIVO_UBICACIONES = "ubicaciones.txt";
+#include "Constantes.h"
 
 void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*> arbol, Mapa* mapa);
 

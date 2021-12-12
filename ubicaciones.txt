@@ -1,7 +1,7 @@
 madera (0, 0)
 piedra (4, 8)
 metal (12, 14)
-1 (7, 6)
+1 (4, 0)
 escuela (1, 10)
 mina (13, 5)
 aserradero (1, 3)

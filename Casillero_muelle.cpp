@@ -1,6 +1,6 @@
 #include "Casillero_muelle.h"
 
-CasilleroMuelle:: CasilleroMuelle(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
+CasilleroMuelle::CasilleroMuelle(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter_casillero = 'M';
     this->caracter = this->caracter_casillero;
     this->es_camino = true;
@@ -10,11 +10,11 @@ CasilleroMuelle:: CasilleroMuelle(unsigned int fila, unsigned int columna) : Cas
 	this->costo_energia_U = 2;
 }
 
-void CasilleroMuelle:: cambiar_caracter(){
+void CasilleroMuelle::cambiar_caracter(){
 	this->caracter = this->material->obtener_caracter();
 }
 
-void CasilleroMuelle:: mostrar_casillero()
+void CasilleroMuelle::mostrar_casillero()
 {
 	cout << "Soy un " << this->nombre_casillero << " y ";
 	if(esta_libre())

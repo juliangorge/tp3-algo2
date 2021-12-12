@@ -5,19 +5,12 @@
 #include <fstream>
 #include <iostream>
 #include "Casillero.h"
-#include "Material.h"
 #include "Mensajes_de_error.h"
-//#include "Objetivo.h"
+#include "Objetivo.h"
+#include "Constantes.h"
 
 using namespace std;
 
-const string ARCHIVO_MATERIALES = "materiales.txt";
-const int CANT_OBJETIVOS_JUGADOR = 3;
-
-
-const unsigned int ENERGIA_INICIAL = 50;
-const unsigned int ENERGIA_MAXIMA = 100;
-const unsigned int ANDYCOINS_INICIALES = 0;
 class Jugador {
 
     // Attributes
@@ -33,16 +26,14 @@ class Jugador {
         char caracter;
         unsigned int posicion_fila;
         unsigned int posicion_columna;
-        
-        //Objetivos
-        bool estado_objetivos[CANT_OBJETIVOS_JUGADOR];
-        int objetivos[CANT_OBJETIVOS_JUGADOR];
 
-        unsigned int andycoins;
+        Objetivo* objetivos;
+
         unsigned int andycoins_acumuladas;
         unsigned int bombas_compradas;
         unsigned int bombas_usadas;
-        unsigned int bombas;
+
+        unsigned int acumulador_por_turno;
     // Methods
     public:
 		// PRE:
@@ -108,13 +99,9 @@ class Jugador {
 
         void borrar_edificio_casillero(Casillero * casillero);
 
-        void set_objetivo_cumplido(int objetivo, Jugador *jugador);
+        bool objetivos_cumplidos();
 
-        void set_objetivos(int objetivos[]);
-
-        int obtener_objetivo(int posicion);
-
-        bool objetivo_cumplido(int posicion);
+        void mostrar_objetivos(unsigned int maximo_escuelas);
 
         unsigned int obtener_andycoins_juntadas();
 
@@ -127,6 +114,14 @@ class Jugador {
         unsigned int obtener_max_escuelas();
 
         unsigned int obtener_cant_edificio(string nombre);
+
+        void recolectar_recursos();
+
+        void reset_acumulador_por_turno();
+
+        unsigned int obtener_acumulador_por_turno();
+
+        void aumentar_acumulador_por_turno();
 
 };
 

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include "Mapa.h"
-//#include "edificios.h"
 
 using namespace std;
 

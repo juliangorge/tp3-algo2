@@ -1,6 +1,6 @@
 #include "Casillero_camino.h"
 
-CasilleroCamino:: CasilleroCamino(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
+CasilleroCamino::CasilleroCamino(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter_casillero = 'C';
     this->caracter = this->caracter_casillero;
     this->es_camino = true;
@@ -10,12 +10,11 @@ CasilleroCamino:: CasilleroCamino(unsigned int fila, unsigned int columna) : Cas
 	this->costo_energia_J = 4;
 }
 
-void CasilleroCamino:: cambiar_caracter(){
+void CasilleroCamino::cambiar_caracter(){
     this->caracter = this->material->obtener_caracter();
 }
 
-
-void CasilleroCamino:: mostrar_casillero()
+void CasilleroCamino::mostrar_casillero()
 {
 	cout << "Soy un " << this->nombre_casillero << " y ";
 	if(esta_libre())

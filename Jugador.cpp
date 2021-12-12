@@ -10,20 +10,13 @@ Jugador:: Jugador(char caracter){
     this->casilleros_jugador = nullptr;
     this->cantidad_casilleros = 0;
     
-    //this->objetivos=nullptr;
-    this->estado_objetivos[0]=false;
-    this->estado_objetivos[1]=false;
-    this->estado_objetivos[2]=false;
+    this->objetivos = new Objetivo();
 
-    this->objetivos[0]=0;
-    this->objetivos[1]=0;
-    this->objetivos[2]=0;
-
-    this->andycoins=ANDYCOINS_INICIALES;
     this->andycoins_acumuladas=ANDYCOINS_INICIALES;
-    this->bombas_compradas=500;
-    this->bombas_usadas=500;
-    this->bombas=500;
+    this->bombas_compradas=0;
+    this->bombas_usadas=0;
+
+    this->acumulador_por_turno =1;
 }
 
 Jugador:: ~Jugador(){
@@ -131,6 +124,7 @@ void Jugador::comprar_bombas(unsigned int bombas, unsigned int precio_bombas)
     unsigned int pos_bombas = this->obtener_posicion_material(nombre_bombas);
     this->materiales_jugador[pos_andycoins]->restar_materiales(precio_bombas);
     this->materiales_jugador[pos_bombas]->sumar_materiales(bombas);
+    this->bombas_compradas += bombas;
 }
 
 void Jugador::restar_materiales(string nombre_material, unsigned int cantidad_a_restar){
@@ -163,7 +157,7 @@ void Jugador:: agregar_material(string nombre_material, unsigned int cantidad){
 void Jugador:: agregar_casillero(Casillero * casillero){
     unsigned int cantidad_casilleros_previo = this->cantidad_casilleros;
     Casillero** casilleros_aux = new Casillero*[cantidad_casilleros_previo + 1];
-    for (int i = 0; i < cantidad_casilleros_previo; i++){
+    for (unsigned int i = 0; i < cantidad_casilleros_previo; i++){
         casilleros_aux[i] = this->casilleros_jugador[i];
     }
 
@@ -180,7 +174,7 @@ void Jugador:: agregar_casillero(Casillero * casillero){
 void Jugador:: mostrar_edificios(){
     unsigned int cantidad_edificio = 0;
     for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
-        this->casilleros_jugador[i]->mostrar_edificios();
+        this->casilleros_jugador[i]->mostrar_edificio();
         cantidad_edificio++;
     }
     cout << "Total: " << cantidad_edificio << endl << endl;;
@@ -211,68 +205,94 @@ void Jugador:: borrar_edificio_casillero(Casillero * casillero){
     this->cantidad_casilleros--;
 }
 
-void Jugador::set_objetivo_cumplido(int objetivo, Jugador *jugador)
-{   
-    //cout << "Se cumplió el objetivo: " << objetivo << endl;
-
-    for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
-    {
-        if(jugador->objetivos[i]==objetivo)
-        {
-            jugador->estado_objetivos[i]=true;
-            //cout << "Objetivo " << objetivo << "en estado " << estado_objetivos[i] << endl;
-        }
-    }
-}
-
-void Jugador::set_objetivos(int vector_objetivos[])
+bool Jugador::objetivos_cumplidos()
 {
-    this->objetivos[0]=vector_objetivos[0];
-    this->objetivos[1]=vector_objetivos[1];
-    this->objetivos[2]=vector_objetivos[2];
-    //for(int i=0; i<CANT_OBJETIVOS_JUGADOR; i++)
-    //    this->objetivos[i]==objetivos[i];
+    bool objetivos_cumplidos = this->objetivos->estado_objetivo();
+    return objetivos_cumplidos;
 }
 
-bool Jugador::objetivo_cumplido(int posicion)
-{
-    return this->estado_objetivos[posicion];
+void Jugador::mostrar_objetivos(unsigned int maximo_escuelas)
+{    
+    string nombre_piedra = NOMBRE_PIEDRA, nombre_bombas = NOMBRE_BOMBAS, nombre_escuela = NOMBRE_ESCUELA;
+    unsigned int escuelas_construidas = obtener_cant_edificio(nombre_escuela),
+                 pos_piedra = this->obtener_posicion_material(nombre_piedra),
+                 cantidad_piedra = this->materiales_jugador[pos_piedra]->obtener_cantidad(),                 
+                 pos_bombas = this->obtener_posicion_material(nombre_bombas),
+                 cantidad_bombas = this->materiales_jugador[pos_bombas]->obtener_cantidad();
+
+    unsigned int atributos_objetivos[8];
+    atributos_objetivos[0] = this->andycoins_acumuladas;
+    atributos_objetivos[1] = this->bombas_compradas;
+    atributos_objetivos[2] = this->bombas_usadas;
+    atributos_objetivos[3] = this->energia;
+    atributos_objetivos[4] = cantidad_piedra;
+    atributos_objetivos[5] = cantidad_bombas;
+    atributos_objetivos[6] = escuelas_construidas;
+    atributos_objetivos[7] = maximo_escuelas;
+
+    this->objetivos->mostrar_progreso(atributos_objetivos);
 }
 
-int Jugador::obtener_objetivo(int posicion)
-{
-    return this->objetivos[posicion];
-}
-
-unsigned int Jugador::obtener_andycoins_juntadas()
-{
-    return this->andycoins_acumuladas;
-}
-
-unsigned int Jugador::obtener_bombas_usadas()
-{
-    return this->bombas_usadas;
-}
-
-unsigned int Jugador::obtener_bombas_compradas()
-{
-
-    return this->bombas_compradas;
-}
-
-unsigned int Jugador::obtener_bombas()
-{
-    return this->bombas;
-}
 
 unsigned int Jugador::obtener_cant_edificio(string nombre)
 {
     unsigned int contador = 0;
-    for (int i = 0; i < this->cantidad_casilleros; i++)
+    for (unsigned int i = 0; i < this->cantidad_casilleros; i++)
     {
         if(this->casilleros_jugador[i]->obtener_edificio()->obtener_nombre() == nombre)
             contador++;
     }
 
     return contador;
+}
+
+void Jugador::aumentar_acumulador_por_turno()
+{
+    this->acumulador_por_turno++;
+}
+
+void Jugador::reset_acumulador_por_turno()
+{
+    this->acumulador_por_turno = 0;
+}
+
+unsigned int Jugador::obtener_acumulador_por_turno()
+{
+    return this->acumulador_por_turno;
+}
+
+void Jugador::recolectar_recursos()
+{
+    string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL, nombre_andycoins = NOMBRE_ANDYCOINS;
+    Edificio* edificio;
+    for (unsigned int i = 0; i < cantidad_casilleros; i++)
+    {
+        edificio = this->casilleros_jugador[i]->obtener_edificio();
+        if(edificio->obtener_provee_materiales()){
+            switch(edificio->obtener_nombre()[0]){
+                case 'm':
+                    if(edificio->obtener_nombre().length() == 4){
+                        agregar_material(nombre_piedra, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    }
+                    else
+                        agregar_material(nombre_andycoins, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    break;
+                case 'a':
+                    agregar_material(nombre_madera, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    break;
+                case 'f':
+                    agregar_material(nombre_metal, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    break;
+                case 'e':
+                    agregar_material(nombre_andycoins, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    break;
+                case 'p':
+                    incrementar_energia(edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    reset_acumulador_por_turno();
 }

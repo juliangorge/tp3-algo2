@@ -2,6 +2,9 @@
 #define MENU_CONSOLA_H
 
 #include <iostream>
+
+#include "Constantes.h"
+
 //Agregar los archivos que sean necesarios
 
 //Agregar constantes que sean necesarias

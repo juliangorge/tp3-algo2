@@ -24,23 +24,25 @@ unsigned Material::obtener_cantidad()
 
 void Material::establecer_caracter()
 {
-    switch(nombre[0]){
-        case 'm':
+
+    switch(nombre[POSICION_PRIMER_LETRA]){
+        case PRIMER_LETRA_MAD_MET:
             if(nombre == NOMBRE_MADERA)
                 this->caracter = CARACTER_MADERA;
             else
                 this->caracter = CARACTER_METAL;
             break;
-        case 'p':
+        case PRIMER_LETRA_PIEDRA:
             this->caracter = CARACTER_PIEDRA;
             break;
-        case 'a':
+        case PRIMER_LETRA_ANDYCOINS:
             this->caracter = CARACTER_ANDYCOINS;
             break;
         default:
-            this->caracter = CARACTER_NO_IDENTIFICADO;
+            this->caracter = CARACTER_MATERIAL_OTRO;
             break;
     }
+    
 }
 
 void Material::sumar_materiales(unsigned int sumar_cantidad)

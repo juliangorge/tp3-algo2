@@ -1,55 +1,24 @@
-#ifndef OBJETIVO__H
-#define OBJETIVO__H
+#ifndef OBJETIVO_H
+#define OBJETIVO_H
 
-#include "Jugador.h"
 #include<stdlib.h>
 #include<time.h>
 #include <string>
-#include "utilidades.h"
+
+#include "ABB.h"
+#include "Edificio.h"
+#include "Constantes.h"
+
 using namespace std;
 
-const int MINAS_METAL_OBJETIVO = 1;
-const int MINAS_ORO_OBJETIVO = 1;
-const int MAX_ESCUELAS = 4;
 
-const int CANTIDAD_ANDYCOINS_OBJETIVO = 100000;
-const int CANTIDAD_PIEDRA_OBJETIVO = 500;
-const int BOMBAS_USADAS_OBJETIVO = 5;
-const int CANTIDAD_CANSADO_OBJETIVO = 0;
-const int CANTIDAD_ARMADO_OBJETIVO = 10;
-const int CANTIDAD_EXTREMISTA_OBJETIVO = 500;
-
-
-/*typedef enum {
-    COMPRAR_ANDYPOLIS=1,
-    EDAD_PIEDRA,
-    BOMBARDERO,
-    ENERGETICO,
-    LETRADO,
-    MINERO,
-    CANSADO,
-    CONSTRUCTOR,
-    ARMADO,
-    EXTREMISTA
-    }objetivos;*/
-
-const int COMPRAR_ANDYPOLIS=1;
-const int EDAD_PIEDRA=2;
-const int BOMBARDERO=3;
-const int ENERGETICO=4;
-const int LETRADO=5;
-const int MINERO=6;
-const int CANSADO=7;
-const int CONSTRUCTOR=8;
-const int ARMADO=9;
-const int EXTREMISTA=10;
 
 class Objetivo {
 
     // Atributos
     private:
-        unsigned int numero;
-        bool estado;
+        bool estado_objetivos[CANTIDAD_OBJETIVOS];
+        unsigned int objetivos[CANTIDAD_OBJETIVOS];
 
     // metodos
     public:
@@ -63,41 +32,43 @@ class Objetivo {
 
         //PRE:
         //POST:
-        void asignar_objetivos(Jugador *jugador);
+        void asignar_objetivos();
 
         //PRE:
         //POST:
-        int contar_cumplidos(Jugador *jugador);
-        
-        void mostrar_progreso(Jugador *jugador);
 
         //PRE:
         //POST:
-        void estado_objetivo(Jugador *jugador, int objetivo);
+        int aleatorio(int cota_inferior, int cota_superior);
 
         //PRE:
         //POST:
-        void comprar_andypolis (Jugador *jugador, int objetivo);
+        bool estado_objetivo();
 
-        void edad_piedra(Jugador *jugador, int objetivo);
+        void mostrar_progreso(unsigned int atributos_objetivos[8]);
 
-        void bombardero(Jugador *jugador, int objetivo);
+        //PRE:
+        //POST:
+        bool comprar_andypolis (unsigned int andycoins_acumuladas);
 
-        void estado_energetico(Jugador *jugador, int objetivo);
+        bool edad_piedra(unsigned int cantidad_piedra);
 
-        void letrado(Jugador *jugador, int objetivo);
+        bool bombardero(unsigned int bombas_usadas);
 
-        void minero(Jugador *jugador, int objetivo);
+        bool estado_energetico(unsigned int energia);
 
-        void cansado(Jugador *jugador, int objetivo);
+        bool letrado(unsigned int escuelas_construidas, unsigned int maximo_escuelas);
 
-        void constructor(Jugador *jugador, int objetivo);
+        bool minero();
 
-        void armado(Jugador *jugador, int objetivo);
+        bool cansado(unsigned int energia);
 
-        void extremista(Jugador *jugador, int objetivo);
+        bool constructor();
 
-        void asignar(Jugador *jugador);
+        bool armado(unsigned int cantidad_bombas);
+
+        bool extremista(unsigned int bombas_usadas);
 
 };
-#endif
+
+#endif //OBJETIVO_H

@@ -5,18 +5,9 @@
 #include <fstream>
 #include <string>
 
-using namespace std;
+#include "Constantes.h"
 
-const string NOMBRE_PIEDRA = "piedra";
-const string NOMBRE_MADERA = "madera";
-const string NOMBRE_METAL = "metal";
-const string NOMBRE_BOMBAS = "bombas";
-const string NOMBRE_ANDYCOINS = "andycoins";
-const char CARACTER_MADERA = 'W';
-const char CARACTER_PIEDRA = 'S';
-const char CARACTER_METAL = 'I';
-const char CARACTER_ANDYCOINS = 'C';
-const char CARACTER_NO_IDENTIFICADO = '#';
+using namespace std;
 
 class Material
 {
@@ -29,35 +20,33 @@ class Material
     // Metodos
     public:
         // Constructor
-        // PRE: -
-        // POS: crea un objeto del tipo material con nombre, cantidad y letra identificatoria especificados.
+        // PRE: Debe haber al menos un material en el archivo materiales.txt
+        // POS: Crea un objeto del tipo Material con nombre, cantidad y letra identificatoria especificados
          Material(string nombre, unsigned int cantidad);
 
         // PRE: -
-        // POS: devuelve el nombre
+        // POS: Devuelve el nombre
         string obtener_nombre();
 
         // PRE: -
-        // POS: devuelve el caracter identificatorio
+        // POS: Devuelve el caracter identificatorio
         char obtener_caracter();
 
         // PRE: -
-        // POS: devuelve la cantidad
+        // POS: Devuelve la cantidad
         unsigned obtener_cantidad();
-
 
         // PRE: -
         // POS: Establece el caracter del material en base a su nombre.
         void establecer_caracter();
 
         // PRE: -
-        // POS: suma la cantidad de materiales espècificada al atributo
+        // POS: Suma la cantidad de materiales espècificada al atributo
         void sumar_materiales(unsigned int sumar_cantidad);
 
-        // PRE: debe haber la cantidad de materiales especificada o más
-        // POS: resta la cantidad de materiales especificada al atributo
+        // PRE: Debe haber la cantidad de materiales especificada o más
+        // POS: Resta la cantidad de materiales especificada al atributo
         void restar_materiales(unsigned int restar_cantidad);
 };
-
 
 #endif

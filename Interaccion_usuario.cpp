@@ -9,7 +9,6 @@ int obtener_opcion_primer_menu()
     cout << "Ingrese el número de su acción elegida: ";
     cin >> opcion;
     bool es_opcion_valida = (opcion[PRIMER_CARACTER] >= (int)'1' && opcion[PRIMER_CARACTER] <= (int)'5' && opcion[SEGUNDO_CARACTER] == '\0');
-
     while(!es_opcion_valida){
         cout << MSJ_ERROR_OPCION_INVALIDA;
         cin >> opcion;
@@ -23,19 +22,17 @@ int obtener_opcion_primer_menu()
 
 int obtener_opcion_segundo_menu()
 {
-	string opcion;
+    string opcion;
 
     int respuesta;
 
     cout << "Ingrese el número de su acción elegida: ";
     cin >> opcion;
-
     bool es_opcion_valida = (opcion[PRIMER_CARACTER] >= (int)'1' && opcion[PRIMER_CARACTER] <= (int)'9' && opcion[SEGUNDO_CARACTER] == '\0') || 
-                         (opcion[PRIMER_CARACTER] == (int)'1' && opcion[SEGUNDO_CARACTER] >= (int)'1' && 
+                         (opcion[PRIMER_CARACTER] == (int)'1' && opcion[SEGUNDO_CARACTER] >= (int)'0' && 
                          opcion[SEGUNDO_CARACTER] <= (int)'3' && opcion[TERCER_CARACTER] == '\0');
-
     while(!es_opcion_valida){
-        cout << "La opción elegida no es una opcion válida, por favor ingrese otra opción: ";
+        cout << MSJ_ERROR_OPCION_INVALIDA;
         cin >> opcion;
         es_opcion_valida = (opcion[PRIMER_CARACTER] >= (int)'1' && opcion[PRIMER_CARACTER] <= (int)'9' && opcion[SEGUNDO_CARACTER] == '\0') || 
                          (opcion[PRIMER_CARACTER] == (int)'1' && opcion[SEGUNDO_CARACTER] >= (int)'0' && 
@@ -77,7 +74,7 @@ estados_t obtener_valor_cantidad(unsigned int & cantidad)
     cin.clear();
     fflush(stdin);
 
-    if(cantidad < CANTIDAD_MINIMA || cantidad > CANTIDAD_MAXIMA) return ST_ERROR_CANTIDAD_INVALIDA;
+    if(cantidad < CANTIDAD_MINIMA_MATERIAL || cantidad > CANTIDAD_MAXIMA_MATERIAL) return ST_ERROR_CANTIDAD_INVALIDA;
     return ST_OK;
 }
 
@@ -97,24 +94,24 @@ estados_t obtener_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & co
     cout << "Ingrese la columna: ";
     cin >> columna_aux;
 
-    if(!es_numero(fila_aux) || !es_numero(columna_aux)) return ST_ERROR_COORDENADAS_INVALIDAS;
-
-    if(!mapa->chequear_coordenadas(stoul(fila_aux), stoul(columna_aux))) return ST_ERROR_CANTIDAD_INVALIDA;
+    if(!es_numero(fila_aux) || !es_numero(columna_aux)) return ST_ERROR_NO_ES_NUMERO;
 
     fila = stoi(fila_aux);
     columna = stoi(columna_aux);
+
+    if(mapa->obtener_cantidad_filas() < fila || mapa->obtener_cantidad_columnas() < columna) return ST_ERROR_COORDENADAS_INVALIDAS;
 
     return ST_OK;
 }
 
 estados_t pedido_confirmacion()
 {
-    string confirm;
+    char confirmar;
 
     cout << "Escribe `Y` para confirmar: ";
-    cin >> confirm;
+    cin >> confirmar;
     
-    if(confirm == "Y" || confirm == "y") return ST_OK;
+    if(confirmar == CARACTER_CONFIRMACION_MAYUS || confirmar == CARACTER_CONFIRMACION_MINUS) return ST_OK;
     return ST_MSJ_SALIR;
 }
 
@@ -122,7 +119,8 @@ string ingresar_nombre()
 {
     string nombre;
     cout << "Escribe el nombre del edificio: ";
-    cin >> nombre;
+    cin.ignore();
+    getline(cin,nombre);
     cout << endl;
     return nombre;
 }

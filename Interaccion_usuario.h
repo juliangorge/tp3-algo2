@@ -4,13 +4,7 @@
 #include <iostream>
 #include "Mensajes_de_error.h"
 #include "Mapa.h"
-
-const int PRIMER_CARACTER = 0;
-const int SEGUNDO_CARACTER = 1;
-const int TERCER_CARACTER = 2;
-
-const unsigned int CANTIDAD_MINIMA = 0;
-const unsigned int CANTIDAD_MAXIMA = 50000;
+#include "Constantes.h"
 
 using namespace std;
 int obtener_opcion_primer_menu();
