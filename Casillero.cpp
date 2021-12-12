@@ -88,9 +88,9 @@ unsigned int Casillero::obtener_costo_energia(char jugador){
 }
 
 void Casillero::mostrar_edificio(){
-    cout << this->obtener_edificio()->obtener_nombre() << endl;
+    cout << this->edificio->obtener_nombre() << endl;
     cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
-    cout << "Necesita reparación?: (" << (this->obtener_edificio()->obtener_fue_atacado() ? "Sí" : "No") << ")" << endl;
+    cout << "Necesita reparación?: (" << (this->edificio->obtener_fue_atacado() ? "Sí" : "No") << ")" << endl;
 }
 
 void Casillero::ocupar_casillero(char caracter)

@@ -7,6 +7,7 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     this->madera = madera;
     this->metal = metal;
     this->maximo = maximo;
+    this->fue_atacado = false;
     this->establecer_parametros();
 }
 
