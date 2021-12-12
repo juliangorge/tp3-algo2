@@ -34,6 +34,8 @@ class Casillero
 	    // POST: Crea un objeto Casillero, guardando sus coordenadas del mapa
         Casillero(unsigned int fila, unsigned int columna);
 
+        ~Casillero();
+
         // PRE: 
 	    // POST: Devuelve la posicion fila del Casillero en el mapa
         unsigned int obtener_fila();

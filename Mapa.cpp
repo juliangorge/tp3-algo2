@@ -5,29 +5,27 @@ Mapa::Mapa()
     this->cantidad_filas = 0;
     this->cantidad_columnas = 0;
     this->matriz_mapa = nullptr;
+    this->materiales_mapa = nullptr;
     this->leer_mapa();
 }
 
 Mapa::~Mapa()
 {
     for (unsigned int i = 0; i < this->cantidad_filas; i++){
-
         for (unsigned int j = 0; j < this->cantidad_columnas; j++){
             delete this->matriz_mapa[i][j];
         }
 
         delete [] this->matriz_mapa[i];
     }
-
     delete [] this->matriz_mapa;
+    this->matriz_mapa = nullptr;
 
-    for (unsigned int i = 0; i < this->cantidad_de_materiales; i++)
-    {
+    for (unsigned int i = 0; i < this->cantidad_de_materiales; i++){
         delete this->materiales_mapa[i];
     }
 
     delete [] this->materiales_mapa;
-
     this->materiales_mapa = nullptr;
 }
 
@@ -297,7 +295,7 @@ void Mapa::setear_material_aleatorio(int *i, string material)
 
 bool Mapa:: casillero_sin_material(unsigned int fila, unsigned int columna)
 {
-    return (matriz_mapa[fila, columna] == nullptr);
+    return (matriz_mapa[fila][columna] == nullptr);
 }
 
 void Mapa::mostrar_mapa_materiales()

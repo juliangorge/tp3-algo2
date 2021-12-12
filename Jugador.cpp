@@ -22,7 +22,7 @@ Jugador:: Jugador(char caracter){
 Jugador:: ~Jugador(){
 
     for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
-        delete this->casilleros_jugador[i];
+        this->casilleros_jugador[i] = nullptr;
     }
 
     for (unsigned int i = 0; i < this->tipos_de_materiales; i++){

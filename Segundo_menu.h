@@ -15,17 +15,17 @@
 
 using namespace std;
 
-void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
+void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
 
-estados_t construir_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa);
+estados_t construir_edificio(Jugador* jugador, ABB<Edificio *>& arbol, Mapa*& mapa);
 
-void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
+void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
 
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos);
 
-void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol);
+void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol);
 
-void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol);
+void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol);
 
 estados_t verificar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor_cont_rep);
 
@@ -33,17 +33,17 @@ void restar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor
 
 void agregar_materiales(Jugador* jugador, Edificio* edificio);
 
-void mostrar_objetivos(Jugador* jugador, ABB<Edificio *> arbol);
+void mostrar_objetivos(Jugador* jugador, ABB<Edificio *>& arbol);
 
-estados_t consultar_coordenadas(Mapa* mapa);
+estados_t consultar_coordenadas(Mapa*& mapa);
 
 void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos);
 
-estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa);
+estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *>& arbol, Mapa*& mapa);
 
-estados_t atacar_edificio(Jugador* jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> arbol, Mapa* mapa);
+estados_t atacar_edificio(Jugador* jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
 
-estados_t reparar_edificio(Jugador* jugador, ABB<Edificio *> arbol, Mapa* mapa);
+estados_t reparar_edificio(Jugador* jugador, ABB<Edificio *>& arbol, Mapa*& mapa);
 
 estados_t comprar_bombas(Jugador* jugador);
 

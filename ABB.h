@@ -313,12 +313,12 @@ ABBnodo<T> *ABB<T>::remover(ABBnodo<T> *nodo, T dato) //si borro un nodo, tengo 
 
     if (nodo->get_dato() == dato)
     {
-        if (nodo->isLeaf())
+        if (nodo->es_hoja())
             delete nodo;
         else if (nodo->solo_hijo_derecha())
         {
             // The only child will be connected to the parent's of nodo directly
-            nodo->get_derecha()->set_parent(nodo->get_parent());
+            nodo->get_derecha()->set_padre(nodo->get_padre());
             // Bypass nodo
             ABBnodo<T> *aux = nodo;
             nodo = nodo->get_derecha();
@@ -327,7 +327,7 @@ ABBnodo<T> *ABB<T>::remover(ABBnodo<T> *nodo, T dato) //si borro un nodo, tengo 
         else if (nodo->solo_hijo_izquierda())
         {
             // The only child will be connected to the parent's of nodo directly
-            nodo->get_izquierda()->set_parent(nodo->get_parent());
+            nodo->get_izquierda()->set_padre(nodo->get_padre());
             // Bypass nodo
             ABBnodo<T> *aux = nodo;
             nodo = nodo->get_izquierda();

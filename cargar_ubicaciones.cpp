@@ -1,6 +1,6 @@
 #include "Cargar_ubicaciones.h"
 
-void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*> arbol, Mapa* mapa)
+void cargar_ubicaciones (Jugador*& jugador_uno, Jugador*& jugador_dos, ABB<Edificio*>& arbol, Mapa*& mapa)
 {
     ifstream archivo_ubicaciones(ARCHIVO_UBICACIONES);
     unsigned int fila=0, columna=0;
@@ -14,8 +14,8 @@ void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifici
         fila = parser.coordenada_x();
         columna = parser.coordenada_y();
         elemento = validar_linea(&str_aux[0]); //elemento vale 0 si es material o edificio, sino vale el numero de jugador.
-        Edificio *edificio_aux;
-        Material* material_aux;
+        Edificio * edificio_aux;
+        Material * material_aux;
         
         //cout << elemento;
         if (elemento == 0)

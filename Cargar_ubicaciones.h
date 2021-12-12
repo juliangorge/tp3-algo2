@@ -9,7 +9,7 @@
 #include "Parser.h"
 #include "Constantes.h"
 
-void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*> arbol, Mapa* mapa);
+void cargar_ubicaciones (Jugador*& jugador_uno, Jugador*& jugador_dos, ABB<Edificio*>& arbol, Mapa*& mapa);
 
 int validar_linea(char *aux);
 

@@ -57,8 +57,6 @@ class Jugador {
 		// PRE: debe existir el archivo con los materiales y si los hubiera deben seguir el formato "material cant_jugador_1 cant_jugador_2".
 		// POS: enlista los materiales que encuentra en el archivo. Si un material se encuentra repetido, lo agrupa en un solo ítem.
 		
-
-
 		void agregar_material_a_lista(Material* material);
 
     	// PRE: -
@@ -125,5 +123,5 @@ class Jugador {
 
 };
 
-void cargar_materiales(Jugador* jugador_uno, Jugador* jugador_dos);
+//void cargar_materiales(Jugador* jugador_uno, Jugador* jugador_dos);
 #endif //JUGADOR_H

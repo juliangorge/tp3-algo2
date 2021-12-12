@@ -7,6 +7,15 @@ Casillero:: Casillero(unsigned int fila, unsigned int columna){
     this->columna = columna;
 }
 
+Casillero:: ~Casillero(){
+
+    //delete this->edificio;
+    //delete this->material;
+
+    this->edificio = nullptr;
+    this->material = nullptr;
+}
+
 unsigned int Casillero:: obtener_fila(){
     return this->fila;
 }

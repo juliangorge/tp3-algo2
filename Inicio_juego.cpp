@@ -51,7 +51,6 @@ void iniciar_juego()
 		case OPCION_SALIR_PRIMER_MENU:
 			// Guardar cambios de edificios.txt
 			break;
-		break;
 	}
 
 	delete jugador_uno;
