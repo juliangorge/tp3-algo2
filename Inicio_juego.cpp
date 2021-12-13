@@ -72,8 +72,7 @@ void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa)
 		nombre_material = materiales_aux[i]->obtener_nombre();
     	cantidad_jugador_uno = jugador_uno->mostrar_cantidad_material(nombre_material);
 		cantidad_jugador_dos = jugador_dos->mostrar_cantidad_material(nombre_material);
-		archivo_materiales << nombre_material << cantidad_jugador_uno << cantidad_jugador_dos;
+		archivo_materiales << nombre_material << ' ' << cantidad_jugador_uno << ' ' << cantidad_jugador_dos << endl;
     }	
     archivo_materiales.close();
-
 }
