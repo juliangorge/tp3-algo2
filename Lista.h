@@ -32,6 +32,9 @@ public:
 
     //post: agrega un nuevo elemento a la lista
     void agregar(Casillero *nuevo_elemento);
+
+    string obtener_nombre(int posicion);
+
     
     /*unsigned int obtener_x();
 
@@ -59,20 +62,18 @@ int Lista<Tipo>::obtener_cantidad_elementos(){
 
 template < typename Tipo >
 int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casillero_y) {
-    bool elementoEncontrado = false;
+    bool elemento_encontrado = false;
     int i = 0;
     Nodo<Tipo>* auxiliar = primero;
-    Casillero *casillero = auxiliar->obtener_casillero();
-
-    while(!elementoEncontrado && i < cantidad_elementos){
-        if(casillero->obtener_fila() == casillero_x && casillero->obtener_columna() == casillero_y){
-            elementoEncontrado = true;
+    while(!elemento_encontrado && i < cantidad_elementos){
+        if(auxiliar->obtener_casillero()->obtener_fila() == casillero_x && auxiliar->obtener_casillero()->obtener_columna() == casillero_y){
+            elemento_encontrado = true;
         }
         i++;
         auxiliar = auxiliar -> obtener_siguiente();
     }
 
-    if(!elementoEncontrado)
+    if(!elemento_encontrado)
     {
         cout << "Posicion no encontrada" << endl;
         return POSICION_NO_ENCONTRADA;
@@ -120,5 +121,32 @@ Casillero *Lista<Tipo>::obtener_casillero_nodo(int posicion) {
     
     return auxiliar -> obtener_casillero();
 }
+
+
+template<typename Tipo>
+string Lista<Tipo>::obtener_nombre(int posicion)
+{
+    int i = 0;
+    Nodo<Tipo>* auxiliar = primero;
+
+    if(posicion > cantidad_elementos){
+        return "Posicion no encontrada";
+    }
+
+    while(i != posicion - 1){
+        auxiliar = auxiliar -> obtener_siguiente();
+        i++;
+    }
+
+
+    string nombre = "[";
+    nombre += auxiliar->obtener_casillero()->obtener_fila();
+    nombre += ",";
+    nombre += auxiliar->obtener_casillero()->obtener_columna();
+    nombre += "]";
+
+    return nombre;
+}
+
 
 #endif //GRAFOS_LISTA_H

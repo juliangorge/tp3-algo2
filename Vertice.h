@@ -16,7 +16,7 @@ public:
 
     //post: obtiene el casillero del vertice
     Casillero *obtener_casillero();
-
+    
     ~Vertice();
 };
 

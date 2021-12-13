@@ -12,7 +12,7 @@ class Camino_minimo {
 protected:
     int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
-    int cantidadVertices;
+    int cantidad_vertices;
 
 //Métodos
 public:

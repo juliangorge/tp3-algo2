@@ -9,5 +9,4 @@ Casillero *Vertice::obtener_casillero() {
 }
 
 Vertice::~Vertice() {
-
 }

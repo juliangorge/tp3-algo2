@@ -21,7 +21,6 @@ void Grafo::mostrar_grafo() {
 
 void Grafo::agregar_camino(Mapa *mapa, char jugador) 
 {
-    cout << "Entra a agregar_camino" << endl;
     Casillero *origen, *destino;
     unsigned int peso_origen = 0, peso_destino = 0;
     int posicion_origen=0, posicion_destino=0;
@@ -33,15 +32,10 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
             {   //Hallo la distancia entre un casillero y el de su derecha
                 origen = mapa->obtener_casillero(i,j);
                 destino = mapa->obtener_casillero(i,j+1);
-                cout << "Obtuvo los casilleros origen y destino" << endl;
                 posicion_origen = vertices->obtener_posicion(i, j);
-
-                //// ESTO ESTÁ TIRANDO -1 /////
                 posicion_destino = vertices->obtener_posicion(i, j+1);
-                ///////////////////////////////////// 
                 
                 asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
-                cout << "Posicion en la lista: " << posicion_origen << " " << posicion_destino << endl;
                 matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
                 matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
             }
@@ -50,11 +44,9 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
                 destino = mapa->obtener_casillero(i+1,j);
                 posicion_destino = vertices->obtener_posicion(i+1, j);
                 asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
-                cout << "Asigno pesos" << endl;
                 matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
                 matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
             }
-            cout << "Iteraciones de j: " << j << endl;
         }
     }
 }
@@ -166,10 +158,10 @@ void Grafo::camino_minimo(int origen, int destino) {
     algoritmo_camino_minimo -> camino_minimo(origen, destino);
 }
 
-/*void Grafo::usarDijkstra() {
+void Grafo::usarDijkstra() {
     delete algoritmo_camino_minimo;
     algoritmo_camino_minimo = new Dijkstra(vertices, matriz_adyacencia);
-}*/
+}
 
 void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *destino, Mapa *mapa)
 {
@@ -186,12 +178,11 @@ void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *desti
 
         i++;
     }*/
-    this->agregar_camino(mapa, jugador);
-    cout<< "Agrego todos los caminos" << endl;
-    this->mostrar_grafo();
-    /*
+    
+
+    agregar_camino(mapa, jugador);
     this->usarDijkstra();
-    */
+    
     
 
 }
@@ -244,9 +235,13 @@ void Grafo::obtener_peso(char tipo_casillero, int *peso, int peso_L, int peso_M)
 
 void Grafo::agregar_vertices(Mapa *mapa)
 {
+    Casillero *casillero;
     for (unsigned int i = 0; i < mapa->obtener_cantidad_filas(); i++)
         for (unsigned int j = 0; j < mapa->obtener_cantidad_columnas(); j++)
-            this->agregar_vertice(mapa->obtener_casillero(i,j));
+        {
+            casillero = mapa->obtener_casillero(i,j);
+            agregar_vertice(casillero);
+        }
 }
 
 void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int *peso_origen, unsigned int *peso_destino, char jugador)

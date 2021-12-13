@@ -24,10 +24,6 @@ public:
     //post: le asigna como siguiente el nodo recibido
     void asignar_siguiente(Nodo<Tipo>* siguiente);
 
-    unsigned int obtener_x();
-
-    unsigned int obtener_y();
-
     ~Nodo();
 };
 
@@ -52,17 +48,6 @@ void Nodo<Tipo>::asignar_siguiente(Nodo<Tipo> *siguiente) {
     this -> siguiente = siguiente;
 }
 
-/*template < typename Tipo >
-unsigned int Nodo<Tipo>::obtener_x()
-{
-    return this->x;
-}
-
-template < typename Tipo >
-unsigned int Nodo<Tipo>::obtener_y()
-{
-    return this->y;
-}*/
 
 template<typename Tipo>
 Nodo<Tipo>::~Nodo() {

@@ -1,132 +1,132 @@
-/*#include "Dijkstra.h"
+#include "Dijkstra.h"
 
 Dijkstra::Dijkstra(Lista<Vertice> *vertices, int **matriz_adyacencia) : Camino_minimo(vertices, matriz_adyacencia) {
-    verticesVisitados = new bool[cantidadVertices];
-    distancia = new int[cantidadVertices];
-    recorrido = new int[cantidadVertices];
+    vertices_visitados = new bool[cantidad_vertices];
+    distancia = new int[cantidad_vertices];
+    recorrido = new int[cantidad_vertices];
 }
 
 void Dijkstra::camino_minimo(int origen, int destino) {
     inicializar_visitados(origen);
-    inicializarDistancia(matriz_adyacencia[origen]);
-    inicializarRecorrido(origen);
+    inicializar_distancia(matriz_adyacencia[origen]);
+    inicializar_recorrido(origen);
 
-    int minimoVertice;
+    int minimo_vertice;
 
-    bool destinoArribado = origen == destino;
-    int verticesRecorridos = 1;
-    while(!destinoArribado){
-        mostrarIteracion(verticesRecorridos - 1);
-        minimoVertice = verticeMinimaDistancia();
-        destinoArribado = minimoVertice == destino;
+    bool destino_arribado = origen == destino;
+    int vertices_recorridos = 1;
+    while(!destino_arribado){
+        mostrar_iteracion(vertices_recorridos - 1);
+        minimo_vertice = vertice_minima_distancia();
+        destino_arribado = minimo_vertice == destino;
 
-        if(!destinoArribado){
-            verticesVisitados[minimoVertice] = true;
-            actualizarDistancia(minimoVertice);
+        if(!destino_arribado){
+            vertices_visitados[minimo_vertice] = true;
+            actualizar_distancia(minimo_vertice);
         }
-        verticesRecorridos++;
+        vertices_recorridos++;
     }
 
-    mostrarRecorrido(origen, destino);
+    mostrar_recorrido(origen, destino);
 }
 
 //Muy importante, devuelve el vertice adyacente de menor peso
-int Dijkstra::verticeMinimaDistancia() {
-    int minimaDistancia = INFINITO;
-    int minimoVertice;
+int Dijkstra::vertice_minima_distancia() {
+    int minima_distancia = INFINITO;
+    int minimo_vertice;
 
-    for(int i = 0; i < cantidadVertices; i++){
-        if(!verticesVisitados[i] && distancia[i] <= minimaDistancia){
-            minimaDistancia = distancia[i];
-            minimoVertice = i;
+    for(int i = 0; i < cantidad_vertices; i++){
+        if(!vertices_visitados[i] && distancia[i] <= minima_distancia){
+            minima_distancia = distancia[i];
+            minimo_vertice = i;
         }
     }
 
-    return minimoVertice;
+    return minimo_vertice;
 }
 
 void Dijkstra::inicializar_visitados(int origen) {
-    for(int i = 0; i < cantidadVertices; i++)
-        verticesVisitados[i] = false;
-    verticesVisitados[origen] = true;
+    for(int i = 0; i < cantidad_vertices; i++)
+        vertices_visitados[i] = false;
+    vertices_visitados[origen] = true;
 }
 
-void Dijkstra::inicializarRecorrido(int origen) {
-    for(int i = 0; i < cantidadVertices; i++)
+void Dijkstra::inicializar_recorrido(int origen) {
+    for(int i = 0; i < cantidad_vertices; i++)
         recorrido[i] = origen;
 }
 
 Dijkstra::~Dijkstra() {
-    delete[] verticesVisitados;
+    delete[] vertices_visitados;
     delete[] distancia;
     delete[] recorrido;
 }
 
-void Dijkstra::inicializarDistancia(const int * distanciaOrigen) {
-    for(int i = 0; i < cantidadVertices; i++)
+void Dijkstra::inicializar_distancia(const int * distanciaOrigen) {
+    for(int i = 0; i < cantidad_vertices; i++)
         distancia[i] = distanciaOrigen[i];
 }
 
 //Muy importante, 
-void Dijkstra::actualizarDistancia(int vertice) {
-    for(int i = 0; i < cantidadVertices; i++){
+void Dijkstra::actualizar_distancia(int vertice) {
+    for(int i = 0; i < cantidad_vertices; i++){
         //se fija que el vertice no este visitado                       Condicion para saber si tengo que actualizar una distancia o no
-        if(!verticesVisitados[i] && distancia[vertice] != INFINITO && distancia[i] > matriz_adyacencia[vertice][i] + distancia[vertice]){
+        if(!vertices_visitados[i] && distancia[vertice] != INFINITO && distancia[i] > matriz_adyacencia[vertice][i] + distancia[vertice]){
             distancia[i] = matriz_adyacencia[vertice][i] + distancia[vertice];
             recorrido[i] = vertice;
         }
     }
 }
 
-void Dijkstra::mostrarRecorrido(int origen, int destino) {
+void Dijkstra::mostrar_recorrido(int origen, int destino) {
     if(distancia[destino] == INFINITO){
-        cout << "No hay un camino que conecte " <<  vertices->obtenerNombre(origen + 1) << " con " << vertices->obtenerNombre(destino + 1);
+        cout << "No hay un camino que conecte " <<  vertices->obtener_nombre(origen + 1) << " con " << vertices->obtener_nombre(destino + 1);
     }else{
-        cout << "El camino minimo que une " <<  vertices->obtenerNombre(origen + 1) << " con " << vertices->obtenerNombre(destino + 1);
+        cout << "El camino minimo que une " <<  vertices->obtener_nombre(origen + 1) << " con " << vertices->obtener_nombre(destino + 1);
         cout << " tiene un costo de: " << distancia[destino] << " y es el siguiente: ";
-        cout << vertices->obtenerNombre(destino + 1);
+        cout << vertices->obtener_nombre(destino + 1);
         do{
             destino = recorrido[destino];
-            cout << " <- " << vertices->obtenerNombre(destino + 1);
+            cout << " <- " << vertices->obtener_nombre(destino + 1);
         }while(origen != destino);
     }
     cout << endl;
 }
 
-void Dijkstra::mostrarIteracion(int iteracion) {
+void Dijkstra::mostrar_iteracion(int iteracion) {
     cout << endl << "Iteración " << iteracion << endl;
 
     cout << "Visitados: [";
-    for(int i = 0; i < cantidadVertices; i++){
-        cout << verticesVisitados[i];
-        if(i + 1 != cantidadVertices){
+    for(int i = 0; i < cantidad_vertices; i++){
+        cout << vertices_visitados[i];
+        if(i + 1 != cantidad_vertices){
             cout << ", ";
         }
     }
     cout << "]" << endl;
 
     cout << "Distancia: [";
-    for(int i = 0; i < cantidadVertices; i++){
+    for(int i = 0; i < cantidad_vertices; i++){
         if(distancia[i] != INFINITO) {
             cout << distancia[i];
         } else {
             cout << "∞";
         }
-        if(i + 1 != cantidadVertices){
+        if(i + 1 != cantidad_vertices){
             cout << ", ";
         }
     }
     cout << "]" << endl;
 
     cout << "Recorrido: [";
-    for(int i = 0; i < cantidadVertices; i++){
-        cout << vertices -> obtenerNombre(recorrido[i] + 1);
-        if(i + 1 != cantidadVertices){
+    for(int i = 0; i < cantidad_vertices; i++){
+        cout << vertices -> obtener_nombre(recorrido[i] + 1);
+        if(i + 1 != cantidad_vertices){
             cout << ", ";
         }
     }
     cout << "]" << endl << endl;
-}*/
+}
 
 
 
