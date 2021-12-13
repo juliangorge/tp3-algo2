@@ -302,12 +302,17 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
             break;
         case OPCION_FINALIZAR_TURNO:
             cambiar_jugador(jugador, jugador_uno, jugador_dos, arbol);
-            cout << " Finalizo el turno" << endl;
-
-
+            cout << "Finalizo el turno" << endl;
+        case OPCION_SALIR_SEGUNDO_MENU:
+            cout << "Guardando cambios" << endl;
+            guardar_edificios(arbol);
             break;
     }
 
+}
+
+void guardar_edificios(ABB<Edificio *>& arbol){
+    arbol.exportar_en_orden();
 }
 
 void mostrar_objetivos(Jugador* jugador, ABB<Edificio *>& arbol)
