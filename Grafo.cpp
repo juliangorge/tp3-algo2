@@ -37,11 +37,7 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
                 posicion_destino = vertices->obtener_posicion(i, j+1);
 
                 asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
-                if((jugador_contrario = destino->obtener_caracter()) == 'U' )
-                {
-                    peso_destino = asignar_peso_jugador_contrario(jugador_contrario, jugador);
-                    cout << "Se asigna peso al jugador U de: " << peso_destino << " en la coordenada " << i << j+1 << " y en la posicion: " << posicion_destino << endl;
-                }
+
                 matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
                 matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
             }
@@ -51,11 +47,7 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
                 posicion_destino = vertices->obtener_posicion(i+1, j);
 
                 asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
-                if((jugador_contrario = destino->obtener_caracter()) == 'U')
-                {    
-                    peso_destino = asignar_peso_jugador_contrario(jugador_contrario, jugador);
-                    cout << "Se asigna peso al jugador U de: " << peso_destino << " en la coordenada " << i+1 << j << " y en la posicion: " << posicion_destino << endl;
-                }
+
                 matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
                 matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
             }
@@ -169,18 +161,6 @@ void Grafo::usar_dijkstra() {
 void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *destino, Mapa *mapa)
 {
     agregar_vertices(mapa);
-    
-    Casillero *vecino;
-    int i = 0;
-
-    /*while(vecino!=destino && i<4)
-    {   
-        //obtengo el vecino de la derecha
-        vecino = mapa->obtener_casillero(origen->obtener_fila(), origen->obtener_columna()+1);
-        asignar_pesos(origen, vecino, jugador);
-        i++;
-    }*/
-    
 
     agregar_camino(mapa, jugador);
 
