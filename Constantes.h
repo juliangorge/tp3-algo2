@@ -150,6 +150,9 @@ const unsigned int ENERGIA_MUELLE_JUG_DOS = 2;
 const unsigned int ENERGIA_TERRENO_JUG_UNO = 25;
 const unsigned int ENERGIA_TERRENO_JUG_DOS = 25;
 
+// Lista
+const int POSICION_NO_ENCONTRADA = -1;
+
 // Opciones de menu
 
 // Opciones de primer menu

@@ -4,8 +4,6 @@
 
 using namespace std;
 
-const int POSICION_NO_ENCONTRADA = -1;
-
 template < typename Tipo >
 class Lista{
 /*ATRIBUTOS*/
