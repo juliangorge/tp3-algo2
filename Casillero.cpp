@@ -11,7 +11,6 @@ Casillero:: ~Casillero(){
 
     //delete this->edificio;
     //delete this->material;
-
     this->edificio = nullptr;
     this->material = nullptr;
 }
@@ -131,4 +130,10 @@ bool Casillero:: es_transitable()
 
     else
         return false;  
+}
+
+ostream& operator<<(ostream& salida, Casillero& casillero)
+{
+    salida << casillero.obtener_edificio()->obtener_nombre() << " (" << casillero.obtener_fila() << ", " << casillero.obtener_columna() << ")";
+    return salida;
 }

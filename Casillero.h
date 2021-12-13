@@ -122,4 +122,6 @@ class Casillero
 
 };
 
+ostream& operator<<(ostream& salida, Casillero& casillero);
+
 #endif // CASILLERO_H

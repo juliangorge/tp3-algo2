@@ -2,6 +2,7 @@
 #define SEGUNDO_MENU_H
 
 #include <iostream>
+#include <fstream>
 #include "Menu_consola.h"
 #include "Interaccion_usuario.h"
 #include "Cargar_ubicaciones.h"
@@ -34,6 +35,8 @@ void restar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor
 void agregar_materiales(Jugador* jugador, Edificio* edificio);
 
 void guardar_edificios(ABB<Edificio *>& arbol);
+
+void guardar_ubicaciones(Jugador* jugador, unsigned int numero_jugador, ostream& archivo);
 
 void mostrar_objetivos(Jugador* jugador, ABB<Edificio *>& arbol);
 

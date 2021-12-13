@@ -48,6 +48,10 @@ unsigned int Jugador::obtener_energia()
     return this->energia;
 }
 
+unsigned int Jugador::obtener_cantidad_casilleros(){
+    return this->cantidad_casilleros;
+}
+
 unsigned int Jugador::obtener_tipos_de_materiales()
 {
     return this->tipos_de_materiales;
@@ -119,6 +123,12 @@ unsigned int Jugador::obtener_posicion_material(string nombre_material)
             posicion_material = i;
     }
     return posicion_material;
+}
+
+Casillero* Jugador::obtener_casillero_jugador(unsigned int posicion){
+    if(this->cantidad_casilleros > posicion) return NULL;
+
+    return this->casilleros_jugador[posicion];
 }
 
 Material** Jugador::obtener_lista_materiales()

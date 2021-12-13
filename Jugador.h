@@ -48,9 +48,13 @@ class Jugador {
 
         char obtener_caracter();
 
+        unsigned int obtener_cantidad_casilleros();
+
         unsigned int obtener_tipos_de_materiales();
 
-        Material** obtener_lista_materiales();
+        Casillero* obtener_casillero_jugador(unsigned int posicion);
+
+        Material** obtener_lista_materiales();        
 
         void agregar_coordenadas(unsigned int posicion_fila, unsigned int posicion_columna);
 

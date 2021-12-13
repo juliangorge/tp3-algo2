@@ -15,7 +15,6 @@ Mapa::~Mapa()
         for (unsigned int j = 0; j < this->cantidad_columnas; j++){
             delete this->matriz_mapa[i][j];
         }
-
         delete [] this->matriz_mapa[i];
     }
     delete [] this->matriz_mapa;

@@ -305,7 +305,17 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
             cout << "Finalizo el turno" << endl;
         case OPCION_SALIR_SEGUNDO_MENU:
             cout << "Guardando cambios" << endl;
-            guardar_edificios(arbol);
+            //guardar_edificios(arbol);
+
+            // Guardo ubicaciones: materiales, jugador_uno, jugador_dos
+            //guardar_ubicaciones(mapa);
+            /*ofstream archivo_ubicaciones("ubicaciones_tmp.txt"); //ARCHIVO_UBICACIONES
+
+            guardar_ubicaciones(jugador_uno, 1, archivo_ubicaciones);
+            guardar_ubicaciones(jugador_dos, 2, archivo_ubicaciones);
+
+            archivo_ubicaciones.close();*/
+
             break;
     }
 
@@ -313,6 +323,19 @@ void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno,
 
 void guardar_edificios(ABB<Edificio *>& arbol){
     arbol.exportar_en_orden();
+}
+
+void guardar_ubicaciones(Jugador* jugador, unsigned int numero_jugador, ostream& archivo){
+
+    //archivo << numero_jugador << " (" << jugador->obtener_fila() << ", " <<  jugador->obtener_columna() << ")" << '\n';
+    
+    for (int i = 0; i < jugador->obtener_cantidad_casilleros(); i++){
+        //archivo <<*(jugador->obtener_casillero_jugador(i));
+        //cout<<"\t"<<*(jugador->obtener_casillero_jugador(i)) << endl;
+    }
+    
+    //archivo << '\n';
+
 }
 
 void mostrar_objetivos(Jugador* jugador, ABB<Edificio *>& arbol)
