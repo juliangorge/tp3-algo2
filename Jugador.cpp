@@ -16,11 +16,10 @@ Jugador:: Jugador(char caracter){
     this->bombas_compradas=0;
     this->bombas_usadas=0;
 
-    this->acumulador_por_turno = 1;
+    this->acumulador_por_turno =1;
 }
 
 Jugador:: ~Jugador(){
-
     for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
         this->casilleros_jugador[i] = nullptr;
     }
@@ -48,10 +47,6 @@ unsigned int Jugador::obtener_energia()
     return this->energia;
 }
 
-unsigned int Jugador::obtener_cantidad_casilleros(){
-    return this->cantidad_casilleros;
-}
-
 unsigned int Jugador::obtener_tipos_de_materiales()
 {
     return this->tipos_de_materiales;
@@ -64,13 +59,12 @@ void Jugador::agregar_coordenadas(unsigned int posicion_fila, unsigned int posic
 }
 
 void Jugador::agregar_material_a_lista(Material* material){
-    int tipos_de_materiales_previo = this->tipos_de_materiales;
-    Material** materiales_aux = new Material*[tipos_de_materiales_previo + 1];
-    for (int i = 0; i < tipos_de_materiales_previo; i++){
+    Material** materiales_aux = new Material*[this->tipos_de_materiales + 1];
+    for (int i = 0; i < this->tipos_de_materiales; i++){
         materiales_aux[i] = this->materiales_jugador[i];
     }
 
-    materiales_aux[tipos_de_materiales_previo] = material;
+    materiales_aux[this->tipos_de_materiales] = material;
 
     if(this->tipos_de_materiales != 0){
         delete[] this->materiales_jugador;
@@ -84,7 +78,7 @@ void Jugador::agregar_material_a_lista(Material* material){
 void Jugador::mostrar_inventario()
 {
     cout << endl << "======================" << endl << endl;
-    cout << "Materiales para construir " << endl;
+    cout << MSJ_MATERIALES_DISPONIBLES << endl;
     for(unsigned int i = 0; i < this->tipos_de_materiales; i++){
         cout << "# " << this->materiales_jugador[i]->obtener_nombre() << " - " << this->materiales_jugador[i]->obtener_cantidad() << endl;
     }
@@ -123,12 +117,6 @@ unsigned int Jugador::obtener_posicion_material(string nombre_material)
             posicion_material = i;
     }
     return posicion_material;
-}
-
-Casillero* Jugador::obtener_casillero_jugador(unsigned int posicion){
-    if(this->cantidad_casilleros > posicion) return NULL;
-
-    return this->casilleros_jugador[posicion];
 }
 
 Material** Jugador::obtener_lista_materiales()
@@ -180,13 +168,12 @@ void Jugador:: agregar_material(string nombre_material, unsigned int cantidad){
 }
 
 void Jugador:: agregar_casillero(Casillero * casillero){
-    unsigned int cantidad_casilleros_previo = this->cantidad_casilleros;
-    Casillero** casilleros_aux = new Casillero*[cantidad_casilleros_previo + 1];
-    for (unsigned int i = 0; i < cantidad_casilleros_previo; i++){
+    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros + 1];
+    for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
         casilleros_aux[i] = this->casilleros_jugador[i];
     }
 
-    casilleros_aux[cantidad_casilleros_previo] = casillero;
+    casilleros_aux[this->cantidad_casilleros] = casillero;
 
     if(this->cantidad_casilleros != 0){
         delete[] this->casilleros_jugador;
@@ -202,7 +189,7 @@ void Jugador:: mostrar_edificios(){
         this->casilleros_jugador[i]->mostrar_edificio();
         cantidad_edificio++;
     }
-    cout << "Total: " << cantidad_edificio << endl << endl;;
+    cout << MSJ_EDIFICIOS_CONSTRUIDOS << cantidad_edificio << endl << endl;;
 }
 
 void Jugador:: borrar_edificio_casillero(Casillero * casillero){
@@ -214,12 +201,11 @@ void Jugador:: borrar_edificio_casillero(Casillero * casillero){
             this->casilleros_jugador[i] = nullptr;
         }
     }
-    unsigned int cantidad_casilleros_previo = this->cantidad_casilleros;
-    Casillero** casilleros_aux = new Casillero*[cantidad_casilleros_previo - 1];
+    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros - 1];
     for (unsigned int i = 0; i < posicion; i++){
         casilleros_aux[i] = this->casilleros_jugador[i];
     }
-    for (unsigned int i = posicion; i < cantidad_casilleros_previo - 1; i++)
+    for (unsigned int i = posicion; i < this->cantidad_casilleros-1; i++)
     {
         casilleros_aux[i] = this->casilleros_jugador[i+1];
     }
@@ -232,7 +218,7 @@ void Jugador:: borrar_edificio_casillero(Casillero * casillero){
 
 bool Jugador::objetivos_cumplidos()
 {
-    bool objetivos_cumplidos = this->objetivos->estado_objetivo();
+    bool objetivos_cumplidos = this->objetivos->estados_objetivos();
     return objetivos_cumplidos;
 }
 
@@ -257,7 +243,6 @@ void Jugador::mostrar_objetivos(unsigned int maximo_escuelas)
 
     this->objetivos->mostrar_progreso(atributos_objetivos);
 }
-
 
 unsigned int Jugador::obtener_cant_edificio(string nombre)
 {
@@ -295,23 +280,23 @@ void Jugador::recolectar_recursos()
         edificio = this->casilleros_jugador[i]->obtener_edificio();
         if(edificio->obtener_provee_materiales()){
             switch(edificio->obtener_nombre()[0]){
-                case 'm':
+                case PRIMER_LETRA_MINA:
                     if(edificio->obtener_nombre().length() == 4){
                         agregar_material(nombre_piedra, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     }
                     else
                         agregar_material(nombre_andycoins, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     break;
-                case 'a':
+                case PRIMER_LETRA_ASERRADERO:
                     agregar_material(nombre_madera, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     break;
-                case 'f':
+                case PRIMER_LETRA_FABRICA:
                     agregar_material(nombre_metal, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     break;
-                case 'e':
+                case PRIMER_LETRA_ESCUELA:
                     agregar_material(nombre_andycoins, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     break;
-                case 'p':
+                case PRIMER_LETRA_PLANTA_ELEC:
                     incrementar_energia(edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     break;
                 default:
@@ -320,4 +305,15 @@ void Jugador::recolectar_recursos()
         }
     }
     reset_acumulador_por_turno();
+}
+
+void Jugador::cargar_ubicaciones_materiales(ofstream& archivo)
+{
+    for (unsigned int i = 0; i < this->cantidad_casilleros-1; i++){
+        archivo << casilleros_jugador[i]->obtener_edificio()->obtener_nombre() << PRIMER_DELIMITADOR << casilleros_jugador[i]->obtener_fila()
+            << SEGUNDO_DELIMITADOR << casilleros_jugador[i]->obtener_columna() << TERCER_DELIMITADOR << '\n';
+    }
+    archivo << casilleros_jugador[cantidad_casilleros-1]->obtener_edificio()->obtener_nombre() << PRIMER_DELIMITADOR << casilleros_jugador[cantidad_casilleros-1]->obtener_fila()
+            << SEGUNDO_DELIMITADOR << casilleros_jugador[cantidad_casilleros-1]->obtener_columna() << TERCER_DELIMITADOR;
+
 }

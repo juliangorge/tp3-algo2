@@ -51,28 +51,52 @@ void iniciar_juego()
 		case OPCION_SALIR_PRIMER_MENU:
 			// Guardar cambios de edificios.txt
 			break;
+		break;
 	}
-
-	guardar_materiales(jugador_uno, jugador_dos, mapa);
+	guardar_materiales(jugador_uno, jugador_dos);
+	guardar_ubicaciones(mapa, jugador_uno, jugador_dos);
 	delete jugador_uno;
 	delete jugador_dos;
 	delete mapa;
 }
 
-void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa)
+void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos)
 {
-	ofstream archivo_materiales;
-    archivo_materiales.open(ARCHIVO_MATERIALES.c_str());
+	ofstream archivo;
+    archivo.open(ARCHIVO_MATERIALES.c_str());
     string nombre_material;
-    unsigned int cantidad_jugador_uno, cantidad_jugador_dos;
-	unsigned int cantidad_materiales = jugador_uno->obtener_tipos_de_materiales();
-	Material **materiales_aux = jugador_uno->obtener_lista_materiales();
+	Material** materiales_aux = jugador_uno->obtener_lista_materiales();
 
-    for(int i=0; i<cantidad_materiales; i++){
+    for(unsigned int i = 0; i < jugador_uno->obtener_tipos_de_materiales()-1; i++){
 		nombre_material = materiales_aux[i]->obtener_nombre();
-    	cantidad_jugador_uno = jugador_uno->mostrar_cantidad_material(nombre_material);
-		cantidad_jugador_dos = jugador_dos->mostrar_cantidad_material(nombre_material);
-		archivo_materiales << nombre_material << ' ' << cantidad_jugador_uno << ' ' << cantidad_jugador_dos << endl;
+		archivo << nombre_material << ' ' << jugador_uno->mostrar_cantidad_material(nombre_material) << ' ' << jugador_dos->mostrar_cantidad_material(nombre_material) << '\n';
     }	
-    archivo_materiales.close();
+    	nombre_material = materiales_aux[jugador_uno->obtener_tipos_de_materiales()-1]->obtener_nombre();
+		archivo << nombre_material << ' ' << jugador_uno->mostrar_cantidad_material(nombre_material) << ' ' << jugador_dos->mostrar_cantidad_material(nombre_material);
+    archivo.close();
+}
+
+
+//cout << "Guardando cambios" << endl;
+
+
+            //Guardo ubicaciones: materiales, jugador_uno, jugador_dos
+            ///guardar_ubicaciones(mapa);
+            /*ofstream archivo_ubicaciones("ubicaciones_tmp.txt"); //ARCHIVO_UBICACIONES
+            guardar_ubicaciones(jugador_uno, 1, archivo_ubicaciones);
+            guardar_ubicaciones(jugador_dos, 2, archivo_ubicaciones);
+            archivo_ubicaciones.close();*/
+
+
+void guardar_ubicaciones(Mapa* & mapa, Jugador* jugador_uno, Jugador* jugador_dos){
+	ofstream archivo;
+    archivo.open(ARCHIVO_UBICACIONES.c_str());
+    mapa->cargar_ubicaciones_materiales(archivo);
+    archivo << NUMERO_JUGADOR_UNO << PRIMER_DELIMITADOR << jugador_uno->obtener_fila() << SEGUNDO_DELIMITADOR <<  jugador_uno->obtener_columna() << TERCER_DELIMITADOR << '\n';
+    jugador_uno->cargar_ubicaciones_materiales(archivo);
+    archivo << '\n';
+    archivo << NUMERO_JUGADOR_DOS << PRIMER_DELIMITADOR << jugador_dos->obtener_fila() << SEGUNDO_DELIMITADOR <<  jugador_dos->obtener_columna() << TERCER_DELIMITADOR << '\n';
+    jugador_dos->cargar_ubicaciones_materiales(archivo);
+    archivo.close();
+
 }

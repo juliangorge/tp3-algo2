@@ -3,6 +3,7 @@
 CasilleroLago::CasilleroLago(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter_casillero = 'L';
     this->caracter = this->caracter_casillero;
+    this->caracter_jugador = this->caracter_casillero;
     this->es_camino = false;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero Lago intransitable";

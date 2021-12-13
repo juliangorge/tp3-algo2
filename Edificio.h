@@ -8,8 +8,8 @@
 
 using namespace std;
 
-class Edificio {
-
+class Edificio
+{
     // Atributos
     private:
         string nombre;
@@ -28,8 +28,6 @@ class Edificio {
         // PRE: Debe haber al menos un edificio en el archivo edificios.txt
 	    // POST: Crea un objeto Edificio, con nombre, materiales requeridos, y maximo posible de construir
         Edificio(string nombre, unsigned int piedra, unsigned int madera, unsigned int metal, unsigned int maximo);      
-
-        ~Edificio();
 
         // PRE:
         // POST: Devuelve el nombre
@@ -85,15 +83,13 @@ class Edificio {
 
         // PRE: Las cantidades deben estar entre 0 50000
         void actualizar_materiales(unsigned int piedra, unsigned int madera, unsigned int metal);
-
 };
+        // PRE: 
+        // POST: Sobrecarga el operador << para la muestra de edificios contenidos en el ABB
+        ostream& operator<<(ostream& salida, Edificio& edificio);
 
         // PRE: 
         // POST: Sobrecarga el operador >> para la muestra de edificios contenidos en el ABB
         ostream& operator>>(ostream& salida, Edificio& edificio);
-
-        // PRE: 
-        // POST: Sobrecarga el operador << para la muestra de edificios contenidos en el ABB
-        ostream& operator<<(ostream& salida, Edificio& edificio);
 
 #endif 

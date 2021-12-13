@@ -5,16 +5,17 @@ Mapa::Mapa()
     this->cantidad_filas = 0;
     this->cantidad_columnas = 0;
     this->matriz_mapa = nullptr;
-    this->materiales_mapa = nullptr;
     this->leer_mapa();
+    this->cantidad_casilleros_camino = 0;
+    this->obtener_casilleros_transitables();
 }
 
-Mapa::~Mapa()
-{
+Mapa::~Mapa(){
     for (unsigned int i = 0; i < this->cantidad_filas; i++){
         for (unsigned int j = 0; j < this->cantidad_columnas; j++){
             delete this->matriz_mapa[i][j];
         }
+
         delete [] this->matriz_mapa[i];
     }
     delete [] this->matriz_mapa;
@@ -26,6 +27,13 @@ Mapa::~Mapa()
 
     delete [] this->materiales_mapa;
     this->materiales_mapa = nullptr;
+
+    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++){
+        this->casilleros_camino[i] = nullptr;
+    }
+    delete [] this->casilleros_camino;
+    this->casilleros_camino = nullptr;
+    this->cantidad_casilleros_camino = 0;
 }
 
 void Mapa::leer_mapa()
@@ -66,26 +74,36 @@ void Mapa::cargar_mapa(unsigned int pos_fila, unsigned int pos_columna, char car
 {
     switch(caracter_casillero)
     {
-        case 'T':
+        case CARACTER_TERRENO:
             this->matriz_mapa[pos_fila][pos_columna] = new CasilleroTerreno(pos_fila, pos_columna);
             break;
 
-        case 'C':
+        case CARACTER_CAMINO:
             this->matriz_mapa[pos_fila][pos_columna] = new CasilleroCamino(pos_fila, pos_columna);
             break;
 
-        case 'L':
+        case CARACTER_LAGO:
             this->matriz_mapa[pos_fila][pos_columna] = new CasilleroLago(pos_fila, pos_columna);
             break;
 
-        case 'M':
+        case CARACTER_MUELLE:
             this->matriz_mapa[pos_fila][pos_columna] = new CasilleroMuelle(pos_fila, pos_columna);
             break;
 
-        case 'B':
+        case CARACTER_BETUN:
             this->matriz_mapa[pos_fila][pos_columna] = new CasilleroBetun(pos_fila, pos_columna);
             break;
     }
+}
+
+unsigned int Mapa::obtener_cantidad_filas()
+{
+    return this->cantidad_filas;
+}
+
+unsigned int Mapa::obtener_cantidad_columnas()
+{
+    return this->cantidad_columnas;
 }
 
 void Mapa::mostrar_mapa_vacio()
@@ -135,69 +153,6 @@ Casillero * Mapa:: obtener_casillero(unsigned int fila, unsigned int columna){
     return this->matriz_mapa[fila][columna];
 }
 
-void Mapa::set_jugador_casillero(Jugador* jugador)
-{
-    int fila = jugador->obtener_fila(), columna = jugador->obtener_columna();
-    this->matriz_mapa[fila][columna]->ocupar_casillero(jugador->obtener_caracter());
-    return;
-}
-
-estados_t Mapa::verificar_condiciones_construccion(char caracter_jugador, unsigned int fila, unsigned int columna)
-{
-    estados_t st = this->matriz_mapa[fila][columna]-> verificar_condiciones_construccion(caracter_jugador);
-    return st;
-}
-
-void Mapa::set_edificio_casillero(char caracter_jugador, unsigned int fila, unsigned int columna, Edificio* edificio)
-{
-    this->matriz_mapa[fila][columna]->cargar_edificio(edificio, caracter_jugador);
-}
-
-estados_t Mapa::set_material_casillero(unsigned int fila, unsigned int columna, Material* material)
-{
-    estados_t st;
-    Casillero *casillero=this->obtener_casillero(fila, columna);
-
-    if(casillero->es_transitable() && casillero->obtener_material()==nullptr)
-    {   
-        if(casillero_sin_material(fila, columna))
-        {
-            this->matriz_mapa[fila][columna]->cargar_material(material);
-            st = ST_OK;
-        }
-        else
-            st = ST_ERROR_CASILLERO_OCUPADO;
-    }
-    else
-        st = ST_ERROR_CASILLLERO_INTRANSITABLE;
-    
-    return st;
-}
-estados_t Mapa::verificar_condiciones_demolicion(char caracter_jugador, unsigned int fila, unsigned int columna)
-{
-    estados_t st = this->matriz_mapa[fila][columna]-> verificar_condiciones_demolicion(caracter_jugador);
-    return st;
-}
-
-void Mapa::demoler_edificio_casillero(unsigned int fila, unsigned int columna){
-    this->matriz_mapa[fila][columna]->limpiar_casillero();
-}
-
-estados_t Mapa::verificar_condiciones_ataque(char caracter_jugador, unsigned int fila, unsigned int columna)
-{
-    estados_t st = this->matriz_mapa[fila][columna]-> verificar_condiciones_ataque(caracter_jugador);
-    return st;
-}
-
-void Mapa::atacar_edificio_casillero(unsigned int fila, unsigned int columna){
-    this->matriz_mapa[fila][columna]->atacar_edificio();
-}
-
-void Mapa::consultar_coordenadas(unsigned int fila, unsigned int columna)
-{
-    this->matriz_mapa[fila][columna]->mostrar_casillero();
-}
-
 void Mapa::cargar_materiales(Jugador* jugador)
 {
     unsigned int cantidad_material;
@@ -214,18 +169,18 @@ void Mapa::cargar_materiales(Jugador* jugador)
 unsigned int Mapa::set_cantidad_material(Material* material)
 {
     unsigned int cantidad_material;
-    switch(material->obtener_nombre()[0]){
-        case 'm':
-            cantidad_material = 50;
+    switch(material->obtener_nombre()[POSICION_PRIMER_LETRA]){
+        case PRIMER_LETRA_MAD_MET:
+            cantidad_material = CANTIDAD_MATERIAL_MAD_MET;
             break;
-        case 'p':
-            cantidad_material = 100;
+        case PRIMER_LETRA_PIEDRA:
+            cantidad_material = CANTIDAD_MATERIAL_PIEDRA;
             break;
-        case 'a':
-            cantidad_material = 250;
+        case PRIMER_LETRA_ANDYCOINS:
+            cantidad_material = CANTIDAD_MATERIAL_ANDYCOINS;
             break;
         default:
-            cantidad_material = 0;
+            cantidad_material = CANTIDAD_MATERIAL_OTRO;
             break;
     }
     return cantidad_material;
@@ -242,74 +197,107 @@ Material* Mapa::obtener_material(string nombre_material)
     return material;
 }
 
-unsigned int Mapa::obtener_cantidad_filas()
-{
-    return this->cantidad_filas;
-}
-
-unsigned int Mapa::obtener_cantidad_columnas()
-{
-    return this->cantidad_columnas;
-}
-
 void Mapa::lluvia_recursos()
 {
-    /*int conjuntos_piedra = aleatorio(MIN_LLUVIA_PIEDRA, MAX_LLUVIA_PIEDRA);
-    int conjuntos_madera = aleatorio(MIN_LLUVIA_MADERA, MAX_LLUVIA_MADERA);
-    int conjuntos_metal = aleatorio(MIN_LLUVIA_METAL, MAX_LLUVIA_METAL);
-    int conjuntos_andycoins = aleatorio(MIN_LLUVIA_ANDYCOINS, MAX_LLUVIA_ANDYCOINS);
-    int i = 0;
-    for(i=0; i<conjuntos_piedra; i++)
-        setear_material_aleatorio(&i, "piedra");
+    srand(time(NULL));
+    string nombre_material = NOMBRE_PIEDRA;
+    unsigned int cota_minima = MIN_LLUVIA_PIEDRA, cota_maxima = MAX_LLUVIA_PIEDRA;
+    this->crear_colocar_conjuntos(nombre_material, cota_minima, cota_maxima);
 
-    for(i=0; i<conjuntos_madera; i++)
-        setear_material_aleatorio(&i, "madera");
+    nombre_material = NOMBRE_MADERA;
+    cota_minima = MIN_LLUVIA_MADERA, cota_maxima = MAX_LLUVIA_MADERA;
+    this->crear_colocar_conjuntos(nombre_material, cota_minima, cota_maxima);
+    
+    nombre_material = NOMBRE_METAL;
+    cota_minima = MIN_LLUVIA_METAL, cota_maxima = MAX_LLUVIA_METAL;
+    this->crear_colocar_conjuntos(nombre_material, cota_minima, cota_maxima);
+    
+    nombre_material = NOMBRE_ANDYCOINS;
+    cota_minima = MIN_LLUVIA_ANDYCOINS, cota_maxima = MAX_LLUVIA_ANDYCOINS;
+    this->crear_colocar_conjuntos(nombre_material, cota_minima, cota_maxima);
 
-    for(i=0; i<conjuntos_metal; i++)
-        setear_material_aleatorio(&i, "metal");
-        
-    for(i=0; i<conjuntos_andycoins; i++)
-        setear_material_aleatorio(&i, "andycoins");
-
-    cout << endl << "Mapa de materiales" << endl;
-    this->mostrar_mapa_materiales();
-    cout << endl << endl;*/
-
-
+    if(!this->cantidad_casilleros_camino)
+        cout << MSJ_ERROR_CASILLEROS_TRANSITABLES_OCUPADOS << endl;
     
 }
 
+void Mapa::crear_colocar_conjuntos(string nombre_material, unsigned int cota_minima, unsigned int cota_maxima)
+{
+    unsigned int conjunto = aleatorio(cota_minima, cota_maxima);
+    for(unsigned int i = 0; i < conjunto && this->cantidad_casilleros_camino; i++)
+        agregar_material_casilleros_camino(nombre_material);
+}
 
-void Mapa::setear_material_aleatorio(int *i, string material)
+void Mapa::agregar_material_casilleros_camino(string nombre_material)
 { 
-    int fila = 0, columna = 0;
-    Material *material_aux;
-
-    fila = aleatorio(0, this->cantidad_filas - 1);
-    columna = aleatorio(0, this->cantidad_columnas - 1);
-    material_aux = obtener_material(material);
-    if (set_material_casillero(fila, columna, material_aux)!=ST_OK)
-        *i--;
+    unsigned int posicion_lista = aleatorio(0, this->cantidad_casilleros_camino);
+    Material* material = obtener_material(nombre_material);
+    unsigned int fila = this->casilleros_camino[posicion_lista]->obtener_fila();
+    unsigned int columna = this->casilleros_camino[posicion_lista]->obtener_columna();
+    this->obtener_casillero(fila, columna)->cargar_material(material);
+    this->borrar_casillero_transitable(this->obtener_casillero(fila, columna));
 }
 
-bool Mapa:: casillero_sin_material(unsigned int fila, unsigned int columna)
+
+void Mapa::obtener_casilleros_transitables()
 {
-    return (matriz_mapa[fila][columna] == nullptr);
-}
-
-void Mapa::mostrar_mapa_materiales()
-{
-    cout << "Filas: " << this->cantidad_filas << endl;
-    cout << "Columnas: " << this->cantidad_columnas << endl;
-
-    for (unsigned int i = 0; i < this->cantidad_filas; i++){
-
-        for (unsigned int j = 0; j < this->cantidad_columnas; j++){
-
-            cout << this->matriz_mapa[i][j]->obtener_material()->obtener_caracter() << " ";
-
+    for(unsigned int fila = 0; fila < this->cantidad_filas; fila++){
+        for(unsigned int columna = 0; columna < this->cantidad_columnas; columna++){
+            if(this->obtener_casillero(fila,columna)->es_transitable() && this->obtener_casillero(fila,columna)->esta_libre())
+                agregar_casillero_transitable(this->obtener_casillero(fila,columna));
         }
+    }
+}
 
-        cout << endl;
+void Mapa::agregar_casillero_transitable(Casillero * casillero){
+    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros_camino + 1];
+    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++){
+        casilleros_aux[i] = this->casilleros_camino[i];
+    }
+
+    casilleros_aux[this->cantidad_casilleros_camino] = casillero;
+
+    if(this->cantidad_casilleros_camino != 0){
+        delete[] this->casilleros_camino;
+    }
+
+    this->casilleros_camino = casilleros_aux;
+    this->cantidad_casilleros_camino++;
+}
+
+void Mapa::borrar_casillero_transitable(Casillero * casillero){
+    unsigned int posicion;
+    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++)
+    {
+        if(this->casilleros_camino[i] == casillero){
+            posicion = i;
+            this->casilleros_camino[i] = nullptr;
+        }
+    }
+    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros_camino - 1];
+    for (unsigned int i = 0; i < posicion; i++){
+        casilleros_aux[i] = this->casilleros_camino[i];
+    }
+    for (unsigned int i = posicion; i < this->cantidad_casilleros_camino -1; i++)
+    {
+        casilleros_aux[i] = this->casilleros_camino[i+1];
+    }
+    if(this->cantidad_casilleros_camino != 0){
+        delete[] this->casilleros_camino;
+    }
+    this->casilleros_camino = casilleros_aux;
+    this->cantidad_casilleros_camino--;
+}
+
+void Mapa::cargar_ubicaciones_materiales(ofstream& archivo)
+{
+    Casillero* casillero_aux;
+    for(unsigned int fila = 0; fila < this->cantidad_filas; fila++){
+        for(unsigned int columna = 0; columna < this->cantidad_columnas; columna++){
+            casillero_aux = this->obtener_casillero(fila, columna);
+            if(casillero_aux->es_transitable() && !casillero_aux->esta_libre() && casillero_aux->no_tiene_jugador())
+                archivo << casillero_aux->obtener_material()->obtener_nombre() << PRIMER_DELIMITADOR << casillero_aux->obtener_fila()
+                        << SEGUNDO_DELIMITADOR << casillero_aux->obtener_columna() << TERCER_DELIMITADOR << '\n';
+        }
     }
 }

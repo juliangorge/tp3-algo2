@@ -7,7 +7,7 @@
 using namespace std;
 
 const string MSJ_ERROR_OPCION_INVALIDA = "La opción elegida no es una opcion válida, por favor ingrese otra opción: ";
-const string MSJ_ERROR_CANTIDAD_INVALIDA = "La cantidad ingresada no es valida, debe ser un valor entre 0 y 50000";
+const string MSJ_ERROR_CANTIDAD_INVALIDA = "La cantidad ingresada no es valida, debe ser un valor comprendido entre los valores mostrados";
 const string MSJ_ERROR_NOMBRE_INVALIDO = "El nombre del edificio ingresado no es valido";
 const string MSJ_ERROR_COORDENADAS_INVALIDAS = "Las coordenadas ingresadas no son validas";
 const string MSJ_ERROR_MAXIMO_SUPERADO = "Se tiene construida la máxima cantidad del edificio seleccionado";
@@ -38,8 +38,7 @@ typedef enum
  	ST_ERROR_COORDENADAS_INVALIDAS,  
  	ST_ERROR_MAXIMO_SUPERADO,  
  	ST_ERROR_CASILLERO_NO_CONSTRUIBLE,  
- 	ST_ERROR_CASILLERO_OCUPADO,
-	ST_ERROR_CASILLLERO_INTRANSITABLE, 
+ 	ST_ERROR_CASILLERO_OCUPADO, 
  	ST_ERROR_MATERIALES_INSUFICIENTES, 
  	ST_ERROR_CASILLERO_VACIO,  
  	ST_ERROR_NO_ES_EDIFICIO_PROPIO, 

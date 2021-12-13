@@ -112,17 +112,14 @@ ABBnodo<T> *ABB<T>::insertar(ABBnodo<T> *nodo, T dato) //recibe la raiz y el dat
     {
         nodo = new ABBnodo<T>(dato);
     }
-
     else if (dato > nodo->get_dato())
     {
         nodo->set_derecha(insertar(nodo->get_derecha(), dato));
     }
-
     else
     {
         nodo->set_izquierda(insertar(nodo->get_izquierda(), dato));
     }
-
     return nodo;
 }
 */
@@ -170,7 +167,7 @@ void ABB<T>::exportar_en_orden(ABBnodo<T> *nodo)
     if(nodo == NULL)
         return;
     else{
-        ofstream file("edificio_tmp.txt");
+        ofstream file("edificio.txt");
         exportar_en_orden(nodo->get_izquierda());
 
         file >>*(nodo->get_dato());

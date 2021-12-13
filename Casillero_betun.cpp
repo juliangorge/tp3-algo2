@@ -3,6 +3,7 @@
 CasilleroBetun::CasilleroBetun(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
     this->caracter_casillero = 'B';
     this->caracter = this->caracter_casillero;
+    this->caracter_jugador = this->caracter_casillero;
     this->es_camino = true;
     this->es_terreno = false;
     this->nombre_casillero = "Casillero Betun transitable";

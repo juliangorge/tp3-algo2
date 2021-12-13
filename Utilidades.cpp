@@ -1,4 +1,4 @@
-#include "utilidades.h"
+#include "Utilidades.h"
 
 
 int aleatorio(int cota_inferior, int cota_superior)

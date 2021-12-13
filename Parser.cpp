@@ -1,36 +1,38 @@
 #include "Parser.h"
 
-Parser::Parser(string argv)
+Parser::Parser(string valor_entrada)
 {
-    this->entrada = argv;
+    this->entrada = valor_entrada;
 }
 
 string Parser::nombre()
 {
-    return extraer_campo(&entrada, " (");
+    string delimitador = PRIMER_DELIMITADOR;
+    return extraer_campo(this->entrada, delimitador);
 }
 
-unsigned int Parser::coordenada_x()
+unsigned int Parser::coordenada_fila()
 {
-    return stoi(extraer_campo(&entrada, ", "));
+    string delimitador = SEGUNDO_DELIMITADOR;
+    return stoi(extraer_campo(this->entrada, delimitador));
 }
 
-unsigned int Parser::coordenada_y()
+unsigned int Parser::coordenada_columna()
 {
-    //return atoi(this->entrada[]);
-    return stoi(extraer_campo(&entrada, ")"));
+    string delimitador = TERCER_DELIMITADOR;
+    return stoi(extraer_campo(this->entrada, delimitador));
 }
 
-string Parser :: extraer_campo(string *entrada , string delimitador)
+string Parser::extraer_campo(string & entrada , string delimitador)
 {
     string campo;
-    size_t pos = 0;
+    unsigned int pos = 0;
 
-    while ((pos = entrada->find(delimitador)) != string::npos)
+    while ((pos = entrada.find(delimitador)) != string::npos)
     {
-        campo = entrada->substr(0, pos);
-        entrada->erase(0, entrada->find(delimitador) + delimitador.length());
+        campo = entrada.substr(0, pos);
+        entrada.erase(0, entrada.find(delimitador) + delimitador.length());
     }
-    
+
     return campo;
 }

@@ -7,24 +7,32 @@ Casillero:: Casillero(unsigned int fila, unsigned int columna){
     this->columna = columna;
 }
 
-Casillero:: ~Casillero(){
-
-    //delete this->edificio;
-    //delete this->material;
+Casillero::~Casillero(){
     this->edificio = nullptr;
     this->material = nullptr;
 }
+    
 
-unsigned int Casillero:: obtener_fila(){
+unsigned int Casillero::obtener_fila(){
     return this->fila;
 }
-unsigned int Casillero:: obtener_columna(){
+unsigned int Casillero::obtener_columna(){
     return this->columna;
 }
 
 bool Casillero::esta_libre()
 {
     return this->caracter == this->caracter_casillero;
+}
+
+bool Casillero::no_tiene_jugador()
+{
+    return this->caracter_jugador != CARACTER_JUGADOR_UNO || this->caracter_jugador != CARACTER_JUGADOR_DOS;
+}
+
+bool Casillero::es_transitable()
+{
+    return this->es_camino;
 }
 
 Edificio* Casillero:: obtener_edificio(){
@@ -87,9 +95,9 @@ unsigned int Casillero::obtener_costo_energia(char jugador){
 }
 
 void Casillero::mostrar_edificio(){
-    cout << this->edificio->obtener_nombre() << endl;
+    cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
-    cout << "Necesita reparación?: (" << (this->edificio->obtener_fue_atacado() ? "Sí" : "No") << ")" << endl;
+    cout << "Necesita reparación?: (" << (this->obtener_edificio()->obtener_fue_atacado() ? "Sí" : "No") << ")" << endl;
 }
 
 void Casillero::ocupar_casillero(char caracter)
@@ -121,19 +129,4 @@ estados_t Casillero::verificar_condiciones_ataque(char caracter_jugador)
     if(this->caracter_jugador == caracter_jugador) return ST_ERROR_ES_EDIFICIO_PROPIO;
     if(this->caracter == this->caracter_jugador) return ST_ERROR_CASILLERO_ES_JUGADOR;
     return ST_OK;
-}
-
-bool Casillero:: es_transitable()
-{
-    if(this->obtener_caracter()=='C' || this->obtener_caracter()=='B' || this->obtener_caracter()=='M')
-        return true;
-
-    else
-        return false;  
-}
-
-ostream& operator<<(ostream& salida, Casillero& casillero)
-{
-    salida << casillero.obtener_edificio()->obtener_nombre() << " (" << casillero.obtener_fila() << ", " << casillero.obtener_columna() << ")";
-    return salida;
 }
