@@ -92,10 +92,10 @@ void guardar_ubicaciones(Mapa* & mapa, Jugador* jugador_uno, Jugador* jugador_do
 	ofstream archivo;
     archivo.open(ARCHIVO_UBICACIONES.c_str());
     mapa->cargar_ubicaciones_materiales(archivo);
-    archivo << NUMERO_JUGADOR_UNO << PRIMER_DELIMITADOR << jugador_uno->obtener_fila() << SEGUNDO_DELIMITADOR <<  jugador_uno->obtener_columna() << TERCER_DELIMITADOR << '\n';
+    archivo << NUMERO_JUGADOR_UNO << PRIMER_DELIMITADOR << jugador_uno->obtener_fila() << SEGUNDO_DELIMITADOR << jugador_uno->obtener_columna() << TERCER_DELIMITADOR;
     jugador_uno->cargar_ubicaciones_materiales(archivo);
     archivo << '\n';
-    archivo << NUMERO_JUGADOR_DOS << PRIMER_DELIMITADOR << jugador_dos->obtener_fila() << SEGUNDO_DELIMITADOR <<  jugador_dos->obtener_columna() << TERCER_DELIMITADOR << '\n';
+    archivo << NUMERO_JUGADOR_DOS << PRIMER_DELIMITADOR << jugador_dos->obtener_fila() << SEGUNDO_DELIMITADOR << jugador_dos->obtener_columna() << TERCER_DELIMITADOR;
     jugador_dos->cargar_ubicaciones_materiales(archivo);
     archivo.close();
 
