@@ -97,7 +97,7 @@ unsigned int Casillero::obtener_costo_energia(char jugador){
 void Casillero::mostrar_edificio(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << MSJ_COORDENADAS << PRIMER_DELIMITADOR << this->fila << SEGUNDO_DELIMITADOR << this->columna << TERCER_DELIMITADOR << endl;
-    cout << MSJ_NECESITA_REPARACION << PRIMER_DELIMITADOR << (this->obtener_edificio()->obtener_fue_atacado() ? MSJ_CONFIRMA_REPARACION : MSJ_NIEGA_REPARACION) << TERCER_DELIMITADOR << endl;
+    cout << MSJ_NECESITA_REPARACION << PRIMER_DELIMITADOR << (this->obtener_edificio()->obtener_fue_atacado() ? MSJ_CONFIRMA_REPARACION : MSJ_NIEGA_REPARACION) << TERCER_DELIMITADOR << endl << endl;
 }
 
 void Casillero::ocupar_casillero(char caracter)
