@@ -54,6 +54,18 @@ class Mapa
         // POST:Devuelve la cantidad de columnas que posee el mapa
         unsigned int obtener_cantidad_columnas();
 
+        // PRE: El Mapa debe estar bien cargado
+        // POST: Recorre el mapa buscando casilleros transitables libres y los referencia en vector Casillero** casilleros_camino
+        void obtener_casilleros_transitables();
+
+        // PRE: 
+        // POST: Cuando encuentra un casillero transitable libre lo agrega al vector Casillero** casilleros_camino
+        void agregar_casillero_transitable(Casillero * casillero);
+
+        // PRE: 
+        // POST: Cuando un casillero transitable libre se le agrega un material, se sustrae del vector Casillero** casilleros_camino
+        void borrar_casillero_transitable(Casillero * casillero);
+
         // PRE: El mapa debe estar cargado correctamente
         // POST: Muestra el mapa vacío, es decir, sin que se le hayan cargado los jugadores, materiales y edificios.
         void mostrar_mapa_vacio();
@@ -78,20 +90,21 @@ class Mapa
         // POST: Se devuelve el Material de la lista que contiene el nombre ingresado por parámetro
         Material* obtener_material(string nombre_material);
 
+        // PRE: La lista de casilleros transitables libres  del Mapa debe estar cargada
+        // POST: Se crean conjuntos aleatorios de materiales especificos que se van colocando en el mapa a partir del vector Casillero** casilleros_camino
         void lluvia_recursos();
 
+        // PRE: La lista de casilleros transitables libres  del Mapa debe estar cargada
+        // POST: Crea un conjunto de cantidad aleatoria entre sus cotas de un material es especifico
         void crear_colocar_conjuntos(string nombre_material, unsigned int cota_minima, unsigned int cota_maxima);
 
+        // PRE: La lista de casilleros transitables libres  del Mapa debe estar cargada
+        // POST: Agrega de forma aleatoria en el mapa los conjuntos de materiales a partir del vector Casillero** casilleros_camino
         void agregar_material_casilleros_camino(string material);
-
-        void obtener_casilleros_transitables();
-
-        void agregar_casillero_transitable(Casillero * casillero);
-
-        void borrar_casillero_transitable(Casillero * casillero);
-
+        
+        // PRE: El archivo ubicaciones.txt debe estar abierto
+        // POST: Recorre el mapa buscando casilleros transitables con materiales y los agrega al archivo ubicaciones.txt
         void cargar_ubicaciones_materiales(ofstream& archivo);
-
 
 };
 

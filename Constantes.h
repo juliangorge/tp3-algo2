@@ -65,6 +65,14 @@ const string NOMBRE_ESCUELA = "escuela";
 const string NOMBRE_OBELISCO = "obelisco";
 const string NOMBRE_PLANTA_ELEC = "planta electrica";
 
+// Nombres de los casilleros
+
+const string NOMBRE_BETUN = "Casillero Betun transitable";
+const string NOMBRE_CAMINO = "Casillero Camino transitable";
+const string NOMBRE_LAGO = "Casillero Lago intransitable";
+const string NOMBRE_MUELLE = "Casillero Muelle transitable";
+const string NOMBRE_TERRENO = "Casillero Terreno construible";
+
 // Letras de primer nombre
 const unsigned int POSICION_PRIMER_LETRA = 0;
 
@@ -119,6 +127,28 @@ const unsigned int ENERGIA_RECOLECTAR_RECURSOS = 20;
 const unsigned int ENERGIA_INICIAL = 50;
 const unsigned int ENERGIA_MAXIMA = 100;
 const unsigned int ENERGIA_RECUPERADA_POR_TURNO = 20;
+
+// Costos de cada casillero dependiendo del jugador
+
+// Casillero Betun
+const unsigned int ENERGIA_BETUN_JUG_UNO = 0;
+const unsigned int ENERGIA_BETUN_JUG_DOS = 0;
+
+// Casillero Camino
+const unsigned int ENERGIA_CAMINO_JUG_UNO = 4;
+const unsigned int ENERGIA_CAMINO_JUG_DOS = 4;
+
+// Casillero Lago
+const unsigned int ENERGIA_LAGO_JUG_UNO = 2;
+const unsigned int ENERGIA_LAGO_JUG_DOS = 5;
+
+// Casillero terreno
+const unsigned int ENERGIA_MUELLE_JUG_UNO = 5;
+const unsigned int ENERGIA_MUELLE_JUG_DOS = 2;
+
+// Casillero Terreno
+const unsigned int ENERGIA_TERRENO_JUG_UNO = 25;
+const unsigned int ENERGIA_TERRENO_JUG_DOS = 25;
 
 // Opciones de menu
 
@@ -242,5 +272,45 @@ const string MSJ_MATERIALES_DISPONIBLES = "Materiales disponibles en el inventar
 const string MSJ_MOSTRAR_INVENTARIO = "Inventario del jugador: ";
 const string MSJ_EDIFICIOS_CONSTRUIDOS_JUGADOR = "Edificios construidos por el jugador: ";
 const string MSJ_ERROR_CASILLEROS_TRANSITABLES_OCUPADOS = "No se puede realizar mas lluvia de recursos porque no se disponen de casilleros transitables libres";
+
+// Mensajes que muestra consultar coordenadas
+
+const string MSJ_CASILLERO_UNO = "Soy un ";
+const string MSJ_CASILLERO_VACIO = "me encuentro vacío";
+const string MSJ_CASILLERO_Y = " y ";
+const string MSJ_CASILLERO_CONTIENE_JUG_UNO = "contengo al jugador 1";
+const string MSJ_CASILLERO_CONTIENE_JUG_DOS = "contengo al jugador 2";
+const string MSJ_CASILLERO_CONTIENE_MATERIAL = "contengo al material ";
+const string MSJ_CASILLERO_CONTIENE_EDIFICIO = "contengo al edificio ";
+const string MSJ_CASILLERO_CONTIENE_EDIFICIO_JUG_UNO = " del jugador 1";
+const string MSJ_CASILLERO_CONTIENE_EDIFICIO_JUG_DOS = " del jugador 2";
+
+// Mensajes que muestra el mostrado de edificios
+
+const string MSJ_COORDENADAS = "Coordenadas:";
+const string MSJ_NECESITA_REPARACION = "¿Necesita reparación?:";
+const string MSJ_CONFIRMA_REPARACION = "Sí";
+const string MSJ_NIEGA_REPARACION = "No";
+
+// Mensajes que muestra el mapa
+
+const string MSJ_FILAS_MAPA = "Filas: ";
+const string MSJ_COLUMNAS_MAPA = "Columnas: ";
+const string MSJ_ENCABEZADOS_MAPAS = "         Mapa vacío  \t  \t  \t      Mapa de la partida";
+const string MSJ_SEPARACION_ENTRE_MAPAS = "\t  \t";
+
+// Mensaje que se muestra si no se puedo abrir el archivo
+const string MSJ_ERROR_LECTURA_ARCHIVO = "No se pudo leer el archivo: ";
+
+
+
+
+
+
+
+
+
+
+
 
 #endif //CONSTANTES_H

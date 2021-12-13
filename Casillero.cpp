@@ -86,9 +86,9 @@ void Casillero::atacar_edificio(){
 unsigned int Casillero::obtener_costo_energia(char jugador){
 
     unsigned int costo = 0;
-    if(jugador == 'J')
+    if(jugador == CARACTER_JUGADOR_UNO)
         costo = this->costo_energia_J;
-    else if(jugador == 'U')
+    else if(jugador == CARACTER_JUGADOR_DOS)
         costo = this->costo_energia_U;
     
     return costo;
@@ -96,8 +96,8 @@ unsigned int Casillero::obtener_costo_energia(char jugador){
 
 void Casillero::mostrar_edificio(){
     cout << this->obtener_edificio()->obtener_nombre() << endl;
-    cout << "Coordenadas: (" << this->fila << ", " << this->columna << ") " << endl;
-    cout << "Necesita reparación?: (" << (this->obtener_edificio()->obtener_fue_atacado() ? "Sí" : "No") << ")" << endl;
+    cout << MSJ_COORDENADAS << PRIMER_DELIMITADOR << this->fila << SEGUNDO_DELIMITADOR << this->columna << TERCER_DELIMITADOR << endl;
+    cout << MSJ_NECESITA_REPARACION << PRIMER_DELIMITADOR << (this->obtener_edificio()->obtener_fue_atacado() ? MSJ_CONFIRMA_REPARACION : MSJ_NIEGA_REPARACION) << TERCER_DELIMITADOR << endl;
 }
 
 void Casillero::ocupar_casillero(char caracter)

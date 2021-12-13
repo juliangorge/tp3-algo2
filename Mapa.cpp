@@ -44,7 +44,7 @@ void Mapa::leer_mapa()
 
     if(!archivo)
     {
-        cout << "No se pudo leer el archivo: " << ARCHIVO_MAPA << endl;
+        cout << MSJ_ERROR_LECTURA_ARCHIVO << ARCHIVO_MAPA << endl;
         exit(1);
     }
 
@@ -106,10 +106,60 @@ unsigned int Mapa::obtener_cantidad_columnas()
     return this->cantidad_columnas;
 }
 
+void Mapa::obtener_casilleros_transitables()
+{
+    for(unsigned int fila = 0; fila < this->cantidad_filas; fila++){
+        for(unsigned int columna = 0; columna < this->cantidad_columnas; columna++){
+            if(this->obtener_casillero(fila,columna)->es_transitable() && this->obtener_casillero(fila,columna)->esta_libre())
+                agregar_casillero_transitable(this->obtener_casillero(fila,columna));
+        }
+    }
+}
+
+void Mapa::agregar_casillero_transitable(Casillero * casillero){
+    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros_camino + 1];
+    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++){
+        casilleros_aux[i] = this->casilleros_camino[i];
+    }
+
+    casilleros_aux[this->cantidad_casilleros_camino] = casillero;
+
+    if(this->cantidad_casilleros_camino != 0){
+        delete[] this->casilleros_camino;
+    }
+
+    this->casilleros_camino = casilleros_aux;
+    this->cantidad_casilleros_camino++;
+}
+
+void Mapa::borrar_casillero_transitable(Casillero * casillero){
+    unsigned int posicion;
+    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++)
+    {
+        if(this->casilleros_camino[i] == casillero){
+            posicion = i;
+            this->casilleros_camino[i] = nullptr;
+        }
+    }
+    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros_camino - 1];
+    for (unsigned int i = 0; i < posicion; i++){
+        casilleros_aux[i] = this->casilleros_camino[i];
+    }
+    for (unsigned int i = posicion; i < this->cantidad_casilleros_camino -1; i++)
+    {
+        casilleros_aux[i] = this->casilleros_camino[i+1];
+    }
+    if(this->cantidad_casilleros_camino != 0){
+        delete[] this->casilleros_camino;
+    }
+    this->casilleros_camino = casilleros_aux;
+    this->cantidad_casilleros_camino--;
+}
+
 void Mapa::mostrar_mapa_vacio()
 {
-    cout << "Filas: " << this->cantidad_filas << endl;
-    cout << "Columnas: " << this->cantidad_columnas << endl;
+    cout << MSJ_FILAS_MAPA << this->cantidad_filas << endl;
+    cout << MSJ_COLUMNAS_MAPA << this->cantidad_columnas << endl;
 
     for (unsigned int i = 0; i < this->cantidad_filas; i++){
 
@@ -126,23 +176,19 @@ void Mapa::mostrar_mapa_vacio()
 void Mapa::mostrar_mapas()
 {
     cout << endl;
-    cout << "         Mapa vacío" << '\t' << '\t' << '\t' << "      Mapa de la partida";
+    cout << MSJ_ENCABEZADOS_MAPAS;
     cout << endl;
 
     for (unsigned int i = 0; i < this->cantidad_filas; i++){
 
         for (unsigned int j = 0; j < this->cantidad_columnas; j++){
-
             cout << this->matriz_mapa[i][j]->obtener_caracter_casillero() << " "; 
-
         }
 
-        cout << '\t' << '\t';
-
+        cout << MSJ_SEPARACION_ENTRE_MAPAS;
+        
         for (unsigned int j = 0; j < this->cantidad_columnas; j++){
-
             cout << this->matriz_mapa[i][j]->obtener_caracter() << " ";
-
         }
 
         cout << endl;
@@ -236,57 +282,6 @@ void Mapa::agregar_material_casilleros_camino(string nombre_material)
     unsigned int columna = this->casilleros_camino[posicion_lista]->obtener_columna();
     this->obtener_casillero(fila, columna)->cargar_material(material);
     this->borrar_casillero_transitable(this->obtener_casillero(fila, columna));
-}
-
-
-void Mapa::obtener_casilleros_transitables()
-{
-    for(unsigned int fila = 0; fila < this->cantidad_filas; fila++){
-        for(unsigned int columna = 0; columna < this->cantidad_columnas; columna++){
-            if(this->obtener_casillero(fila,columna)->es_transitable() && this->obtener_casillero(fila,columna)->esta_libre())
-                agregar_casillero_transitable(this->obtener_casillero(fila,columna));
-        }
-    }
-}
-
-void Mapa::agregar_casillero_transitable(Casillero * casillero){
-    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros_camino + 1];
-    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++){
-        casilleros_aux[i] = this->casilleros_camino[i];
-    }
-
-    casilleros_aux[this->cantidad_casilleros_camino] = casillero;
-
-    if(this->cantidad_casilleros_camino != 0){
-        delete[] this->casilleros_camino;
-    }
-
-    this->casilleros_camino = casilleros_aux;
-    this->cantidad_casilleros_camino++;
-}
-
-void Mapa::borrar_casillero_transitable(Casillero * casillero){
-    unsigned int posicion;
-    for (unsigned int i = 0; i < this->cantidad_casilleros_camino; i++)
-    {
-        if(this->casilleros_camino[i] == casillero){
-            posicion = i;
-            this->casilleros_camino[i] = nullptr;
-        }
-    }
-    Casillero** casilleros_aux = new Casillero*[this->cantidad_casilleros_camino - 1];
-    for (unsigned int i = 0; i < posicion; i++){
-        casilleros_aux[i] = this->casilleros_camino[i];
-    }
-    for (unsigned int i = posicion; i < this->cantidad_casilleros_camino -1; i++)
-    {
-        casilleros_aux[i] = this->casilleros_camino[i+1];
-    }
-    if(this->cantidad_casilleros_camino != 0){
-        delete[] this->casilleros_camino;
-    }
-    this->casilleros_camino = casilleros_aux;
-    this->cantidad_casilleros_camino--;
 }
 
 void Mapa::cargar_ubicaciones_materiales(ofstream& archivo)
