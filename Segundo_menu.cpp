@@ -227,9 +227,9 @@ bool existe_archivo_ubicaciones()
 }
 
 void guardar_edificios(ABB<Edificio *>& arbol){
-    /*ofstream archivo(ARCHIVO_EDIFICIOS);
+    ofstream archivo("edificio.txt");
     arbol.exportar_en_orden(archivo);
-    archivo.close();*/
+    archivo.close();
 }
 
     

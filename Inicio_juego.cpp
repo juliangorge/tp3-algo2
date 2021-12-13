@@ -55,6 +55,7 @@ void iniciar_juego()
 	}
 	guardar_materiales(jugador_uno, jugador_dos);
 	guardar_ubicaciones(mapa, jugador_uno, jugador_dos);
+	guardar_edificios(arbol);
 	delete jugador_uno;
 	delete jugador_dos;
 	delete mapa;
