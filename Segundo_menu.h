@@ -33,6 +33,8 @@ void restar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor
 
 void agregar_materiales(Jugador* jugador, Edificio* edificio);
 
+void guardar_edificios(ABB<Edificio *>& arbol);
+
 void mostrar_objetivos(Jugador* jugador, ABB<Edificio *>& arbol);
 
 estados_t consultar_coordenadas(Mapa*& mapa);

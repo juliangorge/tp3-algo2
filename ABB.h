@@ -5,6 +5,7 @@
 #include "ABB_nodo.h"
 
 #include <string>
+#include <fstream>
 
 using namespace std;
 template <class T>
@@ -23,6 +24,8 @@ private:
 
     // POST: Imprime la rama izquierda al nodo, luego el nodo y rama derecha.    
     void imprimir_en_orden(ABBnodo<T> *nodo);
+
+    void exportar_en_orden(ABBnodo<T> *nodo);
 
     //ABBnodo<T> *buscar(ABBnodo<T> *nodo, T dato);
 
@@ -50,6 +53,8 @@ public:
 
     bool vacio();
     void imprimir_en_orden();
+
+    void exportar_en_orden();
 
     // PRE: Clave válida
     // POST: Busca un valor dado en el ABB. Si existe devuelve TRUE, sino FALSE.
@@ -144,8 +149,6 @@ bool ABB<T>::vacio()
     return this->raiz == NULL;
 }
 
-
-
 template <class T>
 void ABB<T>::imprimir_en_orden(ABBnodo<T> *nodo)
 {
@@ -162,9 +165,33 @@ void ABB<T>::imprimir_en_orden(ABBnodo<T> *nodo)
 }
 
 template <class T>
+void ABB<T>::exportar_en_orden(ABBnodo<T> *nodo)
+{
+    if(nodo == NULL)
+        return;
+    else{
+        ofstream file("edificio_tmp.txt");
+        exportar_en_orden(nodo->get_izquierda());
+
+        file >>*(nodo->get_dato());
+        file << '\n';
+
+        exportar_en_orden(nodo->get_derecha()); 
+
+        file.close();
+    }
+}
+
+template <class T>
 void ABB<T>::imprimir_en_orden()
 {
     return imprimir_en_orden(this->raiz);
+}
+
+template <class T>
+void ABB<T>::exportar_en_orden()
+{
+    return exportar_en_orden(this->raiz);
 }
 
 template <class T>

@@ -85,7 +85,13 @@ class Edificio {
 
         // PRE: Las cantidades deben estar entre 0 50000
         void actualizar_materiales(unsigned int piedra, unsigned int madera, unsigned int metal);
+
 };
+
+        // PRE: 
+        // POST: Sobrecarga el operador >> para la muestra de edificios contenidos en el ABB
+        ostream& operator>>(ostream& salida, Edificio& edificio);
+
         // PRE: 
         // POST: Sobrecarga el operador << para la muestra de edificios contenidos en el ABB
         ostream& operator<<(ostream& salida, Edificio& edificio);
