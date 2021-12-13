@@ -34,8 +34,9 @@ class Casillero
 	    // POST: Crea un objeto Casillero, guardando sus coordenadas del mapa
         Casillero(unsigned int fila, unsigned int columna);
 
+        // PRE: 
+        // POST: Coloca los punteros de edificio y material a nulo
         ~Casillero();
-
         // PRE: 
 	    // POST: Devuelve la posicion fila del Casillero en el mapa
         unsigned int obtener_fila();
@@ -47,6 +48,14 @@ class Casillero
         // PRE:
         // POST: Retorna si el casillero está libre de construcciones/materiales/jugador
         bool esta_libre();
+
+        // PRE:
+        // POST: Retorna si el casillero posee a algun jugador
+        bool no_tiene_jugador();
+
+        // PRE:
+        // POST: Retorna si el casillero es un casillero transitable
+        bool es_transitable();
 
         // PRE: El casillero debe ser de tipo Terreno
         // POST: Retorna el objeto Edificio
@@ -115,11 +124,6 @@ class Casillero
         // PRE: 
         // POST: Devuelve OK si se cumplen las condiciones para que se pueda atacar, caso contrario devuelve un valor que se usa para indicar que no se cumplió
         estados_t verificar_condiciones_ataque(char caracter_jugador);
-
-        // PRE: 
-        // POST: Devuelve true si es un betun, camino o muelle.
-        bool es_transitable();
-
 };
 
 #endif // CASILLERO_H

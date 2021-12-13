@@ -11,9 +11,6 @@ Edificio::Edificio(string nombre, unsigned int piedra, unsigned int madera, unsi
     this->establecer_parametros();
 }
 
-Edificio:: ~Edificio(){
-}
-
 string Edificio::obtener_nombre(){
     return this->nombre;
 }
@@ -131,12 +128,6 @@ void Edificio:: actualizar_materiales(unsigned int piedra, unsigned int madera, 
     this->metal = metal;
 }
 
-ostream& operator>>(ostream& salida, Edificio& edificio)
-{
-    salida << edificio.obtener_nombre() << " " << edificio.obtener_piedra() << " " << edificio.obtener_madera() << " " << edificio.obtener_metal() << " " << edificio.obtener_maximo();
-    return salida;
-}
-
 ostream& operator<<(ostream& salida, Edificio& edificio)
 {
     salida << endl << "Edificio: " << edificio.obtener_nombre() << endl;
@@ -148,5 +139,11 @@ ostream& operator<<(ostream& salida, Edificio& edificio)
     salida << "Brinda materiales: " << (edificio.obtener_provee_materiales() ? "Sí" : "No") << endl;
     salida << endl;
 
+    return salida;
+}
+
+ostream& operator>>(ostream& salida, Edificio& edificio)
+{
+    salida << edificio.obtener_nombre() << " " << edificio.obtener_piedra() << " " << edificio.obtener_madera() << " " << edificio.obtener_metal() << " " << edificio.obtener_maximo();
     return salida;
 }

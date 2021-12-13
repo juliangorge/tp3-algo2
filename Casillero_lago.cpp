@@ -1,13 +1,15 @@
 #include "Casillero_lago.h"
 
 CasilleroLago::CasilleroLago(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
-    this->caracter_casillero = 'L';
+    this->caracter_casillero = CARACTER_LAGO;
     this->caracter = this->caracter_casillero;
+    this->caracter_jugador = this->caracter_casillero;
     this->es_camino = false;
     this->es_terreno = false;
-    this->nombre_casillero = "Casillero Lago intransitable";
-    this->costo_energia_U = 5; 
-	this->costo_energia_J = 2;
+    this->nombre_casillero = NOMBRE_LAGO;
+    this->costo_energia_J = ENERGIA_LAGO_JUG_UNO;
+    this->costo_energia_U = ENERGIA_LAGO_JUG_DOS; 
+	
 }
 
 void CasilleroLago::cambiar_caracter(){
@@ -16,16 +18,16 @@ void CasilleroLago::cambiar_caracter(){
 
 void CasilleroLago::mostrar_casillero()
 {
-	cout << "Soy un " << this->nombre_casillero << " y ";
+	cout << MSJ_CASILLERO_UNO << this->nombre_casillero << MSJ_CASILLERO_Y;
 	if(esta_libre())
-		cout << "me encuentro vacío" << endl;
+		cout << MSJ_CASILLERO_VACIO << endl;
 	else{
 		switch(this->caracter){
-			case 'J':
-				cout << "contengo al jugador 1" << endl;
+			case CARACTER_JUGADOR_UNO:
+				cout << MSJ_CASILLERO_CONTIENE_JUG_UNO << endl;
 				break;
-			case 'U':
-				cout << "contengo al jugador 2" << endl;
+			case CARACTER_JUGADOR_DOS:
+				cout << MSJ_CASILLERO_CONTIENE_JUG_DOS << endl;
 				break;
 		}
 	}

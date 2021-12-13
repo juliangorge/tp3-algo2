@@ -37,7 +37,6 @@ public:
 
     
     /*unsigned int obtener_x();
-
     unsigned int obtener_y();*/
 
     ~Lista();

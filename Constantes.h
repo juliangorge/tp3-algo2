@@ -26,7 +26,7 @@ const char CARACTER_TERRENO = 'T';
 const char CARACTER_MADERA = 'W';
 const char CARACTER_PIEDRA = 'S';
 const char CARACTER_METAL = 'I';
-const char CARACTER_ANDYCOINS = 'C';
+const char CARACTER_ANDYCOINS = 'Q';
 const char CARACTER_MATERIAL_OTRO = '#';
 
 // Caracteres de edificios
@@ -65,6 +65,14 @@ const string NOMBRE_ESCUELA = "escuela";
 const string NOMBRE_OBELISCO = "obelisco";
 const string NOMBRE_PLANTA_ELEC = "planta electrica";
 
+// Nombres de los casilleros
+
+const string NOMBRE_BETUN = "Casillero Betun transitable";
+const string NOMBRE_CAMINO = "Casillero Camino transitable";
+const string NOMBRE_LAGO = "Casillero Lago intransitable";
+const string NOMBRE_MUELLE = "Casillero Muelle transitable";
+const string NOMBRE_TERRENO = "Casillero Terreno construible";
+
 // Letras de primer nombre
 const unsigned int POSICION_PRIMER_LETRA = 0;
 
@@ -81,6 +89,16 @@ const char PRIMER_LETRA_ESCUELA = 'e';
 const char PRIMER_LETRA_OBELISCO = 'o';
 const char PRIMER_LETRA_PLANTA_ELEC = 'p';
 
+// Delimitadores del archivo ubicaciones.txt
+const string PRIMER_DELIMITADOR = " (";
+const string SEGUNDO_DELIMITADOR = ", ";
+const string TERCER_DELIMITADOR = ")";
+
+// Factores de resta de materiales por construiccion y reparacion
+const unsigned int FACTOR_CONSTRUCCION = 1;
+const unsigned int FACTOR_REPARACION = 4;
+const unsigned int FACTOR_DEMOLICION = 2;
+
 // Cantidad de materiales proveido por edificios
 const unsigned int MATERIAL_PROVEIDO_MINA = 15;
 const unsigned int MATERIAL_PROVEIDO_PLANTA_ELEC = 15;
@@ -88,6 +106,12 @@ const unsigned int MATERIAL_PROVEIDO_ASERRADERO = 25;
 const unsigned int MATERIAL_PROVEIDO_ESCUELA = 25;
 const unsigned int MATERIAL_PROVEIDO_FABRICA = 40;
 const unsigned int MATERIAL_PROVEIDO_MINA_ORO = 50;
+
+// Materiales que proveen los materiales en el mapa
+const unsigned int CANTIDAD_MATERIAL_MAD_MET = 50;
+const unsigned int CANTIDAD_MATERIAL_PIEDRA = 100;
+const unsigned int CANTIDAD_MATERIAL_ANDYCOINS = 250;
+const unsigned int CANTIDAD_MATERIAL_OTRO = 0;
 
 // Energia
 
@@ -103,6 +127,28 @@ const unsigned int ENERGIA_RECOLECTAR_RECURSOS = 20;
 const unsigned int ENERGIA_INICIAL = 50;
 const unsigned int ENERGIA_MAXIMA = 100;
 const unsigned int ENERGIA_RECUPERADA_POR_TURNO = 20;
+
+// Costos de cada casillero dependiendo del jugador
+
+// Casillero Betun
+const unsigned int ENERGIA_BETUN_JUG_UNO = 0;
+const unsigned int ENERGIA_BETUN_JUG_DOS = 0;
+
+// Casillero Camino
+const unsigned int ENERGIA_CAMINO_JUG_UNO = 4;
+const unsigned int ENERGIA_CAMINO_JUG_DOS = 4;
+
+// Casillero Lago
+const unsigned int ENERGIA_LAGO_JUG_UNO = 2;
+const unsigned int ENERGIA_LAGO_JUG_DOS = 5;
+
+// Casillero terreno
+const unsigned int ENERGIA_MUELLE_JUG_UNO = 5;
+const unsigned int ENERGIA_MUELLE_JUG_DOS = 2;
+
+// Casillero Terreno
+const unsigned int ENERGIA_TERRENO_JUG_UNO = 25;
+const unsigned int ENERGIA_TERRENO_JUG_DOS = 25;
 
 // Opciones de menu
 
@@ -136,6 +182,24 @@ const int OPCION_JUGADOR_DOS = 2;
 const unsigned int ANDYCOINS_INICIALES = 0;
 const unsigned int PRECIO_BOMBA = 100;
 
+// Cantidades minimas y maximas para la lluvia de materiales
+
+// Piedra
+const unsigned int MIN_LLUVIA_PIEDRA = 1;
+const unsigned int MAX_LLUVIA_PIEDRA = 2;
+
+// Madera
+const unsigned int MIN_LLUVIA_MADERA = 0;
+const unsigned int MAX_LLUVIA_MADERA = 3;
+
+// Metal
+const unsigned int MIN_LLUVIA_METAL = 2;
+const unsigned int MAX_LLUVIA_METAL = 4;
+
+// Andycoins
+const unsigned int MIN_LLUVIA_ANDYCOINS = 0;
+const unsigned int MAX_LLUVIA_ANDYCOINS = 3;
+
 // Objetivos
 const unsigned int CANTIDAD_OBJETIVOS = 3;
 
@@ -159,24 +223,94 @@ const int CANTIDAD_CANSADO_OBJETIVO = 0;
 const int CANTIDAD_ARMADO_OBJETIVO = 10;
 const int CANTIDAD_EXTREMISTA_OBJETIVO = 500;
 
+// Cotas de valores para los numeros ingresados por consola
 
+// Cotas de cantidades para las bombas a comprar
+const unsigned int CANTIDAD_MINIMA_BOMBAS = 1;
+const unsigned int CANTIDAD_MAXIMA_BOMBAS = 1000;
 
-
-const int PRIMER_CARACTER = 0;
-const int SEGUNDO_CARACTER = 1;
-const int TERCER_CARACTER = 2;
-
+// Cotas de cantidades requeridas de material para el edificio
 const unsigned int CANTIDAD_MINIMA_MATERIAL = 0;
 const unsigned int CANTIDAD_MAXIMA_MATERIAL = 50000;
 
-const unsigned int NUMERO_OPCION_PRIMER_MENU_MINIMA = 1;
-const unsigned int NUMERO_OPCION_PRIMER_MENU_MAXIMA = 5;
+// Cotas de opciones a elegir del primer menu
+const unsigned int OPCION_PRIMER_MENU_MINIMA = 1;
+const unsigned int OPCION_PRIMER_MENU_MAXIMA = 5;
 
-const unsigned int NUMERO_OPCION_SEGUNDO_MENU_MINIMA = 1;
-const unsigned int NUMERO_OPCION_SEGUNDO_MENU_MAXIMA = 13;
+// Cotas de opciones a elegir del segundo menu
+const unsigned int OPCION_SEGUNDO_MENU_MINIMA = 1;
+const unsigned int OPCION_SEGUNDO_MENU_MAXIMA = 13;
 
-const unsigned int CANTIDAD_MINIMA_BOMBAS = 1;
-const unsigned int CANTIDAD_MAXIMA_BOMBAS = 1000;
+// Numero de jugador posible de seleccionar
+const unsigned int ELEMENTO_NO_JUGADOR = 0;
+const unsigned int NUMERO_JUGADOR_UNO = 1;
+const unsigned int NUMERO_JUGADOR_DOS = 2;
+
+// Mensajes del programa
+
+const string MSJ_CONFIRMACION = "Escribe `Y` para confirmar: ";
+const string MSJ_INGRESAR_EDIFICIO = "Escribe el nombre del edificio: ";
+const string MSJ_ELEGIR_OPCION = "Ingrese la opcion deseada: ";
+const string MSJ_ACTUALIZACION_EDIFICIOS = "Materiales requeridos del edificio actualizados";
+const string MSJ_CANTIDAD_BOMBAS = "Ingrese la cantidad de bombas a comprar [0,1000]: ";
+const string MSJ_CANTIDAD_MATERIAL_REQ = "Ingrese la cantidad de material requerido [0,50000]: ";
+const string MSJ_INGRESAR_FILA = "Ingrese el número de Fila: ";
+const string MSJ_INGRESAR_COLUMNA = "Ingrese el número de Columna: ";
+const string MSJ_INGRESAR_JUGADOR = "Ingrese que jugador desea ser [1/2]: ";
+const string MSJ_JUGADOR_INGRESADO = "El jugador que inicia la partida es el jugador ";
+const string MSJ_CONSTRUICCION_EXITOSA = "Construcción del edificio realizada exitosamente";
+const string MSJ_DEMOLICION_EXITOSA = "Demolición del edificio realizada exitosamente";
+const string MSJ_ATAQUE_EXITOSO = "Ataque al edificio del jugador contrario exitoso";
+const string MSJ_REPARACION_EXITOSA = "Reparacion del edificio exitosa";
+const string MSJ_JUGADOR_UNO_SIN_ENERGIA = "El jugador 1 se ha quedado sin energia, se finaliza el turno";
+const string MSJ_JUGADOR_DOS_SIN_ENERGIA = "El jugador 2 se ha quedado sin energia, se finaliza el turno";
+const string MSJ_ENERGIA_DISPONIBLE = "Energia disponible: ";
+const string MSJ_TURNO_FINALIZADO = " Finalizo el turno";
+const string MSJ_COMPRA_BOMBAS_EXITOSA = "Se realizo la compra de bombas con exito";
+const string MSJ_EDIFICIOS_CONSTRUIDOS = "Total de edificios construidos: ";
+const string MSJ_MATERIALES_DISPONIBLES = "Materiales disponibles en el inventario";
+const string MSJ_MOSTRAR_INVENTARIO = "Inventario del jugador: ";
+const string MSJ_EDIFICIOS_CONSTRUIDOS_JUGADOR = "Edificios construidos por el jugador: ";
+const string MSJ_ERROR_CASILLEROS_TRANSITABLES_OCUPADOS = "No se puede realizar mas lluvia de recursos porque no se disponen de casilleros transitables libres";
+
+// Mensajes que muestra consultar coordenadas
+
+const string MSJ_CASILLERO_UNO = "Soy un ";
+const string MSJ_CASILLERO_VACIO = "me encuentro vacío";
+const string MSJ_CASILLERO_Y = " y ";
+const string MSJ_CASILLERO_CONTIENE_JUG_UNO = "contengo al jugador 1";
+const string MSJ_CASILLERO_CONTIENE_JUG_DOS = "contengo al jugador 2";
+const string MSJ_CASILLERO_CONTIENE_MATERIAL = "contengo al material ";
+const string MSJ_CASILLERO_CONTIENE_EDIFICIO = "contengo al edificio ";
+const string MSJ_CASILLERO_CONTIENE_EDIFICIO_JUG_UNO = " del jugador 1";
+const string MSJ_CASILLERO_CONTIENE_EDIFICIO_JUG_DOS = " del jugador 2";
+
+// Mensajes que muestra el mostrado de edificios
+
+const string MSJ_COORDENADAS = "Coordenadas:";
+const string MSJ_NECESITA_REPARACION = "¿Necesita reparación?:";
+const string MSJ_CONFIRMA_REPARACION = "Sí";
+const string MSJ_NIEGA_REPARACION = "No";
+
+// Mensajes que muestra el mapa
+
+const string MSJ_FILAS_MAPA = "Filas: ";
+const string MSJ_COLUMNAS_MAPA = "Columnas: ";
+const string MSJ_ENCABEZADOS_MAPAS = "         Mapa vacío  \t  \t  \t      Mapa de la partida";
+const string MSJ_SEPARACION_ENTRE_MAPAS = "\t  \t";
+
+// Mensaje que se muestra si no se puedo abrir el archivo
+const string MSJ_ERROR_LECTURA_ARCHIVO = "No se pudo leer el archivo: ";
+
+
+
+
+
+
+
+
+
+
 
 
 #endif //CONSTANTES_H

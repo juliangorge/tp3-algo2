@@ -1,65 +1,44 @@
 #ifndef SEGUNDO_MENU_H
 #define SEGUNDO_MENU_H
 
-#include <iostream>
-#include "Menu_consola.h"
-#include "Interaccion_usuario.h"
-#include "Cargar_ubicaciones.h"
-#include "Mensajes_de_error.h"
-#include "Grafo.h"
-#include "Constantes.h"
-
-
-#include "ABB.h"
-#include "Edificio.h"
+#include "Op_menu_dos.h"
+#include "Parser.h"
 
 using namespace std;
 
-void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
+// Se contiene todo el espacio del segundo menu, las funciones de inicialización de jugadores, cambio de turno y verificacion de energía.
 
-estados_t construir_edificio(Jugador* jugador, ABB<Edificio *>& arbol, Mapa*& mapa);
+// PRE: Se deben tener creados los dos Jugadores, el mapa y el arbol
+// POST: Trabaja en bucle en base a las opciones ingresadas por el usuario, hasta que se quiera guardar y salir
+void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *> & arbol, Mapa*& mapa);
 
+// PRE: Se debe haber ingresado una opción valida del menu (de 1 a 12, 13 es para salir)
+// POST: Realiza una acción del menú en base a la opción elegida por el usuario
 void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
 
+// PRE: Se deben tener creados los dos Jugadores
+// POST: Se indica cual es el jugador que inicia la partida
 Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos);
 
-void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol);
+// PRE: Se deben tener creados los dos Jugadores, se debe haber finalizado el turno o que el jugador actual se haya quedado sin energía
+// POST: Se modifica el jugador que trabajará con el menú
+void cambiar_jugador(Mapa* & mapa, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol);
 
-void verificar_energia_nula(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol);
+// PRE: El jugador debe haber realizado una acción sin errores en su validación
+// POST: Se verifica el nivel del energia del jugador. Si se quedó sin energía, se cambia de jugador
+void verificar_energia_nula(Mapa* & mapa, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol);
 
-estados_t verificar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor_cont_rep);
+void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*>& arbol, Mapa*& mapa);
 
-void restar_materiales(Jugador* jugador, Edificio* edificio, unsigned int factor_cont_rep);
+int validar_linea_ubicaciones(char* aux);
 
-void agregar_materiales(Jugador* jugador, Edificio* edificio);
+bool existe_archivo_ubicaciones();
+
+void cargar_posiciones_jugadores(Jugador *jugador_uno, Jugador *jugador_dos, Mapa*& mapa);
 
 void guardar_edificios(ABB<Edificio *>& arbol);
 
-void mostrar_objetivos(Jugador* jugador, ABB<Edificio *>& arbol);
 
-estados_t consultar_coordenadas(Mapa*& mapa);
 
-void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos);
-
-estados_t demoler_edificio(Jugador* jugador, ABB<Edificio *>& arbol, Mapa*& mapa);
-
-estados_t atacar_edificio(Jugador* jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
-
-estados_t reparar_edificio(Jugador* jugador, ABB<Edificio *>& arbol, Mapa*& mapa);
-
-estados_t comprar_bombas(Jugador* jugador);
-
-void mostrar_compra_realizada(Jugador* jugador);
-
-estados_t recolectar_recursos(Jugador* jugador);
-
-bool verificar_existencia_archivo(string nombre);
-
-void inicializar_archivo_ubicaciones();
-
-void cargar_posiciones_jugadores(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa);
-//void agregar_materiales(Jugador* jugador, Edificio* edificio);
-
-//estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa);
 
 #endif //SEGUNDO_MENU_H

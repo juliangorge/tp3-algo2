@@ -1,13 +1,14 @@
 #include "Casillero_muelle.h"
 
 CasilleroMuelle::CasilleroMuelle(unsigned int fila, unsigned int columna) : Casillero(fila, columna){
-    this->caracter_casillero = 'M';
+    this->caracter_casillero = CARACTER_MUELLE;
     this->caracter = this->caracter_casillero;
+    this->caracter_jugador = this->caracter_casillero;
     this->es_camino = true;
     this->es_terreno = false;
-    this->nombre_casillero = "Casillero Muelle transitable";
-    this->costo_energia_J = 5;
-	this->costo_energia_U = 2;
+    this->nombre_casillero = NOMBRE_MUELLE;
+    this->costo_energia_J = ENERGIA_MUELLE_JUG_UNO;
+	this->costo_energia_U = ENERGIA_MUELLE_JUG_DOS;
 }
 
 void CasilleroMuelle::cambiar_caracter(){
@@ -16,21 +17,21 @@ void CasilleroMuelle::cambiar_caracter(){
 
 void CasilleroMuelle::mostrar_casillero()
 {
-	cout << "Soy un " << this->nombre_casillero << " y ";
+	cout << MSJ_CASILLERO_UNO << this->nombre_casillero << MSJ_CASILLERO_Y;
 	if(esta_libre())
-		cout << "me encuentro vacío" << endl;
+		cout << MSJ_CASILLERO_VACIO << endl;
 	else if(material == nullptr){
 		switch(this->caracter){
-			case 'J':
-				cout << "contengo al jugador 1" << endl;
+			case CARACTER_JUGADOR_UNO:
+				cout << MSJ_CASILLERO_CONTIENE_JUG_UNO << endl;
 				break;
-			case 'U':
-				cout << "contengo al jugador 2" << endl;
+			case CARACTER_JUGADOR_DOS:
+				cout << MSJ_CASILLERO_CONTIENE_JUG_DOS << endl;
 				break;
 		}
 	}
 	else 
-		cout << "contengo al material " << this->material->obtener_nombre() << endl;
+		cout << MSJ_CASILLERO_CONTIENE_MATERIAL << this->material->obtener_nombre() << endl;
 }
 
 void CasilleroMuelle::limpiar_casillero()

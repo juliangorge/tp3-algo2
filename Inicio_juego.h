@@ -11,6 +11,7 @@ void iniciar_juego();
 void cargar_edificios(ABB<Edificio*> &arbol);
 void agregar_edificio(ABB<Edificio*> &arbol, string nombre, Edificio* edificio);
 
-void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa);
+void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos);
+void guardar_ubicaciones(Mapa* & mapa, Jugador* jugador_uno, Jugador* jugador_dos);
 
 #endif //INICIO_JUEGO_H

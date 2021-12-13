@@ -127,6 +127,3 @@ void Dijkstra::mostrar_iteracion(int iteracion) {
     }
     cout << "]" << endl << endl;
 }
-
-
-

@@ -170,6 +170,18 @@ void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *desti
 {
     agregar_vertices(mapa);
     
+    Casillero *vecino;
+    int i = 0;
+
+    /*while(vecino!=destino && i<4)
+    {   
+        //obtengo el vecino de la derecha
+        vecino = mapa->obtener_casillero(origen->obtener_fila(), origen->obtener_columna()+1);
+        asignar_pesos(origen, vecino, jugador);
+        i++;
+    }*/
+    
+
     agregar_camino(mapa, jugador);
 
 }
@@ -177,22 +189,17 @@ void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *desti
 /*void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, char jugador)
 {
     int peso_origen = 0, peso_destino = 0;
-
     if(jugador == 'J')
     {
         obtener_peso(casillero_origen->obtener_caracter(), &peso_origen, PESO_LAGO_1, PESO_MUELLE_1);
         obtener_peso(casillero_destino->obtener_caracter(), &peso_destino, PESO_LAGO_1, PESO_MUELLE_1);
     }
-
     if(jugador == 'U')
     {
         obtener_peso(casillero_origen->obtener_caracter(), &peso_origen, PESO_LAGO_2, PESO_MUELLE_2);
         obtener_peso(casillero_destino->obtener_caracter(), &peso_destino, PESO_LAGO_2, PESO_MUELLE_2);
     }
-
     this->agregar_camino(casillero_origen, casillero_destino, peso_origen, peso_destino);//peso_destino);
-
-
 }*/
 
 void Grafo::obtener_peso(char tipo_casillero, int *peso, int peso_L, int peso_M)
