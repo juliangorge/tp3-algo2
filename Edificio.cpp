@@ -133,7 +133,7 @@ void Edificio:: actualizar_materiales(unsigned int piedra, unsigned int madera, 
 
 ostream& operator>>(ostream& salida, Edificio& edificio)
 {
-    salida << edificio.obtener_nombre() << " " << edificio.obtener_piedra();
+    salida << edificio.obtener_nombre() << " " << edificio.obtener_piedra() << " " << edificio.obtener_madera() << " " << edificio.obtener_metal() << " " << edificio.obtener_maximo();
     return salida;
 }
 
