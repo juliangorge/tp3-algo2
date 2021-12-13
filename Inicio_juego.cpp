@@ -44,18 +44,14 @@ void iniciar_juego()
 	mapa->cargar_materiales(jugador_uno);
 	int opcion_salida = trabajar_primer_menu(arbol, mapa);
 
-	switch(opcion_salida){
-		case OPCION_COMENZAR_PARTIDA:
-			trabajar_segundo_menu(jugador_uno, jugador_dos, arbol, mapa);
-			break;
-		case OPCION_SALIR_PRIMER_MENU:
-			// Guardar cambios de edificios.txt
-			break;
-		break;
+	if(opcion_salida == OPCION_COMENZAR_PARTIDA){
+		trabajar_segundo_menu(jugador_uno, jugador_dos, arbol, mapa);
+		guardar_ubicaciones(mapa, jugador_uno, jugador_dos);
 	}
+
 	guardar_materiales(jugador_uno, jugador_dos);
-	guardar_ubicaciones(mapa, jugador_uno, jugador_dos);
 	guardar_edificios(arbol);
+
 	delete jugador_uno;
 	delete jugador_dos;
 	delete mapa;
