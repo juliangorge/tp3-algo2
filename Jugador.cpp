@@ -309,11 +309,9 @@ void Jugador::recolectar_recursos()
 
 void Jugador::cargar_ubicaciones_materiales(ofstream& archivo)
 {
-    for (unsigned int i = 0; i < this->cantidad_casilleros-1; i++){
-        archivo << casilleros_jugador[i]->obtener_edificio()->obtener_nombre() << PRIMER_DELIMITADOR << casilleros_jugador[i]->obtener_fila()
-            << SEGUNDO_DELIMITADOR << casilleros_jugador[i]->obtener_columna() << TERCER_DELIMITADOR << '\n';
+    for (unsigned int i = 0; i < this->cantidad_casilleros; i++){
+        archivo << '\n' << casilleros_jugador[cantidad_casilleros]->obtener_edificio()->obtener_nombre() << PRIMER_DELIMITADOR << casilleros_jugador[cantidad_casilleros]->obtener_fila()
+            << SEGUNDO_DELIMITADOR << casilleros_jugador[cantidad_casilleros]->obtener_columna() << TERCER_DELIMITADOR;
     }
-    archivo << casilleros_jugador[cantidad_casilleros-1]->obtener_edificio()->obtener_nombre() << PRIMER_DELIMITADOR << casilleros_jugador[cantidad_casilleros-1]->obtener_fila()
-            << SEGUNDO_DELIMITADOR << casilleros_jugador[cantidad_casilleros-1]->obtener_columna() << TERCER_DELIMITADOR;
 
 }

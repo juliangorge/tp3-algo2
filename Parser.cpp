@@ -26,7 +26,7 @@ unsigned int Parser::coordenada_columna()
 string Parser::extraer_campo(string & entrada , string delimitador)
 {
     string campo;
-    unsigned int pos = 0;
+    size_t pos = 0;
 
     while ((pos = entrada.find(delimitador)) != string::npos)
     {
