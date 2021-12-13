@@ -245,7 +245,7 @@ Material* Mapa::obtener_material(string nombre_material)
 
 void Mapa::lluvia_recursos()
 {
-    srand(time(NULL));
+    srand( static_cast<unsigned int>(time(nullptr)));
     string nombre_material = NOMBRE_PIEDRA;
     unsigned int cota_minima = MIN_LLUVIA_PIEDRA, cota_maxima = MAX_LLUVIA_PIEDRA;
     this->crear_colocar_conjuntos(nombre_material, cota_minima, cota_maxima);

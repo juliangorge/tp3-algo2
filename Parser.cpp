@@ -14,13 +14,13 @@ string Parser::nombre()
 unsigned int Parser::coordenada_fila()
 {
     string delimitador = SEGUNDO_DELIMITADOR;
-    return stoi(extraer_campo(this->entrada, delimitador));
+    return static_cast<unsigned int>(stoul(extraer_campo(this->entrada, delimitador)));
 }
 
 unsigned int Parser::coordenada_columna()
 {
     string delimitador = TERCER_DELIMITADOR;
-    return stoi(extraer_campo(this->entrada, delimitador));
+    return static_cast<unsigned int>(stoul(extraer_campo(this->entrada, delimitador)));
 }
 
 string Parser::extraer_campo(string & entrada , string delimitador)

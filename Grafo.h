@@ -20,7 +20,7 @@ const int PESO_MUELLE_2 = 2;
 class Grafo {
 /*ATRIBUTOS*/
 private:
-    int ** matriz_adyacencia;
+    unsigned int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
     Camino_minimo * algoritmo_camino_minimo;
 
@@ -28,17 +28,17 @@ private:
 
     //pre: tienen que existir tanto el origen como el destino. Ademas se deben haber calculado las matrices de Floyd
     //post: muestra el camino minimo entre el origen y el destino
-    void camino_minimo(int origen, int destino);
+    void camino_minimo(unsigned int origen, unsigned int destino);
 
     //post: agranda dinamicamente la matriz de adyacencia
     void agrandar_matriz_adyacencia();
 
     //pre: la matriz que se le envie ya debe tener memoria reservada
     //post: copia la matriz de adyacencia en la nueva matriz
-    void copiar_matriz_adyacencia(int** nueva_adyacente);
+    void copiar_matriz_adyacencia(unsigned int** nueva_adyacente);
 
     //post inicializa un nuevo vertice en la matriz de adyacencia con un valor de infinito
-    void inicializar_vertice(int** nueva_adyacente);
+    void inicializar_vertice(unsigned int** nueva_adyacente);
 
     //post libera la memoria de la matriz de adyacencia
     void liberar_matriz_adyacencia();

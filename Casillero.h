@@ -36,7 +36,8 @@ class Casillero
 
         // PRE: 
         // POST: Coloca los punteros de edificio y material a nulo
-        ~Casillero();
+        virtual ~Casillero() = 0;
+
         // PRE: 
 	    // POST: Devuelve la posicion fila del Casillero en el mapa
         unsigned int obtener_fila();

@@ -68,16 +68,16 @@ void Grafo::camino_minimo(Casillero *origen, Casillero *destino)
         cout << "El vertice " << destino << " no existe en el grafo" << endl;
     }
 
-    camino_minimo(posicion_origen, posicion_destino);
+    camino_minimo(unsigned(posicion_origen), unsigned(posicion_destino));
     //delete algoritmo_camino_minimo;//borro el dijkstra
 }
 
 void Grafo::agrandar_matriz_adyacencia() {
-    int** matrizAuxiliar;
+    unsigned int** matrizAuxiliar;
     int nuevaCantidadDeVertices = vertices->obtener_cantidad_elementos() + 1;
-    matrizAuxiliar = new int*[nuevaCantidadDeVertices];
+    matrizAuxiliar = new unsigned int*[nuevaCantidadDeVertices];
     for(int i = 0; i < nuevaCantidadDeVertices; i++){
-        matrizAuxiliar[i] = new int[nuevaCantidadDeVertices];
+        matrizAuxiliar[i] = new unsigned int[nuevaCantidadDeVertices];
     }
 
     copiar_matriz_adyacencia(matrizAuxiliar);
@@ -86,7 +86,7 @@ void Grafo::agrandar_matriz_adyacencia() {
     matriz_adyacencia = matrizAuxiliar;
 }
 
-void Grafo::copiar_matriz_adyacencia(int** nueva_adyacente) {
+void Grafo::copiar_matriz_adyacencia(unsigned int** nueva_adyacente) {
     for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         for(int j = 0; j < vertices -> obtener_cantidad_elementos(); j++){
             nueva_adyacente[i][j] = matriz_adyacencia[i][j];
@@ -94,7 +94,7 @@ void Grafo::copiar_matriz_adyacencia(int** nueva_adyacente) {
     }
 }
 
-void Grafo::inicializar_vertice(int** nueva_adyacente) {
+void Grafo::inicializar_vertice(unsigned int** nueva_adyacente) {
     for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         nueva_adyacente[vertices -> obtener_cantidad_elementos()][i] = INFINITO;
         nueva_adyacente[i][vertices -> obtener_cantidad_elementos()] = INFINITO;
@@ -149,8 +149,8 @@ void Grafo::mostrar_matriz_adyacencia() {
 }
 
 //Hago una sobre carga de camino minimo para hallar el camino minimo entre origen y destino
-void Grafo::camino_minimo(int origen, int destino) {
-    algoritmo_camino_minimo -> camino_minimo(origen, destino);
+void Grafo::camino_minimo(unsigned int origen, unsigned int destino) {
+    algoritmo_camino_minimo->camino_minimo(origen, destino);
 }
 
 void Grafo::usar_dijkstra() {

@@ -1,7 +1,9 @@
 #include "Utilidades.h"
 
 
-int aleatorio(int cota_inferior, int cota_superior)
+unsigned int aleatorio(unsigned int cota_inferior, unsigned int cota_superior)
 {
-    return int(rand()%cota_superior + cota_inferior);
+    unsigned int rand = unsigned(std::rand());
+    return rand % cota_superior + cota_inferior;
+
 }

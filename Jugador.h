@@ -159,7 +159,7 @@ class Jugador {
         // POST: Aumenta en 1 el acumulador una vez que se finaliza el turno
         void aumentar_acumulador_por_turno();
 
-        void cargar_ubicaciones_materiales(ofstream& archivo);
+        void cargar_ubicaciones_edificios(ofstream& archivo);
 
 };
 

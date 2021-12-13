@@ -43,7 +43,7 @@ bool Objetivo::estados_objetivos()
     bool estados_objetivos = false;
 
     for(unsigned int i=0; i<CANTIDAD_OBJETIVOS; i++){
-        if(this->estado_objetivos[i] != true);
+        if(this->estado_objetivos[i] != true)
         objetivos_cumplidos++;
     }
 

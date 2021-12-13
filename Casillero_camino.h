@@ -11,6 +11,8 @@ class CasilleroCamino : public Casillero
         // POST: Crea un objeto CasilleroCamino, guardando sus coordenadas del mapa
         CasilleroCamino(unsigned int fila, unsigned int columna);
 
+        ~CasilleroCamino();
+
         // PRE: Se debe haber referenciado el material
         // POST: Coloca en el casillero el caracter del material, para que éste se muestre en el mapa
         void cambiar_caracter();

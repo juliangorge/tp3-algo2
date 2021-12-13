@@ -12,6 +12,9 @@ CasilleroLago::CasilleroLago(unsigned int fila, unsigned int columna) : Casiller
 	
 }
 
+CasilleroLago::~CasilleroLago(){
+}
+
 void CasilleroLago::cambiar_caracter(){
 
 }

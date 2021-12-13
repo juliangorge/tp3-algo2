@@ -8,6 +8,8 @@ class CasilleroLago : public Casillero
     public:
         CasilleroLago(unsigned int fila, unsigned int columna);
 
+        ~CasilleroLago();
+
         // PRE: 
         // POST:        
         void cambiar_caracter();

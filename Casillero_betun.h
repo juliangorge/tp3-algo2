@@ -11,6 +11,8 @@ class CasilleroBetun : public Casillero
         // POST: Crea un objeto CasilleroBetun, guardando sus coordenadas del mapa
         CasilleroBetun(unsigned int fila, unsigned int columna);
 
+        ~CasilleroBetun();
+
         // PRE: Se debe haber referenciado el material
         // POST: Coloca en el casillero el caracter del material, para que éste se muestre en el mapa
         void cambiar_caracter();

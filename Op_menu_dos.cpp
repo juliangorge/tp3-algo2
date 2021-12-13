@@ -236,10 +236,10 @@ estados_t recolectar_recursos(Jugador *jugador)
     return st;
 }
 
-void moverse_coordenada(Jugador *jugador, Mapa *&mapa)
+estados_t moverse_coordenada(Jugador *jugador, Mapa *&mapa)
 {
     unsigned int fila = 0, columna = 0;
-    estados_t st;
+    estados_t st = ST_OK;
     Grafo grafo;
     Casillero *casillero_destino, *casillero_origen;
 
@@ -267,6 +267,8 @@ void moverse_coordenada(Jugador *jugador, Mapa *&mapa)
             }
         }
     }
+
+    return st;
 }
 
 estados_t verificar_materiales(Jugador *jugador, Edificio *edificio, unsigned int factor_resta)

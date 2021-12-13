@@ -11,6 +11,9 @@ CasilleroMuelle::CasilleroMuelle(unsigned int fila, unsigned int columna) : Casi
 	this->costo_energia_U = ENERGIA_MUELLE_JUG_DOS;
 }
 
+CasilleroMuelle::~CasilleroMuelle(){
+}
+
 void CasilleroMuelle::cambiar_caracter(){
 	this->caracter = this->material->obtener_caracter();
 }

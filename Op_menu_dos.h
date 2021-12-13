@@ -50,7 +50,7 @@ estados_t recolectar_recursos(Jugador* jugador);
 
 // PRE:
 // POST: 
-void moverse_coordenada(Jugador *jugador, Mapa* &mapa);
+estados_t moverse_coordenada(Jugador *jugador, Mapa* &mapa);
 
 // PRE:
 // POST:

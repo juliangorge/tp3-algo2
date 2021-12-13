@@ -11,6 +11,8 @@ class CasilleroTerreno : public Casillero
         // POST: Crea un objeto CasilleroTerreno, guardando sus coordenadas del mapa
         CasilleroTerreno(unsigned int fila, unsigned int columna);
 
+        ~CasilleroTerreno();
+
         // PRE: Se debe haber referenciado el edificio
         // POST: Coloca en el casillero el caracter del edificio, para que éste se muestre en el mapa
         void cambiar_caracter();

@@ -12,6 +12,9 @@ CasilleroCamino::CasilleroCamino(unsigned int fila, unsigned int columna) : Casi
 	
 }
 
+CasilleroCamino::~CasilleroCamino(){
+}
+
 void CasilleroCamino::cambiar_caracter(){
     this->caracter = this->material->obtener_caracter();
 }

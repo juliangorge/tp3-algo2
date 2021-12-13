@@ -11,6 +11,9 @@ CasilleroBetun::CasilleroBetun(unsigned int fila, unsigned int columna) : Casill
 	this->costo_energia_U = ENERGIA_BETUN_JUG_DOS;
 }
 
+CasilleroBetun::~CasilleroBetun(){
+}
+
 void CasilleroBetun::cambiar_caracter(){
 	this->caracter = this->material->obtener_caracter();
 }

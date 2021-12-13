@@ -21,7 +21,7 @@ estados_t obtener_valor_cantidad(unsigned int & cantidad, unsigned int cantidad_
 
     if(!es_numero(valor)) return ST_ERROR_NO_ES_NUMERO;
 
-    cantidad = stoi(valor);
+    cantidad = static_cast<unsigned int>(stoul(valor));
 
     if(cantidad < cantidad_minima || cantidad > cantidad_maxima) return ST_ERROR_CANTIDAD_INVALIDA;
 
@@ -48,8 +48,8 @@ estados_t obtener_coordenadas(Mapa* mapa, unsigned int & fila, unsigned int & co
 
     if(!es_numero(fila_aux) || !es_numero(columna_aux)) return ST_ERROR_NO_ES_NUMERO;
 
-    fila = stoi(fila_aux);
-    columna = stoi(columna_aux);
+    fila = static_cast<unsigned int>(stoul(fila_aux));
+    columna = static_cast<unsigned int>(stoul(columna_aux));
 
     if(mapa->obtener_cantidad_filas() < fila || mapa->obtener_cantidad_columnas() < columna) return ST_ERROR_COORDENADAS_INVALIDAS;
 

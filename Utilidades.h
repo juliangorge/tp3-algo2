@@ -4,6 +4,6 @@
 #include <iostream>
 #include<time.h>
 
-int aleatorio(int, int);
+unsigned int aleatorio(unsigned int, unsigned int);
 
 #endif

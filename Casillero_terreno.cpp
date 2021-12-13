@@ -11,6 +11,9 @@ CasilleroTerreno:: CasilleroTerreno(unsigned int fila, unsigned int columna) : C
 	this->costo_energia_J = ENERGIA_TERRENO_JUG_DOS;
 }
 
+CasilleroTerreno::~CasilleroTerreno(){
+}
+
 void CasilleroTerreno:: cambiar_caracter(){
     this->caracter = this->edificio->obtener_caracter();
 }
