@@ -35,10 +35,10 @@ private:
 
     //pre: la matriz que se le envie ya debe tener memoria reservada
     //post: copia la matriz de adyacencia en la nueva matriz
-    void copiar_matriz_adyacencia(int** nuevaAdyacente);
+    void copiar_matriz_adyacencia(int** nueva_adyacente);
 
     //post inicializa un nuevo vertice en la matriz de adyacencia con un valor de infinito
-    void inicializar_vertice(int** nuevaAdyacente);
+    void inicializar_vertice(int** nueva_adyacente);
 
     //post libera la memoria de la matriz de adyacencia
     void liberar_matriz_adyacencia();
@@ -71,7 +71,7 @@ public:
     void usarFloyd();
 
     //post: selecciona el algortimo de Dijkstra para calcular el camino mínimo
-    void usarDijkstra();
+    void usar_dijkstra();
 
     void asignar_adyacentes(char jugador, Casillero *origen, Casillero *destino, Mapa*mapa);
 
@@ -83,6 +83,8 @@ public:
 
     void asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int *peso_origen, unsigned int *peso_destino, char jugador);
 
+    int asignar_peso_jugador_contrario(char jugador_contrario, char jugador_actual);
+    
     ~Grafo();
 };
 

@@ -1,7 +1,7 @@
 #include "Dijkstra.h"
 
 Dijkstra::Dijkstra(Lista<Vertice> *vertices, int **matriz_adyacencia) : Camino_minimo(vertices, matriz_adyacencia) {
-    vertices_visitados = new bool[cantidad_vertices];
+    vertices_visitados = new bool[cantidad_vertices];//vector de booleanos
     distancia = new int[cantidad_vertices];
     recorrido = new int[cantidad_vertices];
 }
@@ -16,7 +16,7 @@ void Dijkstra::camino_minimo(int origen, int destino) {
     bool destino_arribado = origen == destino;
     int vertices_recorridos = 1;
     while(!destino_arribado){
-        mostrar_iteracion(vertices_recorridos - 1);
+        //mostrar_iteracion(vertices_recorridos - 1);
         minimo_vertice = vertice_minima_distancia();
         destino_arribado = minimo_vertice == destino;
 
@@ -62,9 +62,9 @@ Dijkstra::~Dijkstra() {
     delete[] recorrido;
 }
 
-void Dijkstra::inicializar_distancia(const int * distanciaOrigen) {
+void Dijkstra::inicializar_distancia(const int * distancia_origen) {
     for(int i = 0; i < cantidad_vertices; i++)
-        distancia[i] = distanciaOrigen[i];
+        distancia[i] = distancia_origen[i];
 }
 
 //Muy importante, 

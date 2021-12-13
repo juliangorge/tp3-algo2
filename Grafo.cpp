@@ -24,48 +24,50 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
     Casillero *origen, *destino;
     unsigned int peso_origen = 0, peso_destino = 0;
     int posicion_origen=0, posicion_destino=0;
+    char jugador_contrario;
     for (unsigned int i = 0; i < mapa->obtener_cantidad_filas(); i++)
     {   
         for (unsigned int j = 0; j < mapa->obtener_cantidad_columnas(); j++)
         {  
-            if(j < mapa->obtener_cantidad_filas()-1 )//Condicion para que no busque casillero a la derecha si esta en la ultima fila
+            if(j < mapa->obtener_cantidad_filas()-1 )//Condicion para que no busque casillero a la derecha si esta en la ultima columna
             {   //Hallo la distancia entre un casillero y el de su derecha
                 origen = mapa->obtener_casillero(i,j);
                 destino = mapa->obtener_casillero(i,j+1);
                 posicion_origen = vertices->obtener_posicion(i, j);
                 posicion_destino = vertices->obtener_posicion(i, j+1);
-                
+
                 asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
+                if((jugador_contrario = destino->obtener_caracter()) == 'U' )
+                {
+                    peso_destino = asignar_peso_jugador_contrario(jugador_contrario, jugador);
+                    cout << "Se asigna peso al jugador U de: " << peso_destino << " en la coordenada " << i << j+1 << " y en la posicion: " << posicion_destino << endl;
+                }
                 matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
                 matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
             }
-            if(i < mapa->obtener_cantidad_columnas()-1 )//Condicion para que no busque casillero a la derecha si esta en la ultima columna
-            {   //Hallo la distancia entre un casillero y el de su derecha
+            if(i < mapa->obtener_cantidad_columnas()-1 )//Condicion para que no busque casillero abajo si esta en la ultima fila
+            {   //Hallo la distancia entre un casillero y el que tiene abajo
                 destino = mapa->obtener_casillero(i+1,j);
                 posicion_destino = vertices->obtener_posicion(i+1, j);
+
                 asignar_pesos(origen, destino, &peso_origen, &peso_destino, jugador);
+                if((jugador_contrario = destino->obtener_caracter()) == 'U')
+                {    
+                    peso_destino = asignar_peso_jugador_contrario(jugador_contrario, jugador);
+                    cout << "Se asigna peso al jugador U de: " << peso_destino << " en la coordenada " << i+1 << j << " y en la posicion: " << posicion_destino << endl;
+                }
                 matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
                 matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
             }
         }
     }
+
 }
 
-
-
-/*void Grafo::agregar_camino(Casillero *origen, Casillero *destino, int peso_origen, int peso_destino) {
-    int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
-    int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
-
-    matriz_adyacencia[posicion_origen][posicion_destino] = peso_destino;
-    matriz_adyacencia[posicion_destino][posicion_origen] = peso_origen;
-}*/
-
-//Con el grafo siempre interactuo con strings. La lista es algo particular del grafo
 void Grafo::camino_minimo(Casillero *origen, Casillero *destino) 
 {
     int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
-    int posicion_destino = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
+    int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
 
     if(posicion_origen == POSICION_NO_ENCONTRADA){
         cout << "El vertice " << origen << " no existe en el grafo" << endl;
@@ -75,6 +77,7 @@ void Grafo::camino_minimo(Casillero *origen, Casillero *destino)
     }
 
     camino_minimo(posicion_origen, posicion_destino);
+    //delete algoritmo_camino_minimo;//borro el dijkstra
 }
 
 void Grafo::agrandar_matriz_adyacencia() {
@@ -124,7 +127,7 @@ Grafo::~Grafo() {
 /*void Grafo::mostrar_vertices() {
     cout << "Lista de vértices: [";
     for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
-        Casillero *casillero_aux = New Casillero();
+        Casillero *casillero_aux = new Casillero;
         cout << vertices -> obtener_nombre_nodo(i + 1);
         if(i + 1 != vertices -> obtener_cantidad_elementos()){
             cout << ", ";
@@ -158,7 +161,7 @@ void Grafo::camino_minimo(int origen, int destino) {
     algoritmo_camino_minimo -> camino_minimo(origen, destino);
 }
 
-void Grafo::usarDijkstra() {
+void Grafo::usar_dijkstra() {
     delete algoritmo_camino_minimo;
     algoritmo_camino_minimo = new Dijkstra(vertices, matriz_adyacencia);
 }
@@ -167,23 +170,7 @@ void Grafo::asignar_adyacentes(char jugador, Casillero *origen, Casillero *desti
 {
     agregar_vertices(mapa);
     
-    Casillero *vecino;
-    int i = 0;
-
-    /*while(vecino!=destino && i<4)
-    {   
-        //obtengo el vecino de la derecha
-        vecino = mapa->obtener_casillero(origen->obtener_fila(), origen->obtener_columna()+1);
-        asignar_pesos(origen, vecino, jugador);
-
-        i++;
-    }*/
-    
-
     agregar_camino(mapa, jugador);
-    this->usarDijkstra();
-    
-    
 
 }
 
@@ -248,4 +235,20 @@ void Grafo::asignar_pesos(Casillero *casillero_origen, Casillero *casillero_dest
 {
     *peso_origen=casillero_origen->obtener_costo_energia(jugador);
     *peso_destino=casillero_destino->obtener_costo_energia(jugador);
+}
+
+int Grafo::asignar_peso_jugador_contrario(char jugador_contrario, char jugador_actual)
+{
+    int peso_destino=0;
+    //vertices->obtener_posicion(i, j);
+
+    if(jugador_contrario=='U')
+        if(jugador_actual=='J')
+            peso_destino = INFINITO;//asignar_peso_jugador_contrario(i, j+1, jugador_contrario, mapa);
+
+    if(jugador_contrario=='J')
+        if(jugador_actual=='U')
+            peso_destino = INFINITO;
+
+    return peso_destino;
 }

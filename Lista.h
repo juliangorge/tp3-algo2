@@ -140,9 +140,9 @@ string Lista<Tipo>::obtener_nombre(int posicion)
 
 
     string nombre = "[";
-    nombre += auxiliar->obtener_casillero()->obtener_fila();
+    nombre += to_string(auxiliar->obtener_casillero()->obtener_fila());
     nombre += ",";
-    nombre += auxiliar->obtener_casillero()->obtener_columna();
+    nombre += to_string(auxiliar->obtener_casillero()->obtener_columna());
     nombre += "]";
 
     return nombre;
