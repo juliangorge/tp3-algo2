@@ -270,9 +270,9 @@ void Mapa::lluvia_recursos()
         setear_material_aleatorio(&i, "metal");
         
     for(i=0; i<conjuntos_andycoins; i++)
-        setear_material_aleatorio(&i, "andycoins");*/
+        setear_material_aleatorio(&i, "andycoins");
 
-    /*cout << endl << "Mapa de materiales" << endl;
+    cout << endl << "Mapa de materiales" << endl;
     this->mostrar_mapa_materiales();
     cout << endl << endl;*/
 

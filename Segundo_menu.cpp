@@ -233,14 +233,20 @@ void cambiar_jugador(Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_
 
 void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa)
 {
-    cargar_ubicaciones(jugador_uno, jugador_dos, arbol, mapa);
+    bool partida_nueva = verificar_existencia_archivo(ARCHIVO_UBICACIONES);
+
+    if(partida_nueva)
+        cargar_posiciones_jugadores(jugador_uno, jugador_dos, mapa);
+    else
+        cargar_ubicaciones(jugador_uno, jugador_dos, arbol, mapa);
+    
     Jugador* jugador = inicializar_jugador(jugador_uno, jugador_dos);
     mostrar_segundo_menu();
     mapa->mostrar_mapas();
     cout << "Energia disponible: " << jugador->obtener_energia() << endl << endl;
 	int opcion = obtener_opcion_segundo_menu();
 	while(opcion != OPCION_SALIR_SEGUNDO_MENU){
-        //mapa->lluvia_recursos();
+        mapa->lluvia_recursos();
 		opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
 		mostrar_segundo_menu();
         mapa->mostrar_mapas();
@@ -394,4 +400,41 @@ estados_t recolectar_recursos(Jugador* jugador)
     jugador-> decrementar_energia(costo_energia);
 
     return st;
+}
+
+bool verificar_existencia_archivo(string nombre)
+{
+    ifstream archivo;
+    archivo.open(nombre);
+    bool partida_nueva = false;
+    if(!archivo)
+    {
+        cout << "No se pudo leer el archivo: " << nombre << endl;
+        partida_nueva = true;
+        archivo.open(ARCHIVO_UBICACIONES, ios::out);       
+
+    }
+    else
+        if(archivo.peek()==ifstream::traits_type::eof()) //valido si esta vacio
+            partida_nueva=true;
+    
+
+    archivo.close();
+    return partida_nueva;
+}
+
+void cargar_posiciones_jugadores(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa)
+{
+    unsigned int fila=0, columna=0;
+    estados_t st;
+    cout << "Ingrese las nuevas coordenadas para el jugador 1" << endl;
+    st = obtener_coordenadas(mapa, fila, columna);
+    jugador_uno->agregar_coordenadas(fila, columna);
+    mapa->set_jugador_casillero(jugador_uno);
+
+    cout << "Ingrese las nuevas coordenadas para el jugador 2" << endl;
+    st = obtener_coordenadas(mapa, fila, columna);
+    jugador_dos->agregar_coordenadas(fila, columna);
+    mapa->set_jugador_casillero(jugador_dos);
+
 }

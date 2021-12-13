@@ -1,5 +1,1 @@
-madera 300 300
-metal 940 200
-piedra 1000 200
-andycoins 1000 6000
-bombas 0 1
+madera300300metal940200piedra1000200andycoins10006000bombas01

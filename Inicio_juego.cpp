@@ -53,8 +53,27 @@ void iniciar_juego()
 			break;
 	}
 
+	guardar_materiales(jugador_uno, jugador_dos, mapa);
 	delete jugador_uno;
 	delete jugador_dos;
 	delete mapa;
 }
 
+void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa)
+{
+	ofstream archivo_materiales;
+    archivo_materiales.open(ARCHIVO_MATERIALES.c_str());
+    string nombre_material;
+    unsigned int cantidad_jugador_uno, cantidad_jugador_dos;
+	unsigned int cantidad_materiales = jugador_uno->obtener_tipos_de_materiales();
+	Material **materiales_aux = jugador_uno->obtener_lista_materiales();
+
+    for(int i=0; i<cantidad_materiales; i++){
+		nombre_material = materiales_aux[i]->obtener_nombre();
+    	cantidad_jugador_uno = jugador_uno->mostrar_cantidad_material(nombre_material);
+		cantidad_jugador_dos = jugador_dos->mostrar_cantidad_material(nombre_material);
+		archivo_materiales << nombre_material << cantidad_jugador_uno << cantidad_jugador_dos;
+    }	
+    archivo_materiales.close();
+
+}

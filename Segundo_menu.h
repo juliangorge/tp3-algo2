@@ -51,6 +51,11 @@ void mostrar_compra_realizada(Jugador* jugador);
 
 estados_t recolectar_recursos(Jugador* jugador);
 
+bool verificar_existencia_archivo(string nombre);
+
+void inicializar_archivo_ubicaciones();
+
+void cargar_posiciones_jugadores(Jugador *jugador_uno, Jugador *jugador_dos, Mapa *mapa);
 //void agregar_materiales(Jugador* jugador, Edificio* edificio);
 
 //estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa);
