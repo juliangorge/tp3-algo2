@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <string>
-#include "Constantes.h"
+
+typedef std::string K;
+const K CLAVE_INVALIDA = "";
 
 template <class T>
 class ABBnodo

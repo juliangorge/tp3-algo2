@@ -222,9 +222,13 @@ estados_t recolectar_recursos(Jugador *jugador)
     if ((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK)
         return st;
 
-    if (!jugador->obtener_acumulador_por_turno())
-    {
+    if (!jugador->obtener_acumulador_por_turno()){
         st = ST_ERROR_RECOLECCION_REPETIDA;
+        return st;
+    }
+
+    if (!jugador->obtener_cantidad_casilleros_edificios()){
+        st = ST_ERROR_NO_HAY_CONSTRUCCIONES;
         return st;
     }
 

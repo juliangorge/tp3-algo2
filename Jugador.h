@@ -144,6 +144,10 @@ class Jugador {
         unsigned int obtener_cant_edificio(string nombre);
 
         // PRE: 
+        // POST: Devuelve la cantidad de casilleros de edificios del jugador
+        unsigned int obtener_cantidad_casilleros_edificios();
+
+        // PRE: 
         // POST: Se busca de Casillero** casilleros_jugador los edificios que este tiene construidos y obtiene los materiales que éste aporta y los agrega al inventario
         void recolectar_recursos();
 

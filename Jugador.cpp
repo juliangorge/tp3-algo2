@@ -280,6 +280,11 @@ unsigned int Jugador::obtener_acumulador_por_turno()
     return this->acumulador_por_turno;
 }
 
+unsigned int Jugador::obtener_cantidad_casilleros_edificios()
+{
+    return this->cantidad_casilleros;
+}
+
 void Jugador::recolectar_recursos()
 {
     string nombre_piedra = NOMBRE_PIEDRA, nombre_madera = NOMBRE_MADERA, nombre_metal = NOMBRE_METAL, nombre_andycoins = NOMBRE_ANDYCOINS;

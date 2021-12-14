@@ -365,8 +365,8 @@ const string MSJ_OBJETIVO_PROGRESO_ARMADO = "Cantidad de Bombas contenida en el 
 const string MSJ_OBJETIVO_PROGRESO_EXTREMISTA = "Cantidad de Bombas compradas hasta el momento: ";
 const string MSJ_OBJETIVO_PRINCPIAL_NO_CUMPLIDO = "No se construyó ningún Obelisco ";
 
-
-
+const string MSJ_JUGADOR_UNO_GANA = "El Jugador 1 ha ganado la partida ";
+const string MSJ_JUGADOR_DOS_GANA = "El Jugador 2 ha ganado la partida ";
 
 
 

@@ -42,8 +42,8 @@ bool Objetivo::estados_objetivos()
     unsigned int objetivos_cumplidos = 0;
     bool estados_objetivos = false;
 
-    for(unsigned int i=0; i<CANTIDAD_OBJETIVOS; i++){
-        if(!this->estado_objetivos[i])
+    for(unsigned int i=0; i < CANTIDAD_OBJETIVOS; i++){
+        if(this->estado_objetivos[i])
             objetivos_cumplidos++;
     }
 
@@ -106,8 +106,10 @@ void Objetivo::chequear_objetivo_principal(unsigned int obeliscos_construidos){
         cout << MSJ_OBJETIVO_PRINCPIAL_CUMPLIDO << endl << endl;
     else if(!obeliscos_construidos)
         cout << MSJ_OBJETIVO_PRINCPIAL_NO_CUMPLIDO << endl << endl;
-    else
+    else{
+        this->objetivo_principal = true;
         cout << MSJ_OBJETIVO_PRINCPIAL_CUMPLIDO << endl << endl;
+    }
 } 
 
 void Objetivo::comprar_andypolis(bool & objetivo_comprar_andycoins, unsigned int andyocoins_acumuladas) 

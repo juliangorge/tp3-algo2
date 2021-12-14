@@ -63,6 +63,9 @@ void imprimir_error(estados_t st)
 		case ST_ERROR_DEMOLER_EDIFICIO:
 			cout << MSJ_ERROR_DEMOLER_EDIFICIO << endl;
 			break;
+		case ST_ERROR_NO_HAY_CONSTRUCCIONES:
+			cout << MSJ_ERROR_NO_HAY_CONSTRUCCIONES << endl;
+			break;
 		case ST_ERROR_NO_ES_NUMERO:
 			cout << MSJ_ERROR_NO_ES_NUMERO << endl;
 			break;

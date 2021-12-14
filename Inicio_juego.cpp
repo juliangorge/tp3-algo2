@@ -46,7 +46,8 @@ void iniciar_juego()
 
 	if(opcion_salida == OPCION_COMENZAR_PARTIDA){
 		trabajar_segundo_menu(jugador_uno, jugador_dos, arbol, mapa);
-		guardar_ubicaciones(mapa, jugador_uno, jugador_dos);		
+		guardar_ubicaciones(mapa, jugador_uno, jugador_dos);
+        analizar_ganador(jugador_uno, jugador_dos);		
 	}
 
 	guardar_materiales(jugador_uno, jugador_dos);
@@ -73,17 +74,6 @@ void guardar_materiales(Jugador *jugador_uno, Jugador *jugador_dos)
 }
 
 
-//cout << "Guardando cambios" << endl;
-
-
-            //Guardo ubicaciones: materiales, jugador_uno, jugador_dos
-            ///guardar_ubicaciones(mapa);
-            /*ofstream archivo_ubicaciones("ubicaciones_tmp.txt"); //ARCHIVO_UBICACIONES
-            guardar_ubicaciones(jugador_uno, 1, archivo_ubicaciones);
-            guardar_ubicaciones(jugador_dos, 2, archivo_ubicaciones);
-            archivo_ubicaciones.close();*/
-
-
 void guardar_ubicaciones(Mapa* & mapa, Jugador* jugador_uno, Jugador* jugador_dos){
 	ofstream archivo;
     archivo.open(ARCHIVO_UBICACIONES.c_str());
@@ -95,4 +85,12 @@ void guardar_ubicaciones(Mapa* & mapa, Jugador* jugador_uno, Jugador* jugador_do
     jugador_dos->cargar_ubicaciones_edificios(archivo);
     archivo.close();
 	
+}
+
+void analizar_ganador(Jugador*& jugador_uno, Jugador*& jugador_dos)
+{
+    if(jugador_uno->objetivos_cumplidos())
+        cout << MSJ_JUGADOR_UNO_GANA << endl;
+    else if (jugador_dos->objetivos_cumplidos())
+        cout << MSJ_JUGADOR_DOS_GANA << endl;
 }
