@@ -42,7 +42,7 @@ void iniciar_juego()
 
 	cargar_materiales_jugadores(jugador_uno,jugador_dos);
 	mapa->cargar_materiales(jugador_uno);
-	int opcion_salida = trabajar_primer_menu(arbol, mapa);
+	unsigned int opcion_salida = trabajar_primer_menu(arbol, mapa);
 
 	if(opcion_salida == OPCION_COMENZAR_PARTIDA){
 		trabajar_segundo_menu(jugador_uno, jugador_dos, arbol, mapa);

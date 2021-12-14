@@ -23,7 +23,7 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
 {
     Casillero *origen, *destino;
     unsigned int peso_origen = 0, peso_destino = 0;
-    int posicion_origen=0, posicion_destino=0;
+    unsigned int posicion_origen=0, posicion_destino=0;
     
     for (unsigned int i = 0; i < mapa->obtener_cantidad_filas(); i++)
     {   
@@ -58,8 +58,8 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
 
 unsigned int Grafo::camino_minimo(Casillero *origen, Casillero *destino) 
 {
-    int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
-    int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
+    unsigned int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
+    unsigned int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
 
     if(posicion_origen == POSICION_NO_ENCONTRADA){
         cout << "El vertice " << origen << " no existe en el grafo" << endl;
@@ -67,7 +67,7 @@ unsigned int Grafo::camino_minimo(Casillero *origen, Casillero *destino)
     if(posicion_destino == POSICION_NO_ENCONTRADA){
         cout << "El vertice " << destino << " no existe en el grafo" << endl;
     }
-    return camino_minimo(unsigned(posicion_origen), unsigned(posicion_destino));
+    return camino_minimo(posicion_origen, posicion_destino);
 }
 
 void Grafo::agrandar_matriz_adyacencia() {
@@ -208,8 +208,8 @@ estados_t Grafo::usar_grafo(Casillero *origen, Casillero *destino, Mapa *mapa, J
 void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador)
 {
     unsigned int fila_paso=0, columna_paso=0;
-    int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
-    int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
+    unsigned int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
+    unsigned int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
 
     algoritmo_camino_minimo->obtener_casillero_recorrido(&fila_paso, &columna_paso, posicion_origen, posicion_destino);
 

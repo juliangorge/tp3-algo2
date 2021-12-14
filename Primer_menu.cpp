@@ -1,11 +1,11 @@
 #include "Primer_menu.h"
 
-int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa)
+unsigned int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa)
 {
     unsigned int opcion_minima = OPCION_PRIMER_MENU_MINIMA, opcion_maxima = OPCION_PRIMER_MENU_MAXIMA;
     mostrar_primer_menu();
     cout << MSJ_ELEGIR_OPCION;
-    int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
+    unsigned int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
     while(opcion < OPCION_COMENZAR_PARTIDA){
         opciones_primer_menu(opcion, arbol, mapa);
         mostrar_primer_menu();
@@ -15,7 +15,7 @@ int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa)
     return opcion;
 }
 
-void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol, Mapa *mapa){
+void opciones_primer_menu(unsigned int opcion, ABB<Edificio*> &arbol, Mapa *mapa){
     estados_t st;
 
     switch(opcion){

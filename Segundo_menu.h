@@ -14,7 +14,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
 
 // PRE: Se debe haber ingresado una opción valida del menu (de 1 a 12, 13 es para salir)
 // POST: Realiza una acción del menú en base a la opción elegida por el usuario
-void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
+void opciones_segundo_menu(unsigned int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa);
 
 // PRE: Se deben tener creados los dos Jugadores
 // POST: Se indica cual es el jugador que inicia la partida
@@ -30,7 +30,7 @@ void verificar_energia_nula(Mapa* & mapa, Jugador* & jugador, Jugador* jugador_u
 
 void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*>& arbol, Mapa*& mapa);
 
-int validar_linea_ubicaciones(char* aux);
+unsigned int validar_linea_ubicaciones(char* aux);
 
 bool existe_archivo_ubicaciones();
 

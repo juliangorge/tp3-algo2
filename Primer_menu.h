@@ -11,11 +11,11 @@ using namespace std;
 
 // PRE:
 // POST:
-int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa);
+unsigned int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa);
 
 // PRE: la opcion debe ser mayor a 0
 // POST: Muestra el swtich de opciones del primer menu
-void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol, Mapa* mapa);
+void opciones_primer_menu(unsigned int opcion, ABB<Edificio*> &arbol, Mapa* mapa);
 
 // PRE: Se debe tener creado el ABB que contenga los edificios
 // POST: Modifica los materiales requeridos del edificio ingresado por nombre. Devuelve error si el edificio ingresado no exite o si la cantidad ingresada no es válida

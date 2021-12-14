@@ -15,7 +15,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
     mapa->mostrar_mapas();
     cout << MSJ_ENERGIA_DISPONIBLE << jugador->obtener_energia() << endl << endl;
     cout << MSJ_ELEGIR_OPCION;
-    int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
+    unsigned int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
     while(opcion != OPCION_SALIR_SEGUNDO_MENU){ //&& !jugador_uno->objetivos_cumplidos() && !jugador_dos->objetivos_cumplidos()){ 
         opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
         mostrar_segundo_menu();
@@ -26,7 +26,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
     }
 }   
 
-void opciones_segundo_menu(int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa){
+void opciones_segundo_menu(unsigned int opcion, Jugador* & jugador, Jugador* jugador_uno, Jugador *jugador_dos, ABB<Edificio *>& arbol, Mapa*& mapa){
     estados_t st;
     switch(opcion){
         case OPCION_CONSTRUIR_EDIFICIO:
@@ -81,7 +81,7 @@ Jugador* inicializar_jugador(Jugador* jugador_uno, Jugador* jugador_dos)
     unsigned int opcion_minima = NUMERO_JUGADOR_UNO, opcion_maxima = NUMERO_JUGADOR_DOS;
     Jugador* jugador;
     cout << MSJ_INGRESAR_JUGADOR;
-    int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
+    unsigned int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
     cout << endl << MSJ_JUGADOR_INGRESADO << opcion << endl;
     switch(opcion){
         case OPCION_JUGADOR_UNO:
@@ -127,7 +127,7 @@ void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifici
     ifstream archivo;
     archivo.open(ARCHIVO_UBICACIONES.c_str());
     unsigned int fila, columna, jugador_seleccionado;
-    int elemento;
+    unsigned int elemento;
     string str_aux, nombre_aux;
     while (getline(archivo, str_aux))
     {   
@@ -179,12 +179,12 @@ void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifici
 
 }
 
-int validar_linea_ubicaciones(char* aux)
+unsigned int validar_linea_ubicaciones(char* aux)
 {
-    int tipo_dato = 0;
+    unsigned int tipo_dato = 0;
 
     if(isdigit(*aux))
-        tipo_dato = atoi(aux);
+        tipo_dato = static_cast<unsigned int>(stoul(aux));
 
     return tipo_dato;
 }

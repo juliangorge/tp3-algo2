@@ -21,7 +21,7 @@ public:
     unsigned int obtener_cantidad_elementos();
 
     //POST: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
-    int obtener_posicion(unsigned int x, unsigned int y);
+    unsigned int obtener_posicion(unsigned int x, unsigned int y);
 
     //POST: devuelve el  nombre que se encuentra en la posicion recibida o NOMBRE_NO_ENCONTRADO si no lo encuentra
     Casillero *obtener_casillero_nodo(int posicion);
@@ -51,11 +51,11 @@ unsigned int Lista<Tipo>::obtener_cantidad_elementos(){
 }
 
 template < typename Tipo >
-int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casillero_y) {
+unsigned int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casillero_y) {
     bool elemento_encontrado = false;
-    int i = 0;
+    unsigned int i = 0;
     Nodo<Tipo>* auxiliar = primero;
-    while(!elemento_encontrado && i < int(cantidad_elementos)){
+    while(!elemento_encontrado && i < cantidad_elementos){
         if(auxiliar->obtener_casillero()->obtener_fila() == casillero_x && auxiliar->obtener_casillero()->obtener_columna() == casillero_y){
             elemento_encontrado = true;
         }
