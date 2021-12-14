@@ -4,10 +4,6 @@
 #include <iostream>
 #include <string>
 
-typedef std::string K;
-
-const K CLAVE_INVALIDA = "";
-
 template <class T>
 class ABBnodo
 {
