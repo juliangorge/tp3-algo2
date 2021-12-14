@@ -225,6 +225,9 @@ void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *d
     {
         jugador->agregar_material(material_aux->obtener_nombre(), material_aux->obtener_cantidad());
         casillero_aux->limpiar_casillero();
+        if(material_aux->obtener_nombre() == NOMBRE_ANDYCOINS)
+            jugador->agregar_andycoins_acumuladas(material_aux->obtener_cantidad());
+
     }
     do
     {
@@ -233,9 +236,7 @@ void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *d
         casillero_aux = mapa->obtener_casillero(fila_paso, columna_paso);
         if ((material_aux = casillero_aux->obtener_material()) != nullptr)
         {
-            cout << "En el camino se encontro " << material_aux->obtener_cantidad() << " de " << material_aux->obtener_nombre() << endl;
             jugador->agregar_material(material_aux->obtener_nombre(), material_aux->obtener_cantidad());
-
             if(material_aux->obtener_nombre() == NOMBRE_ANDYCOINS)
                 jugador->agregar_andycoins_acumuladas(material_aux->obtener_cantidad());
 
