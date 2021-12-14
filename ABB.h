@@ -12,9 +12,11 @@ template <class T>
 class ABB
 {
 private:
-    //atributos
+    //Atributos
+
     ABBnodo<T> *raiz;
-    //metodos
+
+    //Metodos
 
     // PRE: Clave y dato válido
     // POST: Verifica si nodo = 0 y en caso afirmativo crea un nodo y setea exito en true.
@@ -25,53 +27,107 @@ private:
     // POST: Imprime la rama izquierda al nodo, luego el nodo y rama derecha.    
     void imprimir_en_orden(ABBnodo<T> *nodo);
 
+    // POST: Escribe en archivo, la rama izquierda al nodo, luego el nodo y rama derecha.    
     void exportar_en_orden(ABBnodo<T> *nodo, ofstream& archivo);
-
-    //ABBnodo<T> *buscar(ABBnodo<T> *nodo, T dato);
 
     // POST: Si la clave del nodo es clave o si nodo = 0 devuelve nodo.
     // Si la clave del nodo es menor a clave aplica buscar al hijo derecho.
     // Si la clave del nodo es mayor a clave aplica buscar al hijo izquierdo.
     ABBnodo<T>* buscar(ABBnodo<T>* nodo, K clave);
 
-
+    // POST: Si nodo en 0 devuelve CLAVE_INVALIDA.
+    // Si el nodo no tiene hijo izquierdo devuleve la clave del nodo.
+    // En otro caso aplica encontrarMinimo al hijo izquierdo.
     T buscar_min(ABBnodo<T> *nodo);
+
+    // POST: Si nodo en 0 devuelve CLAVE_INVALIDA.
+    // Si el nodo no tiene hijo derecho devuleve la clave del nodo.
+    // En otro caso aplica buscar_max al hijo derecho..+
     T buscar_max(ABBnodo<T> *nodo);
+
+    // POST: dado un nodo devuelve la clave sucesora a la del mimo.
+    // Si no existe devuelve CLAVE_INVALIDA
     T sucesor(ABBnodo<T> *nodo);
+
+    // POST: dado un nodo devuelve la clave predecesora a la del mimo.
+    // Si no existe devuelve CLAVE_INVALIDA
     T predecesor(ABBnodo<T> *nodo);
+
+    // POST: Si la clave del nodo es clave remueve el nodo. Si no tiene 2 hijo devuelve alguno de los hijos
+    // Si tiene 2 hijos cambia el dato con el del sucesor y adquiere la clave del mismo.
+    // Devuelve nodo y aplica ramover al sucesor.
+    // Si la clave del nodo es mayor a clave aplica remover al hijo izquierdo.
+    // Si la clave del nodo es menor a clave aplica remover al hijo derecho.
+    // En Estos 2 casos devuelve nodo.
     ABBnodo<T> *remover(ABBnodo<T> *nodo, T dato);
+
+    // POST: Dado un nodo devuelve su altura.
     void eliminar_todo(ABBnodo<T> *nodo);
 
 public:
+    // PRE:
+    // POST: Crea un arbol vacio
     ABB();
     
-    // PRE: -
+    // PRE: Clave y dato válidos
     // POST: Agrega un nuevo nodo. 
     // Si el arbol esta vacio, el nodo insertado será la raiz. 
     // Devuelve true si se pudo insertar
     bool insertar(K clave, T dato);
 
+    // PRE:
+    // POST: devuleve true si el ABB esta vacio
     bool vacio();
+
+    // PRE:
+    // POST: Imprime toda la data almacenada en el ABB, ordenado desde el valor mas pequeño hasta el mas grande
     void imprimir_en_orden();
 
+    // PRE: Recibe archivo
+    // POST: Guarda en un archivo toda la data almacenada en el ABB, ordenado desde el valor mas pequeño hasta el mas grande
     void exportar_en_orden(ofstream& archivo);
 
     // PRE: Clave válida
     // POST: Busca un valor dado en el ABB. Si existe devuelve TRUE, sino FALSE.
     bool buscar(K clave);
 
-    // PRE:
-    // POST: Devuelve el dato asociado a una clave
+    // PRE: Clave válida
+    // POST: Retorna el dato asociado a una clave
     T obtener_dato(K clave);
 
+    // PRE: -
+    // POST: Encuentra el minimo valor que existe en el ABB.
+    // Retorna CLAVE_INVALIDA si el arbol esta vacio
     T buscar_min();
+
+    // PRE: -
+    // POST: Encuentra el maximo valor que existe en el ABB.
+    // Retorna CLAVE_INVALIDA si el arbol esta vacio
     T buscar_max();
+
+    // PRE: Dato válido
+    // POST: Encuentra el sucesor de un valor dado.
+    // Retorna CLAVE_INVALIDA si no existe un sucesor o la clave ingresada no se encuentra.    
     T sucesor(T dato);
+
+    // PRE: Dato válido
+    // POST: Encuentra el predecesor de un valor dado.
+    // Retorna CLAVE_INVALIDA si no existe un predecesor o la clave ingresada no se encuentra.
     T predecesor(T dato);
+
+    // PRE: Dato válido
+    // POST: Remueve la clave y el dato asociado a la misma
     void remover(T dato);
+
+    // PRE:
+    // POST: el atributo raiz.
     ABBnodo<T> *get_raiz();
-    // Deletes all the nodes in the BST
+
+    // POST: Borra todos los nodos del ABB
     void eliminar_todo();
+
+    // PRE:
+    // POST: Destruye ABB
     ~ABB<T>();
 };
 
@@ -103,32 +159,6 @@ ABBnodo<T>* ABB<T>::insertar(ABBnodo<T>* nodo, K clave, T dato, bool* exito) {
     return nodo;
 }
 
-/*template <class T>
-ABBnodo<T> *ABB<T>::insertar(ABBnodo<T> *nodo, T dato) //recibe la raiz y el dato
-{
-    //cada vez que quiera agregar un dato, tengo que compararlo con el nodo que
-    //tengo como raiz para ver si es más grande o más chico
-    if (nodo == NULL)
-    {
-        nodo = new ABBnodo<T>(dato);
-    }
-    else if (dato > nodo->get_dato())
-    {
-        nodo->set_derecha(insertar(nodo->get_derecha(), dato));
-    }
-    else
-    {
-        nodo->set_izquierda(insertar(nodo->get_izquierda(), dato));
-    }
-    return nodo;
-}
-*/
-/*template <class T>
-void ABB<T>::insertar(T dato)
-{
-    this->raiz = insertar(this->raiz, dato);
-}*/
-
 template <class T>
 bool ABB<T>::insertar(K clave, T dato)
 {
@@ -154,7 +184,6 @@ void ABB<T>::imprimir_en_orden(ABBnodo<T> *nodo)
     else{
         imprimir_en_orden(nodo->get_izquierda());
 
-        //cout << endl << "\tClave: "<< nodo->get_clave() << endl;
         cout<<"\t"<<*(nodo->get_dato())<<endl;
 
         imprimir_en_orden(nodo->get_derecha()); 

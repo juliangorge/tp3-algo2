@@ -19,27 +19,72 @@ class ABBnodo
         ABBnodo<T>* padre;
 
     public:
+        //PRE:
+        //POST: Crea un objeto ABBnodo, inicializando hijo izquierda, derecha y padre en nulo
         ABBnodo(K clave, T dato);
+
+        //PRE:
+        //POST: destruye en objeto ABBnodo
         virtual ~ABBnodo();
 
+        //PRE:
+        //POST: Retorna la clave del nodo
         K get_clave();
 
+        //PRE:
+        //POST: Retorna el dato del nodo
         T get_dato();
 
+        //PRE: clave y dato válidos
+        //POST: setea la clave del nodo
         void set_clave(K clave, T dato);
 
+        //PRE: dato válido
+        //POST: setea el dato del nodo
         void set_dato(T dato);
 
+        //PRE: puntero a nodo derecha y padre validos
+        //POST: setea el hijo derecho y el padre
         void set_derecha(ABBnodo<T>* derecha, ABBnodo<T>* padre);
+        
+        //PRE: puntero a nodo derecha y padre validos
+        //POST: setea el hijo izquierdo y el padre
         void set_izquierda(ABBnodo<T>* izquierda, ABBnodo<T>* padre);
+        
+        //PRE: puntero a nodo derecha y padre validos
+        //POST: setea el hijo izquierdo
         void set_derecha(ABBnodo<T>* derecha);
+        
+        //PRE: puntero a nodo derecha y padre validos
+        //POST: setea el hijo derecho
         void set_izquierda(ABBnodo<T>* izquierda);
+
+        //PRE: puntero a nodo padre valido
+        //POST: setea el padre
         void set_padre(ABBnodo<T>* padre);
+
+        //PRE:
+        //POST: Retorna Hijo derecho        
         ABBnodo<T>* get_derecha();
+
+        //PRE:
+        //POST: Retorna Hijo izquierdo
         ABBnodo<T>* get_izquierda();
+
+        //PRE:
+        //POST: Retorna padre
         ABBnodo<T>* get_padre();
+
+        //PRE:
+        //POST: Retorna TRUE si no tiene hijos
         bool es_hoja();
+
+        //PRE:
+        //POST: Retorna TRUE si tiene hijo derecho pero no izquierdo
         bool solo_hijo_derecha();
+
+        //PRE:
+        //POST: Retorna TRUE si tiene hijo izquierdo pero no derecho
         bool solo_hijo_izquierda();
 };
 
