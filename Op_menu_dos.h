@@ -5,7 +5,6 @@
 #include "Menu_consola.h"
 #include "Interaccion_usuario.h"
 #include "Grafo.h"
-#include <string>
 
 // Opciones de menu
 
@@ -35,7 +34,7 @@ estados_t comprar_bombas(Jugador* jugador);
 
 // PRE: El mapa y el ABB deben estar bien inicializados
 // POST: Se consulta las coordendas en el mapa y se obtiene información del casillero (siempre que las coordenadas sean válidas)
-estados_t consultar_coordenadas(Mapa* mapa);
+estados_t consultar_coordenadas(Mapa*& mapa);
 
 // PRE:
 // POST: Muestra todos los materiales disponibles del jugador con nombre y cantidad
@@ -51,7 +50,7 @@ estados_t recolectar_recursos(Jugador* jugador);
 
 // PRE:
 // POST: 
-estados_t moverse_coordenada(Jugador *jugador, Mapa* mapa);
+estados_t moverse_coordenada(Jugador *jugador, Mapa* &mapa);
 
 // PRE:
 // POST:

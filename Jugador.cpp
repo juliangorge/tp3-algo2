@@ -60,7 +60,7 @@ void Jugador::agregar_coordenadas(unsigned int posicion_fila, unsigned int posic
 
 void Jugador::agregar_material_a_lista(Material* material){
     Material** materiales_aux = new Material*[this->tipos_de_materiales + 1];
-    for (int i = 0; i < this->tipos_de_materiales; i++){
+    for (unsigned int i = 0; i < this->tipos_de_materiales; i++){
         materiales_aux[i] = this->materiales_jugador[i];
     }
 

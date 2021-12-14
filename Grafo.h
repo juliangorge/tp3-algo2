@@ -28,7 +28,7 @@ private:
 
     //PRE: tienen que existir tanto el origen como el destino. Ademas se deben haber calculado las matrices de Floyd
     //POST: muestra el camino minimo entre el origen y el destino. Devuelve el costo del camino en energia.
-    int camino_minimo(int origen, int destino);
+    unsigned int camino_minimo(unsigned int origen, unsigned int destino);
 
     //POST: agranda dinamicamente la matriz de adyacencia
     void agrandar_matriz_adyacencia();
@@ -57,7 +57,7 @@ public:
 
     //PRE: se debe tener un algortimo para calcular el camino mínimo previamente elegido
     //POST: muestra por terminal el camino mínimo desde un origen a un destino
-    int camino_minimo(Casillero *origen, Casillero *destino);
+    unsigned int camino_minimo(Casillero *origen, Casillero *destino);
      
     //PRE:
     //POST: 

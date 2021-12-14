@@ -10,7 +10,7 @@ using namespace std;
 
 // PRE: Los valores mínimo y máximo deben ser valores positivos
 // POST: Devuelve un número contemplado entre las cotas minimas y maximas dadas por parámetro
-int obtener_numero_por_consola(unsigned int valor_minimo, unsigned int valor_maximo);
+unsigned int obtener_numero_por_consola(unsigned int valor_minimo, unsigned int valor_maximo);
 
 // PRE: Los valores mínimo y máximo deben ser valores positivos
 // POST: Devuelve OK si se genera un número contemplado entre las cotas minimas y maximas dadas por parámetro, caso contrario da error

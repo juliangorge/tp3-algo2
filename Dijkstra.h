@@ -45,11 +45,11 @@ public:
     Dijkstra(Lista<Vertice> * vertices, unsigned int ** matriz_adyacencia);
 
     //post: muestra por pantalla el camino mínimo entre el origen y el destino, detallando su recorrido y peso
-    int camino_minimo(int origen, int destino) override;
+    unsigned int camino_minimo(unsigned int origen, unsigned int destino);
 
     unsigned int obtener_distancia(unsigned int vertice);
 
-    ~Dijkstra() override;
+    ~Dijkstra();
 
 };
 

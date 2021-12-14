@@ -1,16 +1,16 @@
 #include "Interaccion_usuario.h"
 
-int obtener_numero_por_consola(unsigned int valor_minimo, unsigned int valor_maximo)
+unsigned int obtener_numero_por_consola(unsigned int valor_minimo, unsigned int valor_maximo)
 {
 	string opcion;
     int respuesta;
     cin >> opcion;
-    while(!es_numero(opcion) || (stoi(opcion) < valor_minimo || stoi(opcion) > valor_maximo)){
+    while(!es_numero(opcion) || (static_cast<unsigned int>(stoul(opcion)) < valor_minimo || static_cast<unsigned int>(stoul(opcion)) > valor_maximo)){
         cout << MSJ_ERROR_OPCION_INVALIDA;
         cin >> opcion;
     }
 
-    respuesta = stoi(opcion);
+    respuesta = static_cast<unsigned int>(stoul(opcion));
     return respuesta;
 }
 

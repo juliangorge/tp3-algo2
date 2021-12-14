@@ -189,7 +189,7 @@ estados_t comprar_bombas(Jugador *jugador)
     return st;
 }
 
-estados_t consultar_coordenadas(Mapa *mapa)
+estados_t consultar_coordenadas(Mapa *&mapa)
 {
     estados_t st = ST_OK;
     unsigned int fila, columna;
@@ -240,12 +240,12 @@ estados_t recolectar_recursos(Jugador *jugador)
     return st;
 }
 
-estados_t moverse_coordenada(Jugador *jugador, Mapa *mapa)
+estados_t moverse_coordenada(Jugador *jugador, Mapa *&mapa)
 {
     unsigned int fila = 0, columna = 0;
-    estados_t st;
+    estados_t st = ST_OK;
     Grafo grafo;
-    bool energia_suficiente=true;
+    //bool energia_suficiente=true;
     Casillero *destino, *origen;
 
     while (st != ST_OK && st!=ST_ERROR_ENERGIA_INSUFICIENTE)

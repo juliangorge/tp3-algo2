@@ -9,19 +9,16 @@ template < typename Tipo >
 class Lista{
 /*ATRIBUTOS*/
 private:
-    int cantidad_elementos;
+    unsigned int cantidad_elementos;
     Nodo<Tipo>* primero;
     Nodo<Tipo>* ultimo;
-    int x;
-    int y;
-
 
 /*MÉTODOS*/
 public:
     Lista();
 
     //POST: devuelve la cantidad de elementos que tiene la lista
-    int obtener_cantidad_elementos();
+    unsigned int obtener_cantidad_elementos();
 
     //POST: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
     int obtener_posicion(unsigned int x, unsigned int y);
@@ -36,7 +33,7 @@ public:
     string obtener_nombre(unsigned int posicion);
 
     //POST: asigna las coordenadas de un casillero que se encuentra en la lista
-    void obtener_posicion_mapa(int posicion, unsigned int *fila, unsigned int *columna);
+    void obtener_posicion_mapa(unsigned int posicion, unsigned int *fila, unsigned int *columna);
     
     ~Lista();
 };
@@ -46,24 +43,19 @@ Lista<Tipo>::Lista(){
     cantidad_elementos = 0;
     ultimo = nullptr;
     primero = nullptr;
-    int x = 0;
-    int y = 0;
 }
 
 template < typename Tipo >
-int Lista<Tipo>::obtener_cantidad_elementos(){
+unsigned int Lista<Tipo>::obtener_cantidad_elementos(){
     return cantidad_elementos;
 }
-
-
-
 
 template < typename Tipo >
 int Lista<Tipo>::obtener_posicion(unsigned int casillero_x, unsigned int casillero_y) {
     bool elemento_encontrado = false;
     int i = 0;
     Nodo<Tipo>* auxiliar = primero;
-    while(!elemento_encontrado && i < cantidad_elementos){
+    while(!elemento_encontrado && i < int(cantidad_elementos)){
         if(auxiliar->obtener_casillero()->obtener_fila() == casillero_x && auxiliar->obtener_casillero()->obtener_columna() == casillero_y){
             elemento_encontrado = true;
         }
@@ -104,7 +96,7 @@ Lista<Tipo>::~Lista() {
 
 template<typename Tipo>
 Casillero *Lista<Tipo>::obtener_casillero_nodo(int posicion) {
-    int i = 0;
+    unsigned int i = 0;
     Nodo<Tipo>* auxiliar = primero;
 
     if(posicion > cantidad_elementos){
@@ -146,9 +138,9 @@ string Lista<Tipo>::obtener_nombre(unsigned int posicion)
 }
 
 template<typename Tipo>
-void Lista<Tipo>::obtener_posicion_mapa(int posicion, unsigned int *fila, unsigned int *columna)
+void Lista<Tipo>::obtener_posicion_mapa(unsigned int posicion, unsigned int *fila, unsigned int *columna)
 {
-    int i = 0;
+    unsigned int i = 0;
     Nodo<Tipo>* auxiliar = primero;
 
     while(i != posicion - 1){

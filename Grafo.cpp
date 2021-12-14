@@ -24,7 +24,7 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
     Casillero *origen, *destino;
     unsigned int peso_origen = 0, peso_destino = 0;
     int posicion_origen=0, posicion_destino=0;
-    char jugador_contrario;
+    
     for (unsigned int i = 0; i < mapa->obtener_cantidad_filas(); i++)
     {   
         for (unsigned int j = 0; j < mapa->obtener_cantidad_columnas(); j++)
@@ -56,7 +56,7 @@ void Grafo::agregar_camino(Mapa *mapa, char jugador)
 
 }
 
-int Grafo::camino_minimo(Casillero *origen, Casillero *destino) 
+unsigned int Grafo::camino_minimo(Casillero *origen, Casillero *destino) 
 {
     int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());
     int posicion_destino = vertices->obtener_posicion(destino->obtener_fila(), destino->obtener_columna());
@@ -67,10 +67,7 @@ int Grafo::camino_minimo(Casillero *origen, Casillero *destino)
     if(posicion_destino == POSICION_NO_ENCONTRADA){
         cout << "El vertice " << destino << " no existe en el grafo" << endl;
     }
-
-
-    return camino_minimo(posicion_origen, posicion_destino);
-
+    return camino_minimo(unsigned(posicion_origen), unsigned(posicion_destino));
 }
 
 void Grafo::agrandar_matriz_adyacencia() {
@@ -138,7 +135,7 @@ void Grafo::mostrar_matriz_adyacencia() {
 }
 
 //Hago una sobre carga de camino minimo para hallar el camino minimo entre origen y destino
-int Grafo::camino_minimo(int origen, int destino) {
+unsigned int Grafo::camino_minimo(unsigned int origen, unsigned int destino) {
     return algoritmo_camino_minimo -> camino_minimo(origen, destino);
 }
 
@@ -200,17 +197,12 @@ void Grafo::asignar_pesos(Casillero *origen, Casillero *destino, unsigned int *p
 estados_t Grafo::usar_grafo(Casillero *origen, Casillero *destino, Mapa *mapa, Jugador *jugador)
 {
     unsigned int costo_camino = 0;
-    estados_t st = ST_OK;
     asignar_adyacentes(jugador->obtener_caracter(), origen, destino, mapa);
     usar_dijkstra();
     
     costo_camino = camino_minimo(origen, destino);
     cout << "Costo del camino: " << costo_camino << endl;
-
-    if((st = jugador->verificar_energia_suficiente(costo_camino))== ST_OK)
-        jugador->decrementar_energia(costo_camino);
-
-    return st;
+    return(jugador->verificar_energia_suficiente(costo_camino));
 }
 
 void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador)
@@ -239,9 +231,9 @@ void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *d
             cout << "En el camino se encontro " << material_aux->obtener_cantidad() << " de " << material_aux->obtener_nombre() << endl;
             jugador->agregar_material(material_aux->obtener_nombre(), material_aux->obtener_cantidad());
 
-            if(material_aux->obtener_nombre()==NOMBRE_ANDYCOINS)
+            if(material_aux->obtener_nombre() == NOMBRE_ANDYCOINS)
                 jugador->agregar_andycoins_acumuladas(material_aux->obtener_cantidad());
-            
+
             casillero_aux->limpiar_casillero();
         }
 
