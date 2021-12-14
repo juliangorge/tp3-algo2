@@ -11,6 +11,8 @@ class CasilleroTerreno : public Casillero
         // POST: Crea un objeto CasilleroTerreno, guardando sus coordenadas del mapa
         CasilleroTerreno(unsigned int fila, unsigned int columna);
 
+        // PRE:
+        // POST: Destruye un objeto CasilleroTerreno
         ~CasilleroTerreno();
 
         // PRE: Se debe haber referenciado el edificio
@@ -18,7 +20,7 @@ class CasilleroTerreno : public Casillero
         void cambiar_caracter();
 
         // PRE:
-        // POST: Devuelve el nombre del casillero, si esta libre o, en caso contrario, que objeto contiene (edificio/jugador)
+        // POST: Retornar el nombre del casillero, si esta libre o, en caso contrario, que objeto contiene (edificio/jugador)
         void mostrar_casillero();
 
         // PRE: Debe tener un edificio referenciado

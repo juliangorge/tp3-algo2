@@ -11,6 +11,8 @@ class CasilleroBetun : public Casillero
         // POST: Crea un objeto CasilleroBetun, guardando sus coordenadas del mapa
         CasilleroBetun(unsigned int fila, unsigned int columna);
 
+        // PRE:
+        // POST: Destruye un objeto CasilleroBetun
         ~CasilleroBetun();
 
         // PRE: Se debe haber referenciado el material
