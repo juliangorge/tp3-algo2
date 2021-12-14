@@ -224,24 +224,33 @@ bool Jugador::objetivos_cumplidos()
 
 void Jugador::mostrar_objetivos(unsigned int maximo_escuelas)
 {    
-    string nombre_piedra = NOMBRE_PIEDRA, nombre_bombas = NOMBRE_BOMBAS, nombre_escuela = NOMBRE_ESCUELA;
-    unsigned int escuelas_construidas = obtener_cant_edificio(nombre_escuela),
-                 pos_piedra = this->obtener_posicion_material(nombre_piedra),
-                 cantidad_piedra = this->materiales_jugador[pos_piedra]->obtener_cantidad(),                 
-                 pos_bombas = this->obtener_posicion_material(nombre_bombas),
-                 cantidad_bombas = this->materiales_jugador[pos_bombas]->obtener_cantidad();
+    string nombre_piedra = NOMBRE_PIEDRA, nombre_bombas = NOMBRE_BOMBAS, nombre_escuela = NOMBRE_ESCUELA,
+    nombre_mina = NOMBRE_MINA, nombre_mina_oro = NOMBRE_MINA_ORO, nombre_aserradero = NOMBRE_ASERRADERO,
+    nombre_fabrica = NOMBRE_FABRICA, nombre_planta_elec = NOMBRE_PLANTA_ELEC, nombre_obelisco = NOMBRE_OBELISCO;
+    unsigned int pos_piedra = this->obtener_posicion_material(nombre_piedra), pos_bombas = this->obtener_posicion_material(nombre_bombas);
 
-    unsigned int atributos_objetivos[8];
-    atributos_objetivos[0] = this->andycoins_acumuladas;
-    atributos_objetivos[1] = this->bombas_compradas;
-    atributos_objetivos[2] = this->bombas_usadas;
-    atributos_objetivos[3] = this->energia;
-    atributos_objetivos[4] = cantidad_piedra;
-    atributos_objetivos[5] = cantidad_bombas;
-    atributos_objetivos[6] = escuelas_construidas;
-    atributos_objetivos[7] = maximo_escuelas;
+    unsigned int atributos_objetivos[CANTIDAD_VALORES_OBJETIVOS];
 
-    this->objetivos->mostrar_progreso(atributos_objetivos);
+    atributos_objetivos[POS_ANDYCOINS_ACUM] = this->andycoins_acumuladas;
+    atributos_objetivos[POS_BOMBAS_COMPRADAS] = this->bombas_compradas;
+    atributos_objetivos[POS_BOMBAS_USADAS] = this->bombas_usadas;
+    atributos_objetivos[POS_ENERGIA] = this->energia;
+    atributos_objetivos[POS_CANTIDAD_PIEDRA] = this->materiales_jugador[pos_piedra]->obtener_cantidad();
+    atributos_objetivos[POS_CANTIDAD_BOMBAS] = this->materiales_jugador[pos_bombas]->obtener_cantidad();
+    atributos_objetivos[POS_ESCUELAS_CONST] = this->obtener_cant_edificio(nombre_escuela);
+    atributos_objetivos[POS_ESCUELAS_MAX] = maximo_escuelas;
+
+    unsigned int tipos_edificios_construidos[CANTIDAD_TIPOS_EDIFICIOS];
+    tipos_edificios_construidos[POS_MINA] = this->obtener_cant_edificio(nombre_mina);
+    tipos_edificios_construidos[POS_MINA_ORO] = this->obtener_cant_edificio(nombre_mina_oro);
+    tipos_edificios_construidos[POS_ASERRADERO] = this->obtener_cant_edificio(nombre_aserradero);
+    tipos_edificios_construidos[POS_FABRICA] = this->obtener_cant_edificio(nombre_fabrica);
+    tipos_edificios_construidos[POS_ESCUELA] = this->obtener_cant_edificio(nombre_planta_elec);
+    tipos_edificios_construidos[POS_PLANTA_ELEC] = this->obtener_cant_edificio(nombre_planta_elec);
+    tipos_edificios_construidos[POS_OBELISCO] = this->obtener_cant_edificio(nombre_obelisco);
+
+ 
+    this->objetivos->mostrar_progreso(atributos_objetivos, tipos_edificios_construidos);
 }
 
 unsigned int Jugador::obtener_cant_edificio(string nombre)
@@ -279,13 +288,15 @@ void Jugador::recolectar_recursos()
     {
         edificio = this->casilleros_jugador[i]->obtener_edificio();
         if(edificio->obtener_provee_materiales()){
-            switch(edificio->obtener_nombre()[0]){
+            switch(edificio->obtener_nombre()[POSICION_PRIMER_LETRA]){
                 case PRIMER_LETRA_MINA:
-                    if(edificio->obtener_nombre().length() == 4){
+                    if(edificio->obtener_nombre() == NOMBRE_MINA){
                         agregar_material(nombre_piedra, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     }
-                    else
+                    else{
                         agregar_material(nombre_andycoins, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                        this->agregar_andycoins_acumuladas(edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    }
                     break;
                 case PRIMER_LETRA_ASERRADERO:
                     agregar_material(nombre_madera, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
@@ -295,16 +306,19 @@ void Jugador::recolectar_recursos()
                     break;
                 case PRIMER_LETRA_ESCUELA:
                     agregar_material(nombre_andycoins, edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
+                    this->agregar_andycoins_acumuladas(edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
                     break;
                 case PRIMER_LETRA_PLANTA_ELEC:
                     incrementar_energia(edificio->obtener_materiales_proveidos() * this->acumulador_por_turno);
-                    break;
-                default:
                     break;
             }
         }
     }
     reset_acumulador_por_turno();
+}
+
+void Jugador::agregar_andycoins_acumuladas(unsigned int cantidad){
+    this->andycoins_acumuladas += cantidad;
 }
 
 void Jugador::cargar_ubicaciones_edificios(ofstream& archivo)

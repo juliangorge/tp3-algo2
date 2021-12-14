@@ -1,6 +1,7 @@
 #ifndef GRAFOS_LISTA_H
 #define GRAFOS_LISTA_H
 #include "Nodo.h"
+#include "Constantes.h"
 
 using namespace std;
 

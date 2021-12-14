@@ -46,12 +46,11 @@ void iniciar_juego()
 
 	if(opcion_salida == OPCION_COMENZAR_PARTIDA){
 		trabajar_segundo_menu(jugador_uno, jugador_dos, arbol, mapa);
-		guardar_ubicaciones(mapa, jugador_uno, jugador_dos);
+		guardar_ubicaciones(mapa, jugador_uno, jugador_dos);		
 	}
 
 	guardar_materiales(jugador_uno, jugador_dos);
 	guardar_edificios(arbol);
-
 	delete jugador_uno;
 	delete jugador_dos;
 	delete mapa;
