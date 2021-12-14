@@ -12,25 +12,27 @@ private:
     unsigned int *recorrido;
 
 //Métodos
-    //post: pone todos los valores del vector de vertices_visitados en "false" menos el origen
+    // POST: pone todos los valores del vector de vertices_visitados en "false" menos el origen
     void inicializar_visitados(unsigned int origen);
 
-    //post: pone las distancias exactamente igual que la distanciaOrigen
+    // POST: pone las distancias exactamente igual que la distanciaOrigen
     void inicializar_distancia(const unsigned int * distanciaOrigen);
 
-    //post: llena el vector de recorrido con el origen
+    // POST: llena el vector de recorrido con el origen
     void inicializar_recorrido(unsigned int origen);
 
-    //post: devuelve el número de vértice con menor distancia al origen
+    // POST: devuelve el número de vértice con menor distancia al origen
     unsigned int vertice_minima_distancia();
 
-    //post: actualiza el vector de distancias y el de recorrido con los valores que impone vertice.
+    // POST: actualiza el vector de distancias y el de recorrido con los valores que impone vertice.
     void actualizar_distancia(unsigned int vertice);
 
-    //pre: para que tenga sentido, debe ejecutarse un recorrido previamente
-    //post: muestra por pantalla el resultado del recorrido.
+    // PRE: para que tenga sentido, debe ejecutarse un recorrido previamente
+    // POS: muestra por pantalla el resultado del recorrido.
     void mostrar_recorrido(unsigned int origen, unsigned int destino);
 
+    // PRE: Recibe destino valido
+    // POST: Retorna la posicion del vertice del destino
     unsigned int obtener_posicion_destino(unsigned int destino);
 
     //PRE: las coordenadas deben pertenecer al camino minimo encontrado
@@ -42,13 +44,20 @@ private:
 
 
 public:
+
+    // PRE:
+    // POST: Crea un objeto Dijkstra
     Dijkstra(Lista<Vertice> * vertices, unsigned int ** matriz_adyacencia);
 
-    //post: muestra por pantalla el camino mínimo entre el origen y el destino, detallando su recorrido y peso
+    // POST: Retorna por pantalla el camino mínimo entre el origen y el destino, detallando su recorrido y peso
     unsigned int camino_minimo(unsigned int origen, unsigned int destino);
 
+    // PRE: Recibe vertice valida
+    // POST: Retorna la distancia entre el jugador y el origen
     unsigned int obtener_distancia(unsigned int vertice);
 
+    // PRE:
+    // POST: Destruye el objeto Dijkstra
     ~Dijkstra() override;
 
 };

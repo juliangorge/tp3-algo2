@@ -6,17 +6,22 @@
 using namespace std;
 
 class Vertice {
+
 /*ATRIBUTOS*/
 private:
     Casillero *casillero;
 
 /*MÉTODOS*/
 public:
+    // PRE:
+    // POST: Construye el objeto Vertice
     Vertice(Casillero *casillero);
 
-    //post: obtiene el casillero del vertice
+    // POST: obtiene el casillero del vertice
     Casillero *obtener_casillero();
     
+    // PRE:
+    // POST: Destruye el objeto Vertice
     ~Vertice();
 };
 

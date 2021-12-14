@@ -243,7 +243,7 @@ estados_t recolectar_recursos(Jugador *jugador)
 estados_t moverse_coordenada(Jugador *jugador, Mapa *&mapa)
 {
     unsigned int fila = 0, columna = 0;
-    estados_t st;
+    estados_t st = ST_ERROR_COORDENADAS_INVALIDAS;
     Grafo grafo;
     //bool energia_suficiente=true;
     Casillero *destino, *origen;

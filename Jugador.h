@@ -163,16 +163,20 @@ class Jugador {
         // POST: Aumenta en 1 el acumulador una vez que se finaliza el turno
         void aumentar_acumulador_por_turno();
         
-        //PRE:
-        //POST:
+        // PRE: Recibe el flujo de datos de salida del archivo
+        // POST: Carga el archivo
         void cargar_ubicaciones_materiales(ofstream& archivo);
 
+        // PRE: Recibe cantidad valida 
+        // POST: Incrementa la cantidad
         void agregar_andycoins_acumuladas(unsigned int cantidad);
 
+        // PRE: Recibe el flujo de datos de salida del archivo
+        // POST: Carga el archivo
         void cargar_ubicaciones_edificios(ofstream& archivo);
 
-        //PRE:
-        //POST:
+        //PRE: Recibe fila y columna valido
+        //POST: Cambia los atributos de posicion
         void set_posicion(unsigned int fila, unsigned int columna);
 
 

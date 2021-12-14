@@ -15,26 +15,30 @@ private:
 
 /*MÉTODOS*/
 public:
+    // PRE:
+    // POST: Crea un objeto Lista
     Lista();
 
-    //POST: devuelve la cantidad de elementos que tiene la lista
+    // POST: devuelve la cantidad de elementos que tiene la lista
     unsigned int obtener_cantidad_elementos();
 
-    //POST: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
+    // POST: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
     unsigned int obtener_posicion(unsigned int x, unsigned int y);
 
-    //POST: devuelve el  nombre que se encuentra en la posicion recibida o NOMBRE_NO_ENCONTRADO si no lo encuentra
+    // POST: devuelve el  nombre que se encuentra en la posicion recibida o NOMBRE_NO_ENCONTRADO si no lo encuentra
     Casillero *obtener_casillero_nodo(int posicion);
 
-    //POST: agrega un nuevo elemento a la lista
+    // POST: agrega un nuevo elemento a la lista
     void agregar(Casillero *nuevo_elemento);
 
-    //POST: devuelve las coordendas de un casillero en formato cadena para imprimirlas
+    // POST: devuelve las coordendas de un casillero en formato cadena para imprimirlas
     string obtener_nombre(unsigned int posicion);
 
-    //POST: asigna las coordenadas de un casillero que se encuentra en la lista
+    // POST: asigna las coordenadas de un casillero que se encuentra en la lista
     void obtener_posicion_mapa(unsigned int posicion, unsigned int *fila, unsigned int *columna);
     
+    // PRE:
+    // POST: Destruye un objeto Lista
     ~Lista();
 };
 

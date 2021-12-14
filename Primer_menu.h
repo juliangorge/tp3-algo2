@@ -9,8 +9,8 @@
 
 using namespace std;
 
-// PRE:
-// POST:
+// PRE: Recibe referencia del arbol y puntero a mapa
+// POST: Retorna la opcion elegida en el primer menu ingresada por el usuario
 unsigned int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa);
 
 // PRE: la opcion debe ser mayor a 0

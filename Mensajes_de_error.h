@@ -58,6 +58,8 @@ typedef enum
  	ST_MSJ_SALIR
 }estados_t;
 
+// PRE: Recibe el tipo enumerativo estados_T
+// POST: Imprime el mensaje especifico de error
 void imprimir_error(estados_t st);
 
 #endif //MENSAJES_DE_MSJ_ERROR_H

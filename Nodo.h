@@ -13,17 +13,22 @@ private:
 
 /*MÉTODOS*/
 public:
+    // PRE: 
+    // POST: Construye el objeto Nodo
     Nodo(Casillero *casillero);
 
-    //post: devuelve el nodo siguiente.
+    // POST: Retorna el nodo siguiente.
     Nodo<Tipo>* obtener_siguiente();
 
-    //post: devuelve el casillero del nodo
+    // POST: Retorna el casillero del nodo
     Casillero *obtener_casillero();
 
-    //post: le asigna como siguiente el nodo recibido
+    // PRE: Recibe nodo valido
+    // POST: Asigna como siguiente el nodo recibido
     void asignar_siguiente(Nodo<Tipo>* siguiente);
 
+    // PRE: 
+    // POST: Destruye el objeto Nodo
     ~Nodo();
 };
 
