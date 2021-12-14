@@ -32,22 +32,21 @@ void verificar_energia_nula(Mapa* & mapa, Jugador* & jugador, Jugador* jugador_u
 // POST: 
 void cargar_ubicaciones (Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edificio*>& arbol, Mapa*& mapa);
 
-
-// PRE: 
-// POST: 
+// PRE: Recibe puntero auxiliar
+// POST: Retorna dato validado
 unsigned int validar_linea_ubicaciones(char* aux);
 
 
 // PRE: 
-// POST: 
+// POST: Verifica la existencia del archivo ubicaciones 
 bool existe_archivo_ubicaciones();
 
-// PRE: 
-// POST: 
+// PRE: Recibe puntero de los jugadores y referencia del mapa 
+// POST: Carga las coordenadas para el jugador
 void cargar_posiciones_jugadores(Jugador *jugador_uno, Jugador *jugador_dos, Mapa*& mapa);
 
-// PRE: 
-// POST: 
+// PRE: Recibe por referencia el arbol
+// POST: Guarda los cambios en el archivo
 void guardar_edificios(ABB<Edificio *>& arbol);
 
 #endif //SEGUNDO_MENU_H
