@@ -31,11 +31,11 @@ private:
     //post: muestra por pantalla el resultado del recorrido.
     void mostrar_recorrido(unsigned int origen, unsigned int destino);
 
-    int obtener_posicion_destino(int destino);
+    unsigned int obtener_posicion_destino(unsigned int destino);
 
     //PRE: las coordenadas deben pertenecer al camino minimo encontrado
     //POST: devuelve el vertice adyacente de menor peso
-    void obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, int origen, int destino);
+    void obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, unsigned int origen, unsigned int destino);
 
     //post: muestra el estado instantaneo del vector de recorrido, distancia y visitados.
     //void mostrar_iteracion(int iteracion);
@@ -49,7 +49,7 @@ public:
 
     unsigned int obtener_distancia(unsigned int vertice);
 
-    ~Dijkstra();
+    ~Dijkstra() override;
 
 };
 

@@ -91,13 +91,13 @@ void Dijkstra::mostrar_recorrido(unsigned int origen, unsigned int destino) {
     cout << endl;
 }
 
-int Dijkstra::obtener_posicion_destino(int destino)
+unsigned int Dijkstra::obtener_posicion_destino(unsigned int destino)
 {
     return this->recorrido[destino];
 }
 
 
-void Dijkstra::obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, int origen, int destino)
+void Dijkstra::obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, unsigned int origen, unsigned int destino)
 {
 
     vertices->obtener_posicion_mapa(destino + 1, fila, columna);

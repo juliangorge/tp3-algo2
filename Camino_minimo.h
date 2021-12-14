@@ -30,7 +30,7 @@ public:
 
     // PRE:
     // POST: Destruye un objeto Camino_minimo
-    virtual ~Camino_minimo() = 0;
+    virtual ~Camino_minimo() = default;
 };
 
 
