@@ -25,6 +25,7 @@ public:
     virtual int camino_minimo(int origen, int destino) = 0;
 
     virtual void obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, int origen, int destino)=0;
+    
     virtual int obtener_posicion_destino(int destino)=0;
 
 

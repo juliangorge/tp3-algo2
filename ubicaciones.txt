@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-madera (1, 11)
-andycoins (4, 14)
-metal (5, 6)
-andycoins (9, 0)
-metal (11, 3)
-piedra (13, 2)
-1 (4, 2)
-2 (8, 9)
-=======
 madera (0, 0)
 metal (0, 1)
 andycoins (0, 2)
@@ -130,4 +120,3 @@ mina oro (12, 12)
 fabrica (14, 3)
 planta electrica (0, 10)
 aserradero (0, 9)
->>>>>>> 185ed356aac28bdd32e9164c896de59d77e47a61

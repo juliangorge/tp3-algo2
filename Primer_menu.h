@@ -10,11 +10,11 @@
 using namespace std;
 
 // PRE:
-// POST:
+// POST: 
 int trabajar_primer_menu(ABB<Edificio*> &arbol, Mapa* mapa);
 
-// PRE:
-// POST:
+// PRE: la opcion debe ser mayor a 0
+// POST: Muestra el swtich de opciones del primer menu
 void opciones_primer_menu(int opcion, ABB<Edificio*> &arbol, Mapa* mapa);
 
 // PRE: Se debe tener creado el ABB que contenga los edificios

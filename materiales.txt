@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 madera 125 250
 metal 660 60
 piedra 855 0
 andycoins 0 6000
 bombas 10 1
-=======
-madera 362 325
-metal 590 180
-piedra 712 0
-andycoins 800 5950
-bombas 11 0
->>>>>>> 185ed356aac28bdd32e9164c896de59d77e47a61
