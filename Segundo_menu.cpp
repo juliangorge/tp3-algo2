@@ -16,7 +16,8 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
     cout << MSJ_ENERGIA_DISPONIBLE << jugador->obtener_energia() << endl << endl;
     cout << MSJ_ELEGIR_OPCION;
     unsigned int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
-    while(opcion != OPCION_SALIR_SEGUNDO_MENU){ //&& !jugador_uno->objetivos_cumplidos() && !jugador_dos->objetivos_cumplidos()){ 
+    while(opcion != OPCION_SALIR_SEGUNDO_MENU && !jugador_uno->objetivos_cumplidos() && !jugador_dos->objetivos_cumplidos())
+    { 
         opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
         mostrar_segundo_menu();
         mapa->mostrar_mapas();
