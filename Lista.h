@@ -1,10 +1,9 @@
 #ifndef GRAFOS_LISTA_H
 #define GRAFOS_LISTA_H
 #include "Nodo.h"
+#include "Constantes.h"
 
 using namespace std;
-
-const int POSICION_NO_ENCONTRADA = -1;
 
 template < typename Tipo >
 class Lista{
@@ -34,7 +33,7 @@ public:
     void agregar(Casillero *nuevo_elemento);
 
     //POST: devuelve las coordendas de un casillero en formato cadena para imprimirlas
-    string obtener_nombre(int posicion);
+    string obtener_nombre(unsigned int posicion);
 
     //POST: asigna las coordenadas de un casillero que se encuentra en la lista
     void obtener_posicion_mapa(int posicion, unsigned int *fila, unsigned int *columna);
@@ -46,9 +45,9 @@ template < typename Tipo >
 Lista<Tipo>::Lista(){
     cantidad_elementos = 0;
     ultimo = nullptr;
-    primero =  nullptr;
-    int x=0;
-    int y=0;
+    primero = nullptr;
+    int x = 0;
+    int y = 0;
 }
 
 template < typename Tipo >
@@ -123,9 +122,9 @@ Casillero *Lista<Tipo>::obtener_casillero_nodo(int posicion) {
 
 
 template<typename Tipo>
-string Lista<Tipo>::obtener_nombre(int posicion)
+string Lista<Tipo>::obtener_nombre(unsigned int posicion)
 {
-    int i = 0;
+    unsigned int i = 0;
     Nodo<Tipo>* auxiliar = primero;
 
     if(posicion > cantidad_elementos){

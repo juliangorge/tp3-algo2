@@ -36,7 +36,8 @@ class Casillero
 
         // PRE: 
         // POST: Coloca los punteros de edificio y material a nulo
-        ~Casillero();
+        virtual ~Casillero() = 0;
+
         // PRE: 
 	    // POST: Devuelve la posicion fila del Casillero en el mapa
         unsigned int obtener_fila();
@@ -97,7 +98,7 @@ class Casillero
         // POST: Desreferencia al atributo edificio/material, y coloca el caracter casillero
         virtual void limpiar_casillero() = 0;
 
-        // PRE:
+        // PRE: Recibe caracter de jugador válido
         // POST: Devuelve el costo de energía en base al caracter del jugador que recibe
         unsigned int obtener_costo_energia(char jugador);
  
@@ -105,7 +106,7 @@ class Casillero
         // POST: Devuelve el costo de energía en base al caracter del jugador que recibe
         void mostrar_edificio();
 
-        // PRE:
+        // PRE: Recibe caracter de casillero válido
         // POST: Coloca en el casillero el caracter jugador, para que éste se muestre en el mapa
         void ocupar_casillero(char caracter);
 
@@ -113,15 +114,15 @@ class Casillero
         // POST: Devuelve informacion del tipo de casillero, si esta libre o en caso contrario, que objeto contiene
         virtual void mostrar_casillero() = 0;
 
-		// PRE: 
+		// PRE: Recibe caracter de jugador válido
         // POST: Devuelve OK si se cumplen las condiciones para que se pueda construir, caso contrario devuelve un valor que se usa para indicar que no se cumplió
         estados_t verificar_condiciones_construccion(char caracter_jugador);
 
-        // PRE: 
+        // PRE: Recibe caracter de jugador válido
         // POST: Devuelve OK si se cumplen las condiciones para que se pueda demoler, caso contrario devuelve un valor que se usa para indicar que no se cumplió
         estados_t verificar_condiciones_demolicion(char caracter_jugador);
 
-        // PRE: 
+        // PRE: Recibe caracter de jugador válido
         // POST: Devuelve OK si se cumplen las condiciones para que se pueda atacar, caso contrario devuelve un valor que se usa para indicar que no se cumplió
         estados_t verificar_condiciones_ataque(char caracter_jugador);
 };

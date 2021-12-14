@@ -11,12 +11,14 @@ Casillero::~Casillero(){
     this->edificio = nullptr;
     this->material = nullptr;
 }
-    
 
-unsigned int Casillero::obtener_fila(){
+unsigned int Casillero::obtener_fila()
+{
     return this->fila;
 }
-unsigned int Casillero::obtener_columna(){
+
+unsigned int Casillero::obtener_columna()
+{
     return this->columna;
 }
 
@@ -55,8 +57,8 @@ string Casillero::obtener_nombre_casillero(){
     return this->nombre_casillero;
 }
 
-
-void Casillero::cargar_edificio(Edificio* edificio, char caracter_jugador){
+void Casillero::cargar_edificio(Edificio* edificio, char caracter_jugador)
+{
     
     this->edificio = edificio;
     this->caracter_jugador = caracter_jugador;
@@ -64,16 +66,18 @@ void Casillero::cargar_edificio(Edificio* edificio, char caracter_jugador){
     
 }
 
-void Casillero::cargar_material(Material* material){
-    if(es_camino){
+void Casillero::cargar_material(Material* material)
+{
+    if(es_camino)
+    {
         this->material = material;
         cambiar_caracter();
     }
 }
 
 void Casillero::atacar_edificio(){
-    
-    if(this->edificio->obtener_contiene_escudo()){
+    if(this->edificio->obtener_contiene_escudo())
+    {
         if(this->edificio->obtener_fue_atacado())
             limpiar_casillero();
         else
@@ -83,8 +87,8 @@ void Casillero::atacar_edificio(){
         limpiar_casillero();
 }
 
-unsigned int Casillero::obtener_costo_energia(char jugador){
-
+unsigned int Casillero::obtener_costo_energia(char jugador)
+{
     unsigned int costo = 0;
     if(jugador == CARACTER_JUGADOR_UNO)
         costo = this->costo_energia_J;
@@ -94,10 +98,11 @@ unsigned int Casillero::obtener_costo_energia(char jugador){
     return costo;
 }
 
-void Casillero::mostrar_edificio(){
+void Casillero::mostrar_edificio()
+{
     cout << this->obtener_edificio()->obtener_nombre() << endl;
     cout << MSJ_COORDENADAS << PRIMER_DELIMITADOR << this->fila << SEGUNDO_DELIMITADOR << this->columna << TERCER_DELIMITADOR << endl;
-    cout << MSJ_NECESITA_REPARACION << PRIMER_DELIMITADOR << (this->obtener_edificio()->obtener_fue_atacado() ? MSJ_CONFIRMA_REPARACION : MSJ_NIEGA_REPARACION) << TERCER_DELIMITADOR << endl;
+    cout << MSJ_NECESITA_REPARACION << PRIMER_DELIMITADOR << (this->obtener_edificio()->obtener_fue_atacado() ? MSJ_CONFIRMA_REPARACION : MSJ_NIEGA_REPARACION) << TERCER_DELIMITADOR << endl << endl;
 }
 
 void Casillero::ocupar_casillero(char caracter)

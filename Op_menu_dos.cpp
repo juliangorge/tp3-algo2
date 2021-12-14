@@ -222,9 +222,13 @@ estados_t recolectar_recursos(Jugador *jugador)
     if ((st = jugador->verificar_energia_suficiente(costo_energia)) != ST_OK)
         return st;
 
-    if (!jugador->obtener_acumulador_por_turno())
-    {
+    if (!jugador->obtener_acumulador_por_turno()){
         st = ST_ERROR_RECOLECCION_REPETIDA;
+        return st;
+    }
+
+    if (!jugador->obtener_cantidad_casilleros_edificios()){
+        st = ST_ERROR_NO_HAY_CONSTRUCCIONES;
         return st;
     }
 
@@ -236,10 +240,10 @@ estados_t recolectar_recursos(Jugador *jugador)
     return st;
 }
 
-void moverse_coordenada(Jugador *jugador, Mapa *&mapa)
+estados_t moverse_coordenada(Jugador *jugador, Mapa *&mapa)
 {
     unsigned int fila = 0, columna = 0;
-    estados_t st;
+    estados_t st = ST_OK;
     Grafo grafo;
     bool energia_suficiente=true;
     Casillero *destino, *origen;
@@ -272,6 +276,8 @@ void moverse_coordenada(Jugador *jugador, Mapa *&mapa)
         origen->limpiar_casillero();
     }
 
+
+    return st;
 }
 
 estados_t verificar_materiales(Jugador *jugador, Edificio *edificio, unsigned int factor_resta)

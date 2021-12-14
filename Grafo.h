@@ -20,7 +20,7 @@ const int PESO_MUELLE_2 = 2;
 class Grafo {
 /*ATRIBUTOS*/
 private:
-    int ** matriz_adyacencia;
+    unsigned int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
     Camino_minimo * algoritmo_camino_minimo;
 
@@ -35,10 +35,10 @@ private:
 
     //PRE: la matriz que se le envie ya debe tener memoria reservada
     //POST: copia la matriz de adyacencia en la nueva matriz
-    void copiar_matriz_adyacencia(int** nueva_adyacente);
+    void copiar_matriz_adyacencia(unsigned int** nueva_adyacente);
 
     //POST inicializa un nuevo vertice en la matriz de adyacencia con un valor de infinito
-    void inicializar_vertice(int** nueva_adyacente);
+    void inicializar_vertice(unsigned int** nueva_adyacente);
 
     //POST libera la memoria de la matriz de adyacencia
     void liberar_matriz_adyacencia();

@@ -16,7 +16,7 @@ void trabajar_segundo_menu(Jugador* jugador_uno, Jugador* jugador_dos, ABB<Edifi
     cout << MSJ_ENERGIA_DISPONIBLE << jugador->obtener_energia() << endl << endl;
     cout << MSJ_ELEGIR_OPCION;
     int opcion = obtener_numero_por_consola(opcion_minima, opcion_maxima);
-    while(opcion != OPCION_SALIR_SEGUNDO_MENU){
+    while(opcion != OPCION_SALIR_SEGUNDO_MENU){ //&& !jugador_uno->objetivos_cumplidos() && !jugador_dos->objetivos_cumplidos()){ 
         opciones_segundo_menu(opcion, jugador, jugador_uno, jugador_dos, arbol, mapa);
         mostrar_segundo_menu();
         mapa->mostrar_mapas();
@@ -110,6 +110,7 @@ void cambiar_jugador(Mapa* & mapa, Jugador* & jugador, Jugador* jugador_uno, Jug
 {   
     unsigned int energia_nueva = ENERGIA_RECUPERADA_POR_TURNO;
     mostrar_objetivos(jugador, arbol);
+    jugador->objetivos_cumplidos();
     jugador->incrementar_energia(energia_nueva);
     jugador->aumentar_acumulador_por_turno();
     if(jugador->obtener_caracter() == CARACTER_JUGADOR_UNO){
@@ -220,16 +221,16 @@ bool existe_archivo_ubicaciones()
     else if(archivo.peek()==ifstream::traits_type::eof()){
             existe_archivo= false;
             cout << "El archivo " << ARCHIVO_UBICACIONES << " se encuentra vacío" << endl;
-        } //valido si esta vacio
+        } 
             
     archivo.close();
     return existe_archivo;
 }
 
 void guardar_edificios(ABB<Edificio *>& arbol){
-    /*ofstream archivo(ARCHIVO_EDIFICIOS);
+    ofstream archivo(ARCHIVO_EDIFICIOS);
     arbol.exportar_en_orden(archivo);
-    archivo.close();*/
+    archivo.close();
 }
 
     

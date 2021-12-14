@@ -82,4 +82,8 @@ void cargar_materiales_jugadores(Jugador* jugador_uno, Jugador* jugador_dos)
     }
 
     archivo_materiales.close();
+
+    string nombre = NOMBRE_ANDYCOINS;
+    jugador_uno->agregar_andycoins_acumuladas(jugador_uno->mostrar_cantidad_material(nombre));
+    jugador_dos->agregar_andycoins_acumuladas(jugador_dos->mostrar_cantidad_material(nombre));
 }

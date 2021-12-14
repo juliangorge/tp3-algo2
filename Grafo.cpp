@@ -77,20 +77,20 @@ int Grafo::camino_minimo(Casillero *origen, Casillero *destino)
 
 
 void Grafo::agrandar_matriz_adyacencia() {
-    int** matrizAuxiliar;
+    unsigned int** matriz_auxiliar;
     int nuevaCantidadDeVertices = vertices->obtener_cantidad_elementos() + 1;
-    matrizAuxiliar = new int*[nuevaCantidadDeVertices];
+    matriz_auxiliar = new unsigned int*[nuevaCantidadDeVertices];
     for(int i = 0; i < nuevaCantidadDeVertices; i++){
-        matrizAuxiliar[i] = new int[nuevaCantidadDeVertices];
+        matriz_auxiliar[i] = new unsigned int[nuevaCantidadDeVertices];
     }
 
-    copiar_matriz_adyacencia(matrizAuxiliar);
-    inicializar_vertice(matrizAuxiliar);
+    copiar_matriz_adyacencia(matriz_auxiliar);
+    inicializar_vertice(matriz_auxiliar);
     liberar_matriz_adyacencia();
-    matriz_adyacencia = matrizAuxiliar;
+    matriz_adyacencia = matriz_auxiliar;
 }
 
-void Grafo::copiar_matriz_adyacencia(int** nueva_adyacente) {
+void Grafo::copiar_matriz_adyacencia(unsigned int** nueva_adyacente) {
     for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         for(int j = 0; j < vertices -> obtener_cantidad_elementos(); j++){
             nueva_adyacente[i][j] = matriz_adyacencia[i][j];
@@ -98,7 +98,7 @@ void Grafo::copiar_matriz_adyacencia(int** nueva_adyacente) {
     }
 }
 
-void Grafo::inicializar_vertice(int** nueva_adyacente) {
+void Grafo::inicializar_vertice(unsigned int** nueva_adyacente) {
     for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         nueva_adyacente[vertices -> obtener_cantidad_elementos()][i] = INFINITO;
         nueva_adyacente[i][vertices -> obtener_cantidad_elementos()] = INFINITO;
@@ -211,7 +211,7 @@ estados_t Grafo::usar_grafo(Casillero *origen, Casillero *destino, Mapa *mapa, J
     return(jugador->verificar_energia_suficiente(costo_camino));
 }
 
-void Grafo::obtener_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador)
+void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador)
 {
     unsigned int fila_paso=0, columna_paso=0;
     int posicion_origen = vertices->obtener_posicion(origen->obtener_fila(), origen->obtener_columna());

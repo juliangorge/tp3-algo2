@@ -137,7 +137,7 @@ ostream& operator<<(ostream& salida, Edificio& edificio)
     salida << "# Madera: " << edificio.obtener_madera() << endl;
     salida << "# Metal: " << edificio.obtener_metal() << endl;
     salida << "Brinda materiales: " << (edificio.obtener_provee_materiales() ? "Sí" : "No") << endl;
-    salida << endl;
+    salida << '\n' << endl;
 
     return salida;
 }

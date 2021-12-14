@@ -152,6 +152,9 @@ const unsigned int ENERGIA_TERRENO_JUG_DOS = 25;
 
 // Opciones de menu
 
+// Lista
+const int POSICION_NO_ENCONTRADA = -1;
+
 // Opciones de primer menu
 const int OPCION_MODIFICAR_EDIFICIOS = 1;
 const int OPCION_LISTAR_EDIFICIOS = 2;
@@ -201,7 +204,13 @@ const unsigned int MIN_LLUVIA_ANDYCOINS = 0;
 const unsigned int MAX_LLUVIA_ANDYCOINS = 3;
 
 // Objetivos
+
+// Constantes de objetivos
+const unsigned int CANTIDAD_OBJETIVOS_CUMPLIDOS = 2;
 const unsigned int CANTIDAD_OBJETIVOS = 3;
+const unsigned int OBJETIVO_MINIMO = 1;
+const unsigned int OBJETIVO_MAXIMO = 10;
+
 
 // Tipos de objetivos
 const unsigned int COMPRAR_ANDYPOLIS=1;
@@ -214,6 +223,28 @@ const unsigned int CANSADO=7;
 const unsigned int CONSTRUCTOR=8;
 const unsigned int ARMADO=9;
 const unsigned int EXTREMISTA=10;
+
+// Posiciones de los valores enteros para verificar objetivos
+const unsigned int CANTIDAD_VALORES_OBJETIVOS = 8;
+const unsigned int POS_ANDYCOINS_ACUM = 0;
+const unsigned int POS_BOMBAS_COMPRADAS = 1;
+const unsigned int POS_BOMBAS_USADAS = 2;
+const unsigned int POS_ENERGIA = 3;
+const unsigned int POS_CANTIDAD_PIEDRA = 4;
+const unsigned int POS_CANTIDAD_BOMBAS = 5;
+const unsigned int POS_ESCUELAS_CONST = 6; 
+const unsigned int POS_ESCUELAS_MAX = 7;
+
+// Posiciones de los edificios construidos para verificar objetivos
+const unsigned int CANTIDAD_TIPOS_EDIFICIOS = 7;
+const unsigned int POS_MINA = 0;
+const unsigned int POS_MINA_ORO = 1;
+const unsigned int POS_ASERRADERO = 2;
+const unsigned int POS_FABRICA = 3;
+const unsigned int POS_ESCUELA = 4;
+const unsigned int POS_PLANTA_ELEC = 5;
+const unsigned int POS_OBELISCO = 6; 
+
 
 // Valores a alcanzar en objetivos
 const int CANTIDAD_ANDYCOINS_OBJETIVO = 100000;
@@ -300,9 +331,42 @@ const string MSJ_ENCABEZADOS_MAPAS = "         Mapa vacío  \t  \t  \t      Mapa
 const string MSJ_SEPARACION_ENTRE_MAPAS = "\t  \t";
 
 // Mensaje que se muestra si no se puedo abrir el archivo
+
 const string MSJ_ERROR_LECTURA_ARCHIVO = "No se pudo leer el archivo: ";
 
+// Mensajes que indican que se cumplió el objetivo
 
+const string MSJ_OBJETIVO_CUMPLIDO_COMPRAR_ANDYPOLIS = "Objetivo Comprar Andypolis cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_EDAD_PIEDRA = "Objetivo Edad de piedra cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_BOMBARDERO = "Objetivo Bombardero cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_ENERGETICO = "Objetivo Energetico cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_LETRADO = "Objetivo Letrado cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_MINERO = "Objetivo Minero cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_CANSADO = "Objetivo Cansado cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_CONSTRUCTOR = "Objetivo Constructor cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_ARMADO = "Objetivo Armado cumplido";
+const string MSJ_OBJETIVO_CUMPLIDO_EXTREMISTA = "Objetivo Extremista cumplido";
+const string MSJ_OBJETIVO_PRINCPIAL_CUMPLIDO = "Se tiene construido al menos un obelisco ";
+
+// Mensajes que indican el progreso del objetivo
+
+const char SEPARADOR_CANTIDADES = '/';
+const string MSJ_OBJETIVO_PROGRESO = "Progreso del objetivo secundario ";
+const string MSJ_OBJETIVO_PROGRESO_PRINCIPAL = "Progreso el objetivo principal";
+const string MSJ_OBJETIVO_PROGRESO_COMPRAR_ANDYPOLIS = "Anycoins acumulados hasta el momento: ";
+const string MSJ_OBJETIVO_PROGRESO_EDAD_PIEDRA = "Cantidad de Piedra contenida en el inventario: ";
+const string MSJ_OBJETIVO_PROGRESO_BOMBARDERO = "Cantidad de Bombas usadas hasta el momento: ";
+const string MSJ_OBJETIVO_PROGRESO_ENERGETICO = "Energía restante por almacenar ";
+const string MSJ_OBJETIVO_PROGRESO_LETRADO = "Cantidad de Escuelas restantes por construir : ";
+const string MSJ_OBJETIVO_PROGRESO_MINERO = "Tipos y cantidad de Minas construidas: ";
+const string MSJ_OBJETIVO_PROGRESO_CANSADO = "Cantidad de energía a consumir: ";
+const string MSJ_OBJETIVO_PROGRESO_CONSTRUCTOR = "Tipos de edificios construidos: ";
+const string MSJ_OBJETIVO_PROGRESO_ARMADO = "Cantidad de Bombas contenida en el inventario: ";
+const string MSJ_OBJETIVO_PROGRESO_EXTREMISTA = "Cantidad de Bombas compradas hasta el momento: ";
+const string MSJ_OBJETIVO_PRINCPIAL_NO_CUMPLIDO = "No se construyó ningún Obelisco ";
+
+const string MSJ_JUGADOR_UNO_GANA = "El Jugador 1 ha ganado la partida ";
+const string MSJ_JUGADOR_DOS_GANA = "El Jugador 2 ha ganado la partida ";
 
 
 

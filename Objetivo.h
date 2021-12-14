@@ -38,7 +38,11 @@ class Objetivo {
 
         //PRE: Se deben tener los objetivos asignados
         //POST: Se analiza el progreso de cada objetivo secundario asignado, asi tambien como el del objetivo principal
-        void mostrar_progreso(unsigned int atributos_objetivos[8]);
+        void mostrar_progreso(unsigned int atributos_objetivos[CANTIDAD_VALORES_OBJETIVOS], unsigned int tipos_edificios_construidos[7]);
+
+        //PRE:
+        //POST: Se verifica si se tiene algun obelisco construido
+        void chequear_objetivo_principal(unsigned int obeliscos_construidos);
 
         // Posibles objetivos secundarios
 
@@ -56,7 +60,7 @@ class Objetivo {
 
         //PRE:
         //POST: Se verifica si el jugador posee 100 de energía
-        void estado_energetico(bool & objetivo_energetico, unsigned int energia);
+        void energetico(bool & objetivo_energetico, unsigned int energia);
 
         //PRE:
         //POST: Se verifica si se construyó la cantidad máxima posibles de escuelas
@@ -64,7 +68,7 @@ class Objetivo {
 
         //PRE:
         //POST: Se verifica si se construyó una mina y una mina de oro
-        void minero(bool & objetivo_minero);
+        void minero(bool & objetivo_minero, unsigned int tipos_edificios_construidos[CANTIDAD_TIPOS_EDIFICIOS]);
 
         //PRE:
         //POST: Se verifica si el jugador posee 0 de energía
@@ -72,7 +76,7 @@ class Objetivo {
 
         //PRE:
         //POST: Se verifica si se construyó un edificio de cada tipo (exceptuando obelisco)
-        void constructor(bool & objetivo_constructor);
+        void constructor(bool & objetivo_constructor, unsigned int tipos_edificios_construidos[CANTIDAD_TIPOS_EDIFICIOS]);
 
         //PRE:
         //POST: Se verifica si se poseen 10 bombas en el inventario o más

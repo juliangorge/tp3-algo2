@@ -1,4 +1,3 @@
-
 #ifndef GRAFOS_CAMINOMINIMO_H
 #define GRAFOS_CAMINOMINIMO_H
 #include <string>
@@ -8,16 +7,20 @@
 
 const int INFINITO = 99999999;
 
-class Camino_minimo {
+class Camino_minimo
+{
+
 //Atributos
 protected:
-    int ** matriz_adyacencia;
+    unsigned int ** matriz_adyacencia;
     Lista<Vertice> * vertices;
     int cantidad_vertices;
 
 //Métodos
 public:
-    Camino_minimo(Lista<Vertice> * vertices, int** matriz_adyacencia);
+    // PRE:
+    // POST: Crea un objeto Camino_minimo
+    Camino_minimo(Lista<Vertice> * vertices, unsigned int** matriz_adyacencia);
 
     virtual int camino_minimo(int origen, int destino) = 0;
 
@@ -25,6 +28,8 @@ public:
     virtual int obtener_posicion_destino(int destino)=0;
 
 
+    // PRE:
+    // POST: Destruye un objeto Camino_minimo
     virtual ~Camino_minimo() = default;
 };
 

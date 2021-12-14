@@ -1,9 +1,9 @@
 #include "Dijkstra.h"
 
-Dijkstra::Dijkstra(Lista<Vertice> *vertices, int **matriz_adyacencia) : Camino_minimo(vertices, matriz_adyacencia) {
+Dijkstra::Dijkstra(Lista<Vertice> *vertices, unsigned int **matriz_adyacencia) : Camino_minimo(vertices, matriz_adyacencia) {
     vertices_visitados = new bool[cantidad_vertices];//vector de booleanos
-    distancia = new int[cantidad_vertices];
-    recorrido = new int[cantidad_vertices];
+    distancia = new unsigned int[cantidad_vertices];
+    recorrido = new unsigned int[cantidad_vertices];
 }
 
 int Dijkstra::camino_minimo(int origen, int destino) {
@@ -11,10 +11,10 @@ int Dijkstra::camino_minimo(int origen, int destino) {
     inicializar_distancia(matriz_adyacencia[origen]);
     inicializar_recorrido(origen);
 
-    int minimo_vertice;
+    unsigned int minimo_vertice;
 
     bool destino_arribado = origen == destino;
-    int vertices_recorridos = 1;
+    unsigned int vertices_recorridos = 1;
     while(!destino_arribado){
         minimo_vertice = vertice_minima_distancia();
         destino_arribado = minimo_vertice == destino;
@@ -30,11 +30,11 @@ int Dijkstra::camino_minimo(int origen, int destino) {
     return distancia[destino];
 }
 
-int Dijkstra::vertice_minima_distancia() {
+unsigned int Dijkstra::vertice_minima_distancia() {
     int minima_distancia = INFINITO;
     int minimo_vertice;
 
-    for(int i = 0; i < cantidad_vertices; i++){
+    for(unsigned int i = 0; i < cantidad_vertices; i++){
         if(!vertices_visitados[i] && distancia[i] <= minima_distancia){
             minima_distancia = distancia[i];
             minimo_vertice = i;
@@ -44,14 +44,14 @@ int Dijkstra::vertice_minima_distancia() {
     return minimo_vertice;
 }
 
-void Dijkstra::inicializar_visitados(int origen) {
-    for(int i = 0; i < cantidad_vertices; i++)
+void Dijkstra::inicializar_visitados(unsigned int origen) {
+    for(unsigned int i = 0; i < cantidad_vertices; i++)
         vertices_visitados[i] = false;
     vertices_visitados[origen] = true;
 }
 
-void Dijkstra::inicializar_recorrido(int origen) {
-    for(int i = 0; i < cantidad_vertices; i++)
+void Dijkstra::inicializar_recorrido(unsigned int origen) {
+    for(unsigned int i = 0; i < cantidad_vertices; i++)
         recorrido[i] = origen;
 }
 
@@ -61,12 +61,12 @@ Dijkstra::~Dijkstra() {
     delete[] recorrido;
 }
 
-void Dijkstra::inicializar_distancia(const int * distancia_origen) {
-    for(int i = 0; i < cantidad_vertices; i++)
+void Dijkstra::inicializar_distancia(const unsigned int * distancia_origen) {
+    for(unsigned int i = 0; i < cantidad_vertices; i++)
         distancia[i] = distancia_origen[i];
 }
 
-void Dijkstra::actualizar_distancia(int vertice) {
+void Dijkstra::actualizar_distancia(unsigned int vertice) {
     for(int i = 0; i < cantidad_vertices; i++){
         //se fija que el vertice no este visitado                       Condicion para saber si tengo que actualizar una distancia o no
         if(!vertices_visitados[i] && distancia[vertice] != INFINITO && distancia[i] > matriz_adyacencia[vertice][i] + distancia[vertice]){
@@ -76,16 +76,16 @@ void Dijkstra::actualizar_distancia(int vertice) {
     }
 }
 
-void Dijkstra::mostrar_recorrido(int origen, int destino) {
+void Dijkstra::mostrar_recorrido(unsigned int origen, unsigned int destino) {
     if(distancia[destino] == INFINITO){
-        cout << "No hay un camino que conecte " <<  vertices->obtener_nombre(origen + 1) << " con " << vertices->obtener_nombre(destino + 1);
+        cout << "No hay un camino que conecte " <<  vertices->obtener_nombre(origen+1) << " con " << vertices->obtener_nombre(destino+1);
     }else{
-        cout << "El camino minimo que une " <<  vertices->obtener_nombre(origen + 1) << " con " << vertices->obtener_nombre(destino + 1);
+        cout << "El camino minimo que une " <<  vertices->obtener_nombre(origen+1) << " con " << vertices->obtener_nombre(destino+1);
         cout << " tiene un costo de: " << distancia[destino] << " y es el siguiente: ";
-        cout << vertices->obtener_nombre(destino + 1);
+        cout << vertices->obtener_nombre(destino+1);
         do{
             destino = recorrido[destino];
-            cout << " <- " << vertices->obtener_nombre(destino + 1);
+            cout << " <- " << vertices->obtener_nombre(destino+1);
         }while(origen != destino);
     }
     cout << endl;

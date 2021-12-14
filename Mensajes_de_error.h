@@ -27,6 +27,7 @@ const string MSJ_ERROR_MODIFICANDO_OBELISCO = "No se pueden modificar los valore
 const string MSJ_ERROR_EDIFICIO_MAXIMO_ALCANZADO = "Ya no se pueden construir más edificios de este tipo";
 const string MSJ_ERROR_DEMOLER_EDIFICIO = "No se pudo demoler el edificio";
 const string MSJ_ERROR_NO_ES_NUMERO = "El valor ingresado no es un numero";
+const string MSJ_ERROR_NO_HAY_CONSTRUCCIONES = "No se tienen edificios para recolectar recursos";
 const string MSJ_SALIR = "Accion cancelada";
 
 typedef enum 
@@ -52,6 +53,7 @@ typedef enum
  	ST_ERROR_MODIFICANDO_OBELISCO,
  	ST_ERROR_EDIFICIO_MAXIMO_ALCANZADO,
  	ST_ERROR_DEMOLER_EDIFICIO,
+ 	ST_ERROR_NO_HAY_CONSTRUCCIONES,
  	ST_ERROR_NO_ES_NUMERO,
  	ST_MSJ_SALIR
 }estados_t;

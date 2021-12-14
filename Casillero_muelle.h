@@ -11,12 +11,16 @@ class CasilleroMuelle : public Casillero
         // POST: Crea un objeto CasilleroMuelle, guardando sus coordenadas del mapa
         CasilleroMuelle(unsigned int fila, unsigned int columna);
 
+        // PRE:
+        // POST: Destruye un objeto CasilleroMuelle
+        ~CasilleroMuelle();
+
         // PRE: Se debe haber referenciado el material
         // POST: Coloca en el casillero el caracter del material, para que éste se muestre en el mapa
         void cambiar_caracter();
 
         // PRE:
-        // POST: Devuelve el nombre del casillero, si esta libre o, en caso contrario, que objeto contiene (material/jugador)
+        // POST: Retornar el nombre del casillero, si esta libre o, en caso contrario, que objeto contiene (material/jugador)
         void mostrar_casillero();
 
         // PRE: Debe tener un material referenciado
