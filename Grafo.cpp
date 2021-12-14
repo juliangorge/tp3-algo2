@@ -71,16 +71,13 @@ int Grafo::camino_minimo(Casillero *origen, Casillero *destino)
 
     return camino_minimo(posicion_origen, posicion_destino);
 
-    //delete algoritmo_camino_minimo;//borro el dijkstra
 }
-
-
 
 void Grafo::agrandar_matriz_adyacencia() {
     unsigned int** matriz_auxiliar;
-    int nuevaCantidadDeVertices = vertices->obtener_cantidad_elementos() + 1;
+    unsigned int nuevaCantidadDeVertices = vertices->obtener_cantidad_elementos() + 1;
     matriz_auxiliar = new unsigned int*[nuevaCantidadDeVertices];
-    for(int i = 0; i < nuevaCantidadDeVertices; i++){
+    for(unsigned int i = 0; i < nuevaCantidadDeVertices; i++){
         matriz_auxiliar[i] = new unsigned int[nuevaCantidadDeVertices];
     }
 
@@ -91,15 +88,15 @@ void Grafo::agrandar_matriz_adyacencia() {
 }
 
 void Grafo::copiar_matriz_adyacencia(unsigned int** nueva_adyacente) {
-    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
-        for(int j = 0; j < vertices -> obtener_cantidad_elementos(); j++){
+    for(unsigned int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+        for(unsigned int j = 0; j < vertices -> obtener_cantidad_elementos(); j++){
             nueva_adyacente[i][j] = matriz_adyacencia[i][j];
         }
     }
 }
 
 void Grafo::inicializar_vertice(unsigned int** nueva_adyacente) {
-    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+    for(unsigned int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         nueva_adyacente[vertices -> obtener_cantidad_elementos()][i] = INFINITO;
         nueva_adyacente[i][vertices -> obtener_cantidad_elementos()] = INFINITO;
     }
@@ -107,7 +104,7 @@ void Grafo::inicializar_vertice(unsigned int** nueva_adyacente) {
 }
 
 void Grafo::liberar_matriz_adyacencia() {
-    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+    for(unsigned int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
         delete[] matriz_adyacencia[i];
     }
     delete[] matriz_adyacencia;
@@ -122,8 +119,8 @@ Grafo::~Grafo() {
 
 void Grafo::mostrar_matriz_adyacencia() {
     cout << "Matriz de adyacencia:" << endl;
-    for(int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
-        for(int j = 0; j < vertices -> obtener_cantidad_elementos() * 2; j++) {
+    for(unsigned int i = 0; i < vertices -> obtener_cantidad_elementos(); i++){
+        for(unsigned int j = 0; j < vertices -> obtener_cantidad_elementos() * 2; j++) {
             if(j == vertices -> obtener_cantidad_elementos() * 2 - 1){
                 cout << endl;
             } else if(j % 2 == 0){
@@ -203,12 +200,17 @@ void Grafo::asignar_pesos(Casillero *origen, Casillero *destino, unsigned int *p
 estados_t Grafo::usar_grafo(Casillero *origen, Casillero *destino, Mapa *mapa, Jugador *jugador)
 {
     unsigned int costo_camino = 0;
+    estados_t st = ST_OK;
     asignar_adyacentes(jugador->obtener_caracter(), origen, destino, mapa);
     usar_dijkstra();
     
     costo_camino = camino_minimo(origen, destino);
     cout << "Costo del camino: " << costo_camino << endl;
-    return(jugador->verificar_energia_suficiente(costo_camino));
+
+    if((st = jugador->verificar_energia_suficiente(costo_camino))== ST_OK)
+        jugador->decrementar_energia(costo_camino);
+
+    return st;
 }
 
 void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador)

@@ -1,8 +1,0 @@
-imprimir el mapa del menu a la derecha, abajo se pierden las opciones en la pantalla
-
-Tiran sig sev:
-    si quiero recolectar recursos
-
-    mostrar objetivos
-
-    finalizar turno
