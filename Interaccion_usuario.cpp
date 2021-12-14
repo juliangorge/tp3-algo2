@@ -3,7 +3,7 @@
 unsigned int obtener_numero_por_consola(unsigned int valor_minimo, unsigned int valor_maximo)
 {
 	string opcion;
-    int respuesta;
+    unsigned int respuesta;
     cin >> opcion;
     while(!es_numero(opcion) || (static_cast<unsigned int>(stoul(opcion)) < valor_minimo || static_cast<unsigned int>(stoul(opcion)) > valor_maximo)){
         cout << MSJ_ERROR_OPCION_INVALIDA;

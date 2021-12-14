@@ -153,7 +153,7 @@ const unsigned int ENERGIA_TERRENO_JUG_DOS = 25;
 // Opciones de menu
 
 // Lista
-const int POSICION_NO_ENCONTRADA = -1;
+const int POSICION_NO_ENCONTRADA = 100000000;
 
 // Opciones de primer menu
 const int OPCION_MODIFICAR_EDIFICIOS = 1;
