@@ -197,12 +197,17 @@ void Grafo::asignar_pesos(Casillero *origen, Casillero *destino, unsigned int *p
 estados_t Grafo::usar_grafo(Casillero *origen, Casillero *destino, Mapa *mapa, Jugador *jugador)
 {
     unsigned int costo_camino = 0;
+    estados_t st = ST_OK;
     asignar_adyacentes(jugador->obtener_caracter(), origen, destino, mapa);
     usar_dijkstra();
     
     costo_camino = camino_minimo(origen, destino);
     cout << "Costo del camino: " << costo_camino << endl;
-    return(jugador->verificar_energia_suficiente(costo_camino));
+    
+    if((st = jugador->verificar_energia_suficiente(costo_camino))== ST_OK)
+        jugador->decrementar_energia(costo_camino);
+
+    return st;
 }
 
 void Grafo::recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador)
