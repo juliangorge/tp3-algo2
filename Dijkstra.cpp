@@ -6,7 +6,7 @@ Dijkstra::Dijkstra(Lista<Vertice> *vertices, int **matriz_adyacencia) : Camino_m
     recorrido = new int[cantidad_vertices];
 }
 
-void Dijkstra::camino_minimo(int origen, int destino) {
+int Dijkstra::camino_minimo(int origen, int destino) {
     inicializar_visitados(origen);
     inicializar_distancia(matriz_adyacencia[origen]);
     inicializar_recorrido(origen);
@@ -16,7 +16,6 @@ void Dijkstra::camino_minimo(int origen, int destino) {
     bool destino_arribado = origen == destino;
     int vertices_recorridos = 1;
     while(!destino_arribado){
-        //mostrar_iteracion(vertices_recorridos - 1);
         minimo_vertice = vertice_minima_distancia();
         destino_arribado = minimo_vertice == destino;
 
@@ -28,9 +27,9 @@ void Dijkstra::camino_minimo(int origen, int destino) {
     }
 
     mostrar_recorrido(origen, destino);
+    return distancia[destino];
 }
 
-//Muy importante, devuelve el vertice adyacente de menor peso
 int Dijkstra::vertice_minima_distancia() {
     int minima_distancia = INFINITO;
     int minimo_vertice;
@@ -67,7 +66,6 @@ void Dijkstra::inicializar_distancia(const int * distancia_origen) {
         distancia[i] = distancia_origen[i];
 }
 
-//Muy importante, 
 void Dijkstra::actualizar_distancia(int vertice) {
     for(int i = 0; i < cantidad_vertices; i++){
         //se fija que el vertice no este visitado                       Condicion para saber si tengo que actualizar una distancia o no
@@ -93,37 +91,15 @@ void Dijkstra::mostrar_recorrido(int origen, int destino) {
     cout << endl;
 }
 
-void Dijkstra::mostrar_iteracion(int iteracion) {
-    cout << endl << "Iteración " << iteracion << endl;
+int Dijkstra::obtener_posicion_destino(int destino)
+{
+    return this->recorrido[destino];
+}
 
-    cout << "Visitados: [";
-    for(int i = 0; i < cantidad_vertices; i++){
-        cout << vertices_visitados[i];
-        if(i + 1 != cantidad_vertices){
-            cout << ", ";
-        }
-    }
-    cout << "]" << endl;
 
-    cout << "Distancia: [";
-    for(int i = 0; i < cantidad_vertices; i++){
-        if(distancia[i] != INFINITO) {
-            cout << distancia[i];
-        } else {
-            cout << "∞";
-        }
-        if(i + 1 != cantidad_vertices){
-            cout << ", ";
-        }
-    }
-    cout << "]" << endl;
+void Dijkstra::obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, int origen, int destino)
+{
 
-    cout << "Recorrido: [";
-    for(int i = 0; i < cantidad_vertices; i++){
-        cout << vertices -> obtener_nombre(recorrido[i] + 1);
-        if(i + 1 != cantidad_vertices){
-            cout << ", ";
-        }
-    }
-    cout << "]" << endl << endl;
+    vertices->obtener_posicion_mapa(destino + 1, fila, columna);
+
 }

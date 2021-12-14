@@ -88,7 +88,10 @@ void Jugador::mostrar_inventario()
 estados_t Jugador::verificar_energia_suficiente(unsigned int costo_energia)
 {
     if(this->energia < costo_energia)
+    {
+        cout << "Energía insuficiente para realizar esta operacion" << endl;
         return ST_ERROR_ENERGIA_INSUFICIENTE;
+    }
     return ST_OK;
 }
 
@@ -313,5 +316,12 @@ void Jugador::cargar_ubicaciones_materiales(ofstream& archivo)
         archivo << '\n' << casilleros_jugador[cantidad_casilleros]->obtener_edificio()->obtener_nombre() << PRIMER_DELIMITADOR << casilleros_jugador[cantidad_casilleros]->obtener_fila()
             << SEGUNDO_DELIMITADOR << casilleros_jugador[cantidad_casilleros]->obtener_columna() << TERCER_DELIMITADOR;
     }
+
+}
+
+void Jugador::set_posicion(unsigned int fila, unsigned int columna)
+{
+    this->posicion_fila = fila;
+    this->posicion_columna = columna;
 
 }

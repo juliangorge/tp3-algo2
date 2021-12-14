@@ -1,5 +1,5 @@
 madera 125 250
 metal 660 60
-piedra 755 0
+piedra 855 0
 andycoins 0 6000
 bombas 10 1

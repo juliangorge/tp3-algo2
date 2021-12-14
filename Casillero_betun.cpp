@@ -38,4 +38,5 @@ void CasilleroBetun::limpiar_casillero()
 {
 	this->material = nullptr;
 	this->caracter = this->caracter_casillero;
+	this->caracter_jugador = this->caracter_casillero;
 }

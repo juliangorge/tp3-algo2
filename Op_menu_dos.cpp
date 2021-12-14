@@ -241,32 +241,37 @@ void moverse_coordenada(Jugador *jugador, Mapa *&mapa)
     unsigned int fila = 0, columna = 0;
     estados_t st;
     Grafo grafo;
-    Casillero *casillero_destino, *casillero_origen;
+    bool energia_suficiente=true;
+    Casillero *destino, *origen;
 
-    while (st != ST_OK)
+    while (st != ST_OK && st!=ST_ERROR_ENERGIA_INSUFICIENTE)
     {
         if (obtener_coordenadas(mapa, fila, columna) != ST_OK)
             st = ST_ERROR_COORDENADAS_INVALIDAS;
     
         else
         {
-            casillero_destino = mapa->obtener_casillero(fila, columna);
-            if (casillero_destino->no_tiene_jugador() && casillero_destino->obtener_edificio() == nullptr)
-            {
-                casillero_origen = mapa->obtener_casillero(jugador->obtener_fila(), jugador->obtener_columna());
-                grafo.asignar_adyacentes(jugador->obtener_caracter(), casillero_origen, casillero_destino, mapa);
-                grafo.usar_dijkstra();
-                grafo.camino_minimo(casillero_origen, casillero_destino);
-                st = ST_OK;
-            }
+            origen = mapa->obtener_casillero(jugador->obtener_fila(), jugador->obtener_columna());
+            destino = mapa->obtener_casillero(fila, columna);
+            if (destino->no_tiene_jugador() && destino->obtener_edificio() == nullptr)
+                st = grafo.usar_grafo(origen, destino, mapa, jugador);
+
             else
             {
-                cout << "Casillero destino ocupado, intente nuevamente" << endl
-                     << endl;
+                cout << "Casillero destino ocupado, intente nuevamente" << endl << endl;
                 st = ST_ERROR_CASILLERO_OCUPADO;
             }
         }
     }
+    if(st==ST_OK)
+    {
+
+        grafo.recorrer_casilleros_paso(mapa, origen, destino, jugador);
+        jugador->set_posicion(destino->obtener_fila(), destino->obtener_columna());
+        destino->ocupar_casillero(jugador->obtener_caracter());
+        origen->limpiar_casillero();
+    }
+
 }
 
 estados_t verificar_materiales(Jugador *jugador, Edificio *edificio, unsigned int factor_resta)

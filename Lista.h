@@ -21,24 +21,24 @@ private:
 public:
     Lista();
 
-    //post: devuelve la cantidad de elementos que tiene la lista
+    //POST: devuelve la cantidad de elementos que tiene la lista
     int obtener_cantidad_elementos();
 
-    //post: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
+    //POST: devuelve la posicion en la que se encuentra el nombre que recibe o -1 si no lo encuentra
     int obtener_posicion(unsigned int x, unsigned int y);
 
-    //post: devuelve el  nombre que se encuentra en la posicion recibida o NOMBRE_NO_ENCONTRADO si no lo encuentra
+    //POST: devuelve el  nombre que se encuentra en la posicion recibida o NOMBRE_NO_ENCONTRADO si no lo encuentra
     Casillero *obtener_casillero_nodo(int posicion);
 
-    //post: agrega un nuevo elemento a la lista
+    //POST: agrega un nuevo elemento a la lista
     void agregar(Casillero *nuevo_elemento);
 
+    //POST: devuelve las coordendas de un casillero en formato cadena para imprimirlas
     string obtener_nombre(int posicion);
 
+    //POST: asigna las coordenadas de un casillero que se encuentra en la lista
+    void obtener_posicion_mapa(int posicion, unsigned int *fila, unsigned int *columna);
     
-    /*unsigned int obtener_x();
-    unsigned int obtener_y();*/
-
     ~Lista();
 };
 
@@ -137,7 +137,6 @@ string Lista<Tipo>::obtener_nombre(int posicion)
         i++;
     }
 
-
     string nombre = "[";
     nombre += to_string(auxiliar->obtener_casillero()->obtener_fila());
     nombre += ",";
@@ -147,5 +146,19 @@ string Lista<Tipo>::obtener_nombre(int posicion)
     return nombre;
 }
 
+template<typename Tipo>
+void Lista<Tipo>::obtener_posicion_mapa(int posicion, unsigned int *fila, unsigned int *columna)
+{
+    int i = 0;
+    Nodo<Tipo>* auxiliar = primero;
+
+    while(i != posicion - 1){
+        auxiliar = auxiliar -> obtener_siguiente();
+        i++;
+    }
+
+    *fila = auxiliar->obtener_casillero()->obtener_fila();
+    *columna = auxiliar->obtener_casillero()->obtener_columna();
+}
 
 #endif //GRAFOS_LISTA_H

@@ -19,8 +19,11 @@ protected:
 public:
     Camino_minimo(Lista<Vertice> * vertices, int** matriz_adyacencia);
 
-    //post: muestra por pantalla el camino mínimo entre el origen y el destino, detallando su recorrido y peso
-    virtual void camino_minimo(int origen, int destino) = 0;
+    virtual int camino_minimo(int origen, int destino) = 0;
+
+    virtual void obtener_casillero_recorrido(unsigned int *fila, unsigned int *columna, int origen, int destino)=0;
+    virtual int obtener_posicion_destino(int destino)=0;
+
 
     virtual ~Camino_minimo() = default;
 };

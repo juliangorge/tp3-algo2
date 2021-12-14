@@ -27,7 +27,7 @@ bool Casillero::esta_libre()
 
 bool Casillero::no_tiene_jugador()
 {
-    return this->caracter_jugador != CARACTER_JUGADOR_UNO || this->caracter_jugador != CARACTER_JUGADOR_DOS;
+    return this->caracter_jugador != CARACTER_JUGADOR_UNO && this->caracter_jugador != CARACTER_JUGADOR_DOS;
 }
 
 bool Casillero::es_transitable()

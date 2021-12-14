@@ -35,5 +35,6 @@ void CasilleroLago::mostrar_casillero()
 
 void CasilleroLago::limpiar_casillero()
 {
-
+	this->caracter = this->caracter_casillero;
+	this->caracter_jugador = this->caracter_casillero;
 }

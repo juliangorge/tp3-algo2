@@ -26,66 +26,74 @@ private:
 
 /*MÉTODOS*/
 
-    //pre: tienen que existir tanto el origen como el destino. Ademas se deben haber calculado las matrices de Floyd
-    //post: muestra el camino minimo entre el origen y el destino
-    void camino_minimo(int origen, int destino);
+    //PRE: tienen que existir tanto el origen como el destino. Ademas se deben haber calculado las matrices de Floyd
+    //POST: muestra el camino minimo entre el origen y el destino. Devuelve el costo del camino en energia.
+    int camino_minimo(int origen, int destino);
 
-    //post: agranda dinamicamente la matriz de adyacencia
+    //POST: agranda dinamicamente la matriz de adyacencia
     void agrandar_matriz_adyacencia();
 
-    //pre: la matriz que se le envie ya debe tener memoria reservada
-    //post: copia la matriz de adyacencia en la nueva matriz
+    //PRE: la matriz que se le envie ya debe tener memoria reservada
+    //POST: copia la matriz de adyacencia en la nueva matriz
     void copiar_matriz_adyacencia(int** nueva_adyacente);
 
-    //post inicializa un nuevo vertice en la matriz de adyacencia con un valor de infinito
+    //POST inicializa un nuevo vertice en la matriz de adyacencia con un valor de infinito
     void inicializar_vertice(int** nueva_adyacente);
 
-    //post libera la memoria de la matriz de adyacencia
+    //POST libera la memoria de la matriz de adyacencia
     void liberar_matriz_adyacencia();
 
-    //post: imprime por pantalla los vertices del grafo
+    //POST: imprime por pantalla los vertices del grafo
     void mostrar_vertices();
 
-    //post: imprime por pantalla la matriz de adyacencia
+    //POST: imprime por pantalla la matriz de adyacencia
     void mostrar_matriz_adyacencia();
 public:
 
     Grafo();
-    //pre: No hay vertices repetidos en nombre
-    //post: agrega un nuevo vertice al grafo
+    //PRE: No hay vertices repetidos en nombre
+    //POST: agrega un nuevo vertice al grafo
     void agregar_vertice(Casillero *vertice);
 
-    //pre: se debe tener un algortimo para calcular el camino mínimo previamente elegido
-    //post: muestra por terminal el camino mínimo desde un origen a un destino
-    void camino_minimo(Casillero *origen, Casillero *destino);
-
-    //pre: el peso es un valor positivo
-    //post: Ajusta la matriz de adyacencia con el peso ingresado
-    //void agregar_camino(Casillero *origen, Casillero *destino, int peso_origen, int peso_destino);
+    //PRE: se debe tener un algortimo para calcular el camino mínimo previamente elegido
+    //POST: muestra por terminal el camino mínimo desde un origen a un destino
+    int camino_minimo(Casillero *origen, Casillero *destino);
+     
+    //PRE:
+    //POST: 
     void agregar_camino(Mapa *mapa, char jugador);
 
-    //post: imprime por pantalla el grafo
+    //POST: imprime por pantalla el grafo
     void mostrar_grafo();
 
-    //post: selecciona el algortimo de Floyd para calcular el camino mínimo
-    void usarFloyd();
-
-    //post: selecciona el algortimo de Dijkstra para calcular el camino mínimo
+    //POST: selecciona el algortimo de Dijkstra para calcular el camino mínimo
     void usar_dijkstra();
 
+    //PRE:
+    //POST: asigna los pesos de los casilleros que son vecinos entre si
     void asignar_adyacentes(char jugador, Casillero *origen, Casillero *destino, Mapa*mapa);
-
-    //void asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, char jugador);
-    
+     
+    //PRE:
+    //POST: asigna un peso segun el tipo de casillero que se le pase.
     void obtener_peso(char tipo_casillero, int *peso, int peso_L, int peso_M);
-
+     
+    //PRE:
+    //POST: toma todos los casilleros del mapa y los agrega a una lista de casileros
     void agregar_vertices(Mapa *mapa);
+     
+    //PRE:
+    //POST: segun los tipos de casillero que se les pase, le asigna un peso para completar la matriz de adyacencias
+    void asignar_pesos(Casillero *origen, Casillero *destino, unsigned int *peso_origen, unsigned int *peso_destino, char jugador);
+          
+    //PRE: destino debe ser un casillero no ocupado por jugadores o edificios
+    //POST: encargado de cargar el grafo y llamar a las funciones de calculo
+    estados_t usar_grafo(Casillero *origen, Casillero *destino, Mapa *mapa, Jugador *jugador);
 
-    void asignar_pesos(Casillero *casillero_origen, Casillero *casillero_destino, unsigned int *peso_origen, unsigned int *peso_destino, char jugador);
+    //PRE: jugador, origen y destino deben ser los mismos utilizados para realizar el trazado del grafo
+    //POST: Recorre los casilleros del grafo y recolecta los materiales en el camino
+    void recorrer_casilleros_paso(Mapa *mapa, Casillero *origen, Casillero *destino, Jugador *jugador);
 
-    int asignar_peso_jugador_contrario(char jugador_contrario, char jugador_actual);
-    
-    ~Grafo();
+   ~Grafo();
 };
 
 
